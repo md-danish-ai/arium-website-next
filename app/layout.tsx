@@ -5,6 +5,20 @@ import Footer from "../components/layout/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { fetchAPI } from "../lib/api";
 
+import "../public/css/globals.css";
+import "../public/css/shared-sections.css";
+import "../public/css/your-community.css";
+import "../public/css/solutions.css";
+import "../public/css/where.css";
+import "../public/css/contact.css";
+import "../public/css/about.css";
+import "../public/css/culture.css";
+import "../public/css/board.css";
+import "../public/css/careers.css";
+import "../public/css/leadership.css";
+import "../public/css/private-venues.css";
+import "../public/css/right-of-ways.css";
+
 export const dynamic = "force-dynamic";
 
 const geistSans = Geist({
@@ -27,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: seo?.ogTitle || "Arium Networks",
       description: seo?.ogDescription || "",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType || "website") as "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -57,21 +71,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="stylesheet" href="/css/globals.css" />
-        <link rel="stylesheet" href="/css/shared-sections.css" />
-        <link rel="stylesheet" href="/css/your-community.css" />
-        <link rel="stylesheet" href="/css/solutions.css" />
-        <link rel="stylesheet" href="/css/where.css" />
-        <link rel="stylesheet" href="/css/contact.css" />
-        <link rel="stylesheet" href="/css/about.css" />
-        <link rel="stylesheet" href="/css/culture.css" />
-        <link rel="stylesheet" href="/css/board.css" />
-        <link rel="stylesheet" href="/css/careers.css" />
-        <link rel="stylesheet" href="/css/leadership.css" />
-        <link rel="stylesheet" href="/css/private-venues.css" />
-        <link rel="stylesheet" href="/css/right-of-ways.css" />
-      </head>
       <body suppressHydrationWarning>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Header layoutData={layout} />
