@@ -1,69 +1,180 @@
-import Image from "next/image";
+import React from "react";
+import HomeHero from "../components/sections/home/HomeHero";
+import { fetchAPI, fetchPageWidgets } from "../lib/api";
+import NetworkChallenges from "../components/sections/home/NetworkChallenges";
+import InfraPanels from "../components/sections/home/InfraPanels";
+import StatsCounter from "../components/sections/home/StatsCounter";
+import CommunitySection from "../components/sections/home/CommunitySection";
+import CareersCTA from "../components/sections/shared/CareersCTA";
+import FinalCTA from "../components/sections/shared/FinalCTA";
+import PageAnimations from "../components/animations/PageAnimations";
+import Particles from "../components/animations/Particles";
+import GlobalWidgetRenderer from "../components/shared/GlobalWidgetRenderer";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+export const dynamic = "force-dynamic";
+
+
+const CAREERS_CTA_DATA = {
+  title: "Help us shape the future of connectivity",
+  description: "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",
+  buttonText: "Join Us",
+  buttonLink: "/careers"
+};
+
+const FINAL_CTA_DATA = {
+  title: "Where can we take your network?",
+  description: "Building a new network? Densifying an existing one? Looking to improve coverage in a high-traffic venue or building? Let's talk about how we can help solve your infrastructure needs.",
+  buttonText: "Contact Us",
+  buttonLink: "/contact"
+};
+
+export default async function Home() {
+  const [pageData, widgetData] = await Promise.all([
+    fetchAPI("/api/pages?filters[slug][$eq]=home&populate[sections][populate]=*&populate[sections][populate][cards][populate][image][populate]=*&populate[sections][populate][media][populate]=*&populate[heroMedia]=true&populate[heroCtas]=true"),
+    fetchPageWidgets("home"),
+  ]);
+  const homeContent = pageData?.data?.[0];
+  const globalWidgets: any[] = (widgetData?.data?.[0]?.widgets) || [];
+  const networkChallengesData = homeContent?.sections?.find((section: any) => section.key === "What we do");
+  const infraData = homeContent?.sections?.find((section: any) => section.key === "Our Infrastructure");
+  const statsData = homeContent?.sections?.find((section: any) => section.key === "Scale and experience");
+  const communityData = homeContent?.sections?.find((section: any) => section.key === "Community Impact");
+  const careersData = homeContent?.sections?.find((section: any) => section.key === "Join Us");
+  const finalCTAData = homeContent?.sections?.find((section: any) => section.key === "Contact Us");
+
+  const careersMedia = careersData?.media ? (Array.isArray(careersData.media) ? careersData.media[0]?.url : careersData.media?.data?.attributes?.url || careersData.media?.url) : null;
+  const careersBgImage = careersMedia
+    ? (careersMedia.startsWith('http') || careersMedia.startsWith('/') ? careersMedia : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${careersMedia}`)
+    : undefined;
+
+  const careersCTAProps = {
+    title: careersData?.title || CAREERS_CTA_DATA.title,
+    description: careersData?.body || CAREERS_CTA_DATA.description,
+    buttonText: careersData?.cta?.[0]?.label || CAREERS_CTA_DATA.buttonText,
+    buttonLink: careersData?.cta?.[0]?.url || CAREERS_CTA_DATA.buttonLink,
+    backgroundImage: careersBgImage,
+  };
+
+  const finalCTAProps = {
+    title: finalCTAData?.title || FINAL_CTA_DATA.title,
+    description: finalCTAData?.body || FINAL_CTA_DATA.description,
+    buttonText: finalCTAData?.cta?.[0]?.label || FINAL_CTA_DATA.buttonText,
+    buttonLink: finalCTAData?.cta?.[0]?.url || FINAL_CTA_DATA.buttonLink,
+  };
+
+  // Fallback check: Did Strapi give us a widget that contains CTA with Graphic?
+  const hasCtaWithGraphicWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('cta-with-graphic'))
+  );
+
+  // Fallback check: Did Strapi give us a widget that contains Centered Image CTA?
+  const hasCenteredImageCtaWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('centered-image-cta'))
+  );
+
+  // Fallback check: Did Strapi give us a widget that contains ImageGradientSplit?
+  const hasImageGradientSplitWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('image-gradient-split'))
+  );
+
+  // Fallback check: Did Strapi give us a widget that contains StatsWithImage?
+  const hasStatsWithImageWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('stats-with-image'))
+  );
+
+  // Fallback check: Did Strapi give us a widget that contains DetailedCardGrid?
+  const hasDetailedCardGridWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('detailed-card-grid'))
+  );
+
+  // Fallback check: Did Strapi give us a widget that contains MainHero?
+  const hasMainHeroWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('main-hero'))
+  );
+
+  // Fallback check: Did Strapi give us a widget that contains Background Feature Section?
+  const hasBackgroundFeatureWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('background-feature-section') || s.__component?.includes('backgroundfeaturesection'))
+  );
+
+  type SectionEntry = { pos: number; key: string; el: React.ReactElement };
+  const sectionMap: SectionEntry[] = [];
+
+  // Position 0 — Hero
+  if (!hasMainHeroWidget) {
+    sectionMap.push({
+      pos: 0,
+      key: 'hero',
+      el: (
+        <div key="hero" style={{ backgroundColor: "#162047", overflow: "hidden" }}>
+          <HomeHero title={homeContent?.heroTitle} description={homeContent?.heroDescription} />
+        </div>
+      ),
+    });
+  }
+
+  // Position 1 — Network Challenges (What we do)
+  if (!hasBackgroundFeatureWidget) {
+    sectionMap.push({
+      pos: 1,
+      key: 'challenges',
+      el: (
+        <NetworkChallenges
+          key="challenges-fallback"
+          title={networkChallengesData?.title}
+          body={networkChallengesData?.body}
+          cardItems={networkChallengesData?.cardItem || networkChallengesData?.cards}
+          media={networkChallengesData?.media}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      ),
+    });
+  }
+
+  // Position 2 — Infrastructure panels
+  if (!hasDetailedCardGridWidget) {
+    sectionMap.push({ pos: 2, key: 'infra', el: <InfraPanels key="infra" data={infraData} /> });
+  }
+
+  // Position 3 — Stats counter
+  if (!hasStatsWithImageWidget) {
+    sectionMap.push({ pos: 3, key: 'stats', el: <StatsCounter key="stats" data={statsData} /> });
+  }
+
+  // Position 4 — Community section
+  if (!hasImageGradientSplitWidget) {
+    sectionMap.push({ pos: 4, key: 'community', el: <CommunitySection key="community" data={communityData} /> });
+  }
+
+  // Position 5 — Careers CTA
+  if (!hasCenteredImageCtaWidget) {
+    sectionMap.push({ pos: 5, key: 'careers', el: <CareersCTA key="careers" {...careersCTAProps} /> });
+  }
+
+  // Position 6 — Final CTA
+  if (!hasCtaWithGraphicWidget) {
+    sectionMap.push({ pos: 6, key: 'finalcta', el: <FinalCTA key="finalcta" {...finalCTAProps} /> });
+  }
+
+  // Add CMS widgets using their PositionNumber field
+  globalWidgets.forEach((widget: any) => {
+    const pos = typeof widget.PositionNumber === 'number' ? widget.PositionNumber : 99;
+    sectionMap.push({
+      pos,
+      key: `widget-${widget.id}`,
+      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />,
+    });
+  });
+
+  // Sort by position, then render
+  const sections = sectionMap
+    .sort((a, b) => a.pos - b.pos)
+    .map((entry) => entry.el);
+
+  return (
+    <main id="main-content">
+      <PageAnimations />
+      <Particles />
+      {sections}
+    </main>
   );
 }
