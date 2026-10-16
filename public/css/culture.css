@@ -1,0 +1,402 @@
+        /* Background image — right side, masked to blend left */
+        .culture-bg {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 62%;
+          z-index: 0;
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 8%, rgba(0,0,0,0.85) 16%, black 25%);
+          mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 8%, rgba(0,0,0,0.85) 16%, black 25%);
+        }
+
+        .culture-bg-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: 8% center;
+          display: block;
+        }
+
+        .culture-veil {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: linear-gradient(to top, rgba(10,22,40,0.5) 0%, transparent 18%);
+          pointer-events: none;
+        }
+
+        .culture-hero-heading {
+          font-family: var(--font-heading);
+          font-size: 2.4rem;
+          font-weight: 400;
+          letter-spacing: 0.06em;
+          line-height: 1.45;
+          color: var(--color-white) !important;
+          margin: 0 0 24px;
+          text-align: left;
+          max-width: none;
+          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .culture-hero-desc {
+          font-size: 0.95rem;
+          line-height: 1.85;
+          color: rgba(255, 255, 255, 0.8);
+          margin: 0 0 32px;
+          text-align: left;
+          max-width: 580px;
+          text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .culture-hero-cta {
+          text-align: left;
+          /* Left-aligned */
+          margin-top: 48px;
+          /* Breathing room below the grid container */
+        }
+
+        /* Oval CTA — teal outline, fills on hover */
+        .culture-cta-btn {
+          display: inline-block;
+          padding: 14px 40px;
+          border-radius: 999px;
+          background: #00e8d9;
+          color: var(--color-midnight-blue);
+          font-family: var(--font-heading);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          text-decoration: none;
+          transition: all 0.35s cubic-bezier(0.2, 1, 0.2, 1);
+          border: 1.5px solid #00e8d9;
+        }
+
+        .culture-cta-btn:hover {
+          color: #00e8d9;
+          background: transparent;
+          transform: translateY(-2px);
+          border: 1.5px solid #00e8d9;
+        }
+
+        /* === 2-COLUMN MAIN CONTENT (PILLARS LEFT, SVG RIGHT) === */
+        .culture-content-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          /* Clean 50/50 split */
+          gap: 0px;
+          position: relative;
+          /* Context for absolute positioning of the illustration */
+          margin-top: 0px;
+        }
+
+        /* Three Pillars Translucent Box Container - Light Theme version */
+        /* Three Pillars Translucent Box Container - Dark Translucent Teal version */
+        .culture-pillars-vertical {
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          background: rgba(22, 32, 71, 0.92) !important;
+          /* Darker translucent brand midnight blue */
+          backdrop-filter: blur(16px) !important;
+          -webkit-backdrop-filter: blur(16px) !important;
+          border: 1px solid rgba(0, 232, 217, 0.3) !important;
+          /* Stronger cyan glass outline glow by default */
+          border-radius: 24px;
+          padding: 8px 0;
+          max-width: 580px;
+          /* Reduced width of the pillar box */
+          width: 100%;
+          box-shadow: 0 20px 40px rgba(22, 32, 71, 0.2), 0 0 15px rgba(0, 232, 217, 0.12);
+          /* Deeper glow shadow by default */
+          transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+        }
+
+        .culture-pillars-vertical::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, rgba(0, 245, 230, 0.55), transparent);
+          opacity: 0;
+          transition: opacity 0.5s ease;
+          pointer-events: none;
+          z-index: 5;
+        }
+
+        .culture-pillars-vertical:hover {
+          border-color: rgba(0, 232, 217, 0.15) !important;
+          /* Softer cyan outline on hover */
+          box-shadow: 0 12px 32px rgba(22, 32, 71, 0.12);
+          /* Softer shadow on hover */
+          transform: translateY(-2px);
+        }
+
+        .culture-pillars-vertical:hover::before {
+          opacity: 1;
+        }
+
+        .culture-pillars-vertical:hover .culture-pillar-separator {
+          opacity: 1;
+          /* Separator lines get brighter on hover */
+        }
+
+        /* --- Illustration --- */
+        .culture-hero-illust {
+          position: absolute;
+          /* Set to absolute so height is determined solely by left content height */
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: calc(50% - 30px);
+          /* Exactly occupies the right grid column */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .culture-hero-illust-img {
+          width: 100%;
+          height: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          /* Scales SVG perfectly to match left stack height */
+          opacity: 0.45;
+        }
+
+        /* === PILLARS === */
+        .culture-pillar {
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+          padding: 20px 24px;
+          cursor: default;
+          /* Reset to default */
+          transition: background 0.3s ease;
+        }
+
+        .culture-pillar-icon-wrapper {
+          width: 34px;
+          height: 34px;
+          flex-shrink: 0;
+          margin-top: 2px;
+          color: var(--pillar-accent);
+          /* Color-coded matching each pillar */
+        }
+
+        .culture-pillar-body {
+          flex: 1;
+        }
+
+        .culture-pillar-title {
+          font-family: var(--font-heading);
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--pillar-accent);
+          /* Color-coded title matching index.html style */
+          line-height: 1.2;
+          letter-spacing: 0.06em;
+          margin-bottom: 6px;
+          text-transform: uppercase;
+        }
+
+        .culture-pillar-text {
+          font-size: 0.8rem;
+          line-height: 1.65;
+          color: rgba(255, 255, 255, 0.72) !important;
+          /* Slightly softer by default */
+          margin: 0;
+          transition: color 0.4s ease;
+        }
+
+        .culture-pillars-vertical:hover .culture-pillar-text {
+          color: #ffffff !important;
+          /* Full bright white on hover for high-contrast visibility */
+        }
+
+        /* Pillar Separator Line - Cyan Glass version */
+        .culture-pillar-separator {
+          height: 1px;
+          margin: 0 28px 0 24px;
+          background: linear-gradient(to right, rgba(0, 232, 217, 0.18), rgba(255, 255, 255, 0.08), transparent) !important;
+          /* Cyan-tinted gradient matching home page */
+          opacity: 0.34;
+          /* Dim by default */
+          transition: opacity 0.4s ease;
+          /* Smooth hover brightness transition */
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1440px) {
+          .culture-veil {
+            width: 100% !important;
+            right: 0 !important;
+            background: linear-gradient(to right, rgba(10, 22, 40, 0.95) 0%, rgba(10, 22, 40, 0.85) 50%, rgba(10, 22, 40, 0.3) 80%, transparent 100%) !important;
+          }
+        }
+
+        @media (max-width: 1079px) {
+          .culture-veil {
+            width: 100% !important;
+            background: linear-gradient(to bottom, rgba(13, 18, 36, 0.92) 0%, rgba(13, 18, 36, 0.78) 50%, rgba(13, 18, 36, 0.92) 100%) !important;
+          }
+
+          .culture-content-grid {
+            grid-template-columns: 1fr;
+            gap: 48px;
+          }
+
+          .culture-hero-heading {
+            text-align: left !important;
+            margin: 0 0 18px !important;
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .culture-hero-desc {
+            text-align: left !important;
+            margin: 0 0 32px !important;
+            max-width: 100%;
+          }
+
+          .culture-hero-cta {
+            text-align: left !important;
+          }
+
+          .culture-pillars-vertical {
+            margin: 0 !important;
+            /* Left-align the card box on tablet/mobile */
+          }
+
+          /* Disable hover scale/translate jump transitions on mobile/tablet */
+          .culture-pillars-vertical:hover {
+            transform: none !important;
+            border-color: rgba(0, 232, 217, 0.3) !important;
+            box-shadow: 0 20px 40px rgba(22, 32, 71, 0.2), 0 0 15px rgba(0, 232, 217, 0.12) !important;
+          }
+
+          .culture-hero-illust {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            width: 100%;
+            height: auto;
+            max-width: 380px;
+            margin: 0 auto;
+            order: 1;
+            /* Illustration below the content column on mobile */
+          }
+
+          .culture-hero-illust-img {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+          }
+
+          .culture-pillar {
+            padding: 20px 16px;
+          }
+
+          .culture-pillar-separator {
+            margin: 0 16px;
+          }
+
+          .culture-veil {
+            background: rgba(10, 22, 40, 0.8) !important;
+          }
+        }
+
+        /* Hybrid / laptop range: keep copy clear of the photo */
+        @media (min-width: 1080px) and (max-width: 1279px) {
+          .culture-bg { width: 54%; }
+          #culture .container > div { max-width: min(620px, 45vw) !important; }
+        }
+
+        @media (min-width: 1280px) and (max-width: 1439px) {
+          .culture-bg { width: 56%; }
+          #culture .container > div { max-width: min(640px, 46vw) !important; }
+        }
+
+        @media (max-width: 768px) {
+          #culture {
+            padding: 80px 0 60px !important;
+            /* Spacing matching index.html challenges section */
+          }
+
+          /* Full-width background image mobile override */
+          .culture-bg {
+            width: 100% !important;
+            height: 100% !important;
+          }
+
+          /* Left-aligned dark gradient mask matching index.html overlay */
+          .culture-veil {
+            width: 100% !important;
+            background: linear-gradient(to bottom, rgba(13, 18, 36, 0.88) 0%, rgba(13, 18, 36, 0.7) 45%, rgba(13, 18, 36, 0.92) 100%) !important;
+          }
+
+          .culture-hero-heading {
+            font-size: 1.25rem !important;
+            /* Match index.html mobile h2 size */
+            margin-bottom: 12px !important;
+            line-height: 1.4 !important;
+            letter-spacing: 0.06em !important;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+          }
+
+          .culture-hero-desc {
+            font-size: 0.88rem !important;
+            /* Match index.html mobile body size */
+            line-height: 1.7 !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin-bottom: 24px !important;
+            text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4) !important;
+          }
+
+          .culture-pillars-container {
+            margin-top: 24px !important;
+            gap: 16px !important;
+            /* Set vertical gaps between pillars */
+          }
+
+          .culture-mobile-pillar {
+            padding: 12px 0 !important;
+            /* Compact spacing matching home page */
+            border: none !important;
+            background: transparent !important;
+          }
+
+          .culture-pillar-divider {
+            display: none !important;
+            /* Remove separator lines on mobile */
+          }
+
+          .culture-mobile-pillar-title {
+            font-size: 1rem !important;
+            /* Match index.html mobile label size */
+            margin-bottom: 6px !important;
+            color: #00e8d9 !important;
+            text-transform: uppercase !important;
+            font-weight: 700 !important;
+            text-shadow: none !important;
+          }
+
+          .culture-mobile-pillar-desc {
+            font-size: 0.85rem !important;
+            /* Match index.html mobile desc size */
+            color: rgba(255, 255, 255, 0.85) !important;
+            line-height: 1.65 !important;
+          }
+
+          /* Match home page CTA margins/layout */
+          .culture-left-column>div:last-child {
+            margin-top: 28px !important;
+            text-align: left !important;
+          }
+        }

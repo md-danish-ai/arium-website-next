@@ -1,0 +1,133 @@
+/* ── Private Venues Hero CTA ── */
+.pv-hero-cta {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: #162047;
+  color: #fff;
+  border: 2px solid #162047;
+  border-radius: 50px;
+  padding: 14px 36px;
+  text-decoration: none;
+  transition: all 0.35s ease;
+}
+.pv-hero-cta:hover {
+  background: transparent;
+  color: #162047;
+  transform: translateY(-2px);
+}
+
+/* ── Private Venues Testimonial Row ── */
+.pv-tm-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+/* ── Liquid Glass Card ── */
+.pv-tm-row .tm-glass {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(
+    145deg,
+    rgb(var(--glass-color)),
+    rgba(var(--glass-color), 0.95) 40%,
+    rgb(var(--glass-color))
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,0.2),
+    0 0 30px rgba(var(--glow-color), 0.15),
+    inset 0 1px 1px rgba(255,255,255,0.5),
+    inset 0 -1px 2px rgba(0,0,0,0.04);
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.4,0,0.2,1);
+  cursor: default;
+}
+.pv-tm-row .tm-glass:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow:
+    0 28px 72px rgba(0,0,0,0.3),
+    0 0 50px rgba(var(--glow-color), 0.25),
+    inset 0 1px 2px rgba(255,255,255,0.6),
+    inset 0 -1px 2px rgba(0,0,0,0.06);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* Glossy shine sweep */
+.pv-tm-row .tm-glass-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(
+    165deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.18) 25%,
+    rgba(255,255,255,0.05) 50%,
+    transparent 60%
+  );
+  pointer-events: none;
+  border-radius: 24px 24px 0 0;
+  transition: opacity 0.4s ease;
+}
+.pv-tm-row .tm-glass:hover .tm-glass-shine {
+  opacity: 0.85;
+}
+
+/* Card content */
+.pv-tm-row .tm-glass-content {
+  position: relative;
+  z-index: 1;
+  padding: 36px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pv-tm-row .tm-card-quote {
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.pv-tm-row .tm-text {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: rgba(0,0,0,0.8);
+  font-style: italic;
+  margin: 0;
+  flex: 1;
+}
+
+.pv-tm-row .tm-footer {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0,0,0,0.12);
+}
+.pv-tm-row .tm-author-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #000;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+.pv-tm-row .tm-author-role {
+  font-size: 0.8rem;
+  color: rgba(0,0,0,0.5);
+  margin: 3px 0 0;
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .pv-tm-row { grid-template-columns: 1fr; }
+}
