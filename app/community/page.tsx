@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -29,9 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http")
-              ? seo.ogImage.url
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),

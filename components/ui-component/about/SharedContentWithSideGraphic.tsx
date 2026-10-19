@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface SharedContentWithSideGraphicProps {
   Heading?: string;
@@ -37,14 +38,7 @@ interface SharedContentWithSideGraphicProps {
   };
 }
 
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
 
-function absoluteUrl(url?: string): string {
-  if (!url) return "";
-  return url.startsWith("http") || url.startsWith("/") ? url : `${STRAPI_URL}${url}`;
-}
 
 function extractImageUrl(media: any): string {
   if (!media) return "";
@@ -75,7 +69,7 @@ export default function SharedContentWithSideGraphic({
 }: SharedContentWithSideGraphicProps) {
   const mediaInput = Media || image || media || propMedia || data?.media || data?.Media || data?.image || data?.Image;
   const extractedUrl = extractImageUrl(mediaInput);
-  const imageUrl = extractedUrl ? absoluteUrl(extractedUrl) : "/assets/images/live_connection-illustration.svg";
+  const imageUrl = extractedUrl ? GetStrapiMediaUrl(extractedUrl) : "/assets/images/live_connection-illustration.svg";
 
   const defaultGradient = "bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]";
   const customGradient = Gradient || gradient || data?.Gradient || data?.gradient;

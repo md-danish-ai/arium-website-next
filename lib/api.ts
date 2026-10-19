@@ -1,8 +1,9 @@
+import { STRAPI_URL, GetStrapiMediaUrl } from "./strapi";
+
+export { STRAPI_URL, GetStrapiMediaUrl };
+
 export function getStrapiURL(path = "") {
-  return `${
-    process.env.NEXT_PUBLIC_STRAPI_URL ||
-    "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com"
-  }${path}`;
+  return `${STRAPI_URL}${path}`;
 }
 
 export async function fetchAPI(path: string, options: RequestInit = {}) {

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface SharedCenteredImageCTAProps {
   heading: string;
@@ -27,9 +28,7 @@ export default function SharedCenteredImageCTA({
     ? bgImage 
     : (bgImage?.url || bgImage?.data?.attributes?.url);
   const absoluteBgImageUrl = bgImageUrl
-    ? bgImageUrl.startsWith("http") || bgImageUrl.startsWith("/")
-      ? bgImageUrl
-      : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${bgImageUrl}`
+    ? GetStrapiMediaUrl(bgImageUrl)
     : "/assets/images/careers-bg.jpg";
 
   return (

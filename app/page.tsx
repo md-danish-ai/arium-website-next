@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 import SharedMainHero from "@ui-component/home/SharedMainHero";
 import BackgroundFeatureSection from "@ui-component/home/BackgroundFeatureSection";
 import SharedDetailedCardGrid from "@ui-component/home/SharedDetailedCardGrid";
@@ -42,9 +42,7 @@ export default async function Home() {
   const finalCTAData = homeContent?.sections?.find((section: any) => section.key === "Contact Us");
 
   const careersMedia = careersData?.media ? (Array.isArray(careersData.media) ? careersData.media[0]?.url : careersData.media?.data?.attributes?.url || careersData.media?.url) : null;
-  const careersBgImage = careersMedia
-    ? (careersMedia.startsWith('http') || careersMedia.startsWith('/') ? careersMedia : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${careersMedia}`)
-    : undefined;
+  const careersBgImage = careersMedia ? GetStrapiMediaUrl(careersMedia) : undefined;
 
   const careersCTAProps = {
     title: careersData?.title || CAREERS_CTA_DATA.title,

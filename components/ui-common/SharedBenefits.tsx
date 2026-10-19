@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { GetStrapiMediaUrl } from '@lib/strapi';
 
 interface BenefitCard {
   id?: number;
@@ -35,9 +36,7 @@ export default function SharedBenefits({ heading, description, cards, footerText
             <div className="shared-benefits-grid reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 px-6 lg:px-12 max-w-[1600px] mx-auto">
               {cards.map((card, index) => {
                 const imgUrl = card.image?.url || card.image?.data?.attributes?.url;
-                const absoluteImgUrl = imgUrl
-                  ? (imgUrl.startsWith("http") ? imgUrl : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${imgUrl}`)
-                  : null;
+                const absoluteImgUrl = imgUrl ? GetStrapiMediaUrl(imgUrl) : null;
 
                 return (
                   <div key={index} className="shared-benefits-card text-center py-5">

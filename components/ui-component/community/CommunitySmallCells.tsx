@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ParticleBackground from "@ui-animations/ParticleBackground";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface CommunitySmallCellsProps {
   data?: {
@@ -12,7 +13,7 @@ interface CommunitySmallCellsProps {
 export default function CommunitySmallCells({ data }: CommunitySmallCellsProps) {
   const rawImgUrl = data?.media?.[0]?.url;
   const imgUrl = rawImgUrl 
-    ? (rawImgUrl.startsWith("http") ? rawImgUrl : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${rawImgUrl}`)
+    ? GetStrapiMediaUrl(rawImgUrl)
     : "/assets/images/live_small-cells-illustration.svg";
 
   return (

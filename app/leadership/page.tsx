@@ -3,7 +3,7 @@ import LeadershipHero from "@ui-component/leadership/LeadershipHero";
 import LeadershipTeam from "@ui-component/leadership/LeadershipTeam";
 import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import { fetchAPI } from "@lib/api";
+import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -25,9 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http")
-              ? seo.ogImage.url
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),

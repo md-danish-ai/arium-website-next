@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface PeopleCard {
   Name: string;
@@ -31,7 +32,7 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
 
     // Add Strapi absolute URL prefix if it's a relative path
     if (imageUrl.startsWith("/") && !imageUrl.startsWith("/assets")) {
-      imageUrl = `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${imageUrl}`;
+      imageUrl = GetStrapiMediaUrl(imageUrl);
     }
 
 

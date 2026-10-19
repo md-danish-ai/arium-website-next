@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface StatItem {
   Number: string;
@@ -64,9 +65,7 @@ export default function SharedStatsWithImage({ heading, statscards, image, Headi
   }, []);
 
   const imageUrl = image?.url || image?.data?.attributes?.url || "/assets/images/us-dot-map-faint.svg";
-  const absoluteImageUrl = imageUrl.startsWith("http") || imageUrl.startsWith("/") 
-    ? imageUrl 
-    : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${imageUrl}`;
+  const absoluteImageUrl = imageUrl.startsWith("/assets/") ? imageUrl : GetStrapiMediaUrl(imageUrl);
 
   const defaultStats: any[] = [
     { Number: "100K+", Description: "Small cells on air or under contract", BgColor: "#898cf3" },

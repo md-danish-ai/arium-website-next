@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface SharedImageSplitProps {
   data: {
@@ -31,9 +32,7 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
 
   const rawImgUrl = mediaObj?.url || mediaObj?.data?.attributes?.url;
   const imgUrl = rawImgUrl
-    ? rawImgUrl.startsWith("http")
-      ? rawImgUrl
-      : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${rawImgUrl}`
+    ? GetStrapiMediaUrl(rawImgUrl)
     : "/assets/images/placeholder.png";
 
   const isMediaLeft = ImageAlignment === "Left" || ImageAlignment === "Media Left";

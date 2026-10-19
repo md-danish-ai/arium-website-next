@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -26,20 +27,11 @@ interface SharedAccordionSplitProps {
   HeadingTextColor?: string;
   DescriptionTextColor?: string;
   BgGradient?: string;
-  TemplateGridColumns?: string; // "a. 1.4fr .9fr" | "b. 1.35fr 1fr"
+  TemplateGridColumns?: string;
   Accordian?: AccordionItem[];
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
-
-function absoluteUrl(url?: string): string {
-  if (!url) return "";
-  return url.startsWith("http") || url.startsWith("/") ? url : `${STRAPI_URL}${url}`;
-}
 
 function extractImageUrl(bgImg: any): string {
   if (!bgImg) return "";
@@ -56,7 +48,7 @@ function resolveItemImage(item: any): string {
     extractImageUrl(item.BgImage) ||
     extractImageUrl(item.bgImage) ||
     extractImageUrl(item.image);
-  return directUrl ? absoluteUrl(directUrl) : "";
+  return directUrl ? GetStrapiMediaUrl(directUrl) : "";
 }
 
 function parseGridColumns(raw?: string): string {

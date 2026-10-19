@@ -50,6 +50,9 @@
       "@ui-animations/*": [
         "./components/ui-animations/*"
       ],
+      "@lib": [
+        "./lib"
+      ],
       "@lib/*": [
         "./lib/*"
       ],

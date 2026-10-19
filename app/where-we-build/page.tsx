@@ -24,9 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http") 
-              ? seo.ogImage.url 
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),
@@ -38,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-import { fetchAPI } from "@lib/api";
+import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 
 export default async function WhereWeBuildPage() {
   const [pageData, widgetData] = await Promise.all([

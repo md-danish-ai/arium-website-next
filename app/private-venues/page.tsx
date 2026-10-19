@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 
 import type { Metadata } from "next";
-import { fetchAPI } from "@lib/api";
+import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI("/api/pages?filters[slug][$eq]=private-venues&populate[SeoFields][populate]=*");
@@ -26,9 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http") 
-              ? seo.ogImage.url 
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),

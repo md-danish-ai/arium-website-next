@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface FeatureCard {
   id?: number;
@@ -48,13 +49,8 @@ export default function BackgroundFeatureSection({
     mobileUrl = desktopUrl;
   }
 
-  const getFullUrl = (url: string) => {
-    if (!url) return "";
-    return url.startsWith('http') ? url : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${url}`;
-  };
-
-  const finalDesktopUrl = getFullUrl(desktopUrl) || "/assets/images/challenges-bg.png"; // Fallback image
-  const finalMobileUrl = getFullUrl(mobileUrl) || finalDesktopUrl;
+  const finalDesktopUrl = GetStrapiMediaUrl(desktopUrl) || "/assets/images/challenges-bg.png"; // Fallback image
+  const finalMobileUrl = GetStrapiMediaUrl(mobileUrl) || finalDesktopUrl;
 
   const defaultFeatureCards: FeatureCard[] = [
     { Heading: "Design", Description: "We identify the best network technology, equipment, and architecture designs based on a careful assessment of structure and required capacity." },

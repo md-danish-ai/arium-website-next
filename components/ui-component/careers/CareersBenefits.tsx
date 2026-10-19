@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface BenefitCard {
   title: string;
@@ -61,7 +62,7 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
           let iconSrc = STATIC_ICONS[index % STATIC_ICONS.length];
           const customImg = benefit.image?.url || benefit.image?.data?.attributes?.url || (typeof benefit.image === 'string' ? benefit.image : null);
           if (customImg) {
-            iconSrc = customImg.startsWith("http") || customImg.startsWith("/") ? customImg : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${customImg}`;
+            iconSrc = customImg.startsWith("/assets/") ? customImg : GetStrapiMediaUrl(customImg);
           }
 
           const bgClass = BENEFIT_CLASSES[index % BENEFIT_CLASSES.length];

@@ -1,22 +1,11 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import SharedHero from "@ui-common/SharedHero";
 
 export const dynamic = "force-dynamic";
-
-// ─────────────────────────────────────────────────────────────
-// Strapi base URL helper
-// ─────────────────────────────────────────────────────────────
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
-
-function absoluteUrl(url: string) {
-  return url.startsWith("http") ? url : `${STRAPI_URL}${url}`;
-}
 
 // ─────────────────────────────────────────────────────────────
 // SEO Metadata — resolved dynamically from Strapi
@@ -41,7 +30,7 @@ export async function generateMetadata({
       type: (seo?.ogType as any) || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
-        images: [{ url: absoluteUrl(seo.ogImage.url) }],
+        images: [{ url: GetStrapiMediaUrl(seo.ogImage.url) }],
       }),
     },
     robots: {
@@ -101,7 +90,7 @@ export default async function DynamicPage({
   if (!hasHeroWidget) {
     const heroMedia = pageContent?.heroMedia?.[0];
     const heroImgUrl = heroMedia?.url
-      ? absoluteUrl(heroMedia.url)
+      ? GetStrapiMediaUrl(heroMedia.url)
       : "/assets/images/challenges-bg.png";
 
     sections.unshift(

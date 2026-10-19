@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface SharedCtaWithGraphicProps {
   heading: string;
@@ -29,9 +30,7 @@ export default function SharedCtaWithGraphic({
     ? graphic
     : (graphic?.url || graphic?.data?.attributes?.url);
   const absoluteGraphicUrl = graphicUrl
-    ? graphicUrl.startsWith("http") || graphicUrl.startsWith("/")
-      ? graphicUrl
-      : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${graphicUrl}`
+    ? GetStrapiMediaUrl(graphicUrl)
     : "/assets/images/connection-cta.svg";
 
 

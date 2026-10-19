@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface Statistic {
   Number?: string;
@@ -43,9 +44,7 @@ export default function SharedIllustrationSplit({
     rawImgUrl = (media as any).url || (media as any).data?.attributes?.url;
   }
   const imgUrl = rawImgUrl
-    ? rawImgUrl.startsWith("http")
-      ? rawImgUrl
-      : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${rawImgUrl}`
+    ? GetStrapiMediaUrl(rawImgUrl)
     : "/assets/images/live_small-cells-illustration.svg";
 
   const isMediaLeft = mediaAlignment === "Media Left" || mediaAlignment === "Left";

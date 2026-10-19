@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface HighlightItem {
   id?: number;
@@ -27,11 +28,7 @@ export default function SharedHighlightList({
   if (!heading && !listItems?.length) return null;
 
   const imgUrl = image?.url || image?.data?.attributes?.url;
-  const absoluteImgUrl = imgUrl
-    ? imgUrl.startsWith("http")
-      ? imgUrl
-      : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${imgUrl}`
-    : null;
+  const absoluteImgUrl = imgUrl ? GetStrapiMediaUrl(imgUrl) : null;
 
   return (
     <section className="shared-hl-section section-light bg-[radial-gradient(circle,#fff_0%,#f6f8fa_40%,#edf3f2_75%,#efeaf7_100%)] py-28 relative overflow-hidden" id="highlight-list">

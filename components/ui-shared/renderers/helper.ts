@@ -1,11 +1,6 @@
-const STRAPI_BASE =
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
+import { GetStrapiMediaUrl, STRAPI_URL } from "@lib/strapi";
 
-export function resolveMediaUrl(url?: string): string | undefined {
-  if (!url) return undefined;
-  return url.startsWith("http") ? url : `${STRAPI_BASE}${url}`;
-}
+export { GetStrapiMediaUrl, STRAPI_URL };
 
 export interface SectionRendererProps {
   section: any;

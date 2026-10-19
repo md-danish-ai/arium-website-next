@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface SectionPointer {
   id?: number;
@@ -68,13 +69,8 @@ export default function SharedImageGradientSplit({
     mobileUrl = desktopUrl;
   }
 
-  const getFullUrl = (url: string) => {
-    if (!url) return "";
-    return url.startsWith("http") ? url : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${url}`;
-  };
-
-  const finalDesktopUrl = getFullUrl(desktopUrl) || "/assets/images/arena_wide.jpg";
-  const finalMobileUrl = getFullUrl(mobileUrl) || finalDesktopUrl;
+  const finalDesktopUrl = GetStrapiMediaUrl(desktopUrl) || "/assets/images/arena_wide.jpg";
+  const finalMobileUrl = GetStrapiMediaUrl(mobileUrl) || finalDesktopUrl;
 
   const defaultPointers: SectionPointer[] = [
     { Heading: "Reliability", Description: "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on." },

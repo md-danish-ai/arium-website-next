@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ParticleBackground from "@ui-animations/ParticleBackground";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface BenefitCard {
   title: string;
@@ -74,7 +75,7 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
             }
 
             const imageUrl = extractedUrl 
-              ? (extractedUrl.startsWith('http') ? extractedUrl : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${extractedUrl}`) 
+              ? GetStrapiMediaUrl(extractedUrl) 
               : (FALLBACK_BENEFITS[index]?.image || '/assets/images/placeholder.png');
 
             return (
