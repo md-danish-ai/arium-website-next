@@ -3,15 +3,14 @@ import React from "react";
 export const dynamic = "force-dynamic";
 
 
-import SharedHero from "../../components/sections/shared/SharedHero";
-import { fetchAPI, fetchPageWidgets } from "../../lib/api";
-import CareersCultureAccordion from "../../components/sections/careers/CareersCultureAccordion";
-import CareersTestimonials from "../../components/sections/careers/CareersTestimonials";
-import CareersJobAreas from "../../components/sections/careers/CareersJobAreas";
-import CareersBenefits from "../../components/sections/careers/CareersBenefits";
-import CareersEEO from "../../components/sections/careers/CareersEEO";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
+import SharedHero from "@ui-component/common/SharedHero";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import CareersCultureAccordion from "@ui-component/careers/CareersCultureAccordion";
+import CareersTestimonials from "@ui-component/careers/CareersTestimonials";
+import CareersJobAreas from "@ui-component/careers/CareersJobAreas";
+import CareersBenefits from "@ui-component/careers/CareersBenefits";
+import CareersEEO from "@ui-component/careers/CareersEEO";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 
 import type { Metadata } from "next";
@@ -148,10 +147,5 @@ export default async function CareersPage() {
   // 3. Sort by pos and extract elements
   const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

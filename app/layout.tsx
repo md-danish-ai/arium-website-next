@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import Header from "@ui-layout/Header";
+import Footer from "@ui-layout/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { fetchAPI } from "../lib/api";
+import { fetchAPI } from "@lib/api";
+import PageAnimations from "@ui-animations/PageAnimations";
 
-import "../public/css/globals.css";
+import "@public/css/globals.css";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +65,10 @@ export default async function RootLayout({
           Skip to main content
         </a>
         <Header layoutData={layout} />
-        {children}
+        <main id="main-content">
+          <PageAnimations />
+          {children}
+        </main>
         <Footer layoutData={layout} />
         <GoogleAnalytics gaId="G-8Y4WZT9FKT" />
       </body>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ParticleBackground from "../../animations/ParticleBackground";
+import ParticleBackground from "@ui-animations/ParticleBackground";
 
 interface CommunitySmallCellsProps {
   data?: {

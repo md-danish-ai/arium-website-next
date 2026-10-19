@@ -62,7 +62,11 @@ export default function SharedInnerPageHero({
       className="subpage-header relative overflow-hidden"
       id={id}
       style={{
-        background: backgroundGradient || "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)",
+        background:
+          backgroundGradient ||
+          (pathname.includes("/leadership") || pathname.includes("/board-of-directors")
+            ? "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 50%, #DDD5FF 100%)"
+            : "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)"),
         padding: `200px 24px ${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "180px" : "80px"}`,
       }}
     >
@@ -95,12 +99,32 @@ export default function SharedInnerPageHero({
             </>
           )}
 
-          {heroTitle && (
-            <h1 className="subpage-title reveal stagger-2 text-center" dangerouslySetInnerHTML={{ __html: heroTitle }} />
-          )}
+          <h1
+            className="subpage-title reveal stagger-2 text-center"
+            dangerouslySetInnerHTML={{
+              __html:
+                heroTitle ||
+                (pathname.includes("/leadership")
+                  ? "Our Leadership"
+                  : pathname.includes("/board-of-directors")
+                  ? "Board of Directors"
+                  : cleanTitle),
+            }}
+          />
 
-          {heroDescription && (
-            <p className="subpage-intro reveal stagger-3 text-center" dangerouslySetInnerHTML={{ __html: heroDescription }} />
+          {(heroDescription ||
+            pathname.includes("/leadership") ||
+            pathname.includes("/board-of-directors")) && (
+            <p
+              className="subpage-intro reveal stagger-3 text-center"
+              dangerouslySetInnerHTML={{
+                __html:
+                  heroDescription ||
+                  (pathname.includes("/leadership")
+                    ? "Seasoned industry leaders driving strategic growth and operational excellence."
+                    : "Guiding our vision with extensive governance and telecommunications expertise."),
+              }}
+            />
           )}
 
           {heroCtasLabel && heroCtasUrl && (

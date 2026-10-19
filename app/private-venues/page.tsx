@@ -1,16 +1,15 @@
-import PrivateVenuesHero from "../../components/sections/where-we-build/PrivateVenuesHero";
-import SharedProcess from "../../components/sections/shared/SharedProcess";
-import PrivateVenuesTestimonials from "../../components/sections/where-we-build/PrivateVenuesTestimonials";
-import GlobeCTA from "../../components/sections/shared/GlobeCTA";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
+import PrivateVenuesHero from "@ui-component/where-we-build/PrivateVenuesHero";
+import SharedProcess from "@ui-component/common/SharedProcess";
+import PrivateVenuesTestimonials from "@ui-component/where-we-build/PrivateVenuesTestimonials";
+import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import React from "react";
 
 export const dynamic = "force-dynamic";
 
 
 import type { Metadata } from "next";
-import { fetchAPI } from "../../lib/api";
+import { fetchAPI } from "@lib/api";
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI("/api/pages?filters[slug][$eq]=private-venues&populate[SeoFields][populate]=*");
@@ -201,10 +200,5 @@ export default async function PrivateVenuesPage() {
     );
   }
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

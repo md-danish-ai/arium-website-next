@@ -23,9 +23,11 @@ export default function SharedCenteredImageCTA({
 }: SharedCenteredImageCTAProps) {
   if (!heading && !text) return null;
 
-  const bgImageUrl = bgImage?.url || bgImage?.data?.attributes?.url;
+  const bgImageUrl = typeof bgImage === "string" 
+    ? bgImage 
+    : (bgImage?.url || bgImage?.data?.attributes?.url);
   const absoluteBgImageUrl = bgImageUrl
-    ? bgImageUrl.startsWith("http")
+    ? bgImageUrl.startsWith("http") || bgImageUrl.startsWith("/")
       ? bgImageUrl
       : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${bgImageUrl}`
     : "/assets/images/careers-bg.jpg";

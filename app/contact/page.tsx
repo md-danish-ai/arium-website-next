@@ -1,9 +1,8 @@
 import React from "react";
-import PageAnimations from "../../components/animations/PageAnimations";
-import ContactHero from "../../components/sections/contact/ContactHero";
-import ContactForm from "../../components/sections/contact/ContactForm";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI } from "../../lib/api";
+import ContactHero from "@ui-component/contact/ContactHero";
+import ContactForm from "@ui-component/contact/ContactForm";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import { fetchAPI } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -74,10 +73,5 @@ export default async function Contact() {
   sectionObjects.sort((a, b) => a.pos - b.pos);
   const sections = sectionObjects.map(obj => obj.element);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

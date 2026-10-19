@@ -1,15 +1,14 @@
 import React from "react";
-import HomeHero from "../components/sections/home/HomeHero";
-import { fetchAPI, fetchPageWidgets } from "../lib/api";
-import NetworkChallenges from "../components/sections/home/NetworkChallenges";
-import InfraPanels from "../components/sections/home/InfraPanels";
-import StatsCounter from "../components/sections/home/StatsCounter";
-import CommunitySection from "../components/sections/home/CommunitySection";
-import CareersCTA from "../components/sections/shared/CareersCTA";
-import FinalCTA from "../components/sections/shared/FinalCTA";
-import PageAnimations from "../components/animations/PageAnimations";
-import Particles from "../components/animations/Particles";
-import GlobalWidgetRenderer from "../components/shared/GlobalWidgetRenderer";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import SharedMainHero from "@ui-component/home/SharedMainHero";
+import BackgroundFeatureSection from "@ui-component/home/BackgroundFeatureSection";
+import SharedDetailedCardGrid from "@ui-component/home/SharedDetailedCardGrid";
+import SharedStatsWithImage from "@ui-component/home/SharedStatsWithImage";
+import SharedImageGradientSplit from "@ui-component/home/SharedImageGradientSplit";
+import SharedCenteredImageCTA from "@ui-component/common/SharedCenteredImageCTA";
+import SharedCtaWithGraphic from "@ui-component/common/SharedCtaWithGraphic";
+import Particles from "@ui-animations/Particles";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 export const dynamic = "force-dynamic";
 
@@ -106,9 +105,11 @@ export default async function Home() {
       pos: 0,
       key: 'hero',
       el: (
-        <div key="hero" style={{ backgroundColor: "#162047", overflow: "hidden" }}>
-          <HomeHero title={homeContent?.heroTitle} description={homeContent?.heroDescription} />
-        </div>
+        <SharedMainHero
+          key="hero"
+          heading={homeContent?.heroTitle}
+          description={homeContent?.heroDescription}
+        />
       ),
     });
   }
@@ -119,12 +120,12 @@ export default async function Home() {
       pos: 1,
       key: 'challenges',
       el: (
-        <NetworkChallenges
+        <BackgroundFeatureSection
           key="challenges-fallback"
-          title={networkChallengesData?.title}
-          body={networkChallengesData?.body}
-          cardItems={networkChallengesData?.cardItem || networkChallengesData?.cards}
-          media={networkChallengesData?.media}
+          Heading={networkChallengesData?.title}
+          Description={networkChallengesData?.body}
+          FeatureCards={networkChallengesData?.cardItem || networkChallengesData?.cards}
+          BackgroundImage={networkChallengesData?.media}
         />
       ),
     });
@@ -132,27 +133,77 @@ export default async function Home() {
 
   // Position 2 — Infrastructure panels
   if (!hasDetailedCardGridWidget) {
-    sectionMap.push({ pos: 2, key: 'infra', el: <InfraPanels key="infra" data={infraData} /> });
+    sectionMap.push({ pos: 2, key: 'infra', el: <SharedDetailedCardGrid key="infra" data={infraData} /> });
   }
 
   // Position 3 — Stats counter
   if (!hasStatsWithImageWidget) {
-    sectionMap.push({ pos: 3, key: 'stats', el: <StatsCounter key="stats" data={statsData} /> });
+    sectionMap.push({
+      pos: 3,
+      key: 'stats',
+      el: (
+        <SharedStatsWithImage
+          key="stats"
+          heading={statsData?.title}
+          statscards={statsData?.stats}
+          image={statsData?.media}
+        />
+      ),
+    });
   }
 
   // Position 4 — Community section
   if (!hasImageGradientSplitWidget) {
-    sectionMap.push({ pos: 4, key: 'community', el: <CommunitySection key="community" data={communityData} /> });
+    sectionMap.push({
+      pos: 4,
+      key: 'community',
+      el: (
+        <SharedImageGradientSplit
+          key="community"
+          heading={communityData?.title}
+          description={communityData?.body}
+          sectionPointers={communityData?.cards || communityData?.cardItem}
+          bgImage={communityData?.media}
+          ctaText={communityData?.cta?.[0]?.label}
+          ctaUrl={communityData?.cta?.[0]?.url}
+        />
+      ),
+    });
   }
 
   // Position 5 — Careers CTA
   if (!hasCenteredImageCtaWidget) {
-    sectionMap.push({ pos: 5, key: 'careers', el: <CareersCTA key="careers" {...careersCTAProps} /> });
+    sectionMap.push({
+      pos: 5,
+      key: 'careers',
+      el: (
+        <SharedCenteredImageCTA
+          key="careers"
+          heading={careersCTAProps.title}
+          text={careersCTAProps.description}
+          ctaLabel={careersCTAProps.buttonText}
+          ctaUrl={careersCTAProps.buttonLink}
+          bgImage={careersCTAProps.backgroundImage}
+        />
+      ),
+    });
   }
 
   // Position 6 — Final CTA
   if (!hasCtaWithGraphicWidget) {
-    sectionMap.push({ pos: 6, key: 'finalcta', el: <FinalCTA key="finalcta" {...finalCTAProps} /> });
+    sectionMap.push({
+      pos: 6,
+      key: 'finalcta',
+      el: (
+        <SharedCtaWithGraphic
+          key="finalcta"
+          heading={finalCTAProps.title}
+          description={finalCTAProps.description}
+          ctaText={finalCTAProps.buttonText}
+          ctaLink={finalCTAProps.buttonLink}
+        />
+      ),
+    });
   }
 
   // Add CMS widgets using their PositionNumber field
@@ -171,10 +222,9 @@ export default async function Home() {
     .map((entry) => entry.el);
 
   return (
-    <main id="main-content">
-      <PageAnimations />
+    <>
       <Particles />
       {sections}
-    </main>
+    </>
   );
 }

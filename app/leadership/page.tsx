@@ -1,9 +1,9 @@
 import React from "react";
-import LeadershipHero from "../../components/sections/leadership/LeadershipHero";
-import GlobeCTA from "../../components/sections/shared/GlobeCTA";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI } from "../../lib/api";
+import LeadershipHero from "@ui-component/leadership/LeadershipHero";
+import LeadershipTeam from "@ui-component/leadership/LeadershipTeam";
+import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import { fetchAPI } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -74,6 +74,20 @@ export default async function LeadershipPage() {
     });
   }
 
+  const hasPeopleWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('people-global-section') || s.__component?.includes('people'))
+  );
+  if (!hasPeopleWidget) {
+    const teamSection = leadershipContent?.sections?.find((section: any) => 
+      section.key === "Leadership Team" || section.key === "Executive Team" || section.key === "Leadership"
+    );
+    sectionMap.push({
+      pos: 1,
+      key: 'team-fallback',
+      el: <LeadershipTeam key="team" data={teamSection} />
+    });
+  }
+
   const hasCtaWidget = globalWidgets.some((w: any) =>
     w.Sections?.some((s: any) => s.__component?.includes('cta') || s.__component?.includes('calltoaction') || s.__component?.includes('call-to-action'))
   );
@@ -95,10 +109,5 @@ export default async function LeadershipPage() {
   // 3. Sort by pos and extract elements
   const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
 
-  return (
-    <main id="main-content" className="leadership-page">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

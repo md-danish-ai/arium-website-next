@@ -1,9 +1,9 @@
 import React from "react";
-import BoardHero from "../../components/sections/board/BoardHero";
-import GlobeCTA from "../../components/sections/shared/GlobeCTA";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI } from "../../lib/api";
+import BoardHero from "@ui-component/board/BoardHero";
+import BoardMembers from "@ui-component/board/BoardMembers";
+import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import { fetchAPI } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +61,19 @@ export default async function BoardOfDirectorsPage() {
     );
   }
 
+  // Fallback check: Did Strapi give us a widget that contains people grid?
+  const hasPeopleWidget = globalWidgets.some((w: any) =>
+    w.Sections?.some((s: any) => s.__component?.includes('people-global-section') || s.__component?.includes('people'))
+  );
+  if (!hasPeopleWidget) {
+    const boardSection = boardContent?.sections?.find((section: any) => 
+      section.key === "Board of Directors" || section.key === "Board Members" || section.key === "Board"
+    );
+    sections.push(
+      <BoardMembers key="board-members" data={boardSection} />
+    );
+  }
+
   [...globalWidgets].reverse().forEach((widget: any) => {
     const pos = widget.PositionNumber ?? sections.length;
     sections.splice(pos, 0, <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
@@ -83,10 +96,5 @@ export default async function BoardOfDirectorsPage() {
     );
   }
 
-  return (
-    <main id="main-content" className="board-page">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

@@ -11,9 +11,14 @@ interface SharedJourneyProps {
   Heading?: string;
   Description?: string;
   TimeCards?: SharedJourneyTimelineItem[];
+  data?: {
+    title?: string;
+    body?: string;
+    cards?: any[];
+  };
 }
 
-export default function SharedJourney({ Heading, Description, TimeCards }: SharedJourneyProps) {
+export default function SharedJourney({ Heading, Description, TimeCards, data }: SharedJourneyProps) {
   const defaultItems: SharedJourneyTimelineItem[] = [
     { Title: "2010-2011", Content: "Acquisition of NewPath and NextG establishes early leadership in DAS and small cell infrastructure." },
     { Title: "2011-2020", Content: "Platform expansion and operational integration across thousands of deployed nodes." },
@@ -21,10 +26,16 @@ export default function SharedJourney({ Heading, Description, TimeCards }: Share
     { Title: "2026", Content: "Formation of Arium Networks with 100K+ small cells on-air or under contract.", BadgeText: "LIVE" }
   ];
 
-  const items = (TimeCards && TimeCards.length > 0 ? TimeCards : null) || defaultItems;
+  const rawCards = (TimeCards && TimeCards.length > 0 ? TimeCards : null) || (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultItems;
+  const items = rawCards.map((c: any) => ({
+    Title: c.Title || c.title || "",
+    Content: c.Content || c.description || c.body || "",
+    TitleColor: c.TitleColor || c.titleColor,
+    BadgeText: c.BadgeText || c.badge || c.badgeText,
+  }));
   const accentTextClasses = ["text-[#009E94]", "text-[#7B6AB8]", "text-[#C48E68]", "text-[#009E94]"];
-  const headingStr = Heading || "A small cell leader from the beginning";
-  const descStr = Description;
+  const headingStr = Heading || data?.title || "A small cell leader from the beginning";
+  const descStr = Description || data?.body;
 
   return (
     <section id="shared-journey" className="section-light bg-white pt-20 pb-16 lg:pt-28 lg:pb-24 relative overflow-hidden z-[2]">

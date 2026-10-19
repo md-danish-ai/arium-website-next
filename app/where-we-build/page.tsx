@@ -1,9 +1,8 @@
 import React from "react";
-import SharedHero from "../../components/sections/shared/SharedHero";
-import WhereCommunities from "../../components/sections/where-we-build/WhereCommunities";
-import WhereVenues from "../../components/sections/where-we-build/WhereVenues";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
+import SharedHero from "@ui-component/common/SharedHero";
+import WhereCommunities from "@ui-component/where-we-build/WhereCommunities";
+import WhereVenues from "@ui-component/where-we-build/WhereVenues";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-import { fetchAPI } from "../../lib/api";
+import { fetchAPI } from "@lib/api";
 
 export default async function WhereWeBuildPage() {
   const [pageData, widgetData] = await Promise.all([
@@ -90,10 +89,5 @@ export default async function WhereWeBuildPage() {
     sections.splice(2, 0, <WhereVenues key="venues" data={whereContent?.sections?.find((section: any) => section.key === "Buildings and Venues")} />);
   }
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

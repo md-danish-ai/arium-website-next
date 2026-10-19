@@ -25,9 +25,11 @@ export default function SharedCtaWithGraphic({
 }: SharedCtaWithGraphicProps) {
   if (!heading && !description) return null;
 
-  const graphicUrl = graphic?.url || graphic?.data?.attributes?.url;
+  const graphicUrl = typeof graphic === "string"
+    ? graphic
+    : (graphic?.url || graphic?.data?.attributes?.url);
   const absoluteGraphicUrl = graphicUrl
-    ? graphicUrl.startsWith("http")
+    ? graphicUrl.startsWith("http") || graphicUrl.startsWith("/")
       ? graphicUrl
       : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${graphicUrl}`
     : "/assets/images/connection-cta.svg";

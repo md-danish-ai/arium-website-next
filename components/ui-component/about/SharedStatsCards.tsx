@@ -11,17 +11,29 @@ interface SharedStatsCardsProps {
   Heading?: string;
   Description?: string;
   CradColorful?: StatsCardItem[];
+  data?: {
+    title?: string;
+    body?: string;
+    stats?: any[];
+    cards?: any[];
+  };
 }
 
-export default function SharedStatsCards({ Heading, Description, CradColorful }: SharedStatsCardsProps) {
+export default function SharedStatsCards({ Heading, Description, CradColorful, data }: SharedStatsCardsProps) {
   const defaultCards: StatsCardItem[] = [
     { Title: "39B", Description: "Expected number of IoT devices by 2030", Badge: "IoT Analytics, 2025" },
     { Title: "21GB", Description: "Average monthly mobile data consumption per capita", Badge: "Ericsson, 2025" },
     { Title: "89%", Description: "Expected share of 5G mobile connections in North America by 2030", Badge: "GSMA, 2025" }
   ];
 
-  const items = (CradColorful && CradColorful.length > 0 ? CradColorful : null) || defaultCards;
-  const headingStr = Heading || "Why our infrastructure matters";
+  const rawCards = (CradColorful && CradColorful.length > 0 ? CradColorful : null) || (data?.stats && data.stats.length > 0 ? data.stats : null) || (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultCards;
+  const items = rawCards.map((c: any) => ({
+    Title: c.Title || c.value || c.title || "",
+    Description: c.Description || c.label || c.description || "",
+    Badge: c.Badge || c.badge || "",
+    BgGradient: c.BgGradient || c.bgGradient,
+  }));
+  const headingStr = Heading || data?.title || "Why our infrastructure matters";
 
   // Default glow and color schemes mimicking the design with Tailwind
   const colorSchemes = [

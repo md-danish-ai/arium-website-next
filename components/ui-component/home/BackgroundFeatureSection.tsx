@@ -56,7 +56,14 @@ export default function BackgroundFeatureSection({
   const finalDesktopUrl = getFullUrl(desktopUrl) || "/assets/images/challenges-bg.png"; // Fallback image
   const finalMobileUrl = getFullUrl(mobileUrl) || finalDesktopUrl;
 
-  const hasCards = FeatureCards && FeatureCards.length > 0;
+  const defaultFeatureCards: FeatureCard[] = [
+    { Heading: "Design", Description: "We identify the best network technology, equipment, and architecture designs based on a careful assessment of structure and required capacity." },
+    { Heading: "Implement", Description: "We bring together the right partners—coordinating and collaborating to deploy the necessary infrastructure." },
+    { Heading: "Optimize", Description: "We partner with leading firms to conduct radio frequency (RF) testing and optimization, ensuring the network continues to perform as expected." }
+  ];
+
+  const cardsToRender = FeatureCards && FeatureCards.length > 0 ? FeatureCards : (!CTALabel && !CTALink ? defaultFeatureCards : []);
+  const hasCards = cardsToRender.length > 0;
   const topPadding = hasCards ? "180px" : "160px";
   const bottomPadding = hasCards ? "60px" : "160px";
   const textMaxWidth = MaxWidthText || (hasCards ? "620px" : "560px");
@@ -94,22 +101,18 @@ export default function BackgroundFeatureSection({
         style={{ paddingTop: topPadding, paddingBottom: bottomPadding }}
       >
         <div style={{ maxWidth: textMaxWidth }}>
-          {Heading && (
-            <h2 
-              className="section-title reveal text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] uppercase mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]" 
-              style={{ color: FontColorHeading || undefined }}
-            >
-              {Heading}
-            </h2>
-          )}
+          <h2 
+            className="section-title reveal text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] uppercase mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]" 
+            style={{ color: FontColorHeading || undefined }}
+          >
+            {Heading || "Solving the toughest network challenges"}
+          </h2>
 
-          {Description && (
-            <p 
-              className="reveal stagger-1 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] text-white/80" 
-              style={{ color: FontColorDescription || undefined }} 
-              dangerouslySetInnerHTML={{ __html: Description }} 
-            />
-          )}
+          <p 
+            className="reveal stagger-1 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] text-white/80" 
+            style={{ color: FontColorDescription || undefined }} 
+            dangerouslySetInnerHTML={{ __html: Description || "Deploying a small cell or distributed antenna system (DAS) network involves careful planning, precision engineering, and efficient coordination. Whether in dense neighborhoods, difficult terrain, or high-traffic venues and buildings, our customers rely on our deep expertise and established relationships across the country to help them solve even the most unique coverage and capacity challenges." }} 
+          />
 
           {CTALabel && CTALink && (
             <div className="reveal stagger-2 mt-10">
@@ -124,17 +127,17 @@ export default function BackgroundFeatureSection({
         </div>
       </div>
 
-      {FeatureCards && FeatureCards.length > 0 && (
+      {hasCards && (
         <div className="bg-feature-cards-wrap">
           <div className="container">
             <div className="reveal stagger-2 challenges-pillars">
-              {FeatureCards.map((card, index) => (
+              {cardsToRender.map((card: any, index: number) => (
                 <div className="challenges-pillar" key={index}>
                   <div className="challenges-pillar-label" style={{ color: card.HeadingColor || undefined }}>
-                    {card.Heading}
+                    {card.Heading || card.title}
                   </div>
                   <p className="challenges-pillar-desc" style={{ color: card.TextColor || undefined }}>
-                    {card.Description}
+                    {card.Description || card.description}
                   </p>
                 </div>
               ))}

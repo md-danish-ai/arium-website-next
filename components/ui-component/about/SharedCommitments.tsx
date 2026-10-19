@@ -15,6 +15,12 @@ interface SharedCommitmentsProps {
   BgOverlay?: string;
   PillarsDescription?: string;
   PillarCard?: PillarCard[];
+  data?: {
+    title?: string;
+    body?: string;
+    cards?: any[];
+    media?: any[];
+  };
 }
 
 export default function SharedCommitments({
@@ -23,7 +29,8 @@ export default function SharedCommitments({
   BgImage,
   BgOverlay,
   PillarsDescription,
-  PillarCard
+  PillarCard,
+  data
 }: SharedCommitmentsProps) {
   const defaultPillars: PillarCard[] = [
     { PillarText: "We are customer-first", PillarDescription: "We put customers at the center of every decision, delivering value through innovation, investment, and purpose-build network solutions.", BarColor: "#00b4a0" },
@@ -31,19 +38,27 @@ export default function SharedCommitments({
     { PillarText: "We are built for the long haul", PillarDescription: "We're committed to long-term ownership and lasting partnerships, investing in the infrastructure that will power the future of connectivity.", BarColor: "#7c5cbf" }
   ];
 
-  const pillars = (PillarCard && PillarCard.length > 0 ? PillarCard : null) || defaultPillars;
+  const rawPillars = (PillarCard && PillarCard.length > 0 ? PillarCard : null) || (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultPillars;
+  const pillars = rawPillars.map((p: any) => ({
+    PillarText: p.PillarText || p.title || p.heading || "",
+    PillarDescription: p.PillarDescription || p.description || p.body || "",
+    BarColor: p.BarColor || p.barColor,
+    PillarHeadingColor: p.PillarHeadingColor,
+    PillarBgColorHover: p.PillarBgColorHover,
+  }));
 
   // Extract image URL safely
   let bgImageUrl = "/assets/images/live_about_commitments_panoramic.png";
   let bgImageAlt = "New York City skyline at sunset";
 
-  if (BgImage) {
-    if (BgImage.data?.attributes?.url) {
-      bgImageUrl = BgImage.data.attributes.url;
-      bgImageAlt = BgImage.data.attributes.alternativeText || bgImageAlt;
-    } else if (BgImage.url) {
-      bgImageUrl = BgImage.url;
-      bgImageAlt = BgImage.alternativeText || bgImageAlt;
+  const resolvedBg = data?.media?.[0] || BgImage;
+  if (resolvedBg) {
+    if (resolvedBg.data?.attributes?.url) {
+      bgImageUrl = resolvedBg.data.attributes.url;
+      bgImageAlt = resolvedBg.data.attributes.alternativeText || bgImageAlt;
+    } else if (resolvedBg.url) {
+      bgImageUrl = resolvedBg.url;
+      bgImageAlt = resolvedBg.alternativeText || bgImageAlt;
     }
   }
 

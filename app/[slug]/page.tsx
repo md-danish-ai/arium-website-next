@@ -1,10 +1,9 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { fetchAPI, fetchPageWidgets } from "../../lib/api";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import SharedHero from "../../components/sections/shared/SharedHero";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import SharedHero from "@ui-component/common/SharedHero";
 
 export const dynamic = "force-dynamic";
 
@@ -117,10 +116,5 @@ export default async function DynamicPage({
     );
   }
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

@@ -1,17 +1,16 @@
 import React from "react";
-import { fetchAPI, fetchPageWidgets } from "../../lib/api";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
 
-import SharedHero from "../../components/sections/shared/SharedHero";
-import CommunitySmallCells from "../../components/sections/your-community/CommunitySmallCells";
-import SharedImageCardGrid from "../../components/sections/shared/SharedImageCardGrid";
-import CommunityHowWeWork from "../../components/sections/your-community/CommunityHowWeWork";
-import CommunityTestimonials from "../../components/sections/your-community/CommunityTestimonials";
-import CommunityFAQ from "../../components/sections/your-community/CommunityFAQ";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
+import SharedHero from "@ui-component/common/SharedHero";
+import CommunitySmallCells from "@ui-component/community/CommunitySmallCells";
+import SharedImageCardGrid from "@ui-component/common/SharedImageCardGrid";
+import CommunityHowWeWork from "@ui-component/community/CommunityHowWeWork";
+import CommunityTestimonials from "@ui-component/community/CommunityTestimonials";
+import CommunityFAQ from "@ui-component/community/CommunityFAQ";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 import type { Metadata } from "next";
 
@@ -152,10 +151,5 @@ export default async function YourCommunityPage() {
   // 3. Sort by pos and extract elements
   const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

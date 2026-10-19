@@ -1,13 +1,12 @@
 import React from "react";
-import SharedHero from "../../components/sections/shared/SharedHero";
-import AboutStory from "../../components/sections/about/AboutStory";
-import AboutJourney from "../../components/sections/about/AboutJourney";
-import AboutTrust from "../../components/sections/about/AboutTrust";
-import AboutCommitments from "../../components/sections/about/AboutCommitments";
-import AboutCulture from "../../components/sections/about/AboutCulture";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI } from "../../lib/api";
+import SharedHero from "@ui-component/common/SharedHero";
+import SharedContentWithSideGraphic from "@ui-component/about/SharedContentWithSideGraphic";
+import SharedJourney from "@ui-component/about/SharedJourney";
+import SharedStatsCards from "@ui-component/about/SharedStatsCards";
+import SharedCommitments from "@ui-component/about/SharedCommitments";
+import SharedCulture from "@ui-component/about/SharedCulture";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import { fetchAPI } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -93,7 +92,7 @@ export default async function AboutPage() {
     sectionMap.push({
       pos: 1,
       key: 'story-fallback',
-      el: <AboutStory key="story-fallback" data={storyData} />
+      el: <SharedContentWithSideGraphic key="story-fallback" data={storyData} />
     });
   }
 
@@ -116,9 +115,9 @@ export default async function AboutPage() {
           <div className="flow-bg-gradient flow-bg-1" aria-hidden="true"></div>
           <div className="flow-bg-gradient flow-bg-2" aria-hidden="true"></div>
           <div className="flow-bg-gradient flow-bg-3" aria-hidden="true"></div>
-          <AboutJourney data={journeyData} />
-          <AboutTrust data={trustData} />
-          <AboutCommitments data={valuesData} />
+          <SharedJourney data={journeyData} />
+          <SharedStatsCards data={trustData} />
+          <SharedCommitments data={valuesData} />
         </div>
       )
     });
@@ -138,18 +137,13 @@ export default async function AboutPage() {
     sectionMap.push({
       pos: 3,
       key: 'culture-fallback',
-      el: <AboutCulture key="culture-fallback" data={cultureData} />
+      el: <SharedCulture key="culture-fallback" data={cultureData} />
     });
   }
 
   // 3. Sort by pos and extract elements
   const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }
 

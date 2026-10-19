@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ImageCarousel from "../../ui/ImageCarousel";
+import ImageCarousel from "@ui-element/ImageCarousel";
 
 const venueImages = [
   { src: "/assets/images/overview-buildings-Venues.png", alt: "Fans at a venue" },

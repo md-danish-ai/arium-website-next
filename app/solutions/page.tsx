@@ -1,12 +1,11 @@
 import React from "react";
-import PageAnimations from "../../components/animations/PageAnimations";
-import SharedHero from "../../components/sections/shared/SharedHero";
-import SolutionsSmallCells from "../../components/sections/solutions/SolutionsSmallCells";
-import SolutionsDas from "../../components/sections/solutions/SolutionsDas";
-import SolutionsIndustries from "../../components/sections/solutions/SolutionsIndustries";
-import GlobeCTA from "../../components/sections/shared/GlobeCTA";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI, fetchPageWidgets } from "../../lib/api";
+import SharedHero from "@ui-component/common/SharedHero";
+import SolutionsSmallCells from "@ui-component/solutions/SolutionsSmallCells";
+import SolutionsDas from "@ui-component/solutions/SolutionsDas";
+import SolutionsIndustries from "@ui-component/solutions/SolutionsIndustries";
+import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -135,10 +134,5 @@ export default async function SolutionsPage() {
   // 3. Sort by pos and extract elements
   const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{sections}</>;
 }

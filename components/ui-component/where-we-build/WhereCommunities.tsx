@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ImageCarousel from "../../ui/ImageCarousel";
+import ImageCarousel from "@ui-element/ImageCarousel";
 
 const communityImages = [
   { src: "/assets/images/overview-communities.png", alt: "Community neighborhood" },
