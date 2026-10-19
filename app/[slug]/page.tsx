@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import SharedHero from "@ui-component/common/SharedHero";
+import SharedHero from "@ui-common/SharedHero";
 
 export const dynamic = "force-dynamic";
 

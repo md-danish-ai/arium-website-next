@@ -4,9 +4,9 @@ import { fetchAPI, fetchPageWidgets } from "@lib/api";
 export const dynamic = "force-dynamic";
 
 
-import SharedHero from "@ui-component/common/SharedHero";
+import SharedHero from "@ui-common/SharedHero";
 import CommunitySmallCells from "@ui-component/community/CommunitySmallCells";
-import SharedImageCardGrid from "@ui-component/common/SharedImageCardGrid";
+import SharedImageCardGrid from "@ui-common/SharedImageCardGrid";
 import CommunityHowWeWork from "@ui-component/community/CommunityHowWeWork";
 import CommunityTestimonials from "@ui-component/community/CommunityTestimonials";
 import CommunityFAQ from "@ui-component/community/CommunityFAQ";

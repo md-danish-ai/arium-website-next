@@ -1,7 +1,7 @@
 import RightOfWayHero from "@ui-component/where-we-build/RightOfWayHero";
-import SharedProcess from "@ui-component/common/SharedProcess";
+import SharedProcess from "@ui-common/SharedProcess";
 import RightOfWayTestimonials from "@ui-component/where-we-build/RightOfWayTestimonials";
-import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import React from "react";
 

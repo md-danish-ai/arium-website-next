@@ -5,8 +5,8 @@ import BackgroundFeatureSection from "@ui-component/home/BackgroundFeatureSectio
 import SharedDetailedCardGrid from "@ui-component/home/SharedDetailedCardGrid";
 import SharedStatsWithImage from "@ui-component/home/SharedStatsWithImage";
 import SharedImageGradientSplit from "@ui-component/home/SharedImageGradientSplit";
-import SharedCenteredImageCTA from "@ui-component/common/SharedCenteredImageCTA";
-import SharedCtaWithGraphic from "@ui-component/common/SharedCtaWithGraphic";
+import SharedCenteredImageCTA from "@ui-common/SharedCenteredImageCTA";
+import SharedCtaWithGraphic from "@ui-common/SharedCtaWithGraphic";
 import Particles from "@ui-animations/Particles";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 

@@ -3,7 +3,7 @@ import React from "react";
 export const dynamic = "force-dynamic";
 
 
-import SharedHero from "@ui-component/common/SharedHero";
+import SharedHero from "@ui-common/SharedHero";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import CareersCultureAccordion from "@ui-component/careers/CareersCultureAccordion";
 import CareersTestimonials from "@ui-component/careers/CareersTestimonials";

@@ -1,5 +1,5 @@
 import React from "react";
-import SharedHero from "@ui-component/common/SharedHero";
+import SharedHero from "@ui-common/SharedHero";
 import WhereCommunities from "@ui-component/where-we-build/WhereCommunities";
 import WhereVenues from "@ui-component/where-we-build/WhereVenues";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";

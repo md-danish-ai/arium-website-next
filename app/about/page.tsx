@@ -1,5 +1,5 @@
 import React from "react";
-import SharedHero from "@ui-component/common/SharedHero";
+import SharedHero from "@ui-common/SharedHero";
 import SharedContentWithSideGraphic from "@ui-component/about/SharedContentWithSideGraphic";
 import SharedJourney from "@ui-component/about/SharedJourney";
 import SharedStatsCards from "@ui-component/about/SharedStatsCards";

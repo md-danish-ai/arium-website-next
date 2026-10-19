@@ -1,7 +1,7 @@
 import React from "react";
 import BoardHero from "@ui-component/board/BoardHero";
 import BoardMembers from "@ui-component/board/BoardMembers";
-import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI } from "@lib/api";
 

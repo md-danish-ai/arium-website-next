@@ -1,7 +1,7 @@
 import PrivateVenuesHero from "@ui-component/where-we-build/PrivateVenuesHero";
-import SharedProcess from "@ui-component/common/SharedProcess";
+import SharedProcess from "@ui-common/SharedProcess";
 import PrivateVenuesTestimonials from "@ui-component/where-we-build/PrivateVenuesTestimonials";
-import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import React from "react";
 

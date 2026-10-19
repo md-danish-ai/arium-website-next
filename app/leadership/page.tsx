@@ -1,7 +1,7 @@
 import React from "react";
 import LeadershipHero from "@ui-component/leadership/LeadershipHero";
 import LeadershipTeam from "@ui-component/leadership/LeadershipTeam";
-import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI } from "@lib/api";
 

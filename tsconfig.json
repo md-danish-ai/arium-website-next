@@ -23,8 +23,20 @@
       }
     ],
     "paths": {
+      "@ui-common": [
+        "./components/ui-common"
+      ],
+      "@ui-common/*": [
+        "./components/ui-common/*"
+      ],
+      "@ui-component": [
+        "./components/ui-component"
+      ],
       "@ui-component/*": [
         "./components/ui-component/*"
+      ],
+      "@ui-shared": [
+        "./components/ui-shared"
       ],
       "@ui-shared/*": [
         "./components/ui-shared/*"

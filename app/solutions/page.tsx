@@ -1,9 +1,9 @@
 import React from "react";
-import SharedHero from "@ui-component/common/SharedHero";
+import SharedHero from "@ui-common/SharedHero";
 import SolutionsSmallCells from "@ui-component/solutions/SolutionsSmallCells";
 import SolutionsDas from "@ui-component/solutions/SolutionsDas";
 import SolutionsIndustries from "@ui-component/solutions/SolutionsIndustries";
-import GlobeCTA from "@ui-component/common/GlobeCTA";
+import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 
