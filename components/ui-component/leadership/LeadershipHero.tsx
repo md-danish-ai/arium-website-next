@@ -7,13 +7,19 @@ interface LeadershipHeroProps {
 
 export default function LeadershipHero({ heading, intro }: LeadershipHeroProps) {
   return (
-    <section className="subpage-header relative bg-gradient-to-br from-[#B8A9F0] via-[#D2C7FF] to-[#DDD5FF] pt-[180px] md:pt-[200px] pb-36 md:pb-44 px-6 overflow-visible" id="leadership-header">
+    <section
+      className="subpage-header relative bg-gradient-to-br from-[#B8A9F0] via-[#D2C7FF] to-[#DDD5FF] pt-[180px] md:pt-[200px] pb-36 md:pb-44 px-6 overflow-visible"
+      id="leadership-header"
+    >
       <div className="absolute w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.18)_0%,transparent_65%)] -top-[100px] -right-[50px] pointer-events-none blur-[40px]" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,transparent_60%)] top-[20%] left-[10%] pointer-events-none blur-[50px]" />
       <div className="absolute w-[350px] h-[350px] rounded-full bg-[radial-gradient(circle,rgba(184,169,240,0.4)_0%,transparent_65%)] bottom-[10%] right-[20%] pointer-events-none blur-[60px]" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_60%)] -bottom-[200px] -left-[100px] pointer-events-none blur-[30px]" />
 
-      <nav className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-6 md:px-16" aria-label="Breadcrumb">
+      <nav
+        className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-6 md:px-16"
+        aria-label="Breadcrumb"
+      >
         <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-xs tracking-wider">
           <li>
             <Link
@@ -34,7 +40,8 @@ export default function LeadershipHero({ heading, intro }: LeadershipHeroProps) 
             {heading || "Our Leadership"}
           </h1>
           <p className="subpage-intro reveal stagger-2 text-[#162047]/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            {intro || "Seasoned industry leaders driving strategic growth and operational excellence."}
+            {intro ||
+              "Seasoned industry leaders driving strategic growth and operational excellence."}
           </p>
         </div>
       </div>

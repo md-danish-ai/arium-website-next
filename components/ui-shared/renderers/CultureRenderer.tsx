@@ -11,7 +11,9 @@ export default function CultureRenderer({ section, index }: SectionRendererProps
       Pillarcard={section.Pillarcard || section.pillarcard || section.Cards || section.cards}
       CtaButton={section.CtaButton || section.ctaButton || section.Cta?.[0]?.label}
       CTALink={section.CTALink || section.ctaLink || section.Cta?.[0]?.url}
-      BgImage={section.BgImage || section.bgImage || section.Media || section.media || section.image}
+      BgImage={
+        section.BgImage || section.bgImage || section.Media || section.media || section.image
+      }
       BgGradient={section.BgGradient || section.bgGradient}
       HeadingColor={section.HeadingColor}
       DescriptionColor={section.DescriptionColor}

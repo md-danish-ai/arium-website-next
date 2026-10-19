@@ -9,7 +9,9 @@ export default function BenefitsRenderer({ section, index }: SectionRendererProp
       heading={section.Heading || section.heading || section.title}
       description={section.Description || section.description || section.body}
       cards={section.BenefitsCard || section.benefitsCard || section.cards || section.Cards}
-      footerText={section.BottomMessage || section.bottomMessage || section.FooterText || section.footerText}
+      footerText={
+        section.BottomMessage || section.bottomMessage || section.FooterText || section.footerText
+      }
     />
   );
 }

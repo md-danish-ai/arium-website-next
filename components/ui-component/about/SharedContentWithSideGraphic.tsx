@@ -38,8 +38,6 @@ interface SharedContentWithSideGraphicProps {
   };
 }
 
-
-
 function extractImageUrl(media: any): string {
   if (!media) return "";
   if (typeof media === "string") return media;
@@ -67,21 +65,45 @@ export default function SharedContentWithSideGraphic({
   descriptionColor,
   data,
 }: SharedContentWithSideGraphicProps) {
-  const mediaInput = Media || image || media || propMedia || data?.media || data?.Media || data?.image || data?.Image;
+  const mediaInput =
+    Media ||
+    image ||
+    media ||
+    propMedia ||
+    data?.media ||
+    data?.Media ||
+    data?.image ||
+    data?.Image;
   const extractedUrl = extractImageUrl(mediaInput);
-  const imageUrl = extractedUrl ? GetStrapiMediaUrl(extractedUrl) : "/assets/images/live_connection-illustration.svg";
+  const imageUrl = extractedUrl
+    ? GetStrapiMediaUrl(extractedUrl)
+    : "/assets/images/live_connection-illustration.svg";
 
   const defaultGradient = "bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]";
   const customGradient = Gradient || gradient || data?.Gradient || data?.gradient;
 
-  const headingText = Heading || heading || data?.heading || data?.Heading || data?.title || data?.Title || "A story rooted in connection";
-  const bodyText = Description || description || data?.description || data?.Description || data?.body || data?.Body;
+  const headingText =
+    Heading ||
+    heading ||
+    data?.heading ||
+    data?.Heading ||
+    data?.title ||
+    data?.Title ||
+    "A story rooted in connection";
+  const bodyText =
+    Description ||
+    description ||
+    data?.description ||
+    data?.Description ||
+    data?.body ||
+    data?.Body;
   const headColor = HeadingColor || headingColor || data?.HeadingColor || data?.headingColor;
-  const descColor = DescriptionColor || descriptionColor || data?.DescriptionColor || data?.descriptionColor;
+  const descColor =
+    DescriptionColor || descriptionColor || data?.DescriptionColor || data?.descriptionColor;
 
   return (
-    <section 
-      className={`story-section-root py-20 lg:py-24 relative overflow-hidden border-none ${!customGradient ? defaultGradient : ""}`} 
+    <section
+      className={`story-section-root py-20 lg:py-24 relative overflow-hidden border-none ${!customGradient ? defaultGradient : ""}`}
       style={customGradient ? { background: customGradient } : undefined}
     >
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
@@ -97,7 +119,7 @@ export default function SharedContentWithSideGraphic({
 
       <div className="container mx-auto px-6 relative z-[1]">
         <div className="max-w-[760px] text-left">
-          <h2 
+          <h2
             className="subpage-story-heading reveal text-midnight text-left font-heading text-[clamp(1.75rem,2.2vw,2.2rem)] font-normal mb-6 leading-[1.35] whitespace-normal lg:whitespace-nowrap uppercase"
             style={headColor ? { color: headColor } : undefined}
           >
@@ -111,7 +133,7 @@ export default function SharedContentWithSideGraphic({
                 dangerouslySetInnerHTML={{ __html: bodyText }}
               />
             ) : (
-              <div 
+              <div
                 className="reveal stagger-1 text-midnight/80 text-left text-lg leading-[1.8]"
                 style={descColor ? { color: descColor } : undefined}
               >
@@ -119,15 +141,22 @@ export default function SharedContentWithSideGraphic({
               </div>
             )
           ) : (
-            <div 
+            <div
               className="reveal stagger-1 flex flex-col gap-8 text-midnight/80 text-left text-lg leading-[1.8]"
               style={descColor ? { color: descColor } : undefined}
             >
               <p className="subpage-intro m-0">
-                Our world depends on fast, reliable connectivity—from the way we interact with loved ones, educate our children, and drive business forward. More than 15 years ago, we began building the small cell and distributed antennae system (DAS) infrastructure that ensures wireless services works effectively, even in the most challenging locations. Across the country, we&apos;re building dense networks and increasing capacity, enhancing connectivity in high-demand areas.
+                Our world depends on fast, reliable connectivity—from the way we interact with loved
+                ones, educate our children, and drive business forward. More than 15 years ago, we
+                began building the small cell and distributed antennae system (DAS) infrastructure
+                that ensures wireless services works effectively, even in the most challenging
+                locations. Across the country, we&apos;re building dense networks and increasing
+                capacity, enhancing connectivity in high-demand areas.
               </p>
               <p className="subpage-intro m-0">
-                We make the process of designing and deploying wireless networks as straightforward and predictable as possible, providing a clear path forward that supports your vision long into the future.
+                We make the process of designing and deploying wireless networks as straightforward
+                and predictable as possible, providing a clear path forward that supports your
+                vision long into the future.
               </p>
             </div>
           )}
@@ -135,10 +164,10 @@ export default function SharedContentWithSideGraphic({
       </div>
 
       <div className="story-globe-full lg:hidden relative z-[1] overflow-hidden -mt-[15%] -mb-[30%]">
-        <img 
-          src={imageUrl} 
-          alt="Connection illustration" 
-          className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]" 
+        <img
+          src={imageUrl}
+          alt="Connection illustration"
+          className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]"
         />
       </div>
     </section>

@@ -14,7 +14,9 @@ export default function BackgroundFeatureRenderer({ section, index }: SectionRen
       FeatureCards={section.FeatureCards || section.featureCards || []}
       FontColorHeading={section.FontColorHeading}
       FontColorDescription={section.FontColorDescription}
-      MaxWidthText={section.MaxWidthText || section.maxWidthText || section.maxWidth || section.MaxWidth}
+      MaxWidthText={
+        section.MaxWidthText || section.maxWidthText || section.maxWidth || section.MaxWidth
+      }
     />
   );
 }

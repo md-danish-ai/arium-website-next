@@ -8,7 +8,8 @@ export default function HeroBannerRenderer({ section, index }: SectionRendererPr
   const mediaObj = section.heroMedia?.[0] || section.media || section.bannerImage;
   const mediaUrl = GetStrapiMediaUrl(mediaObj?.url);
   const isVideo = mediaObj?.mime?.startsWith("video/");
-  const objectPosition = section.objectPosition || section.ObjectPosition || section.object_position;
+  const objectPosition =
+    section.objectPosition || section.ObjectPosition || section.object_position;
 
   return (
     <SharedHero

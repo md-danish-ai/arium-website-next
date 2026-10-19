@@ -56,10 +56,7 @@ export {
   HighlightListRenderer,
 };
 
-export const WIDGET_REGISTRY: Record<
-  string,
-  React.ComponentType<SectionRendererProps>
-> = {
+export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRendererProps>> = {
   // Hero & Banners
   "shared.test-banner": HeroBannerRenderer,
   "shared.shared-banner": HeroBannerRenderer,

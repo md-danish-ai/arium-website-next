@@ -1,6 +1,12 @@
 "use client";
 
-import { useScrollReveal, useParallax, useScrollIndicator, useCounters, useTimeline } from "@hooks/useAnimations";
+import {
+  useScrollReveal,
+  useParallax,
+  useScrollIndicator,
+  useCounters,
+  useTimeline,
+} from "@hooks/useAnimations";
 
 export default function PageAnimations() {
   useScrollReveal();
@@ -8,6 +14,6 @@ export default function PageAnimations() {
   useScrollIndicator();
   useCounters();
   useTimeline();
-  
+
   return null;
 }

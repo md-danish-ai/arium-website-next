@@ -109,7 +109,7 @@ export function useTimeline() {
 
       const atStart = trackEl.scrollLeft <= 0 && wheelEvent.deltaY < 0;
       const atEnd = trackEl.scrollLeft >= maxScrollLeft && wheelEvent.deltaY > 0;
-      
+
       if (atStart || atEnd) return;
 
       wheelEvent.preventDefault();
@@ -138,7 +138,7 @@ export function useCounters() {
     function animateCounter(el: Element) {
       const targetStr = (el as HTMLElement).dataset.target;
       if (!targetStr) return;
-      
+
       const target = parseInt(targetStr, 10);
       if (isNaN(target)) return;
 

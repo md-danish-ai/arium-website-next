@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import { GetStrapiMediaUrl } from '@lib/strapi';
+import React from "react";
+import Image from "next/image";
+import { GetStrapiMediaUrl } from "@lib/strapi";
 
 interface BenefitCard {
   id?: number;
@@ -17,18 +17,38 @@ interface SharedBenefitsProps {
   footerText?: string;
 }
 
-export default function SharedBenefits({ heading, description, cards, footerText }: SharedBenefitsProps) {
+export default function SharedBenefits({
+  heading,
+  description,
+  cards,
+  footerText,
+}: SharedBenefitsProps) {
   if (!heading && !description && (!cards || cards.length === 0)) return null;
 
   return (
     <>
       <div className="bg-[#ededee]" style={{ background: "#ededee" }}>
-        <section className="shared-benefits-section section-light relative overflow-hidden py-28 bg-[#ededee]" id="benefits" style={{ background: "#ededee" }}>
-          <div className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" />
+        <section
+          className="shared-benefits-section section-light relative overflow-hidden py-28 bg-[#ededee]"
+          id="benefits"
+          style={{ background: "#ededee" }}
+        >
+          <div
+            className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
+            aria-hidden="true"
+          />
           <div className="container mx-auto px-6 relative z-[1]">
             <div className="shared-benefits-header text-center mb-10">
-              {heading && <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] max-w-[880px] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase">{heading}</h2>}
-              {description && <p className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">{description}</p>}
+              {heading && (
+                <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] max-w-[880px] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase">
+                  {heading}
+                </h2>
+              )}
+              {description && (
+                <p className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
+                  {description}
+                </p>
+              )}
             </div>
           </div>
 
@@ -51,8 +71,15 @@ export default function SharedBenefits({ heading, description, cards, footerText
                         />
                       )}
                     </div>
-                    <h3 className="shared-benefits-title font-heading text-[1.3rem] font-bold leading-tight tracking-[0.06em] mb-2 uppercase text-[#009886]" style={{ color: card.TitleColor || undefined }}>{card.title}</h3>
-                    <p className="shared-benefits-desc text-base leading-[1.65] text-midnight/90 mx-auto max-w-[380px]">{card.description}</p>
+                    <h3
+                      className="shared-benefits-title font-heading text-[1.3rem] font-bold leading-tight tracking-[0.06em] mb-2 uppercase text-[#009886]"
+                      style={{ color: card.TitleColor || undefined }}
+                    >
+                      {card.title}
+                    </h3>
+                    <p className="shared-benefits-desc text-base leading-[1.65] text-midnight/90 mx-auto max-w-[380px]">
+                      {card.description}
+                    </p>
                   </div>
                 );
               })}
@@ -60,9 +87,13 @@ export default function SharedBenefits({ heading, description, cards, footerText
           )}
         </section>
       </div>
-      
+
       {footerText && (
-        <section className="reveal shared-eeo-section pb-10 bg-[#ededee]" id="eeo-statement" style={{ background: "#ededee" }}>
+        <section
+          className="reveal shared-eeo-section pb-10 bg-[#ededee]"
+          id="eeo-statement"
+          style={{ background: "#ededee" }}
+        >
           <div className="container mx-auto px-6 relative z-[1]">
             <div className="reveal shared-eeo-container text-center">
               <div className="shared-eeo-text max-w-4xl mx-auto text-xs text-midnight/60 leading-relaxed">

@@ -69,19 +69,26 @@ export default function ContactForm() {
     { value: "suppliers", label: "Suppliers" },
     { value: "media", label: "Media Relations" },
     { value: "careers", label: "Careers" },
-    { value: "other", label: "Other" }
+    { value: "other", label: "Other" },
   ];
 
   return (
     <div className="relative overflow-hidden bg-[#ededee] -mt-px border-0">
       <section className="relative overflow-hidden py-20 bg-[#ededee]" id="contact-form-section">
-        <div className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div
+          className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+        />
         <div className="container mx-auto px-6 relative z-[2]">
           <div className="max-w-[680px] mx-auto relative reveal stagger-1">
             {status === "success" ? (
               <div className="text-center py-[60px] px-5">
-                <h3 className="text-[1.8rem] text-[#162047] mb-4 font-heading font-normal">Thank You!</h3>
-                <p className="text-[#162047]/70 text-[1.1rem]">Your message has been sent successfully. We will be in touch shortly.</p>
+                <h3 className="text-[1.8rem] text-[#162047] mb-4 font-heading font-normal">
+                  Thank You!
+                </h3>
+                <p className="text-[#162047]/70 text-[1.1rem]">
+                  Your message has been sent successfully. We will be in touch shortly.
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} id="contact-form">
@@ -93,7 +100,10 @@ export default function ContactForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="first-name" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    <label
+                      htmlFor="first-name"
+                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    >
                       First Name <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -105,11 +115,14 @@ export default function ContactForm() {
                       required
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="last-name" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    <label
+                      htmlFor="last-name"
+                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    >
                       Last Name <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -121,14 +134,17 @@ export default function ContactForm() {
                       required
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="company" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    <label
+                      htmlFor="company"
+                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    >
                       Organization <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -140,11 +156,14 @@ export default function ContactForm() {
                       required
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    <label
+                      htmlFor="email"
+                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    >
                       Email <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -156,14 +175,17 @@ export default function ContactForm() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="phone" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    <label
+                      htmlFor="phone"
+                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    >
                       Phone Number
                     </label>
                     <input
@@ -174,11 +196,14 @@ export default function ContactForm() {
                       placeholder="+1 000-000-0000"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="postal-code" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    <label
+                      htmlFor="postal-code"
+                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    >
                       Postal Code
                     </label>
                     <input
@@ -189,7 +214,7 @@ export default function ContactForm() {
                       placeholder="99999"
                       value={postalCode}
                       onChange={(e) => setPostalCode(e.target.value)}
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     />
                   </div>
                 </div>
@@ -198,7 +223,7 @@ export default function ContactForm() {
                   <label
                     id="interest-label"
                     className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed cursor-pointer"
-                    onClick={() => document.getElementById('interest-wrapper')?.focus()}
+                    onClick={() => document.getElementById("interest-wrapper")?.focus()}
                   >
                     Who are you reaching out to? <span className="text-red-600">*</span>
                   </label>
@@ -216,51 +241,74 @@ export default function ContactForm() {
                       setFocusedOptionIndex(-1);
                     }}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
+                      if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
                         if (!dropdownOpen) {
                           setDropdownOpen(true);
-                          setFocusedOptionIndex(interestOptions.findIndex(opt => opt.value === interest) >= 0 ? interestOptions.findIndex(opt => opt.value === interest) : 0);
+                          setFocusedOptionIndex(
+                            interestOptions.findIndex((opt) => opt.value === interest) >= 0
+                              ? interestOptions.findIndex((opt) => opt.value === interest)
+                              : 0
+                          );
                         } else {
-                          if (focusedOptionIndex >= 0 && focusedOptionIndex < interestOptions.length) {
+                          if (
+                            focusedOptionIndex >= 0 &&
+                            focusedOptionIndex < interestOptions.length
+                          ) {
                             setInterest(interestOptions[focusedOptionIndex].value);
                           }
                           setDropdownOpen(false);
                         }
-                      } else if (e.key === 'Escape') {
+                      } else if (e.key === "Escape") {
                         setDropdownOpen(false);
                         setFocusedOptionIndex(-1);
-                      } else if (e.key === 'ArrowDown') {
+                      } else if (e.key === "ArrowDown") {
                         e.preventDefault();
                         if (!dropdownOpen) {
                           setDropdownOpen(true);
-                          setFocusedOptionIndex(interestOptions.findIndex(opt => opt.value === interest) >= 0 ? interestOptions.findIndex(opt => opt.value === interest) : 0);
+                          setFocusedOptionIndex(
+                            interestOptions.findIndex((opt) => opt.value === interest) >= 0
+                              ? interestOptions.findIndex((opt) => opt.value === interest)
+                              : 0
+                          );
                         } else {
-                          setFocusedOptionIndex(prev => (prev < interestOptions.length - 1 ? prev + 1 : prev));
+                          setFocusedOptionIndex((prev) =>
+                            prev < interestOptions.length - 1 ? prev + 1 : prev
+                          );
                         }
-                      } else if (e.key === 'ArrowUp') {
+                      } else if (e.key === "ArrowUp") {
                         e.preventDefault();
                         if (dropdownOpen) {
-                          setFocusedOptionIndex(prev => (prev > 0 ? prev - 1 : 0));
+                          setFocusedOptionIndex((prev) => (prev > 0 ? prev - 1 : 0));
                         }
                       }
                     }}
                     tabIndex={0}
                   >
                     <div
-                      className={`w-full bg-transparent border-[1.5px] ${dropdownOpen ? 'border-[#00e8d9] ring-2 ring-[#00e8d9]/20' : 'border-[#162047]/40 hover:border-[#162047]/35'} rounded-[10px] px-[18px] py-[15px] flex items-center justify-between cursor-pointer transition-all duration-300 ease-out outline-none`}
+                      className={`w-full bg-transparent border-[1.5px] ${dropdownOpen ? "border-[#00e8d9] ring-2 ring-[#00e8d9]/20" : "border-[#162047]/40 hover:border-[#162047]/35"} rounded-[10px] px-[18px] py-[15px] flex items-center justify-between cursor-pointer transition-all duration-300 ease-out outline-none`}
                       tabIndex={-1}
                     >
-                      <span className={`text-xs ${interest ? 'text-[#162047] text-[0.95rem]' : 'text-[#162047]/50'}`}>
-                        {interest ? interestOptions.find(opt => opt.value === interest)?.label : "Please select one of the following options"}
+                      <span
+                        className={`text-xs ${interest ? "text-[#162047] text-[0.95rem]" : "text-[#162047]/50"}`}
+                      >
+                        {interest
+                          ? interestOptions.find((opt) => opt.value === interest)?.label
+                          : "Please select one of the following options"}
                       </span>
                       <svg
-                        className={`w-3 h-2 text-[#162047]/40 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                        className={`w-3 h-2 text-[#162047]/40 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
                         viewBox="0 0 12 8"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path
+                          d="M1 1l5 5 5-5"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                     </div>
                     {dropdownOpen && (
@@ -276,8 +324,10 @@ export default function ContactForm() {
                             role="option"
                             aria-selected={interest === option.value}
                             className={`px-[18px] py-3 text-[0.95rem] text-[#162047]/80 cursor-pointer transition-colors duration-200 hover:bg-[#00e8d9]/10 hover:text-[#162047] ${
-                              interest === option.value ? 'bg-[#00e8d9]/15 text-[#162047] font-medium' : ''
-                            } ${focusedOptionIndex === index ? 'bg-[#00e8d9]/10 text-[#162047]' : ''}`}
+                              interest === option.value
+                                ? "bg-[#00e8d9]/15 text-[#162047] font-medium"
+                                : ""
+                            } ${focusedOptionIndex === index ? "bg-[#00e8d9]/10 text-[#162047]" : ""}`}
                             onMouseEnter={() => setFocusedOptionIndex(index)}
                             onMouseDown={(e) => {
                               e.preventDefault();
@@ -300,16 +350,23 @@ export default function ContactForm() {
                       onChange={(e) => setInterest(e.target.value)}
                       required
                     >
-                      <option value="" disabled>Please select one of the following options</option>
-                      {interestOptions.map(option => (
-                        <option key={option.value} value={option.value}>{option.label}</option>
+                      <option value="" disabled>
+                        Please select one of the following options
+                      </option>
+                      {interestOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
                       ))}
                     </select>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2 mb-5">
-                  <label htmlFor="comments" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                  <label
+                    htmlFor="comments"
+                    className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                  >
                     How can we help you? <span className="text-red-600">*</span>
                   </label>
                   <textarea
@@ -320,7 +377,7 @@ export default function ContactForm() {
                     required
                     value={comments}
                     onChange={(e) => setComments(e.target.value)}
-                    disabled={status === 'loading'}
+                    disabled={status === "loading"}
                   />
                 </div>
 
@@ -328,11 +385,11 @@ export default function ContactForm() {
                   <button
                     type="submit"
                     className={`inline-block font-heading text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-[#162047] bg-[#00e8d9] border-2 border-[#00e8d9] rounded-full px-12 py-3.5 cursor-pointer transition-all duration-300 ease-out hover:bg-transparent hover:border-[#162047] hover:text-[#162047] hover:-translate-y-0.5 active:translate-y-0 shadow-sm ${
-                      status === 'loading' ? 'opacity-70 cursor-not-allowed' : 'opacity-100'
+                      status === "loading" ? "opacity-70 cursor-not-allowed" : "opacity-100"
                     }`}
-                    disabled={status === 'loading'}
+                    disabled={status === "loading"}
                   >
-                    {status === 'loading' ? 'Sending...' : 'SUBMIT'}
+                    {status === "loading" ? "Sending..." : "SUBMIT"}
                   </button>
                 </div>
               </form>

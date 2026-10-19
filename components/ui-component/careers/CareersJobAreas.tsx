@@ -20,14 +20,20 @@ const FALLBACK_JOB_AREAS = [
   { title: "Construction & Field Operations" },
   { title: "Technology, Systems & Data" },
   { title: "Corporate & Shared Services" },
-  { title: "Commercial, Strategy & Project Management" }
+  { title: "Commercial, Strategy & Project Management" },
 ];
 
 export default function CareersJobAreas({ data }: CareersJobAreasProps) {
   const jobAreas = data?.cards?.length ? data.cards : FALLBACK_JOB_AREAS;
   return (
-    <section id="job-areas" className="section-light bg-transparent py-24 md:py-32 relative overflow-hidden">
-      <div className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none" aria-hidden="true" />
+    <section
+      id="job-areas"
+      className="section-light bg-transparent py-24 md:py-32 relative overflow-hidden"
+    >
+      <div
+        className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+      />
 
       <div className="container relative z-[2]">
         {/* Centered Header */}
@@ -36,13 +42,14 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
             {data?.title || "Our Core Job Areas"}
           </h2>
           {data?.body ? (
-            <div 
-              className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5" 
+            <div
+              className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5"
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
             <p className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5">
-              Our teams work cross-functionally to design, build, and support wireless infrastructure. These core job types include:
+              Our teams work cross-functionally to design, build, and support wireless
+              infrastructure. These core job types include:
             </p>
           )}
         </div>
@@ -54,7 +61,11 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
               {jobAreas.map((area, index) => {
                 const accentColor = JOB_AREA_ACCENTS[index % JOB_AREA_ACCENTS.length];
                 return (
-                  <div key={index} className={`cr-job-box reveal stagger-${(index % 5) + 1} py-5 flex items-center`} style={{ "--item-accent": accentColor } as React.CSSProperties}>
+                  <div
+                    key={index}
+                    className={`cr-job-box reveal stagger-${(index % 5) + 1} py-5 flex items-center`}
+                    style={{ "--item-accent": accentColor } as React.CSSProperties}
+                  >
                     <h3 className="cr-job-box-title inline-flex items-center gap-3 text-[#162047] text-base md:text-lg font-medium m-0 text-left">
                       <span className="w-2.5 h-2.5 rounded-full bg-[#7C5CBF] flex-shrink-0" />
                       {area.title}
@@ -65,10 +76,10 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
             </div>
 
             <div className="reveal stagger-5 mt-9">
-              <Link 
-                href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <Link
+                href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
               >
                 Explore opportunities

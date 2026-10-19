@@ -29,12 +29,15 @@ export default function SharedHero({
   isExternalLink = false,
   maxWidthTitle,
   maxWidthDescription,
-  objectPosition = "center top"
+  objectPosition = "center top",
 }: ImageHeroProps) {
   const finalObjectPosition = objectPosition || "center top";
 
   return (
-    <section className="shared-img-hero relative min-h-[80vh] flex items-center overflow-hidden" id={id}>
+    <section
+      className="shared-img-hero relative min-h-[80vh] flex items-center overflow-hidden"
+      id={id}
+    >
       <div className="shared-img-hero-bg absolute inset-0 z-[1]">
         {videoSrc ? (
           <video
@@ -63,13 +66,21 @@ export default function SharedHero({
         <h1
           className="shared-img-hero-heading font-heading text-[clamp(1.85rem,3.5vw,2.95rem)] font-normal uppercase tracking-[0.12em] leading-[1.2] text-white max-w-[1400px] mx-auto mb-[18px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
           dangerouslySetInnerHTML={{ __html: heading || "" }}
-          style={maxWidthTitle ? { maxWidth: maxWidthTitle, marginLeft: "auto", marginRight: "auto" } : undefined}
+          style={
+            maxWidthTitle
+              ? { maxWidth: maxWidthTitle, marginLeft: "auto", marginRight: "auto" }
+              : undefined
+          }
         />
 
         {intro && (
           <p
             className="shared-img-hero-intro font-body text-[clamp(1.02rem,1.5vw,1.22rem)] leading-[1.3] text-white/85 max-w-[920px] mx-auto [text-wrap:balance] [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
-            style={maxWidthDescription ? { maxWidth: maxWidthDescription, marginLeft: "auto", marginRight: "auto" } : undefined}
+            style={
+              maxWidthDescription
+                ? { maxWidth: maxWidthDescription, marginLeft: "auto", marginRight: "auto" }
+                : undefined
+            }
           >
             {intro}
           </p>

@@ -17,9 +17,7 @@ export async function fetchAPI(path: string, options: RequestInit = {}) {
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error(
-        `An error occurred please check the API endpoint: ${requestUrl}`,
-      );
+      console.error(`An error occurred please check the API endpoint: ${requestUrl}`);
       console.error(`Strapi Error Details: ${response.status} - ${errText}`);
       return null;
     }
@@ -69,7 +67,5 @@ export const WIDGETS_POPULATE_QUERY =
  * Dedicated widget fetch — always a clean, short URL separate from page-data queries.
  */
 export async function fetchPageWidgets(slug: string) {
-  return fetchAPI(
-    `/api/pages?filters[slug][$eq]=${slug}&${WIDGETS_POPULATE_QUERY}`,
-  );
+  return fetchAPI(`/api/pages?filters[slug][$eq]=${slug}&${WIDGETS_POPULATE_QUERY}`);
 }

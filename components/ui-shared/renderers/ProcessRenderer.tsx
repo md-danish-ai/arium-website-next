@@ -11,7 +11,13 @@ export default function ProcessRenderer({ section, index }: SectionRendererProps
     const iconImg = step.StepNameIconimg || step.StepNameIconImg;
     if (iconImg && iconImg.url) {
       const mediaUrl = GetStrapiMediaUrl(iconImg.url);
-      iconNode = <img src={mediaUrl} alt={step.Stepname || `Step ${idx + 1}`} className="w-full h-full object-contain" />;
+      iconNode = (
+        <img
+          src={mediaUrl}
+          alt={step.Stepname || `Step ${idx + 1}`}
+          className="w-full h-full object-contain"
+        />
+      );
     } else if (step.StepNameIcon) {
       iconNode = <div dangerouslySetInnerHTML={{ __html: step.StepNameIcon }} />;
     }
@@ -20,7 +26,12 @@ export default function ProcessRenderer({ section, index }: SectionRendererProps
       id: step.Stepname?.toLowerCase().replace(/\s+/g, "-") || `pillar-${idx}`,
       title: step.Stepname || `Step ${idx + 1}`,
       iconSvg: iconNode,
-      themeColor: step.ThemeColor || step.themeColor || step.Theme || (step.ProcessCard?.[0]?.BackgroundColor) || "#FBCBB5",
+      themeColor:
+        step.ThemeColor ||
+        step.themeColor ||
+        step.Theme ||
+        step.ProcessCard?.[0]?.BackgroundColor ||
+        "#FBCBB5",
       steps: (step.ProcessCard || []).map((card: any) => card.Name || ""),
       timelineItems: (step.ProcessCard || []).map((card: any) => ({
         label: card.Name || "",

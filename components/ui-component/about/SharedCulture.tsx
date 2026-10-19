@@ -16,7 +16,10 @@ interface SharedCultureProps {
   Pillarcard?: CulturePillar[];
   CtaButton?: string;
   CTALink?: string;
-  BgImage?: { data?: { attributes?: { url: string; alternativeText?: string } } } | { url: string; alternativeText?: string }[] | any;
+  BgImage?:
+    | { data?: { attributes?: { url: string; alternativeText?: string } } }
+    | { url: string; alternativeText?: string }[]
+    | any;
   BgGradient?: string;
   HeadingColor?: string;
   DescriptionColor?: string;
@@ -39,30 +42,54 @@ export default function SharedCulture({
   BgGradient,
   HeadingColor,
   DescriptionColor,
-  data
+  data,
 }: SharedCultureProps) {
   const defaultPillars: CulturePillar[] = [
-    { title: "Leadership", description: "We're trusted leaders in the industry and we value people who want to help us move fast, make a difference, and solve difficult challenges." },
-    { title: "Passion", description: "Our team cares deeply about the businesses and communities we serve. They understand that what we do makes a true difference in people's lives." },
-    { title: "Optimism", description: "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation." }
+    {
+      title: "Leadership",
+      description:
+        "We're trusted leaders in the industry and we value people who want to help us move fast, make a difference, and solve difficult challenges.",
+    },
+    {
+      title: "Passion",
+      description:
+        "Our team cares deeply about the businesses and communities we serve. They understand that what we do makes a true difference in people's lives.",
+    },
+    {
+      title: "Optimism",
+      description:
+        "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation.",
+    },
   ];
 
-  const pillars = (Pillarcard && Pillarcard.length > 0 ? Pillarcard : null) || (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultPillars;
+  const pillars =
+    (Pillarcard && Pillarcard.length > 0 ? Pillarcard : null) ||
+    (data?.cards && data.cards.length > 0 ? data.cards : null) ||
+    defaultPillars;
 
   // Extract media safely based on Strapi formats or fallback
-  let mediaUrls = [
-    "/assets/images/culture-bg-mobile.jpg",
-    "/assets/images/culture-bg.jpg"
-  ];
+  let mediaUrls = ["/assets/images/culture-bg-mobile.jpg", "/assets/images/culture-bg.jpg"];
   let mediaAlts = ["Team collaborating", "Team collaborating in modern office"];
 
   if (data?.media && data.media.length > 0) {
-    mediaUrls = [data.media[0]?.url || mediaUrls[0], data.media[1]?.url || data.media[0]?.url || mediaUrls[1]];
-    mediaAlts = [data.media[0]?.alternativeText || mediaAlts[0], data.media[1]?.alternativeText || data.media[0]?.alternativeText || mediaAlts[1]];
+    mediaUrls = [
+      data.media[0]?.url || mediaUrls[0],
+      data.media[1]?.url || data.media[0]?.url || mediaUrls[1],
+    ];
+    mediaAlts = [
+      data.media[0]?.alternativeText || mediaAlts[0],
+      data.media[1]?.alternativeText || data.media[0]?.alternativeText || mediaAlts[1],
+    ];
   } else if (BgImage) {
     if (Array.isArray(BgImage) && BgImage.length > 0) {
-      mediaUrls = [BgImage[0]?.url || mediaUrls[0], BgImage[1]?.url || BgImage[0]?.url || mediaUrls[1]];
-      mediaAlts = [BgImage[0]?.alternativeText || mediaAlts[0], BgImage[1]?.alternativeText || BgImage[0]?.alternativeText || mediaAlts[1]];
+      mediaUrls = [
+        BgImage[0]?.url || mediaUrls[0],
+        BgImage[1]?.url || BgImage[0]?.url || mediaUrls[1],
+      ];
+      mediaAlts = [
+        BgImage[0]?.alternativeText || mediaAlts[0],
+        BgImage[1]?.alternativeText || BgImage[0]?.alternativeText || mediaAlts[1],
+      ];
     } else if (BgImage.data) {
       const isArray = Array.isArray(BgImage.data);
       const firstMedia = isArray ? BgImage.data[0] : BgImage.data;
@@ -70,15 +97,18 @@ export default function SharedCulture({
 
       mediaUrls = [
         firstMedia?.attributes?.url || firstMedia?.url || mediaUrls[0],
-        secondMedia?.attributes?.url || secondMedia?.url || mediaUrls[1]
+        secondMedia?.attributes?.url || secondMedia?.url || mediaUrls[1],
       ];
       mediaAlts = [
         firstMedia?.attributes?.alternativeText || firstMedia?.alternativeText || mediaAlts[0],
-        secondMedia?.attributes?.alternativeText || secondMedia?.alternativeText || mediaAlts[1]
+        secondMedia?.attributes?.alternativeText || secondMedia?.alternativeText || mediaAlts[1],
       ];
     } else if (BgImage.url) {
       mediaUrls = [BgImage.url, BgImage.url];
-      mediaAlts = [BgImage.alternativeText || mediaAlts[0], BgImage.alternativeText || mediaAlts[1]];
+      mediaAlts = [
+        BgImage.alternativeText || mediaAlts[0],
+        BgImage.alternativeText || mediaAlts[1],
+      ];
     }
   }
 
@@ -88,15 +118,27 @@ export default function SharedCulture({
   const ctaUrl = CTALink || data?.cta?.[0]?.url || "/careers";
 
   // Determine optional background gradient if set
-  const isMisplacedVeil = BgGradient && (BgGradient.includes("#0a1628") || BgGradient.includes("10, 22, 40") || BgGradient.includes("10,22,40"));
+  const isMisplacedVeil =
+    BgGradient &&
+    (BgGradient.includes("#0a1628") ||
+      BgGradient.includes("10, 22, 40") ||
+      BgGradient.includes("10,22,40"));
   const gradientStyle = BgGradient && !isMisplacedVeil ? { background: BgGradient } : undefined;
 
   return (
-    <section id="culture" className="shared-culture-section relative overflow-hidden py-20 mt-[-1px] border-none bg-midnight" style={gradientStyle}>
+    <section
+      id="culture"
+      className="shared-culture-section relative overflow-hidden py-20 mt-[-1px] border-none bg-midnight"
+      style={gradientStyle}
+    >
       <div className="culture-bg shared-culture-bg absolute top-0 right-0 bottom-0 w-full md:w-[60%] z-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)] md:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
         <picture className="w-full h-full block">
           <source media="(max-width: 768px)" srcSet={mediaUrls[0]} />
-          <img src={mediaUrls[1]} alt={mediaAlts[1]} className="culture-bg-img shared-culture-bg-img w-full h-full object-cover block" />
+          <img
+            src={mediaUrls[1]}
+            alt={mediaAlts[1]}
+            className="culture-bg-img shared-culture-bg-img w-full h-full object-cover block"
+          />
         </picture>
       </div>
 
@@ -107,7 +149,7 @@ export default function SharedCulture({
       <div className="container mx-auto px-6 relative z-[2]">
         <div className="culture-content-grid shared-culture-content-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="culture-left-column shared-culture-left-column reveal max-w-[640px] text-left">
-            <h2 
+            <h2
               className="culture-hero-heading shared-culture-hero-heading font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white leading-[1.35] uppercase mb-4"
               style={{ color: HeadingColor || undefined }}
             >
@@ -122,7 +164,7 @@ export default function SharedCulture({
                   dangerouslySetInnerHTML={{ __html: descText }}
                 />
               ) : (
-                <p 
+                <p
                   className="culture-hero-desc shared-culture-hero-desc text-[1.05rem] leading-[1.8] text-white/80 mb-8"
                   style={{ color: DescriptionColor || undefined }}
                 >
@@ -130,11 +172,13 @@ export default function SharedCulture({
                 </p>
               )
             ) : (
-              <p 
+              <p
                 className="culture-hero-desc shared-culture-hero-desc text-[1.05rem] leading-[1.8] text-white/80 mb-8"
                 style={{ color: DescriptionColor || undefined }}
               >
-                Our infrastructure powers the connected world we all rely on. By joining our team, you&apos;ll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.
+                Our infrastructure powers the connected world we all rely on. By joining our team,
+                you&apos;ll be at the center of it all, helping us shape the future of connectivity
+                by playing a meaningful role in building the next generation of wireless technology.
               </p>
             )}
 
@@ -144,14 +188,16 @@ export default function SharedCulture({
                 const pDesc = pillar.Description || pillar.description || "";
                 return (
                   <React.Fragment key={index}>
-                    <div className={`culture-mobile-pillar shared-culture-mobile-pillar pillar-${index + 1} shared-culture-pillar-${index + 1} ${index === 0 ? "pb-6" : index === pillars.length - 1 ? "pt-6" : "py-6"}`}>
-                      <div 
+                    <div
+                      className={`culture-mobile-pillar shared-culture-mobile-pillar pillar-${index + 1} shared-culture-pillar-${index + 1} ${index === 0 ? "pb-6" : index === pillars.length - 1 ? "pt-6" : "py-6"}`}
+                    >
+                      <div
                         className="culture-mobile-pillar-title shared-culture-mobile-pillar-title font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase"
                         style={{ color: pillar.HeadingColor || undefined }}
                       >
                         {pTitle}
                       </div>
-                      <p 
+                      <p
                         className="culture-mobile-pillar-desc shared-culture-mobile-pillar-desc text-[0.9rem] leading-[1.65] text-white/80 m-0"
                         style={{ color: pillar.DescriptionColor || undefined }}
                       >
@@ -167,8 +213,8 @@ export default function SharedCulture({
             </div>
 
             <div className="reveal stagger-2 mt-9">
-              <Link 
-                href={ctaUrl} 
+              <Link
+                href={ctaUrl}
                 className="culture-cta-btn inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-sm font-semibold tracking-wider uppercase no-underline transition-all duration-300 hover:bg-white hover:-translate-y-0.5"
               >
                 {ctaLabel}

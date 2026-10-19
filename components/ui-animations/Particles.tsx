@@ -8,7 +8,7 @@ export default function Particles() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -41,7 +41,7 @@ export default function Particles() {
           vx: (Math.random() - 0.5) * 0.3,
           vy: (Math.random() - 0.5) * 0.3,
           radius: Math.random() * 1.5 + 0.5,
-          color: colors[Math.floor(Math.random() * colors.length)]
+          color: colors[Math.floor(Math.random() * colors.length)],
         });
       }
     };
@@ -52,16 +52,13 @@ export default function Particles() {
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-
         p.x += p.vx;
         p.y += p.vy;
-
 
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
-
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -70,7 +67,6 @@ export default function Particles() {
         ctx.shadowColor = p.color;
         ctx.fill();
         ctx.shadowBlur = 0;
-
 
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];

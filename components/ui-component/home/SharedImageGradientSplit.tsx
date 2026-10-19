@@ -49,7 +49,9 @@ export default function SharedImageGradientSplit({
   if (images.length >= 2) {
     const sorted = [...images].sort((a, b) => getWidth(b) - getWidth(a));
     if (getWidth(sorted[0]) === getWidth(sorted[1])) {
-      const isFirstMobile = extractUrl(images[0]).toLowerCase().includes('mobile') || extractUrl(images[0]).includes('1080x');
+      const isFirstMobile =
+        extractUrl(images[0]).toLowerCase().includes("mobile") ||
+        extractUrl(images[0]).includes("1080x");
       if (isFirstMobile) {
         desktopUrl = extractUrl(images[1]);
         mobileUrl = extractUrl(images[0]);
@@ -73,20 +75,40 @@ export default function SharedImageGradientSplit({
   const finalMobileUrl = GetStrapiMediaUrl(mobileUrl) || finalDesktopUrl;
 
   const defaultPointers: SectionPointer[] = [
-    { Heading: "Reliability", Description: "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on." },
-    { Heading: "Opportunity", Description: "Advanced wireless connectivity helps communities support the technology of today—and tomorrow—while also attracting businesses that require flexible, uninterrupted access to remote data and cloud services." },
-    { Heading: "Safety", Description: "In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters and other first responders can access the essential data they need to do their jobs effectively." }
+    {
+      Heading: "Reliability",
+      Description:
+        "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on.",
+    },
+    {
+      Heading: "Opportunity",
+      Description:
+        "Advanced wireless connectivity helps communities support the technology of today—and tomorrow—while also attracting businesses that require flexible, uninterrupted access to remote data and cloud services.",
+    },
+    {
+      Heading: "Safety",
+      Description:
+        "In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters and other first responders can access the essential data they need to do their jobs effectively.",
+    },
   ];
 
-  const pointersToRender = sectionPointers && sectionPointers.length > 0 ? sectionPointers : defaultPointers;
+  const pointersToRender =
+    sectionPointers && sectionPointers.length > 0 ? sectionPointers : defaultPointers;
 
   return (
-    <section className="shared-igs-section relative min-h-[720px] overflow-hidden bg-midnight p-0" id="image-gradient-split">
+    <section
+      className="shared-igs-section relative min-h-[720px] overflow-hidden bg-midnight p-0"
+      id="image-gradient-split"
+    >
       <div className="shared-igs-bg absolute top-0 right-0 bottom-0 w-full md:w-[60%] z-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)] md:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
         <picture className="w-full h-full block">
           <source media="(max-width: 767px)" srcSet={finalMobileUrl} />
           <source media="(min-width: 768px)" srcSet={finalDesktopUrl} />
-          <img src={finalDesktopUrl} alt={heading || "Section Background"} className="shared-igs-bg-img w-full h-full object-cover block" />
+          <img
+            src={finalDesktopUrl}
+            alt={heading || "Section Background"}
+            className="shared-igs-bg-img w-full h-full object-cover block"
+          />
         </picture>
       </div>
 
@@ -94,11 +116,18 @@ export default function SharedImageGradientSplit({
 
       <div className="container mx-auto px-6 relative z-[2] pt-[50px] pb-[54px]">
         <div className="shared-igs-inner max-w-[600px]">
-          <h2 className="section-title reveal challenges-heading shared-igs-heading font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]" style={{ color: HeadingColor || undefined }}>
+          <h2
+            className="section-title reveal challenges-heading shared-igs-heading font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+            style={{ color: HeadingColor || undefined }}
+          >
             {heading || "Keeping communities safe and connected"}
           </h2>
-          <p className="reveal stagger-1 shared-igs-body text-white/80 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]" style={{ color: DescriptionTextColor || undefined }}>
-            {description || "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes."}
+          <p
+            className="reveal stagger-1 shared-igs-body text-white/80 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
+            style={{ color: DescriptionTextColor || undefined }}
+          >
+            {description ||
+              "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes."}
           </p>
 
           <div className="reveal stagger-2 shared-igs-pointers mt-9 max-w-[600px] flex flex-col gap-0">
@@ -107,9 +136,21 @@ export default function SharedImageGradientSplit({
               const itemDesc = item.Description || item.description || "";
               return (
                 <div key={index}>
-                  <div className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}>
-                    <div className="shared-igs-pointer-heading font-heading text-[1.15rem] font-bold text-teal leading-[1.2] tracking-[0.06em] mb-1.5 uppercase" style={{ color: item.FontHeading || undefined }}>{itemHeading}</div>
-                    <p className="shared-igs-pointer-desc text-[0.9rem] leading-[1.65] text-white/80 m-0" style={{ color: item.FontDescription || undefined }}>{itemDesc}</p>
+                  <div
+                    className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}
+                  >
+                    <div
+                      className="shared-igs-pointer-heading font-heading text-[1.15rem] font-bold text-teal leading-[1.2] tracking-[0.06em] mb-1.5 uppercase"
+                      style={{ color: item.FontHeading || undefined }}
+                    >
+                      {itemHeading}
+                    </div>
+                    <p
+                      className="shared-igs-pointer-desc text-[0.9rem] leading-[1.65] text-white/80 m-0"
+                      style={{ color: item.FontDescription || undefined }}
+                    >
+                      {itemDesc}
+                    </p>
                   </div>
                   {index < array.length - 1 && (
                     <div className="shared-igs-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
@@ -128,8 +169,21 @@ export default function SharedImageGradientSplit({
                 target={ctaUrl.startsWith("http") ? "_blank" : undefined}
                 rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
               >
-                <span className="shared-igs-link-text text-xs uppercase tracking-[0.15em] text-white font-body font-normal leading-none transition-colors duration-300 group-hover:text-teal">{ctaText}</span>
-                <svg className="shared-igs-link-arrow w-4 h-4 text-teal transition-transform duration-300 group-hover:translate-x-1 inline-block" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <span className="shared-igs-link-text text-xs uppercase tracking-[0.15em] text-white font-body font-normal leading-none transition-colors duration-300 group-hover:text-teal">
+                  {ctaText}
+                </span>
+                <svg
+                  className="shared-igs-link-arrow w-4 h-4 text-teal transition-transform duration-300 group-hover:translate-x-1 inline-block"
+                  aria-hidden="true"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="8 17 13 12 8 7"></polyline>
                   <polyline points="14 17 19 12 14 7"></polyline>
                 </svg>

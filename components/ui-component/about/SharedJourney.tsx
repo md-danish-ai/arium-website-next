@@ -18,27 +18,57 @@ interface SharedJourneyProps {
   };
 }
 
-export default function SharedJourney({ Heading, Description, TimeCards, data }: SharedJourneyProps) {
+export default function SharedJourney({
+  Heading,
+  Description,
+  TimeCards,
+  data,
+}: SharedJourneyProps) {
   const defaultItems: SharedJourneyTimelineItem[] = [
-    { Title: "2010-2011", Content: "Acquisition of NewPath and NextG establishes early leadership in DAS and small cell infrastructure." },
-    { Title: "2011-2020", Content: "Platform expansion and operational integration across thousands of deployed nodes." },
-    { Title: "2020-2022", Content: "Long-term carrier commitments add 50,000 small cells over five years." },
-    { Title: "2026", Content: "Formation of Arium Networks with 100K+ small cells on-air or under contract.", BadgeText: "LIVE" }
+    {
+      Title: "2010-2011",
+      Content:
+        "Acquisition of NewPath and NextG establishes early leadership in DAS and small cell infrastructure.",
+    },
+    {
+      Title: "2011-2020",
+      Content: "Platform expansion and operational integration across thousands of deployed nodes.",
+    },
+    {
+      Title: "2020-2022",
+      Content: "Long-term carrier commitments add 50,000 small cells over five years.",
+    },
+    {
+      Title: "2026",
+      Content: "Formation of Arium Networks with 100K+ small cells on-air or under contract.",
+      BadgeText: "LIVE",
+    },
   ];
 
-  const rawCards = (TimeCards && TimeCards.length > 0 ? TimeCards : null) || (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultItems;
+  const rawCards =
+    (TimeCards && TimeCards.length > 0 ? TimeCards : null) ||
+    (data?.cards && data.cards.length > 0 ? data.cards : null) ||
+    defaultItems;
   const items = rawCards.map((c: any) => ({
     Title: c.Title || c.title || "",
     Content: c.Content || c.description || c.body || "",
     TitleColor: c.TitleColor || c.titleColor,
     BadgeText: c.BadgeText || c.badge || c.badgeText,
   }));
-  const accentTextClasses = ["text-[#009E94]", "text-[#7B6AB8]", "text-[#C48E68]", "text-[#009E94]"];
+  const accentTextClasses = [
+    "text-[#009E94]",
+    "text-[#7B6AB8]",
+    "text-[#C48E68]",
+    "text-[#009E94]",
+  ];
   const headingStr = Heading || data?.title || "A small cell leader from the beginning";
   const descStr = Description || data?.body;
 
   return (
-    <section id="shared-journey" className="section-light bg-white pt-20 pb-16 lg:pt-28 lg:pb-24 relative overflow-hidden z-[2]">
+    <section
+      id="shared-journey"
+      className="section-light bg-white pt-20 pb-16 lg:pt-28 lg:pb-24 relative overflow-hidden z-[2]"
+    >
       <div className="container mx-auto px-6 relative z-[2]">
         {/* Header */}
         <div className="section-header text-center mb-16 md:mb-20">
@@ -47,8 +77,8 @@ export default function SharedJourney({ Heading, Description, TimeCards, data }:
           </h2>
           {descStr ? (
             descStr.includes("<") && descStr.includes(">") ? (
-              <div 
-                className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed [&>p]:mb-0" 
+              <div
+                className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed [&>p]:mb-0"
                 dangerouslySetInnerHTML={{ __html: descStr }}
               />
             ) : (
@@ -58,7 +88,8 @@ export default function SharedJourney({ Heading, Description, TimeCards, data }:
             )
           ) : (
             <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
-              We&apos;ve been building small cell and DAS networks since the technology&apos;s inception, giving us a deep expertise that is embedded throughout our organization.
+              We&apos;ve been building small cell and DAS networks since the technology&apos;s
+              inception, giving us a deep expertise that is embedded throughout our organization.
             </p>
           )}
         </div>
@@ -72,17 +103,17 @@ export default function SharedJourney({ Heading, Description, TimeCards, data }:
             {items.map((item, index) => {
               const textClass = accentTextClasses[index % accentTextClasses.length];
               const itemTitle = item.Title || (item as any).title || "";
-              const itemDesc = item.Content || (item as any).content || (item as any).description || (item as any).body || "";
+              const itemDesc =
+                item.Content ||
+                (item as any).content ||
+                (item as any).description ||
+                (item as any).body ||
+                "";
               const itemBadge = item.BadgeText || (item as any).badge || (item as any).badgeText;
 
               return (
-                <div 
-                  key={index} 
-                  className="shared-journey-tl-item" 
-                >
-                  <span 
-                    className={`shared-journey-tl-year ${textClass}`}
-                  >
+                <div key={index} className="shared-journey-tl-item">
+                  <span className={`shared-journey-tl-year ${textClass}`}>
                     <span>{itemTitle}</span>
                     {itemBadge && (
                       <span className="shared-journey-tl-badge">

@@ -43,11 +43,7 @@ export async function generateMetadata({
 // ─────────────────────────────────────────────────────────────
 // Dynamic Page Component
 // ─────────────────────────────────────────────────────────────
-export default async function DynamicPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const [pageData, widgetData] = await Promise.all([
@@ -72,9 +68,7 @@ export default async function DynamicPage({
   globalWidgets.forEach((widget: any, index: number) => {
     const pos = widget.PositionNumber ?? index;
     if (!sectionsMap[pos]) sectionsMap[pos] = [];
-    sectionsMap[pos].push(
-      <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />
-    );
+    sectionsMap[pos].push(<GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
   });
 
   const sections: React.ReactElement[] = [];
@@ -83,9 +77,7 @@ export default async function DynamicPage({
     .forEach((key) => sections.push(...sectionsMap[Number(key)]));
 
   // ── Hero fallback ────────────────────────────────────────────
-  const hasHeroWidget = globalWidgets.some(
-    (w: any) => w.PositionNumber === 0
-  );
+  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
 
   if (!hasHeroWidget) {
     const heroMedia = pageContent?.heroMedia?.[0];

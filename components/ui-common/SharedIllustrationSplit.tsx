@@ -54,13 +54,17 @@ export default function SharedIllustrationSplit({
       id={id}
       className={`section-padding section-light relative overflow-hidden min-h-[420px] flex items-center bg-white ${isSolutions ? "py-12" : "py-24"}`}
     >
-      <div className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" />
+      <div
+        className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
+        aria-hidden="true"
+      />
 
       <div className="container mx-auto px-6 relative z-[1]">
         <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
-
           {/* Text Content Area */}
-          <div className={`sol-split-text flex flex-col ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
+          <div
+            className={`sol-split-text flex flex-col ${isMediaLeft ? "md:order-2" : "md:order-1"}`}
+          >
             {heading && (
               <h2
                 className="section-title text-left font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight mb-3 uppercase"
@@ -85,11 +89,22 @@ export default function SharedIllustrationSplit({
                   <div key={`stat-${index}`} className="sol-kpi-item flex flex-col gap-1">
                     {stat.Number ? (
                       <>
-                        <span className="sol-kpi-num font-heading text-3xl font-bold tracking-tight leading-none" style={{ color: stat.NumberColor || "#7c5cbf" }}>{stat.Number}</span>
-                        {stat.Label && <p className="sol-kpi-label text-xs uppercase tracking-wider text-midnight/70 m-0">{stat.Label}</p>}
+                        <span
+                          className="sol-kpi-num font-heading text-3xl font-bold tracking-tight leading-none"
+                          style={{ color: stat.NumberColor || "#7c5cbf" }}
+                        >
+                          {stat.Number}
+                        </span>
+                        {stat.Label && (
+                          <p className="sol-kpi-label text-xs uppercase tracking-wider text-midnight/70 m-0">
+                            {stat.Label}
+                          </p>
+                        )}
                       </>
                     ) : (
-                      <p className="sol-kpi-label-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0">{stat.Label}</p>
+                      <p className="sol-kpi-label-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0">
+                        {stat.Label}
+                      </p>
                     )}
                   </div>
                 ))}
@@ -97,9 +112,7 @@ export default function SharedIllustrationSplit({
             )}
 
             {/* Optional Bottom Divider */}
-            {showBottomDivider && (
-              <div className="w-full h-px bg-midnight/10 mt-7" />
-            )}
+            {showBottomDivider && <div className="w-full h-px bg-midnight/10 mt-7" />}
           </div>
 
           {/* Media Area */}
@@ -110,11 +123,10 @@ export default function SharedIllustrationSplit({
               <img
                 src={imgUrl}
                 alt={media?.[0]?.alternativeText || heading || "Illustration"}
-                className={`w-full h-auto opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${imgUrl.toLowerCase().endsWith('.svg') ? 'svg-recolor' : ''}`}
+                className={`w-full h-auto opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""}`}
               />
             </div>
           </div>
-
         </div>
       </div>
     </section>

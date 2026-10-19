@@ -25,7 +25,12 @@ interface SharedProcessProps {
   maxWidthTitle?: string;
 }
 
-export default function SharedProcess({ title, description, pillars, maxWidthTitle }: SharedProcessProps) {
+export default function SharedProcess({
+  title,
+  description,
+  pillars,
+  maxWidthTitle,
+}: SharedProcessProps) {
   const pathname = usePathname();
   const isRightOfWays = pathname?.includes("right-of-way");
   const [activeTab, setActiveTab] = useState(0);
@@ -50,12 +55,24 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
   return (
     <div className="border-none mt-[-1px] bg-white">
       <section className="relative overflow-hidden py-20 bg-white" id="process">
-        <div className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" />
-        <div className="infra-particles pointer-events-none absolute inset-0" id="process-particles" />
+        <div
+          className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="infra-particles pointer-events-none absolute inset-0"
+          id="process-particles"
+        />
         <div className="container mx-auto px-4 sm:px-6 relative z-[2] max-w-[1440px]">
-
           <div className="section-header text-center mb-14">
-            <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase mx-auto" style={maxWidthTitle || isRightOfWays ? { maxWidth: isRightOfWays ? (maxWidthTitle || "880px") : maxWidthTitle } : undefined}>
+            <h2
+              className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase mx-auto"
+              style={
+                maxWidthTitle || isRightOfWays
+                  ? { maxWidth: isRightOfWays ? maxWidthTitle || "880px" : maxWidthTitle }
+                  : undefined
+              }
+            >
               {title}
             </h2>
             <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 text-midnight text-base leading-relaxed">
@@ -70,8 +87,16 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
             aria-label="Service delivery process"
             style={
               isRightOfWays
-                ? { gridTemplateColumns: `repeat(${pillars.length}, 1fr)`, maxWidth: "1320px", gap: "20px" }
-                : { gridTemplateColumns: `repeat(${pillars.length}, 1fr)`, maxWidth: "1188px", gap: "24px" }
+                ? {
+                    gridTemplateColumns: `repeat(${pillars.length}, 1fr)`,
+                    maxWidth: "1320px",
+                    gap: "20px",
+                  }
+                : {
+                    gridTemplateColumns: `repeat(${pillars.length}, 1fr)`,
+                    maxWidth: "1188px",
+                    gap: "24px",
+                  }
             }
           >
             {pillars.map((pillar, index) => (
@@ -82,13 +107,13 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
                 aria-controls={`panel-${pillar.id}`}
                 id={`tab-${pillar.id}`}
                 tabIndex={activeTab === index ? 0 : -1}
-                className={`process-tab-btn ${activeTab === index ? 'active' : ''}`}
+                className={`process-tab-btn ${activeTab === index ? "active" : ""}`}
                 onClick={() => handleTabClick(index)}
                 onKeyDown={(e) => {
                   let newIndex = activeTab;
-                  if (e.key === 'ArrowRight') {
+                  if (e.key === "ArrowRight") {
                     newIndex = (activeTab + 1) % pillars.length;
-                  } else if (e.key === 'ArrowLeft') {
+                  } else if (e.key === "ArrowLeft") {
                     newIndex = (activeTab - 1 + pillars.length) % pillars.length;
                   }
                   if (newIndex !== activeTab && !isAnimating.current) {
@@ -98,11 +123,15 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
                     if (nextTab) nextTab.focus();
                   }
                 }}
-                style={{ "--accent-color": pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5", "--accent-shadow": "rgba(251, 203, 181, 0.4)" } as React.CSSProperties}
+                style={
+                  {
+                    "--accent-color":
+                      pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5",
+                    "--accent-shadow": "rgba(251, 203, 181, 0.4)",
+                  } as React.CSSProperties
+                }
               >
-                <span className="icon-wrap">
-                  {pillar.iconSvg}
-                </span>
+                <span className="icon-wrap">{pillar.iconSvg}</span>
                 <span className="tab-name">{pillar.title}</span>
               </button>
             ))}
@@ -114,7 +143,7 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
               {pillars.map((pillar, index) => {
                 const isActive = activeTab === index;
                 const isRollingOut = rollingOutTab === index;
-                const panelClass = isActive ? 'active' : (isRollingOut ? 'rolling-out' : '');
+                const panelClass = isActive ? "active" : isRollingOut ? "rolling-out" : "";
 
                 return (
                   <div
@@ -127,7 +156,15 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
                     className={`row-detail-panel hz-phase-panel ${panelClass}`}
                   >
                     <div className="mobile-phase-label">
-                      <div className="mobile-phase-icon" style={{ background: pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5" }}>
+                      <div
+                        className="mobile-phase-icon"
+                        style={{
+                          background:
+                            pillar.timelineItems?.[0]?.backgroundColor ||
+                            pillar.themeColor ||
+                            "#FBCBB5",
+                        }}
+                      >
                         {pillar.iconSvg}
                       </div>
                       {pillar.title}
@@ -180,7 +217,6 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
               })}
             </div>
           </div>
-
         </div>
       </section>
     </div>

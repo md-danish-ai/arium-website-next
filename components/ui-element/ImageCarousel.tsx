@@ -17,7 +17,7 @@ export default function ImageCarousel({ images, intervalMs = 2500 }: ImageCarous
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, intervalMs);
-    
+
     return () => clearInterval(timer);
   }, [images.length, intervalMs]);
 
@@ -25,22 +25,17 @@ export default function ImageCarousel({ images, intervalMs = 2500 }: ImageCarous
     <div className="ov-showcase reveal stagger-1">
       <div className="ov-showcase-stage">
         {images.map((img, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className={`ov-showcase-slide ${index === currentIndex ? "is-active" : ""}`}
           >
-            <Image 
-              src={img.src} 
-              alt={img.alt} 
-              fill
-              className="object-cover"
-            />
+            <Image src={img.src} alt={img.alt} fill className="object-cover" />
           </div>
         ))}
       </div>
       <div className="ov-showcase-nav">
         {images.map((_, index) => (
-          <button 
+          <button
             key={index}
             className={`ov-showcase-dot ${index === currentIndex ? "is-active" : ""}`}
             onClick={() => setCurrentIndex(index)}

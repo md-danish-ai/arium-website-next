@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,45 +19,19 @@
       }
     ],
     "paths": {
-      "@ui-common": [
-        "./components/ui-common"
-      ],
-      "@ui-common/*": [
-        "./components/ui-common/*"
-      ],
-      "@ui-component": [
-        "./components/ui-component"
-      ],
-      "@ui-component/*": [
-        "./components/ui-component/*"
-      ],
-      "@ui-shared": [
-        "./components/ui-shared"
-      ],
-      "@ui-shared/*": [
-        "./components/ui-shared/*"
-      ],
-      "@ui-element/*": [
-        "./components/ui-element/*"
-      ],
-      "@ui-layout/*": [
-        "./components/ui-layout/*"
-      ],
-      "@ui-animations/*": [
-        "./components/ui-animations/*"
-      ],
-      "@lib": [
-        "./lib"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@hooks/*": [
-        "./hooks/*"
-      ],
-      "@public/*": [
-        "./public/*"
-      ]
+      "@ui-common": ["./components/ui-common"],
+      "@ui-common/*": ["./components/ui-common/*"],
+      "@ui-component": ["./components/ui-component"],
+      "@ui-component/*": ["./components/ui-component/*"],
+      "@ui-shared": ["./components/ui-shared"],
+      "@ui-shared/*": ["./components/ui-shared/*"],
+      "@ui-element/*": ["./components/ui-element/*"],
+      "@ui-layout/*": ["./components/ui-layout/*"],
+      "@ui-animations/*": ["./components/ui-animations/*"],
+      "@lib": ["./lib"],
+      "@lib/*": ["./lib/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@public/*": ["./public/*"]
     }
   },
   "include": [
@@ -72,7 +42,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

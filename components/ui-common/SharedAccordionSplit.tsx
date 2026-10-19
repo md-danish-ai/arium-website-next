@@ -45,9 +45,7 @@ function extractImageUrl(bgImg: any): string {
 
 function resolveItemImage(item: any): string {
   const directUrl =
-    extractImageUrl(item.BgImage) ||
-    extractImageUrl(item.bgImage) ||
-    extractImageUrl(item.image);
+    extractImageUrl(item.BgImage) || extractImageUrl(item.bgImage) || extractImageUrl(item.image);
   return directUrl ? GetStrapiMediaUrl(directUrl) : "";
 }
 
@@ -58,8 +56,23 @@ function parseGridColumns(raw?: string): string {
 }
 
 function isImageVariant(items: any[], bgGradient?: string): boolean {
-  if (items.some((item) => extractImageUrl(item.BgImage) || extractImageUrl(item.bgImage) || extractImageUrl(item.image))) return true;
-  if (bgGradient && (bgGradient.includes("#0a0e20") || bgGradient.includes("#162047") || bgGradient.includes("rgba(10, 14, 32") || bgGradient.includes("var(--color-midnight-blue)"))) return true;
+  if (
+    items.some(
+      (item) =>
+        extractImageUrl(item.BgImage) ||
+        extractImageUrl(item.bgImage) ||
+        extractImageUrl(item.image)
+    )
+  )
+    return true;
+  if (
+    bgGradient &&
+    (bgGradient.includes("#0a0e20") ||
+      bgGradient.includes("#162047") ||
+      bgGradient.includes("rgba(10, 14, 32") ||
+      bgGradient.includes("var(--color-midnight-blue)"))
+  )
+    return true;
   return false;
 }
 
@@ -128,7 +141,8 @@ export default function SharedAccordionSplit({
   if (items.length === 0) return null;
 
   const leftTextColor = HeadingTextColor || (imageMode ? "#ffffff" : "var(--color-midnight-blue)");
-  const descriptionColor = DescriptionTextColor || (imageMode ? "rgba(255,255,255,0.85)" : "rgba(22,32,71,0.88)");
+  const descriptionColor =
+    DescriptionTextColor || (imageMode ? "rgba(255,255,255,0.85)" : "rgba(22,32,71,0.88)");
   const sectionBg = !imageMode
     ? BgGradient || "linear-gradient(135deg, #F5F0FF 0%, #EDE5FF 40%, #DDD3FF 100%)"
     : "var(--color-midnight-blue)";
@@ -141,7 +155,10 @@ export default function SharedAccordionSplit({
     >
       {/* Background images — image mode only */}
       {imageMode && (
-        <div className="sas-bg-images absolute left-0 top-0 bottom-0 w-full lg:w-[75%] z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div
+          className="sas-bg-images absolute left-0 top-0 bottom-0 w-full lg:w-[75%] z-0 pointer-events-none overflow-hidden"
+          aria-hidden="true"
+        >
           {items.map((item, i) => {
             const imgUrl = resolveItemImage(item);
             if (!imgUrl) return null;
@@ -161,22 +178,37 @@ export default function SharedAccordionSplit({
             );
           })}
           {/* Gradient overlay inside wrapper */}
-          <div className="sas-overlay absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#0a0e20]/80 via-[#0a0e20]/50 to-midnight" aria-hidden="true" />
+          <div
+            className="sas-overlay absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#0a0e20]/80 via-[#0a0e20]/50 to-midnight"
+            aria-hidden="true"
+          />
         </div>
       )}
 
       {/* Decorative blobs — gradient / light mode only */}
       {!imageMode && (
         <>
-          <div className="sas-blob sas-blob-1 absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -right-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]" aria-hidden="true" />
-          <div className="sas-blob sas-blob-2 absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -left-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]" aria-hidden="true" />
-          <div className="sas-blob sas-blob-3 absolute w-[400px] h-[400px] rounded-full pointer-events-none -bottom-[100px] -left-[50px] bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)]" aria-hidden="true" />
+          <div
+            className="sas-blob sas-blob-1 absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -right-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]"
+            aria-hidden="true"
+          />
+          <div
+            className="sas-blob sas-blob-2 absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -left-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]"
+            aria-hidden="true"
+          />
+          <div
+            className="sas-blob sas-blob-3 absolute w-[400px] h-[400px] rounded-full pointer-events-none -bottom-[100px] -left-[50px] bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)]"
+            aria-hidden="true"
+          />
         </>
       )}
 
       {/* Content */}
       <div className="container sas-container mx-auto px-6 relative z-[2]">
-        <div className="sas-two-col grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center" style={{ gridTemplateColumns: gridColumns }}>
+        <div
+          className="sas-two-col grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+          style={{ gridTemplateColumns: gridColumns }}
+        >
           {/* LEFT */}
           <div
             className="sas-col-left reveal flex flex-col"
@@ -187,7 +219,9 @@ export default function SharedAccordionSplit({
                 className={`section-title sas-heading font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.35] uppercase mb-4 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
-                  ...(isCareers ? { fontSize: "clamp(1.75rem, 2.2vw, 2.2rem)", lineHeight: 1.35 } : {}),
+                  ...(isCareers
+                    ? { fontSize: "clamp(1.75rem, 2.2vw, 2.2rem)", lineHeight: 1.35 }
+                    : {}),
                 }}
               >
                 {Heading}
@@ -210,14 +244,14 @@ export default function SharedAccordionSplit({
                 const itemBg = item.BgColor
                   ? item.BgColor
                   : imageMode
-                  ? "rgba(13,18,36,0.75)"
-                  : "#162047";
+                    ? "rgba(13,18,36,0.75)"
+                    : "#162047";
 
                 return (
                   <div
                     key={index}
                     className={`sas-item group flex flex-col justify-start p-4 rounded-xl border transition-all duration-400 cursor-pointer ${isActive ? "active border-teal/50 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]" : "border-white/10 hover:border-teal/30"}`}
-                    style={{ 
+                    style={{
                       backgroundColor: itemBg,
                     }}
                     onMouseEnter={() => handleMouseEnter(index)}
@@ -231,20 +265,26 @@ export default function SharedAccordionSplit({
                           aria-hidden="true"
                         />
                       )}
-                      <h3 
+                      <h3
                         className={`sas-item-title font-heading text-sm font-normal uppercase tracking-[0.15em] m-0 transition-colors duration-300 ${isActive ? "text-teal" : "text-white group-hover:text-teal"}`}
-                        style={{ color: isActive ? (item.TitleHoverColor || undefined) : (item.TitleColor || undefined) }}
+                        style={{
+                          color: isActive
+                            ? item.TitleHoverColor || undefined
+                            : item.TitleColor || undefined,
+                        }}
                       >
                         {item.Title}
                       </h3>
                     </div>
 
-                    <div className={`sas-item-body grid transition-[grid-template-rows] duration-500 ease-out pl-16 ${isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div
+                      className={`sas-item-body grid transition-[grid-template-rows] duration-500 ease-out pl-16 ${isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                    >
                       <div className="sas-item-body-inner min-h-0 overflow-hidden">
-                        <span 
+                        <span
                           className={`block font-body text-xs leading-relaxed text-white/80 pt-2 transition-all duration-500 ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}`}
                           style={{ color: item.DescriptionColor || undefined }}
-                          dangerouslySetInnerHTML={{ __html: item.Description || "" }} 
+                          dangerouslySetInnerHTML={{ __html: item.Description || "" }}
                         />
                       </div>
                     </div>

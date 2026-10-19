@@ -12,36 +12,51 @@ import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 export const dynamic = "force-dynamic";
 
-
 const CAREERS_CTA_DATA = {
   title: "Help us shape the future of connectivity",
-  description: "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",
+  description:
+    "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",
   buttonText: "Join Us",
-  buttonLink: "/careers"
+  buttonLink: "/careers",
 };
 
 const FINAL_CTA_DATA = {
   title: "Where can we take your network?",
-  description: "Building a new network? Densifying an existing one? Looking to improve coverage in a high-traffic venue or building? Let's talk about how we can help solve your infrastructure needs.",
+  description:
+    "Building a new network? Densifying an existing one? Looking to improve coverage in a high-traffic venue or building? Let's talk about how we can help solve your infrastructure needs.",
   buttonText: "Contact Us",
-  buttonLink: "/contact"
+  buttonLink: "/contact",
 };
 
 export default async function Home() {
   const [pageData, widgetData] = await Promise.all([
-    fetchAPI("/api/pages?filters[slug][$eq]=home&populate[sections][populate]=*&populate[sections][populate][cards][populate][image][populate]=*&populate[sections][populate][media][populate]=*&populate[heroMedia]=true&populate[heroCtas]=true"),
+    fetchAPI(
+      "/api/pages?filters[slug][$eq]=home&populate[sections][populate]=*&populate[sections][populate][cards][populate][image][populate]=*&populate[sections][populate][media][populate]=*&populate[heroMedia]=true&populate[heroCtas]=true"
+    ),
     fetchPageWidgets("home"),
   ]);
   const homeContent = pageData?.data?.[0];
-  const globalWidgets: any[] = (widgetData?.data?.[0]?.widgets) || [];
-  const networkChallengesData = homeContent?.sections?.find((section: any) => section.key === "What we do");
-  const infraData = homeContent?.sections?.find((section: any) => section.key === "Our Infrastructure");
-  const statsData = homeContent?.sections?.find((section: any) => section.key === "Scale and experience");
-  const communityData = homeContent?.sections?.find((section: any) => section.key === "Community Impact");
+  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const networkChallengesData = homeContent?.sections?.find(
+    (section: any) => section.key === "What we do"
+  );
+  const infraData = homeContent?.sections?.find(
+    (section: any) => section.key === "Our Infrastructure"
+  );
+  const statsData = homeContent?.sections?.find(
+    (section: any) => section.key === "Scale and experience"
+  );
+  const communityData = homeContent?.sections?.find(
+    (section: any) => section.key === "Community Impact"
+  );
   const careersData = homeContent?.sections?.find((section: any) => section.key === "Join Us");
   const finalCTAData = homeContent?.sections?.find((section: any) => section.key === "Contact Us");
 
-  const careersMedia = careersData?.media ? (Array.isArray(careersData.media) ? careersData.media[0]?.url : careersData.media?.data?.attributes?.url || careersData.media?.url) : null;
+  const careersMedia = careersData?.media
+    ? Array.isArray(careersData.media)
+      ? careersData.media[0]?.url
+      : careersData.media?.data?.attributes?.url || careersData.media?.url
+    : null;
   const careersBgImage = careersMedia ? GetStrapiMediaUrl(careersMedia) : undefined;
 
   const careersCTAProps = {
@@ -61,37 +76,41 @@ export default async function Home() {
 
   // Fallback check: Did Strapi give us a widget that contains CTA with Graphic?
   const hasCtaWithGraphicWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('cta-with-graphic'))
+    w.Sections?.some((s: any) => s.__component?.includes("cta-with-graphic"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains Centered Image CTA?
   const hasCenteredImageCtaWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('centered-image-cta'))
+    w.Sections?.some((s: any) => s.__component?.includes("centered-image-cta"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains ImageGradientSplit?
   const hasImageGradientSplitWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('image-gradient-split'))
+    w.Sections?.some((s: any) => s.__component?.includes("image-gradient-split"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains StatsWithImage?
   const hasStatsWithImageWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('stats-with-image'))
+    w.Sections?.some((s: any) => s.__component?.includes("stats-with-image"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains DetailedCardGrid?
   const hasDetailedCardGridWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('detailed-card-grid'))
+    w.Sections?.some((s: any) => s.__component?.includes("detailed-card-grid"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains MainHero?
   const hasMainHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('main-hero'))
+    w.Sections?.some((s: any) => s.__component?.includes("main-hero"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains Background Feature Section?
   const hasBackgroundFeatureWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('background-feature-section') || s.__component?.includes('backgroundfeaturesection'))
+    w.Sections?.some(
+      (s: any) =>
+        s.__component?.includes("background-feature-section") ||
+        s.__component?.includes("backgroundfeaturesection")
+    )
   );
 
   type SectionEntry = { pos: number; key: string; el: React.ReactElement };
@@ -101,7 +120,7 @@ export default async function Home() {
   if (!hasMainHeroWidget) {
     sectionMap.push({
       pos: 0,
-      key: 'hero',
+      key: "hero",
       el: (
         <SharedMainHero
           key="hero"
@@ -116,7 +135,7 @@ export default async function Home() {
   if (!hasBackgroundFeatureWidget) {
     sectionMap.push({
       pos: 1,
-      key: 'challenges',
+      key: "challenges",
       el: (
         <BackgroundFeatureSection
           key="challenges-fallback"
@@ -131,14 +150,18 @@ export default async function Home() {
 
   // Position 2 — Infrastructure panels
   if (!hasDetailedCardGridWidget) {
-    sectionMap.push({ pos: 2, key: 'infra', el: <SharedDetailedCardGrid key="infra" data={infraData} /> });
+    sectionMap.push({
+      pos: 2,
+      key: "infra",
+      el: <SharedDetailedCardGrid key="infra" data={infraData} />,
+    });
   }
 
   // Position 3 — Stats counter
   if (!hasStatsWithImageWidget) {
     sectionMap.push({
       pos: 3,
-      key: 'stats',
+      key: "stats",
       el: (
         <SharedStatsWithImage
           key="stats"
@@ -154,7 +177,7 @@ export default async function Home() {
   if (!hasImageGradientSplitWidget) {
     sectionMap.push({
       pos: 4,
-      key: 'community',
+      key: "community",
       el: (
         <SharedImageGradientSplit
           key="community"
@@ -173,7 +196,7 @@ export default async function Home() {
   if (!hasCenteredImageCtaWidget) {
     sectionMap.push({
       pos: 5,
-      key: 'careers',
+      key: "careers",
       el: (
         <SharedCenteredImageCTA
           key="careers"
@@ -191,7 +214,7 @@ export default async function Home() {
   if (!hasCtaWithGraphicWidget) {
     sectionMap.push({
       pos: 6,
-      key: 'finalcta',
+      key: "finalcta",
       el: (
         <SharedCtaWithGraphic
           key="finalcta"
@@ -206,7 +229,7 @@ export default async function Home() {
 
   // Add CMS widgets using their PositionNumber field
   globalWidgets.forEach((widget: any) => {
-    const pos = typeof widget.PositionNumber === 'number' ? widget.PositionNumber : 99;
+    const pos = typeof widget.PositionNumber === "number" ? widget.PositionNumber : 99;
     sectionMap.push({
       pos,
       key: `widget-${widget.id}`,
@@ -215,9 +238,7 @@ export default async function Home() {
   });
 
   // Sort by position, then render
-  const sections = sectionMap
-    .sort((a, b) => a.pos - b.pos)
-    .map((entry) => entry.el);
+  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map((entry) => entry.el);
 
   return (
     <>

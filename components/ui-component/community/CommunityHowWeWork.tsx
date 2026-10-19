@@ -47,25 +47,28 @@ export default function CommunityHowWeWork({ data }: CommunityHowWeWorkProps) {
           ) : (
             <div className="text-white/85 text-base md:text-lg leading-relaxed mb-9 space-y-5">
               <p className="reveal stagger-1 m-0">
-                We are expanding our small cell network across every major U.S. market. We use a structured, collaborative process that balances the needs of local communities, municipalities, and wireless carriers.
+                We are expanding our small cell network across every major U.S. market. We use a
+                structured, collaborative process that balances the needs of local communities,
+                municipalities, and wireless carriers.
               </p>
               <p className="reveal stagger-2 m-0">
-                This means building the vital connectivity that meets current needs while being ready for future technologies and growth.
+                This means building the vital connectivity that meets current needs while being
+                ready for future technologies and growth.
               </p>
             </div>
           )}
           {data?.cta ? (
-            <Link 
-              href={data.cta.url} 
-              aria-label={`${data.cta.label} about how we work in your community`} 
+            <Link
+              href={data.cta.url}
+              aria-label={`${data.cta.label} about how we work in your community`}
               className="reveal stagger-3 inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#00e8d9] text-[#162047] border-2 border-[#00e8d9] rounded-full px-10 py-3.5 hover:bg-transparent hover:text-[#00e8d9] transition-all duration-300 hover:-translate-y-0.5"
             >
               {data.cta.label}
             </Link>
           ) : (
-            <Link 
-              href="/right-of-ways" 
-              aria-label="Learn more about how we work in your community" 
+            <Link
+              href="/right-of-ways"
+              aria-label="Learn more about how we work in your community"
               className="reveal stagger-3 inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#00e8d9] text-[#162047] border-2 border-[#00e8d9] rounded-full px-10 py-3.5 hover:bg-transparent hover:text-[#00e8d9] transition-all duration-300 hover:-translate-y-0.5"
             >
               Learn More

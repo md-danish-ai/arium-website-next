@@ -17,10 +17,5 @@ export default function ImageCardGridRenderer({ section, index }: SectionRendere
     HeadingColor: section.HeadingColor,
   };
 
-  return (
-    <SharedImageCardGrid
-      key={`image-card-grid-${index}`}
-      data={data}
-    />
-  );
+  return <SharedImageCardGrid key={`image-card-grid-${index}`} data={data} />;
 }
