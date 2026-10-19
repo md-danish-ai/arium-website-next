@@ -59,55 +59,61 @@ export default function SharedInnerPageHero({
 
   return (
     <section
-      className="subpage-header"
+      className="subpage-header relative overflow-hidden"
       id={id}
       style={{
         background: backgroundGradient || "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)",
         padding: `200px 24px ${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "180px" : "80px"}`,
-        position: "relative",
-        overflow: "hidden"
       }}
     >
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.08) 0%, transparent 70%)", top: "-200px", right: "-100px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,200,170,0.15) 0%, transparent 70%)", bottom: "-100px", left: "-50px", pointerEvents: "none" }}></div>
+      <div className="absolute w-[600px] h-[600px] rounded-full [background:radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
+      <div className="absolute w-[400px] h-[400px] rounded-full [background:radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       {parentLabel && (
-        <nav className="reveal" aria-label="Breadcrumb" style={{ position: "absolute", top: "140px", left: 0, right: 0, zIndex: 2, padding: "0 clamp(24px, 4vw, 64px)" }}>
-          <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-body)", fontSize: "0.78rem", letterSpacing: "0.04em" }}>
+        <nav className="reveal absolute top-[140px] inset-x-0 z-[2] px-[clamp(24px,4vw,64px)]" aria-label="Breadcrumb">
+          <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-[0.78rem] tracking-[0.04em]">
             <li>
-              <Link href={parentUrl} style={{ color: "#162047", opacity: 0.5, textDecoration: "none", transition: "opacity 0.3s ease" }}>
+              <Link href={parentUrl} className="text-midnight/50 no-underline hover:text-midnight/80 transition-opacity">
                 {parentLabel}
               </Link>
             </li>
-            <li style={{ color: "#162047", opacity: 0.3, fontSize: "0.7rem" }}>/</li>
-            <li style={{ color: "#162047", opacity: 0.8, fontWeight: 500 }}>{cleanTitle}</li>
+            <li className="text-midnight/30 text-[0.7rem]">/</li>
+            <li className="text-midnight/80 font-medium">{cleanTitle}</li>
           </ol>
         </nav>
       )}
 
-      <div className="subpage-header-inner" style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-        <div className="subpage-header-text" style={{ alignItems: "center", textAlign: "center", maxWidth: contentMaxWidth || "960px", width: "100%" }}>
+      <div className="relative z-[1] flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center w-full mx-auto" style={{ maxWidth: contentMaxWidth || "960px" }}>
 
           {heroTag && (
             <>
-              <p className="reveal stagger-1" style={{ fontFamily: "var(--font-body)", fontSize: "1rem", fontWeight: 500, color: "#162047", opacity: 0.7, margin: "0 0 16px", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              <p className="reveal stagger-1 font-body text-base font-medium text-midnight/70 mb-4 tracking-[0.12em] uppercase">
                 {heroTag}
               </p>
-              <div className="reveal stagger-1" style={{ width: "48px", height: "2px", background: "#162047", margin: "0 auto 20px" }}></div>
+              <div className="reveal stagger-1 w-12 h-0.5 bg-midnight mx-auto mb-5" />
             </>
           )}
 
           {heroTitle && (
-            <h1 className="subpage-title reveal stagger-2" dangerouslySetInnerHTML={{ __html: heroTitle }} />
+            <h1 className="subpage-title reveal stagger-2 text-center" dangerouslySetInnerHTML={{ __html: heroTitle }} />
           )}
 
           {heroDescription && (
-            <p className="subpage-intro reveal stagger-3" dangerouslySetInnerHTML={{ __html: heroDescription }} />
+            <p className="subpage-intro reveal stagger-3 text-center" dangerouslySetInnerHTML={{ __html: heroDescription }} />
           )}
 
           {heroCtasLabel && heroCtasUrl && (
-            <div className="reveal stagger-4" style={{ marginTop: "28px" }}>
-              <Link href={heroCtasUrl} className="shared-hero-cta">{heroCtasLabel}</Link>
+            <div className="reveal stagger-4 mt-7">
+              <Link 
+                href={heroCtasUrl} 
+                className="group inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#162047] !text-white border-2 border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:!text-[#162047] transition-all duration-300 hover:-translate-y-0.5 no-underline shadow-sm cursor-pointer"
+                style={{ color: "#ffffff" }}
+              >
+                <span className="!text-white group-hover:!text-[#162047] transition-colors duration-300" style={{ color: "#ffffff" }}>
+                  {heroCtasLabel}
+                </span>
+              </Link>
             </div>
           )}
         </div>

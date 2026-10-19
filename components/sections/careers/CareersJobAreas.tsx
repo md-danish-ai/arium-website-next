@@ -26,55 +26,66 @@ const FALLBACK_JOB_AREAS = [
 export default function CareersJobAreas({ data }: CareersJobAreasProps) {
   const jobAreas = data?.cards?.length ? data.cards : FALLBACK_JOB_AREAS;
   return (
-    <section id="job-areas" className="section-light" style={{ background: "transparent !important", padding: "120px 0", position: "relative", overflow: "hidden" }}>
-      <div className="infra-grid-bg" aria-hidden="true"></div>
+    <section id="job-areas" className="section-light bg-transparent py-24 md:py-32 relative overflow-hidden">
+      <div className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none" aria-hidden="true" />
 
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
+      <div className="container relative z-[2]">
         {/* Centered Header */}
-        <div className="section-header text-center" style={{ marginBottom: "56px" }}>
-          <h2 className="section-title reveal stagger-1" style={{ fontWeight: 400, letterSpacing: "0.06em", maxWidth: "880px", margin: "0 auto", fontSize: "2.4rem", lineHeight: 1.45, color: "#162047" }}>
+        <div className="section-header text-center mb-14">
+          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide max-w-[880px] mx-auto text-3xl md:text-4xl text-[#162047] leading-snug">
             {data?.title || "Our Core Job Areas"}
           </h2>
           {data?.body ? (
             <div 
-              className="reveal stagger-1" 
-              style={{ color: "rgba(22,32,71,0.8)", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: "800px", margin: "20px auto 0" }}
+              className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5" 
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="reveal stagger-1" style={{ color: "rgba(22,32,71,0.8)", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: "800px", margin: "20px auto 0" }}>Our teams work cross-functionally to design, build, and support wireless infrastructure. These core job types include:</p>
+            <p className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5">
+              Our teams work cross-functionally to design, build, and support wireless infrastructure. These core job types include:
+            </p>
           )}
         </div>
 
-        <div className="cr-jobs-grid">
+        <div className="cr-jobs-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* LEFT: Job list + CTA */}
-          <div className="cr-jobs-left" style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 0, flex: 1 }}>
+          <div className="cr-jobs-left flex flex-col justify-between">
+            <div className="flex flex-col flex-1 divide-y divide-[#162047]/15">
               {jobAreas.map((area, index) => {
                 const accentColor = JOB_AREA_ACCENTS[index % JOB_AREA_ACCENTS.length];
                 return (
-                  <div key={index} className={`cr-job-box reveal stagger-${(index % 5) + 1}`} style={{ "--item-accent": accentColor } as React.CSSProperties}>
-                    <h3 className="cr-job-box-title">{area.title}</h3>
+                  <div key={index} className={`cr-job-box reveal stagger-${(index % 5) + 1} py-5 flex items-center`} style={{ "--item-accent": accentColor } as React.CSSProperties}>
+                    <h3 className="cr-job-box-title inline-flex items-center gap-3 text-[#162047] text-base md:text-lg font-medium m-0 text-left">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#7C5CBF] flex-shrink-0" />
+                      {area.title}
+                    </h3>
                   </div>
                 );
               })}
             </div>
 
-            <div className="reveal stagger-5" style={{ marginTop: "36px" }}>
-              <Link href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL" target="_blank" rel="noopener noreferrer" className="btn-primary">Explore opportunities</Link>
+            <div className="reveal stagger-5 mt-9">
+              <Link 
+                href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-primary inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
+              >
+                Explore opportunities
+              </Link>
             </div>
           </div>
 
           {/* RIGHT: Image */}
           <div className="cr-jobs-right reveal">
-            <div className="cr-jobs-img-box">
+            <div className="cr-jobs-img-box relative rounded-[20px] overflow-hidden shadow-2xl h-[320px] lg:h-full min-h-[320px]">
               <Image
                 src="/assets/images/team.png"
                 alt="Arium Networks team collaborating in a modern office"
                 fill
-                style={{ objectFit: "cover", display: "block" }}
+                className="w-full h-full object-cover block"
               />
-              <div style={{ position: "absolute", inset: 0, borderRadius: "20px", border: "1px solid rgba(22,32,71,0.1)", pointerEvents: "none" }}></div>
+              <div className="absolute inset-0 rounded-[20px] border border-[#162047]/10 pointer-events-none" />
             </div>
           </div>
         </div>

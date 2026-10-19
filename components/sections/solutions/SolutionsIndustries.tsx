@@ -123,70 +123,74 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
   return (
     <section
       id="industries"
-      style={{ overflow: "hidden", position: "relative", padding: "80px 0", background: "var(--color-midnight-blue)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+      className="relative overflow-hidden py-20 bg-[#101830] border-y border-white/5"
       onMouseLeave={handleMouseLeave}
     >
       {/* Background images wrapper (Split: left portion only) */}
-      <div className="ind-bg-wrapper">
+      <div className="ind-bg-wrapper absolute left-0 top-0 bottom-0 w-3/4 z-0 pointer-events-none overflow-hidden">
         {displayIndustries.map((industry, index) => (
           <Image
             key={index}
-            className={`ind-bg-img ${index === currentIndex ? 'active' : ''}`}
+            className={`ind-bg-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100 z-0' : 'opacity-0'}`}
             src={industry.bgImage || "/assets/images/industry-stadiums.png"}
             alt={industry.title}
             fill
-            style={{
-              objectFit: "cover",
-              objectPosition: "center center",
-              opacity: index === currentIndex ? 1 : 0,
-              zIndex: index === currentIndex ? 1 : 0,
-              transition: "opacity 1s ease"
-            }}
           />
         ))}
         {/* Gradient overlay inside wrapper */}
-        <div className="ind-bg-overlay"></div>
+        <div className="ind-bg-overlay absolute inset-0 z-[1] bg-gradient-to-r from-[#0a0e20]/80 via-[#0a0e20]/50 to-[#101830]" />
       </div>
 
       {/* Two-column layout: heading left, pillars right */}
-      <div style={{ maxWidth: "1440px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        <div className="ind-two-col">
+      <div className="max-w-[1440px] mx-auto px-6 relative z-[2]">
+        <div className="ind-two-col grid grid-cols-1 lg:grid-cols-[1.4fr_0.9fr] gap-12 lg:gap-20 items-start">
           {/* LEFT: Section heading & description */}
-          <div className="ind-col-left reveal">
-            <h2 className="section-title" style={{ textAlign: "left", marginBottom: "24px", fontWeight: 300 }}>
+          <div className="ind-col-left reveal lg:sticky lg:top-36 max-w-[540px]">
+            <h2 className="section-title text-left font-heading font-light text-3xl md:text-5xl uppercase tracking-wider text-white mb-6">
               {data?.title || "Industries That Require Advanced Connectivity"}
             </h2>
             {data?.body ? (
               <div
-                className="section-description strapi-richtext-body"
-                style={{ textAlign: "left", margin: 0 }}
+                className="section-description strapi-richtext-body text-white/80 text-base md:text-lg leading-relaxed text-left m-0"
                 dangerouslySetInnerHTML={{ __html: data.body }}
               />
             ) : (
-              <p className="section-description" style={{ textAlign: "left", margin: 0 }}>We partner with industries like yours, designing the right mix of small cells and DAS to meet performance, aesthetic, and operational requirements, all while leveraging our long-standing relationships with MNOs, utilities, public safety agencies, and more.</p>
+              <p className="section-description text-white/80 text-base md:text-lg leading-relaxed text-left m-0">
+                We partner with industries like yours, designing the right mix of small cells and DAS to meet performance, aesthetic, and operational requirements, all while leveraging our long-standing relationships with MNOs, utilities, public safety agencies, and more.
+              </p>
             )}
           </div>
 
           {/* RIGHT: Industry pillars */}
-          <div className="ind-col-right">
-            <div className="reveal ind-accordion-container" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div className="ind-col-right w-full flex flex-col justify-center lg:relative lg:left-6">
+            <div className="reveal ind-accordion-container flex flex-col gap-2">
               {displayIndustries.map((industry, index) => {
                 const isActive = index === currentIndex;
                 return (
                   <div
                     key={index}
-                    className={`ind-interactive-item ${isActive ? 'active' : ''}`}
+                    className={`ind-interactive-item group flex flex-col justify-start p-4 rounded-lg border transition-all duration-300 cursor-pointer ${isActive
+                      ? 'border-white/30 bg-[#0d1224]/90 shadow-lg'
+                      : 'border-white/10 bg-[#0d1224]/75 hover:border-white/20 hover:bg-[#0d1224]/85'
+                      }`}
                     data-theme={industry.theme}
                     onMouseEnter={() => handleMouseEnter(index)}
                   >
-                    <div className="ind-item-header">
+                    <div className="ind-item-header relative flex items-center min-h-[48px] pl-16 gap-0">
                       {industry.icon && (
-                        <span dangerouslySetInnerHTML={{ __html: industry.icon }} />
+                        <span 
+                          className={`ind-icon-svg absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center flex-shrink-0 transition-colors duration-300 [&>svg]:w-full [&>svg]:h-full ${
+                            isActive ? 'text-teal stroke-teal' : 'text-white/60 stroke-white/60 group-hover:text-teal group-hover:stroke-teal'
+                          }`} 
+                          dangerouslySetInnerHTML={{ __html: industry.icon }} 
+                        />
                       )}
-                      <h3 className="ind-interactive-title">{industry.title}</h3>
+                      <h3 className="ind-interactive-title font-heading text-sm font-normal text-white uppercase tracking-[0.15em] m-0 transition-colors duration-300 group-hover:text-teal">
+                        {industry.title}
+                      </h3>
                     </div>
-                    <div className="ind-expand-desc">
-                      <span>{industry.description}</span>
+                    <div className={`ind-expand-desc overflow-hidden transition-all duration-300 ${isActive ? 'max-h-40 opacity-100 pt-2 pl-16' : 'max-h-0 opacity-0'}`}>
+                      <span className="text-white/70 text-xs md:text-sm leading-relaxed block">{industry.description}</span>
                     </div>
                   </div>
                 );

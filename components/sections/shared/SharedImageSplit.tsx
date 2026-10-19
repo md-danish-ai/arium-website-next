@@ -52,42 +52,19 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
 
   return (
     <section
-      className="shared-image-split"
-      style={{
-        ...bgStyle,
-        padding: "100px 0",
-        position: "relative",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-
-      }}
+      className="shared-image-split relative overflow-hidden py-24 flex items-center"
+      style={bgStyle}
     >
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
+      <div className="container mx-auto px-6 relative z-[1]">
         <div
-          className={`image-split-grid ${isMediaLeft ? "image-split-reverse" : ""}`}
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMediaLeft ? "3fr 2fr" : "2fr 3fr",
-            gap: "48px",
-            alignItems: "start",
-          }}
+          className={`image-split-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isMediaLeft ? "image-split-reverse" : ""}`}
         >
           {/* Text Content Area */}
-          <div className="image-split-text" style={{ order: isMediaLeft ? 2 : 1 }}>
+          <div className={`image-split-text flex flex-col ${isMediaLeft ? "lg:order-2" : "lg:order-1"}`}>
             {Heading && (
               <h2
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  textAlign: "left",
-                  fontWeight: 400,
-                  letterSpacing: "0.06em",
-                  fontSize: "2.4rem",
-                  lineHeight: 1.4,
-                  color: HeadingColor || "#162047",
-                  marginBottom: "24px",
-                  textTransform: "uppercase",
-                }}
+                className="font-heading text-left font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.4] text-midnight mb-6 uppercase"
+                style={{ color: HeadingColor || undefined }}
               >
                 {Heading}
               </h2>
@@ -95,14 +72,8 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
 
             {Description && (
               <div
-                className="strapi-richtext-body"
-                style={{
-                  fontSize: "1.05rem",
-                  lineHeight: 1.8,
-                  color: DescriptionColor || "#162047",
-                  marginBottom: "40px",
-                  opacity: 0.85,
-                }}
+                className="strapi-richtext-body text-[1.05rem] leading-[1.8] text-midnight mb-10 opacity-85 flex flex-col gap-4 [&>p]:mb-0"
+                style={{ color: DescriptionColor || undefined }}
                 dangerouslySetInnerHTML={{ __html: Description }}
               />
             )}
@@ -110,24 +81,7 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
             {CTAText && CTAUrl && (
               <Link
                 href={CTAUrl}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  padding: "14px 32px",
-                  backgroundColor: "#162047",
-                  color: "#ffffff",
-                  fontFamily: "var(--font-heading)",
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  borderRadius: "50px",
-                  border: "2px solid #162047",
-                  textDecoration: "none",
-                  transition: "all 0.3s ease",
-                }}
-                className="image-split-cta"
+                className="image-split-cta inline-flex items-center gap-3 px-8 py-3.5 bg-midnight text-white font-heading text-[0.85rem] font-semibold uppercase tracking-[0.1em] rounded-full border-2 border-midnight hover:bg-transparent hover:text-midnight transition-all duration-300 self-start no-underline"
               >
                 {CTAText}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
@@ -137,22 +91,13 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
 
           {/* Media Area */}
           <div
-            className="image-split-media"
-            style={{
-              order: isMediaLeft ? 1 : 2,
-              position: "relative",
-              width: "100%",
-              height: "500px",
-              borderRadius: "20px",
-              overflow: "hidden",
-              boxShadow: "0 20px 40px rgba(22,32,71,0.08)",
-            }}
+            className={`image-split-media relative w-full h-[360px] sm:h-[440px] md:h-[500px] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(22,32,71,0.08)] ${isMediaLeft ? "lg:order-1" : "lg:order-2"}`}
           >
             <Image
               src={imgUrl}
               alt={Heading || "Split Section Image"}
               fill
-              style={{ objectFit: "cover" }}
+              className="object-cover"
             />
           </div>
         </div>

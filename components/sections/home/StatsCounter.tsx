@@ -68,12 +68,12 @@ export default function StatsCounter({ data }: StatsCounterProps) {
   }
 
   return (
-    <section id="stats" ref={sectionRef} style={{ position: "relative", overflow: "hidden", padding: "120px 0", background: "var(--color-midnight-blue)" }}>
-      <div style={{ position: "absolute", top: "50%", left: "30%", transform: "translate(-50%, -50%)", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(0, 232, 217, 0.03) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }}></div>
+    <section id="stats" ref={sectionRef} className="relative overflow-hidden py-[120px] bg-midnight">
+      <div className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] [background:radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
 
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div className="section-header text-center" style={{ marginBottom: "64px" }}>
-          <h2 className="section-title reveal" style={{ color: "#ffffff", fontSize: "2.4rem", fontWeight: 400, letterSpacing: "0.06em", margin: "0 auto", lineHeight: 1.45, textAlign: "center", maxWidth: "100%", whiteSpace: "normal" }}>
+      <div className="container relative z-[1]">
+        <div className="section-header text-center mb-16">
+          <h2 className="section-title reveal text-white text-[2.4rem] font-normal tracking-[0.06em] mx-auto leading-[1.45] text-center max-w-full whitespace-normal">
             {data?.title || "Scale and experience to match your ambition"}
           </h2>
         </div>
@@ -90,7 +90,7 @@ export default function StatsCounter({ data }: StatsCounterProps) {
                 const isLastSpan2 = index === array.length - 1 && array.length % 2 !== 0;
 
                 return (
-                  <div className={`stats-bento-card ${colorClass} ${isLastSpan2 ? 'span-2' : ''}`} style={isLastSpan2 ? { alignItems: "center", textAlign: "center" } : undefined} key={index}>
+                  <div className={`stats-bento-card ${colorClass} ${isLastSpan2 ? 'span-2 !items-center !text-center' : ''}`} key={index}>
                     <div>
                       <span className="stats-number counter" data-target={target} data-suffix={suffix}>0</span>
                     </div>
@@ -128,7 +128,7 @@ export default function StatsCounter({ data }: StatsCounterProps) {
                   <p>Years of expertise</p>
                 </div>
 
-                <div className="stats-bento-card bg-orange span-2" style={{ alignItems: "center", textAlign: "center" }}>
+                <div className="stats-bento-card bg-orange span-2 !items-center !text-center">
                   <div>
                     <span className="stats-number counter" data-target="24" data-suffix="/7">0</span>
                   </div>

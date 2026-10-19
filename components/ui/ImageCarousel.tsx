@@ -33,7 +33,7 @@ export default function ImageCarousel({ images, intervalMs = 2500 }: ImageCarous
               src={img.src} 
               alt={img.alt} 
               fill
-              style={{ objectFit: "cover" }}
+              className="object-cover"
             />
           </div>
         ))}

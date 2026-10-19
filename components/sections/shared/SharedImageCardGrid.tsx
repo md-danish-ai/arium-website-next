@@ -41,23 +41,24 @@ const FALLBACK_BENEFITS = [
 export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) {
   const benefits: any[] = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
   return (
-    <section id="benefits" style={{ background: "var(--color-secondary-grey)", padding: "120px 0", position: "relative", overflow: "hidden" }}>
-      <div className="infra-grid-bg" aria-hidden="true"></div>
+    <section id="benefits" className="relative overflow-hidden py-[120px] bg-secondary-grey">
+      <div className="infra-grid-bg" aria-hidden="true" />
       <ParticleBackground id="benefits-particles" count={35} />
 
-      <div style={{ position: "absolute", top: "-100px", left: "-80px", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(0,232,217,0.04) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", bottom: "-80px", right: "-80px", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(210,199,255,0.06) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }}></div>
+      <div className="absolute -top-[100px] -left-[80px] w-[500px] h-[500px] [background:radial-gradient(circle,rgba(0,232,217,0.04)_0%,transparent_70%)] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-[80px] -right-[80px] w-[400px] h-[400px] [background:radial-gradient(circle,rgba(210,199,255,0.06)_0%,transparent_70%)] rounded-full pointer-events-none" />
 
-
-
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <div className="section-header text-center" style={{ marginBottom: "64px" }}>
-          <h2 className="section-title cm-section-title reveal stagger-1" style={{ fontWeight: 400, letterSpacing: "0.06em", maxWidth: "880px", margin: "0 auto", fontSize: "2.4rem", lineHeight: 1.45, color: data?.HeadingColor || "#162047" }}>
+      <div className="container mx-auto px-6 relative z-[2]">
+        <div className="section-header text-center mb-16">
+          <h2 
+            className="section-title cm-section-title reveal stagger-1 font-normal tracking-[0.08em] max-w-[880px] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] uppercase text-[#162047]"
+            style={{ color: data?.HeadingColor || "#162047" }}
+          >
             {data?.title || "Why small cells matter"}
           </h2>
         </div>
 
-        <div className="reveal stagger-2 image-card-grid">
+        <div className="reveal stagger-2 image-card-grid w-full">
           {benefits.map((benefit, index) => {
             let extractedUrl = "";
             if (typeof benefit.image === 'string') {
@@ -77,20 +78,26 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
               : (FALLBACK_BENEFITS[index]?.image || '/assets/images/placeholder.png');
 
             return (
-              <div key={index} style={{ padding: 0, textAlign: "center" }}>
-                <div style={{ marginBottom: "18px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div key={index} className="p-0 text-center flex flex-col items-center w-full">
+                <div className="mb-4 flex items-center justify-center">
                   <Image
                     src={imageUrl}
                     alt={benefit.title}
                     width={120}
                     height={120}
-                    style={{ width: "120px", height: "120px", objectFit: "contain", display: "block", mixBlendMode: "multiply" }}
+                    className="w-[120px] h-[120px] object-contain block mix-blend-multiply"
                   />
                 </div>
-                <div className="cm-pillar-title" style={{ fontFamily: "var(--font-heading)", fontSize: "1.55rem", fontWeight: 700, color: benefit.TitleColor || "#7C5CBF", lineHeight: 1, letterSpacing: "0.08em", marginBottom: "12px", textTransform: "uppercase" }}>
+                <div 
+                  className="cm-pillar-title font-heading text-[1.55rem] font-bold leading-none tracking-[0.08em] mb-3 uppercase" 
+                  style={{ color: benefit.TitleColor || "#7C5CBF" }}
+                >
                   {benefit.title}
                 </div>
-                <p className="cm-pillar-desc" style={{ fontSize: "0.9rem", lineHeight: 1.65, color: benefit.DescriptionColor || "#162047", margin: "0 0 28px" }}>
+                <p 
+                  className="cm-pillar-desc text-[0.92rem] leading-[1.65] mb-7 w-full" 
+                  style={{ color: benefit.DescriptionColor || "#162047" }}
+                >
                   {benefit.description}
                 </p>
               </div>

@@ -17,7 +17,7 @@ export default function FinalCTA({
     <section className="cta" id="contact">
       <div className="cta-flex-wrapper">
         <div className="cta-text-col">
-          <h2 className="cta-title reveal stagger-1" style={{ fontSize: "2.4rem", fontWeight: 400, letterSpacing: "0.06em", lineHeight: 1.45 }}>
+          <h2 className="cta-title reveal stagger-1 text-[2.4rem] font-normal tracking-[0.06em] leading-[1.45]">
             {title}
           </h2>
           <p className="cta-description reveal stagger-2">

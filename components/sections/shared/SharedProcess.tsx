@@ -48,17 +48,17 @@ export default function SharedProcess({ title, description, pillars, maxWidthTit
   // The V6.1 html hardcodes rgba(0, 232, 217, 0.15).
 
   return (
-    <div className="row-storyteller-flow" style={{ marginTop: "-1px", border: "none" }}>
-      <section className="section-light" id="process" style={{ background: "transparent", padding: "80px 0", position: "relative", overflow: "hidden" }}>
-        <div className="infra-grid-bg" aria-hidden="true"></div>
-        <div className="infra-particles" id="process-particles"></div>
-        <div className="container" style={{ position: "relative", zIndex: 2 }}>
+    <div className="border-none mt-[-1px] bg-white">
+      <section className="relative overflow-hidden py-20 bg-white" id="process">
+        <div className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" />
+        <div className="infra-particles pointer-events-none absolute inset-0" id="process-particles" />
+        <div className="container mx-auto px-4 sm:px-6 relative z-[2] max-w-[1440px]">
 
-          <div className="section-header text-center" style={{ marginBottom: "56px" }}>
-            <h2 className="section-title reveal stagger-1" style={{ fontWeight: 400, letterSpacing: "0.06em", maxWidth: isRightOfWays ? (maxWidthTitle || "880px") : maxWidthTitle, margin: "0 auto", fontSize: "2.4rem", lineHeight: 1.45, color: "#162047", textTransform: "uppercase" }}>
+          <div className="section-header text-center mb-14">
+            <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase mx-auto" style={maxWidthTitle || isRightOfWays ? { maxWidth: isRightOfWays ? (maxWidthTitle || "880px") : maxWidthTitle } : undefined}>
               {title}
             </h2>
-            <p className="section-description reveal stagger-2" style={{ maxWidth: "780px", margin: "16px auto 0", color: "#162047" }}>
+            <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 text-midnight text-base leading-relaxed">
               {description}
             </p>
           </div>

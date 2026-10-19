@@ -106,14 +106,14 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
 
   return (
     <>
-      <section className="people-global-section" style={{ position: "relative", padding: "60px 0 100px" }}>
-        <div className="container">
-          <div className="people-grid-wrapper">
-            <div className="people-grid">
+      <section className="people-global-section relative bg-gradient-to-b from-[#EDE9FF] via-[#F3F0FF] to-[#F8F7FF] pt-[60px] pb-24">
+        <div className="container mx-auto px-6">
+          <div className="people-grid-wrapper max-w-[1200px] mx-auto -mt-[180px] relative z-[2]">
+            <div className="people-grid flex flex-wrap justify-center gap-6">
               {membersList.map((leader, index) => (
                 <div
                   key={index}
-                  className={`people-card reveal stagger-${(index % 4) + 1}`}
+                  className={`people-card reveal stagger-${(index % 4) + 1} relative rounded-xl overflow-hidden cursor-pointer aspect-[4/4.6] shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl group w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)]`}
                   onClick={(e) => openModal(leader, e.currentTarget)}
                   role="button"
                   tabIndex={0}
@@ -124,12 +124,12 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
                     }
                   }}
                 >
-                  <div className="people-card-img">
-                    <img src={leader.image} alt={leader.name} />
+                  <div className="people-card-img absolute inset-0 w-full h-full">
+                    <img src={leader.image} alt={leader.name} className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105" />
                   </div>
-                  <div className="people-card-overlay">
-                    <h2>{leader.name}</h2>
-                    <p>{leader.role}</p>
+                  <div className="people-card-overlay absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0a0e20]/85 via-[#0a0e20]/40 to-transparent z-[2]">
+                    <h2 className="font-heading font-semibold text-[0.92rem] text-white m-0 mb-0.5">{leader.name}</h2>
+                    <p className="text-[0.72rem] text-white/90 m-0 leading-tight">{leader.role}</p>
                   </div>
                 </div>
               ))}
@@ -139,16 +139,16 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
       </section>
 
       <div
-        className={`people-modal ${activeLeader ? 'active' : ''}`}
+        className={`people-modal fixed inset-0 z-[10000] flex items-center justify-center transition-all duration-350 ${activeLeader ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
         id="people-modal"
         aria-hidden={!activeLeader}
         role="dialog"
         aria-modal="true"
         ref={modalRef}
       >
-        <div className="people-modal-backdrop" onClick={closeModal}></div>
-        <div className="people-modal-content">
-          <button className="people-modal-close" onClick={closeModal} aria-label="Close">
+        <div className="people-modal-backdrop absolute inset-0 bg-[#0a0e20]/50 backdrop-blur-md" onClick={closeModal} />
+        <div className={`people-modal-content relative z-[1] w-[92vw] max-w-[1080px] max-h-[88vh] bg-midnight rounded-[20px] border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden transition-all duration-450 ${activeLeader ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-4 opacity-0'}`}>
+          <button className="people-modal-close absolute top-5 right-5 z-[5] bg-transparent border-none p-0 text-white/60 hover:text-white cursor-pointer transition-colors" onClick={closeModal} aria-label="Close">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
@@ -157,19 +157,19 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
           {activeLeader && (
             <>
               <div
-                className="people-modal-top"
+                className="people-modal-top flex items-center gap-8 p-8 md:p-12 border-b border-white/10 shrink-0"
                 style={{ backgroundColor: activeLeader.modalBg }}
               >
-                <div className="people-modal-photo-wrap">
-                  <img className="people-modal-photo" src={activeLeader.image} alt={activeLeader.name} />
+                <div className="people-modal-photo-wrap shrink-0">
+                  <img className="people-modal-photo w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover block" src={activeLeader.image} alt={activeLeader.name} />
                 </div>
-                <div className="people-modal-identity">
-                  <h2 className="people-modal-name">{activeLeader.name}</h2>
-                  <p className="people-modal-role">{activeLeader.role}</p>
+                <div className="people-modal-identity flex-1">
+                  <h2 className="people-modal-name font-heading text-[clamp(1.4rem,2.5vw,2rem)] font-normal text-white m-0 mb-1.5">{activeLeader.name}</h2>
+                  <p className="people-modal-role font-body text-sm text-teal m-0">{activeLeader.role}</p>
                 </div>
               </div>
               <div
-                className="people-modal-bottom"
+                className="people-modal-bottom p-8 md:p-12 overflow-y-auto text-white/85 text-[0.95rem] leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0"
                 dangerouslySetInnerHTML={{ __html: activeLeader.bio }}
               />
             </>

@@ -136,7 +136,7 @@ export default async function CareersPage() {
     sectionMap.push({
       pos: 4,
       key: 'benefits',
-      el: <div key="benefits" className="row-storyteller-flow"><CareersBenefits data={careersContent?.sections?.find((section: any) => section.key === "Benefits")} /></div>
+      el: <div key="benefits" className="bg-[#ededee]" style={{ background: "#ededee" }}><CareersBenefits data={careersContent?.sections?.find((section: any) => section.key === "Benefits")} /></div>
     });
     sectionMap.push({
       pos: 5,

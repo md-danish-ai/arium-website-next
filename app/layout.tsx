@@ -6,18 +6,6 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { fetchAPI } from "../lib/api";
 
 import "../public/css/globals.css";
-import "../public/css/shared-sections.css";
-import "../public/css/your-community.css";
-import "../public/css/solutions.css";
-import "../public/css/where.css";
-import "../public/css/contact.css";
-import "../public/css/about.css";
-import "../public/css/culture.css";
-import "../public/css/board.css";
-import "../public/css/careers.css";
-import "../public/css/leadership.css";
-import "../public/css/private-venues.css";
-import "../public/css/right-of-ways.css";
 
 export const dynamic = "force-dynamic";
 
@@ -72,7 +60,9 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <a href="#main-content" className="skip-link">Skip to main content</a>
+        <a href="#main-content" className="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:px-4 focus:py-2 focus:bg-teal focus:text-midnight focus:font-medium focus:rounded focus:outline-none">
+          Skip to main content
+        </a>
         <Header layoutData={layout} />
         {children}
         <Footer layoutData={layout} />

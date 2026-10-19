@@ -106,7 +106,7 @@ const renderProcess = (section: any, index: number) => {
       const mediaUrl = iconImg.url.startsWith("http") 
         ? iconImg.url 
         : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${iconImg.url}`;
-      iconNode = <img src={mediaUrl} alt={step.Stepname || `Step ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "contain" }} />;
+      iconNode = <img src={mediaUrl} alt={step.Stepname || `Step ${idx + 1}`} className="w-full h-full object-contain" />;
     } else if (step.StepNameIcon) {
       iconNode = <div dangerouslySetInnerHTML={{ __html: step.StepNameIcon }} />;
     }
@@ -617,10 +617,10 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
             const flowClass = hasIllustration ? "sol-storyteller-flow" : "about-storyteller-flow";
 
             return (
-              <div key={`flow-group-${groupIndex}`} className={flowClass} style={{ marginTop: "-1px", border: "none" }}>
-                <div className="flow-bg-gradient flow-bg-1" aria-hidden="true"></div>
-                <div className="flow-bg-gradient flow-bg-2" aria-hidden="true"></div>
-                <div className="flow-bg-gradient flow-bg-3" aria-hidden="true"></div>
+              <div key={`flow-group-${groupIndex}`} className={`${flowClass} -mt-px border-none`}>
+                <div className="flow-bg-gradient flow-bg-1 pointer-events-none" aria-hidden="true" />
+                <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
+                <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
                 {group.items.map((item: any) => renderNode(item.section, item.index))}
               </div>
             );

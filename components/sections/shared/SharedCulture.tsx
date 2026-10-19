@@ -20,25 +20,46 @@ interface SharedCultureProps {
   BgGradient?: string;
   HeadingColor?: string;
   DescriptionColor?: string;
+  data?: {
+    title?: string;
+    body?: string;
+    cards?: CulturePillar[];
+    cta?: { label: string; url: string }[];
+    media?: { url: string; alternativeText?: string }[];
+  };
 }
 
-export default function SharedCulture({ Heading, Description, Pillarcard, CtaButton, CTALink, BgImage, BgGradient, HeadingColor, DescriptionColor }: SharedCultureProps) {
+export default function SharedCulture({
+  Heading,
+  Description,
+  Pillarcard,
+  CtaButton,
+  CTALink,
+  BgImage,
+  BgGradient,
+  HeadingColor,
+  DescriptionColor,
+  data
+}: SharedCultureProps) {
   const defaultPillars: CulturePillar[] = [
-    { Heading: "Leadership", Description: "We're trusted leaders in the industry and we value people who want to help us move fast, make a difference, and solve difficult challenges." },
-    { Heading: "Passion", Description: "Our team cares deeply about the businesses and communities we serve. They understand that what we do makes a true difference in people's lives." },
-    { Heading: "Optimism", Description: "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation." }
+    { title: "Leadership", description: "We're trusted leaders in the industry and we value people who want to help us move fast, make a difference, and solve difficult challenges." },
+    { title: "Passion", description: "Our team cares deeply about the businesses and communities we serve. They understand that what we do makes a true difference in people's lives." },
+    { title: "Optimism", description: "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation." }
   ];
 
-  const pillars = (Pillarcard && Pillarcard.length > 0 ? Pillarcard : null) || defaultPillars;
+  const pillars = (Pillarcard && Pillarcard.length > 0 ? Pillarcard : null) || (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultPillars;
 
-  // Extract media safely based on Strapi v4 or v3 formats
+  // Extract media safely based on Strapi formats or fallback
   let mediaUrls = [
     "/assets/images/culture-bg-mobile.jpg",
     "/assets/images/culture-bg.jpg"
   ];
   let mediaAlts = ["Team collaborating", "Team collaborating in modern office"];
 
-  if (BgImage) {
+  if (data?.media && data.media.length > 0) {
+    mediaUrls = [data.media[0]?.url || mediaUrls[0], data.media[1]?.url || data.media[0]?.url || mediaUrls[1]];
+    mediaAlts = [data.media[0]?.alternativeText || mediaAlts[0], data.media[1]?.alternativeText || data.media[0]?.alternativeText || mediaAlts[1]];
+  } else if (BgImage) {
     if (Array.isArray(BgImage) && BgImage.length > 0) {
       mediaUrls = [BgImage[0]?.url || mediaUrls[0], BgImage[1]?.url || BgImage[0]?.url || mediaUrls[1]];
       mediaAlts = [BgImage[0]?.alternativeText || mediaAlts[0], BgImage[1]?.alternativeText || BgImage[0]?.alternativeText || mediaAlts[1]];
@@ -55,71 +76,109 @@ export default function SharedCulture({ Heading, Description, Pillarcard, CtaBut
         firstMedia?.attributes?.alternativeText || firstMedia?.alternativeText || mediaAlts[0],
         secondMedia?.attributes?.alternativeText || secondMedia?.alternativeText || mediaAlts[1]
       ];
+    } else if (BgImage.url) {
+      mediaUrls = [BgImage.url, BgImage.url];
+      mediaAlts = [BgImage.alternativeText || mediaAlts[0], BgImage.alternativeText || mediaAlts[1]];
     }
   }
 
-  // Determine optional background gradient if set (ignore misplaced #0a1628 veil gradient so it matches about.html's midnight-blue)
+  const headingText = Heading || data?.title || "Help Us Shape the Future of Connectivity";
+  const descText = Description || data?.body;
+  const ctaLabel = CtaButton || data?.cta?.[0]?.label || "Explore Careers";
+  const ctaUrl = CTALink || data?.cta?.[0]?.url || "/careers";
+
+  // Determine optional background gradient if set
   const isMisplacedVeil = BgGradient && (BgGradient.includes("#0a1628") || BgGradient.includes("10, 22, 40") || BgGradient.includes("10,22,40"));
-  const gradientStyle = BgGradient && !isMisplacedVeil ? { background: BgGradient } : { background: "var(--color-midnight-blue)" };
+  const gradientStyle = BgGradient && !isMisplacedVeil ? { background: BgGradient } : undefined;
 
   return (
-    <section className="shared-culture-section" style={{ position: "relative", overflow: "hidden", padding: "70px 0 75px", marginTop: "-1px", borderTop: "none", ...gradientStyle }}>
-      <div className="shared-culture-bg">
-        <picture style={{ width: "100%", height: "100%", display: "block" }}>
+    <section id="culture" className="shared-culture-section relative overflow-hidden py-20 mt-[-1px] border-none bg-midnight" style={gradientStyle}>
+      <div className="culture-bg shared-culture-bg absolute top-0 right-0 bottom-0 w-full md:w-[60%] z-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)] md:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
+        <picture className="w-full h-full block">
           <source media="(max-width: 768px)" srcSet={mediaUrls[0]} />
-          <img src={mediaUrls[1]} alt={mediaAlts[1]} className="shared-culture-bg-img" />
+          <img src={mediaUrls[1]} alt={mediaAlts[1]} className="culture-bg-img shared-culture-bg-img w-full h-full object-cover block" />
         </picture>
       </div>
 
-      <div className="shared-culture-veil"></div>
+      <div className="culture-veil shared-culture-veil absolute inset-0 z-[1] bg-gradient-to-t from-[#0a1628]/50 to-transparent pointer-events-none" />
 
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0, 232, 217, 0.06) 0%, transparent 70%)", top: "-200px", right: "-100px", pointerEvents: "none", zIndex: 1 }}></div>
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.06)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none z-[1]" />
 
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <div className="shared-culture-content-grid">
-          <div className="shared-culture-left-column reveal">
-            <h2 className="shared-culture-hero-heading" style={{ color: HeadingColor || undefined }}>{Heading || "Help Us Shape the Future of Connectivity"}</h2>
+      <div className="container mx-auto px-6 relative z-[2]">
+        <div className="culture-content-grid shared-culture-content-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="culture-left-column shared-culture-left-column reveal max-w-[640px] text-left">
+            <h2 
+              className="culture-hero-heading shared-culture-hero-heading font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white leading-[1.35] uppercase mb-4"
+              style={{ color: HeadingColor || undefined }}
+            >
+              {headingText}
+            </h2>
 
-            {Description ? (
-              <div
-                className="shared-culture-hero-desc strapi-richtext-body"
-                style={{ fontSize: "1.05rem", lineHeight: 1.8, color: DescriptionColor || "rgba(255, 255, 255, 0.8)", marginBottom: "32px" }}
-                dangerouslySetInnerHTML={{ __html: Description }}
-              />
+            {descText ? (
+              descText.includes("<") && descText.includes(">") ? (
+                <div
+                  className="culture-hero-desc shared-culture-hero-desc strapi-richtext-body text-[1.05rem] leading-[1.8] text-white/80 mb-8 flex flex-col gap-4 [&>p]:mb-0"
+                  style={{ color: DescriptionColor || undefined }}
+                  dangerouslySetInnerHTML={{ __html: descText }}
+                />
+              ) : (
+                <p 
+                  className="culture-hero-desc shared-culture-hero-desc text-[1.05rem] leading-[1.8] text-white/80 mb-8"
+                  style={{ color: DescriptionColor || undefined }}
+                >
+                  {descText}
+                </p>
+              )
             ) : (
-              <p className="shared-culture-hero-desc" style={{ color: DescriptionColor || undefined }}>Our infrastructure powers the connected world we all rely on. By joining our team, you&apos;ll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.</p>
+              <p 
+                className="culture-hero-desc shared-culture-hero-desc text-[1.05rem] leading-[1.8] text-white/80 mb-8"
+                style={{ color: DescriptionColor || undefined }}
+              >
+                Our infrastructure powers the connected world we all rely on. By joining our team, you&apos;ll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.
+              </p>
             )}
 
-            <div className="shared-culture-pillars-container" style={{ marginTop: "36px", maxWidth: "585px", display: "flex", flexDirection: "column", gap: 0 }}>
-              {pillars.map((pillar, index) => (
-                <React.Fragment key={index}>
-                  <div className={`shared-culture-mobile-pillar shared-culture-pillar-${index + 1}`} style={{ paddingBottom: index === pillars.length - 1 ? 0 : "24px", paddingTop: index === 0 ? 0 : "24px" }}>
-                    <div className="shared-culture-mobile-pillar-title" style={{ fontFamily: "var(--font-heading)", fontSize: "1rem", fontWeight: 700, color: pillar.HeadingColor || "#00e8d9", lineHeight: 1.2, letterSpacing: "0.06em", marginBottom: "6px", textTransform: "uppercase" }}>{pillar.Heading || pillar.title}</div>
-                    <p className="shared-culture-mobile-pillar-desc" style={{ fontSize: "0.9rem", lineHeight: 1.65, color: pillar.DescriptionColor || "rgba(255,255,255,0.8)", margin: 0 }}>{pillar.Description || pillar.description}</p>
-                  </div>
-                  {index < pillars.length - 1 && (
-                    <div className="shared-culture-pillar-divider" style={{ width: "60%", height: "1px", background: "linear-gradient(to right, rgba(255,255,255,0.15), transparent)", margin: 0 }}></div>
-                  )}
-                </React.Fragment>
-              ))}
+            <div className="culture-pillars-container shared-culture-pillars-container mt-9 max-w-[585px] flex flex-col gap-0">
+              {pillars.map((pillar, index) => {
+                const pTitle = pillar.Heading || pillar.title || `Pillar ${index + 1}`;
+                const pDesc = pillar.Description || pillar.description || "";
+                return (
+                  <React.Fragment key={index}>
+                    <div className={`culture-mobile-pillar shared-culture-mobile-pillar pillar-${index + 1} shared-culture-pillar-${index + 1} ${index === 0 ? "pb-6" : index === pillars.length - 1 ? "pt-6" : "py-6"}`}>
+                      <div 
+                        className="culture-mobile-pillar-title shared-culture-mobile-pillar-title font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase"
+                        style={{ color: pillar.HeadingColor || undefined }}
+                      >
+                        {pTitle}
+                      </div>
+                      <p 
+                        className="culture-mobile-pillar-desc shared-culture-mobile-pillar-desc text-[0.9rem] leading-[1.65] text-white/80 m-0"
+                        style={{ color: pillar.DescriptionColor || undefined }}
+                      >
+                        {pDesc}
+                      </p>
+                    </div>
+                    {index < pillars.length - 1 && (
+                      <div className="culture-pillar-divider shared-culture-pillar-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </div>
 
-            <div className="reveal stagger-2" style={{ marginTop: "36px" }}>
-              <Link href={CTALink || "/careers"} aria-label={CtaButton || "Explore Careers"} className="shared-dcg-panel-link" style={{ display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", marginTop: "16px", whiteSpace: "nowrap" }}>
-                <span className="shared-dcg-panel-link-text" style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "rgba(255, 255, 255, 0.85)", fontFamily: "var(--font-body)", fontWeight: 500, lineHeight: 1, transition: "color 0.3s", display: "inline-block", whiteSpace: "nowrap" }}>
-                  {CtaButton || "Explore Careers"}
-                </span>
-                <svg className="shared-dcg-panel-link-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e8d9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", transition: "transform 0.3s" }}>
-                  <polyline points="8 17 13 12 8 7"></polyline>
-                  <polyline points="14 17 19 12 14 7"></polyline>
-                </svg>
+            <div className="reveal stagger-2 mt-9">
+              <Link 
+                href={ctaUrl} 
+                className="culture-cta-btn inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-sm font-semibold tracking-wider uppercase no-underline transition-all duration-300 hover:bg-white hover:-translate-y-0.5"
+              >
+                {ctaLabel}
               </Link>
             </div>
           </div>
-          <div></div>
+
+          <div />
         </div>
       </div>
     </section>
   );
 }
-

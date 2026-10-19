@@ -106,16 +106,7 @@ export default function Particles() {
     <canvas
       ref={canvasRef}
       id="network-particles"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        zIndex: 0,
-        pointerEvents: "none",
-        opacity: 0.4
-      }}
+      className="fixed top-0 left-0 w-screen h-screen z-0 pointer-events-none opacity-40"
     />
   );
 }

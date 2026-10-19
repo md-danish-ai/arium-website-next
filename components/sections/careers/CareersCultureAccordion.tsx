@@ -87,73 +87,72 @@ export default function CareersCultureAccordion({ data }: CareersCultureAccordio
   return (
     <section
       id="careers-culture"
-      className="careers-accordion-wrapper"
-      style={{
-        overflow: "hidden",
-        position: "relative",
-        padding: "80px 0",
-        background: "linear-gradient(135deg, #F5F0FF 0%, #EDE5FF 40%, #DDD3FF 100%)",
-        borderTop: "1px solid rgba(0,0,0,0.05)",
-        borderBottom: "1px solid rgba(0,0,0,0.05)"
-      }}
+      className="careers-accordion-wrapper relative overflow-hidden py-20 bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] border-y border-black/5"
       onMouseLeave={handleMouseLeave}
     >
       {/* Decorative background bubbles from old CareersStory */}
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.08) 0%, transparent 70%)", top: "-200px", right: "-100px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.08) 0%, transparent 70%)", top: "-200px", left: "-100px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,218,200,0.12) 0%, transparent 70%)", bottom: "-100px", left: "-50px", pointerEvents: "none" }}></div>
-      <div style={{ maxWidth: "1440px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 2 }}>
-        <div className="wj-two-col">
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
+
+      <div className="max-w-[1440px] mx-auto px-6 relative z-[2]">
+        <div className="wj-two-col grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-16 items-start w-full">
           {/* LEFT: Section heading & description */}
-          <div className="wj-col-left reveal">
-            <h2 className="section-title" style={{ textAlign: "left", marginBottom: "24px", fontWeight: 400, fontSize: "clamp(1.75rem, 2.2vw, 2.2rem)", letterSpacing: "0.06em", lineHeight: 1.35, color: "var(--color-midnight-blue)", textTransform: "uppercase", textShadow: "none" }}>
+          <div className="wj-col-left reveal max-w-[660px]">
+            <h2 className="section-title text-left mb-6 font-heading font-normal text-3xl md:text-4xl tracking-wider text-[#162047] uppercase">
               {title}
             </h2>
             {(data as any)?.body ? (
               <div
-                className="strapi-richtext-body"
-                style={{ color: "rgba(22,32,71,0.88)", textAlign: "left", fontSize: "1.15rem", lineHeight: 1.7 }}
+                className="strapi-richtext-body text-[#162047]/90 text-left text-lg leading-relaxed space-y-4"
                 dangerouslySetInnerHTML={{ __html: (data as any).body }}
               />
             ) : (
-              <>
-                <p className="section-description" style={{ textAlign: "left", margin: "0 0 20px", color: "rgba(22,32,71,0.88)", fontSize: "1.15rem", lineHeight: 1.7, textShadow: "none" }}>
+              <div className="text-left space-y-5 text-[#162047]/90 text-lg leading-relaxed">
+                <p className="m-0">
                   Wireless connectivity is entering a new era, and our infrastructure is at the center of it. Across communities nationwide, we design, build, and support networks that wireless carriers rely on every day.
                 </p>
-                <p className="section-description" style={{ textAlign: "left", margin: 0, color: "rgba(22,32,71,0.88)", fontSize: "1.15rem", lineHeight: 1.7, textShadow: "none" }}>
+                <p className="m-0">
                   When you join our team, you&apos;re joining an organization that cares deeply about its people and you&apos;ll be contributing to the critical infrastructure that keeps people connected, informed, and safe.
                 </p>
-              </>
+              </div>
             )}
           </div>
 
           {/* RIGHT: Pillars accordion */}
-          <div className="wj-col-right">
-            <div className="reveal wj-interactive-list">
+          <div className="wj-col-right w-full">
+            <div className="reveal wj-interactive-list flex flex-col gap-3.5">
               {pillars.map((pillar: PillarCard, index: number) => {
                 const isActive = index === currentIndex;
                 return (
                   <div
                     key={index}
-                    className={`wj-interactive-item ${isActive ? 'active' : ''}`}
+                    className={`wj-interactive-item flex flex-col justify-start p-4 md:px-5 rounded-lg border transition-all duration-300 cursor-pointer ${
+                      isActive 
+                        ? 'border-[#00e8d9]/50 bg-[#162047] shadow-xl' 
+                        : 'border-white/10 bg-[#162047] hover:border-[#00e8d9]/30 shadow-md'
+                    }`}
                     onMouseEnter={() => handleMouseEnter(index)}
                   >
-                    <div className="wj-item-header">
+                    <div className="wj-item-header relative flex items-center min-h-[32px] pl-10 gap-0">
                       {pillar.icon ? (
                         <div 
-                          className="wj-icon-svg"
+                          className={`wj-icon-svg absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 flex-shrink-0 transition-colors duration-300 ${isActive ? 'text-[#00e8d9]' : 'text-white/75'}`}
                           dangerouslySetInnerHTML={{ __html: pillar.icon.replace('<svg', '<svg class="wj-icon-svg"') }}
                         />
                       ) : (
-                        <svg viewBox="0 0 24 24" className="wj-icon-svg"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                        <svg viewBox="0 0 24 24" className={`wj-icon-svg absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 flex-shrink-0 fill-none stroke-current stroke-[1.25] transition-colors duration-300 ${isActive ? 'stroke-[#00e8d9]' : 'stroke-white/75'}`}>
+                          <circle cx="12" cy="12" r="10" />
+                          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                        </svg>
                       )}
-                      <h3 className="wj-interactive-title">
+                      <h3 className={`wj-interactive-title font-heading text-xs md:text-sm font-normal uppercase tracking-[0.15em] m-0 transition-colors duration-300 ${isActive ? 'text-[#00e8d9]' : 'text-white'}`}>
                         {pillar.title}
                       </h3>
                     </div>
-                    <div className="wj-expand-desc">
+                    <div className={`wj-expand-desc overflow-hidden transition-all duration-300 pl-10 ${isActive ? 'max-h-48 opacity-100 pt-3' : 'max-h-0 opacity-0'}`}>
                       <div className="wj-expand-inner">
-                        <span>{pillar.description}</span>
+                        <span className="text-white/80 text-xs md:text-sm leading-relaxed block">{pillar.description}</span>
                       </div>
                     </div>
                   </div>

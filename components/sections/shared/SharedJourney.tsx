@@ -22,33 +22,31 @@ export default function SharedJourney({ Heading, Description, TimeCards }: Share
   ];
 
   const items = (TimeCards && TimeCards.length > 0 ? TimeCards : null) || defaultItems;
-  const accents = ["#009E94", "#7B6AB8", "#C48E68"];
+  const accentTextClasses = ["text-[#009E94]", "text-[#7B6AB8]", "text-[#C48E68]", "text-[#009E94]"];
   const headingStr = Heading || "A small cell leader from the beginning";
   const descStr = Description;
 
   return (
-    <section id="shared-journey" className="section-light" style={{ background: "transparent", padding: "120px 0 60px", position: "relative", overflow: "hidden", zIndex: 2 }}>
-
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
+    <section id="shared-journey" className="section-light bg-white pt-20 pb-16 lg:pt-28 lg:pb-24 relative overflow-hidden z-[2]">
+      <div className="container mx-auto px-6 relative z-[2]">
         {/* Header */}
-        <div className="section-header text-center" style={{ marginBottom: "80px" }}>
-          <h2 className="section-title reveal stagger-1" style={{ fontWeight: 400, letterSpacing: "0.06em", fontSize: "2.4rem", lineHeight: 1.45, color: "#162047" }}>
+        <div className="section-header text-center mb-16 md:mb-20">
+          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase">
             {headingStr}
           </h2>
           {descStr ? (
             descStr.includes("<") && descStr.includes(">") ? (
               <div 
-                className="section-description reveal stagger-2 strapi-richtext-body" 
-                style={{ maxWidth: "780px", margin: "20px auto 0" }}
+                className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed [&>p]:mb-0" 
                 dangerouslySetInnerHTML={{ __html: descStr }}
               />
             ) : (
-              <p className="section-description reveal stagger-2" style={{ maxWidth: "780px", margin: "20px auto 0" }}>
+              <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
                 {descStr}
               </p>
             )
           ) : (
-            <p className="section-description reveal stagger-2" style={{ maxWidth: "780px", margin: "20px auto 0" }}>
+            <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
               We&apos;ve been building small cell and DAS networks since the technology&apos;s inception, giving us a deep expertise that is embedded throughout our organization.
             </p>
           )}
@@ -56,23 +54,33 @@ export default function SharedJourney({ Heading, Description, TimeCards }: Share
 
         {/* Timeline */}
         <div className="shared-journey-timeline reveal stagger-3">
-          {/* Single continuous line */}
-          <div className="shared-journey-tl-line" aria-hidden="true"></div>
+          {/* Continuous horizontal line on desktop */}
+          <div className="shared-journey-tl-line" aria-hidden="true" />
           {/* Milestone items */}
           <div className="shared-journey-tl-items">
             {items.map((item, index) => {
-              const accentColor = item.TitleColor || accents[index % accents.length];
+              const textClass = accentTextClasses[index % accentTextClasses.length];
+              const itemTitle = item.Title || (item as any).title || "";
+              const itemDesc = item.Content || (item as any).content || (item as any).description || (item as any).body || "";
+              const itemBadge = item.BadgeText || (item as any).badge || (item as any).badgeText;
+
               return (
-                <div key={index} className="shared-journey-tl-item" style={{ "--accent": accentColor } as React.CSSProperties}>
-                  <span className="shared-journey-tl-year">
-                    {item.Title}
-                    {item.BadgeText && (
-                      <span style={{ fontSize: "0.55rem", background: "rgba(0,232,217,0.12)", padding: "2px 8px", borderRadius: "10px", marginLeft: "4px", verticalAlign: "middle" }}>
-                        &#9679; {item.BadgeText}
+                <div 
+                  key={index} 
+                  className="shared-journey-tl-item" 
+                >
+                  <span 
+                    className={`shared-journey-tl-year ${textClass}`}
+                  >
+                    <span>{itemTitle}</span>
+                    {itemBadge && (
+                      <span className="shared-journey-tl-badge">
+                        <span className="shared-journey-tl-badge-dot" aria-hidden="true" />
+                        {itemBadge}
                       </span>
                     )}
                   </span>
-                  <p className="shared-journey-tl-desc">{item.Content}</p>
+                  <p className="shared-journey-tl-desc">{itemDesc}</p>
                 </div>
               );
             })}

@@ -114,12 +114,11 @@ export default function SvgDraw({ src, className = "" }: SvgDrawProps) {
   }, [isAnimated]);
 
   if (!svgData) {
-
-    return <div className={`infra-panel-svg ${className}`} style={{ width: "240px", height: "240px" }} />;
+    return <div className={`infra-panel-svg w-[240px] h-[240px] ${className}`} />;
   }
 
   return (
-    <div ref={containerRef} className={className} style={{ display: "inline-block" }}>
+    <div ref={containerRef} className={`inline-block ${className}`}>
       <svg
         viewBox={svgData.viewBox}
         width={svgData.width}

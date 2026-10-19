@@ -69,62 +69,58 @@ export default function SharedStatsWithImage({ heading, statscards, image, Headi
     : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${imageUrl}`;
 
   return (
-    <section className="shared-swi-section" ref={sectionRef}>
-      <div className="shared-swi-bg-gradient"></div>
+    <section className="shared-swi-section relative overflow-hidden pt-[72px] pb-[120px] bg-midnight" ref={sectionRef}>
+      <div className="shared-swi-bg-gradient absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
 
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div className="shared-swi-header reveal">
-          <h2 className="shared-swi-title" style={{ color: HeadingColor || undefined }}>
+      <div className="container mx-auto px-6 relative z-[1]">
+        <div className="shared-swi-header mb-16 text-center reveal">
+          <h2 className="shared-swi-title font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white leading-[1.45] text-center max-w-full" style={{ color: HeadingColor || undefined }}>
             {heading || "Scale and experience to match your ambition"}
           </h2>
         </div>
 
-        <div className="shared-swi-top-grid">
-          <div className="shared-swi-bento-grid reveal stagger-1">
+        <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-12 items-center">
+          <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 h-full reveal stagger-1">
             {statscards && statscards.length > 0 ? (
               statscards.map((stat, index, array) => {
                 const targetMatch = stat.Number.match(/[\d.]+/);
                 const target = targetMatch ? parseFloat(targetMatch[0]) : 0;
                 const suffix = stat.Number.replace(target.toString(), "").trim();
                 
-                // If a background color isn't provided, cycle through defaults
-                const defaultColors = ["shared-swi-bg-purple", "shared-swi-bg-teal", "shared-swi-bg-white", "shared-swi-bg-yellow", "shared-swi-bg-orange"];
+                const defaultColors = ["bg-[#898cf3]", "bg-[#bcf6f2]", "bg-white", "bg-[#ffffca]", "bg-[#ffdac8]"];
                 let colorClass = defaultColors[index % defaultColors.length];
                 
-                // If user specifies a generic string in Strapi like "purple", map it
                 if (stat.BgColor) {
                   const mappedColor = stat.BgColor.toLowerCase().replace(/[^a-z]/g, "");
-                  if (mappedColor.includes("purple")) colorClass = "shared-swi-bg-purple";
-                  else if (mappedColor.includes("teal")) colorClass = "shared-swi-bg-teal";
-                  else if (mappedColor.includes("white")) colorClass = "shared-swi-bg-white";
-                  else if (mappedColor.includes("yellow")) colorClass = "shared-swi-bg-yellow";
-                  else if (mappedColor.includes("orange")) colorClass = "shared-swi-bg-orange";
+                  if (mappedColor.includes("purple")) colorClass = "bg-[#898cf3]";
+                  else if (mappedColor.includes("teal")) colorClass = "bg-[#bcf6f2]";
+                  else if (mappedColor.includes("white")) colorClass = "bg-white";
+                  else if (mappedColor.includes("yellow")) colorClass = "bg-[#ffffca]";
+                  else if (mappedColor.includes("orange")) colorClass = "bg-[#ffdac8]";
                 }
 
                 const isLastSpan2 = index === array.length - 1 && array.length % 2 !== 0;
 
                 return (
                   <div 
-                    className={`shared-swi-bento-card ${!stat.BgColor ? colorClass : ""} ${isLastSpan2 ? 'span-2' : ''}`} 
+                    className={`shared-swi-bento-card rounded-2xl p-5 min-h-[136px] flex flex-col justify-center gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl ${!stat.BgColor ? colorClass : ""} ${isLastSpan2 ? 'col-span-2 min-h-[110px] items-center text-center' : ''}`} 
                     style={{ 
                       backgroundColor: stat.BgColor || undefined, 
-                      alignItems: isLastSpan2 ? "center" : undefined, 
-                      textAlign: isLastSpan2 ? "center" : undefined 
                     }} 
                     key={index}
                   >
                     <div>
-                      <span className="shared-swi-number counter" style={{ color: stat.NumberColor || undefined }} data-target={target} data-suffix={suffix}>0</span>
+                      <span className="shared-swi-number counter font-heading text-[clamp(2rem,3vw,2.8rem)] font-extrabold text-midnight leading-none tracking-[-0.04em]" style={{ color: stat.NumberColor || undefined }} data-target={target} data-suffix={suffix}>0</span>
                     </div>
-                    <p style={{ color: stat.DescriptionColor || undefined }}>{stat.Description}</p>
+                    <p className="text-[0.82rem] font-medium text-midnight m-0 whitespace-nowrap" style={{ color: stat.DescriptionColor || undefined }}>{stat.Description}</p>
                   </div>
                 );
               })
             ) : null}
           </div>
 
-          <div className="shared-swi-map-container reveal stagger-2">
-            <img src={absoluteImageUrl} alt={image?.alternativeText || heading || "Stats graphic"} />
+          <div className="shared-swi-map-container flex items-center justify-center h-full w-full reveal stagger-2">
+            <img src={absoluteImageUrl} alt={image?.alternativeText || heading || "Stats graphic"} className="w-full max-h-[480px] object-contain object-center h-auto" />
           </div>
         </div>
       </div>

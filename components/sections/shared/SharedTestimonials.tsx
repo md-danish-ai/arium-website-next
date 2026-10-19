@@ -29,29 +29,25 @@ export default function SharedTestimonials({ heading, description, cards }: Shar
   const cols = Math.min(cards.length, 4);
 
   return (
-    // Wrap in row-storyteller-flow so it gets the same radial gradient light background
-    <div className="row-storyteller-flow">
+    <div className="bg-white">
       <section
-        className="section-light"
+        className="relative overflow-hidden py-20 bg-white"
         id="testimonials"
-        style={{ padding: "80px 0", position: "relative", overflow: "hidden" }}
       >
-        <div className="infra-grid-bg" aria-hidden="true" style={{ opacity: 0.08 }}></div>
-        <div className="container" style={{ position: "relative", zIndex: 2 }}>
+        <div className="infra-grid-bg absolute inset-0 opacity-[0.08] pointer-events-none" aria-hidden="true" />
+        <div className="container mx-auto px-6 relative z-[2]">
           {(heading || description) && (
-            <div className="section-header text-center" style={{ marginBottom: "72px" }}>
+            <div className="section-header text-center mb-16">
               {heading && (
                 <h2
-                  className="section-title reveal stagger-1"
-                  style={{ fontWeight: 400, letterSpacing: "0.06em", margin: "0 auto", fontSize: "2.4rem", lineHeight: 1.45, color: "#162047" }}
+                  className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase"
                 >
                   {heading}
                 </h2>
               )}
               {description && (
                 <p
-                  className="section-description reveal stagger-2"
-                  style={{ maxWidth: "680px", margin: "16px auto 0", color: "#162047" }}
+                  className="section-description reveal stagger-2 max-w-[680px] mx-auto mt-4 text-midnight text-base leading-relaxed"
                 >
                   {description}
                 </p>
@@ -59,38 +55,26 @@ export default function SharedTestimonials({ heading, description, cards }: Shar
             </div>
           )}
 
-          {/* Use the exact same tm-row / tm-panel classes as original components */}
           <div
-            className="tm-row"
-            style={{
-              display: "grid",
-              maxWidth: isWideLayout ? "1040px" : "100%",
-              margin: "0 auto",
-              gridTemplateColumns: `repeat(${cols}, 1fr)`,
-              gap: cols >= 3 ? "24px" : "32px",
-            } as React.CSSProperties}
+            className={`tm-row grid mx-auto ${cols === 1 ? "max-w-xl grid-cols-1" : cols === 2 ? "max-w-[1040px] grid-cols-1 md:grid-cols-2 gap-8" : cols === 3 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"}`}
           >
             {cards.map((card, idx) => {
               const fallback = FOOTER_STYLES[idx % FOOTER_STYLES.length];
               const footerBg = card.cardfooterBg || fallback.bg;
-              const glowColor = fallback.glow;
 
               return (
                 <div
                   key={idx}
-                  className={`tm-panel reveal stagger-${(idx % 4) + 1}`}
-                  style={{
-                    "--glow-color": glowColor,
-                    "--footer-bg": footerBg,
-                    "--footer-text": "var(--color-midnight-blue)",
-                    "--footer-role": "var(--color-midnight-blue)",
-                  } as React.CSSProperties}
+                  className={`tm-panel reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-9 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full`}
                 >
-                  <span className="tm-quote-symbol" style={{ color: "var(--footer-bg)" }}>“</span>
-                  <p className="tm-panel-text">{card.personMessage}</p>
-                  <div className="tm-panel-footer">
-                    <p className="tm-panel-name">{card.personName}</p>
-                    <p className="tm-panel-role">{card.personDesignation}</p>
+                  <span className="tm-quote-symbol font-serif text-[5rem] leading-none opacity-50 absolute top-5 left-7 pointer-events-none select-none text-teal" style={{ color: footerBg }}>“</span>
+                  <p className="tm-panel-text font-body z-[1] grow pt-10 text-[1.05rem] italic font-light leading-[1.8] text-white relative m-0 mb-6">{card.personMessage}</p>
+                  <div 
+                    className="tm-panel-footer mx-[-36px] sm:mx-[-40px] mb-[-36px] sm:mb-[-40px] px-9 sm:px-10 py-5 border-t border-white/10 shrink-0"
+                    style={{ backgroundColor: footerBg }}
+                  >
+                    <p className="tm-panel-name font-heading font-bold text-base text-midnight m-0 tracking-[0.02em]">{card.personName}</p>
+                    <p className="tm-panel-role text-xs text-midnight/80 mt-1 mb-0 font-normal">{card.personDesignation}</p>
                   </div>
                 </div>
               );

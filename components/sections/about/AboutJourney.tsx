@@ -23,25 +23,23 @@ export default function AboutJourney({ data }: AboutJourneyProps) {
   ];
 
   const items = (data?.cards && data.cards.length > 0 ? data.cards : null) || defaultItems;
-  const accents = ["#009E94", "#7B6AB8", "#C48E68"];
+  const accentTextClasses = ["text-[#009E94]", "text-[#7B6AB8]", "text-[#C48E68]", "text-[#009E94]"];
 
   return (
-    <section id="journey" className="section-light" style={{ background: "transparent", padding: "120px 0 60px", position: "relative", overflow: "hidden", zIndex: 2 }}>
-
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
+    <section id="journey" className="section-light bg-white pt-20 pb-16 lg:pt-28 lg:pb-24 relative overflow-hidden z-[2]">
+      <div className="container mx-auto px-6 relative z-[2]">
         {/* Header */}
-        <div className="section-header text-center" style={{ marginBottom: "80px" }}>
-          <h2 className="section-title reveal stagger-1" style={{ fontWeight: 400, letterSpacing: "0.06em", fontSize: "2.4rem", lineHeight: 1.45, color: "#162047" }}>
+        <div className="section-header text-center mb-16 md:mb-20">
+          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase">
             {data?.title || "A small cell leader from the beginning"}
           </h2>
           {data?.body ? (
             <div 
-              className="section-description reveal stagger-2 strapi-richtext-body" 
-              style={{ maxWidth: "780px", margin: "16px auto 0", marginTop: "20px" }}
+              className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed [&>p]:mb-0" 
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="section-description reveal stagger-2" style={{ maxWidth: "780px", margin: "16px auto 0", marginTop: "20px" }}>
+            <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
               We&apos;ve been building small cell and DAS networks since the technology&apos;s inception, giving us a deep expertise that is embedded throughout our organization.
             </p>
           )}
@@ -50,18 +48,24 @@ export default function AboutJourney({ data }: AboutJourneyProps) {
         {/* Timeline */}
         <div className="journey-timeline reveal stagger-3">
           {/* Single continuous line */}
-          <div className="journey-tl-line" aria-hidden="true"></div>
+          <div className="journey-tl-line" aria-hidden="true" />
           {/* Milestone items */}
           <div className="journey-tl-items">
             {items.map((item, index) => {
-              const accentColor = accents[index % accents.length];
+              const textClass = accentTextClasses[index % accentTextClasses.length];
               return (
-                <div key={index} className="journey-tl-item" style={{ "--accent": accentColor } as React.CSSProperties}>
-                  <span className="journey-tl-year">
-                    {item.title}
+                <div 
+                  key={index} 
+                  className="journey-tl-item"
+                >
+                  <span 
+                    className={`journey-tl-year ${textClass}`}
+                  >
+                    <span>{item.title}</span>
                     {item.badge && (
-                      <span style={{ fontSize: "0.55rem", background: "rgba(0,232,217,0.12)", padding: "2px 8px", borderRadius: "10px", marginLeft: "4px", verticalAlign: "middle" }}>
-                        &#9679; {item.badge}
+                      <span className="journey-tl-badge">
+                        <span className="journey-tl-badge-dot" aria-hidden="true" />
+                        {item.badge}
                       </span>
                     )}
                   </span>

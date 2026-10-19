@@ -51,51 +51,58 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
 
 
   return (
-    <div className="sol-storyteller-flow" style={{ background: "radial-gradient(circle at 50% 50%, #ffffff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)", position: "relative", overflow: "hidden" }}>
-      <div className="flow-bg-gradient flow-bg-1" aria-hidden="true"></div>
-      <div className="flow-bg-gradient flow-bg-2" aria-hidden="true"></div>
-      <div className="flow-bg-gradient flow-bg-3" aria-hidden="true"></div>
+    <div className="sol-storyteller-flow relative overflow-hidden bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)]">
+      <div className="flow-bg-gradient flow-bg-1 pointer-events-none" aria-hidden="true" />
+      <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
+      <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
 
-      <section id="faq" style={{ background: "transparent !important", padding: "120px 0", position: "relative", overflow: "hidden" }}>
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-header text-center">
-            <h2
-              className="section-title reveal stagger-1"
-              style={{
-                fontWeight: 400,
-                letterSpacing: "0.06em",
-                fontSize: "2.4rem",
-                lineHeight: 1.45,
-                color: "#162047",
-                textTransform: "uppercase"
-              }}
-            >
+      <section id="faq" className="bg-transparent py-24 md:py-32 relative overflow-hidden">
+        <div className="container relative z-[1]">
+          <div className="section-header text-center mb-16">
+            <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide text-3xl md:text-4xl text-[#162047] uppercase leading-snug">
               {data?.title || "Frequently asked questions"}
             </h2>
           </div>
 
-        <div className="cm-faq-grid">
-          {faqs.map((faq, index) => (
-            <div key={index} className={`reveal stagger-${(index % 3) + 1}`}>
-              <div className={`cm-faq-item ${openIndex === index ? 'open' : ''}`}>
-                <button 
-                  className="cm-faq-question" 
-                  onClick={() => toggleFAQ(index)}
-                  aria-expanded={openIndex === index}
-                  aria-controls={`faq-answer-${index}`}
-                >
-                  <span>{faq.title}</span>
-                  <svg className="cm-faq-chevron" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div className="cm-faq-answer" id={`faq-answer-${index}`}>
-                  <p>{faq.description}</p>
+          <div className="cm-faq-grid max-w-[900px] mx-auto flex flex-col gap-3.5">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div key={index} className={`reveal stagger-${(index % 3) + 1}`}>
+                  <div className={`cm-faq-item bg-white rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md ${isOpen ? 'border-[#162047]/20 shadow-md' : 'border-[#162047]/10'}`}>
+                    <button 
+                      className="cm-faq-question w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left cursor-pointer transition-colors" 
+                      onClick={() => toggleFAQ(index)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${index}`}
+                    >
+                      <span className="font-heading font-medium text-base md:text-lg text-[#162047]">{faq.title}</span>
+                      <svg 
+                        className={`cm-faq-chevron flex-shrink-0 text-[#162047] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
+                        aria-hidden="true" 
+                        width="20" 
+                        height="20" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2"
+                      >
+                        <polyline points="6 9 12 15 18 9"/>
+                      </svg>
+                    </button>
+                    <div 
+                      className={`cm-faq-answer px-5 md:px-6 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-6 opacity-100' : 'max-h-0 pb-0 opacity-0'}`} 
+                      id={`faq-answer-${index}`}
+                    >
+                      <p className="text-sm md:text-base text-[#162047]/75 leading-relaxed m-0">{faq.description}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   );
 }

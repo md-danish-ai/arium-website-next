@@ -141,7 +141,7 @@ export default async function RightOfWayPage() {
     pillars: processData?.cards && processData.cards.length > 0 ? processData.cards.map((card: any, idx: number) => ({
       id: card.title?.toLowerCase() || `pillar-${idx}`,
       title: card.title,
-      iconSvg: card.icon ? <div dangerouslySetInnerHTML={{ __html: card.icon }} /> : ROW_PROCESS_DATA.pillars[idx]?.iconSvg,
+      iconSvg: card.icon ? <div className="w-7 h-7 flex items-center justify-center [&>svg]:w-7 [&>svg]:h-7 [&>svg]:max-w-[28px] [&>svg]:max-h-[28px]" dangerouslySetInnerHTML={{ __html: card.icon }} /> : ROW_PROCESS_DATA.pillars[idx]?.iconSvg,
       themeColor: ROW_PROCESS_DATA.pillars[idx]?.themeColor || "#FBCBB5",
       steps: card.InnerCard?.map((inner: any) => inner.heading) || [],
       timelineItems: card.InnerCard?.map((inner: any) => ({

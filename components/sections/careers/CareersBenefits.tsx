@@ -34,29 +34,29 @@ const FALLBACK_BENEFITS = [
 export default function CareersBenefits({ data }: CareersBenefitsProps) {
   const benefits = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
   return (
-    <section id="benefits" className="section-light" style={{ padding: "120px 0", background: "transparent !important", position: "relative", overflow: "hidden" }}>
-      <div className="infra-grid-bg" aria-hidden="true"></div>
+    <section id="benefits" className="section-light py-24 md:py-32 relative overflow-hidden bg-[#ededee]" style={{ background: "#ededee" }}>
+      <div className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none" aria-hidden="true" />
 
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div className="section-header text-center" style={{ marginBottom: "64px" }}>
-          <h2 className="section-title reveal stagger-1" style={{ fontWeight: 400, letterSpacing: "0.06em", maxWidth: "880px", margin: "0 auto", fontSize: "2.4rem", lineHeight: 1.45, color: "#162047" }}>
+      <div className="container relative z-[1]">
+        <div className="section-header text-center mb-16">
+          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide max-w-[880px] mx-auto text-3xl md:text-4xl text-[#162047] leading-snug">
             {data?.title || "Our Total Benefits Package"}
           </h2>
           {data?.body ? (
             <div 
-              className="section-description reveal stagger-2" 
-              style={{ maxWidth: "900px", margin: "20px auto 0" }}
+              className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 text-base md:text-lg leading-relaxed" 
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="section-description reveal stagger-2" style={{ maxWidth: "900px", margin: "20px auto 0" }}>We offer competitive compensation and benefits designed to support you at work and in life. Full-time team members are eligible for a comprehensive benefits package that includes:</p>
+            <p className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 text-base md:text-lg leading-relaxed">
+              We offer competitive compensation and benefits designed to support you at work and in life. Full-time team members are eligible for a comprehensive benefits package that includes:
+            </p>
           )}
         </div>
       </div>
 
       {/* Full-width pillar grid */}
-      <div className="reveal stagger-3" style={{ position: "relative", zIndex: 1, display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "100px", padding: "0 48px", maxWidth: "1600px", margin: "0 auto" }}>
-
+      <div className="reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 px-6 md:px-12 max-w-[1600px] mx-auto">
         {benefits.map((benefit: any, index) => {
           let iconSrc = STATIC_ICONS[index % STATIC_ICONS.length];
           const customImg = benefit.image?.url || benefit.image?.data?.attributes?.url || (typeof benefit.image === 'string' ? benefit.image : null);
@@ -66,14 +66,17 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
 
           const bgClass = BENEFIT_CLASSES[index % BENEFIT_CLASSES.length];
           return (
-            <div key={index} className={`cr-benefit-pillar ${bgClass}`} style={{ padding: "20px 0", textAlign: "center" }}>
-              <Image src={iconSrc} alt={benefit.title} width={128} height={128} className="cr-benefit-icon" />
-              <div className="cr-benefit-heading" style={{ color: benefit.TitleColor || "#009886" }}>{benefit.title}</div>
-              <p className="cr-benefit-desc">{benefit.description}</p>
+            <div key={index} className={`cr-benefit-pillar ${bgClass} py-5 text-center flex flex-col items-center`}>
+              <Image src={iconSrc} alt={benefit.title} width={128} height={128} className="cr-benefit-icon w-24 h-24 md:w-32 md:h-32 mb-2 opacity-90 mx-auto" />
+              <div className="cr-benefit-heading font-heading text-lg md:text-xl font-bold uppercase tracking-wider mb-2" style={{ color: benefit.TitleColor || "#009886" }}>
+                {benefit.title}
+              </div>
+              <p className="cr-benefit-desc text-sm md:text-base text-[#162047]/75 leading-relaxed max-w-[340px] m-0">
+                {benefit.description}
+              </p>
             </div>
           );
         })}
-
       </div>
     </section>
   );

@@ -2,11 +2,39 @@ import Image from "next/image";
 
 interface SharedContentWithSideGraphicProps {
   Heading?: string;
+  heading?: string;
   Description?: string;
+  description?: string;
   Image?: any;
+  image?: any;
+  media?: any;
+  Media?: any;
   Gradient?: string;
+  gradient?: string;
   HeadingColor?: string;
+  headingColor?: string;
   DescriptionColor?: string;
+  descriptionColor?: string;
+  data?: {
+    title?: string;
+    Title?: string;
+    heading?: string;
+    Heading?: string;
+    body?: string;
+    Body?: string;
+    description?: string;
+    Description?: string;
+    media?: any;
+    Media?: any;
+    image?: any;
+    Image?: any;
+    gradient?: string;
+    Gradient?: string;
+    headingColor?: string;
+    HeadingColor?: string;
+    descriptionColor?: string;
+    DescriptionColor?: string;
+  };
 }
 
 const STRAPI_URL =
@@ -30,50 +58,81 @@ function extractImageUrl(media: any): string {
 
 export default function SharedContentWithSideGraphic({
   Heading,
+  heading,
   Description,
+  description,
   Image: Media,
+  image,
+  media,
+  Media: propMedia,
   Gradient,
+  gradient,
   HeadingColor,
+  headingColor,
   DescriptionColor,
+  descriptionColor,
+  data,
 }: SharedContentWithSideGraphicProps) {
-  
-  const extractedUrl = extractImageUrl(Media);
+  const mediaInput = Media || image || media || propMedia || data?.media || data?.Media || data?.image || data?.Image;
+  const extractedUrl = extractImageUrl(mediaInput);
   const imageUrl = extractedUrl ? absoluteUrl(extractedUrl) : "/assets/images/live_connection-illustration.svg";
 
-  const defaultGradient = "linear-gradient(135deg, #F5F0FF 0%, #EDE5FF 40%, #DDD3FF 100%)";
-  const backgroundStyle = Gradient || defaultGradient;
+  const defaultGradient = "bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]";
+  const customGradient = Gradient || gradient || data?.Gradient || data?.gradient;
+
+  const headingText = Heading || heading || data?.heading || data?.Heading || data?.title || data?.Title || "A story rooted in connection";
+  const bodyText = Description || description || data?.description || data?.Description || data?.body || data?.Body;
+  const headColor = HeadingColor || headingColor || data?.HeadingColor || data?.headingColor;
+  const descColor = DescriptionColor || descriptionColor || data?.DescriptionColor || data?.descriptionColor;
 
   return (
-    <section className="shared-story-section-root" style={{ background: backgroundStyle, padding: "80px 0", position: "relative", overflow: "hidden", border: "none" }}>
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.08) 0%, transparent 70%)", top: "-200px", right: "-100px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.08) 0%, transparent 70%)", top: "-200px", left: "-100px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,218,200,0.12) 0%, transparent 70%)", bottom: "-100px", left: "-50px", pointerEvents: "none" }}></div>
+    <section 
+      className={`story-section-root py-20 lg:py-24 relative overflow-hidden border-none ${!customGradient ? defaultGradient : ""}`} 
+      style={customGradient ? { background: customGradient } : undefined}
+    >
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      <img src={imageUrl} alt="" aria-hidden="true" className="shared-story-globe-right" style={{ position: "absolute", right: "-30px", top: "50%", height: "190%", width: "auto", transform: "translate(50%, -50%) scaleX(-1)", opacity: 0.18, filter: "brightness(0) saturate(0)", pointerEvents: "none" }} />
+      <img
+        src={imageUrl}
+        alt=""
+        aria-hidden="true"
+        className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none"
+      />
 
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div style={{ maxWidth: "760px", textAlign: "left" }}>
-          <h2 className="shared-subpage-story-heading reveal" style={{ color: HeadingColor || "var(--color-midnight-blue)", textAlign: "left", fontSize: "clamp(1.75rem, 2.2vw, 2.2rem)", fontWeight: 400, marginBottom: "24px", lineHeight: 1.35, whiteSpace: "nowrap" }}>
-            {Heading || "A story rooted in connection"}
+      <div className="container mx-auto px-6 relative z-[1]">
+        <div className="max-w-[760px] text-left">
+          <h2 
+            className="subpage-story-heading reveal text-midnight text-left font-heading text-[clamp(1.75rem,2.2vw,2.2rem)] font-normal mb-6 leading-[1.35] whitespace-normal lg:whitespace-nowrap uppercase"
+            style={headColor ? { color: headColor } : undefined}
+          >
+            {headingText}
           </h2>
-          {Description && Description.includes("<") && Description.includes(">") ? (
-            <div
-              className="reveal stagger-1 shared-strapi-richtext-body"
-              style={{ color: DescriptionColor || "rgba(22,32,71,0.8)", textAlign: "left", fontSize: "1.125rem", lineHeight: 1.8 }}
-              dangerouslySetInnerHTML={{ __html: Description }}
-            />
-          ) : Description ? (
-            <div className="reveal stagger-1">
-              <p className="shared-subpage-intro" style={{ color: DescriptionColor || "rgba(22,32,71,0.8)", textAlign: "left", fontSize: "1.125rem", lineHeight: 1.8 }}>
-                {Description}
-              </p>
-            </div>
+          {bodyText ? (
+            bodyText.includes("<") && bodyText.includes(">") ? (
+              <div
+                className="reveal stagger-1 strapi-richtext-body text-midnight/80 text-left text-lg leading-[1.8] flex flex-col gap-5 [&>p]:mb-0"
+                style={descColor ? { color: descColor } : undefined}
+                dangerouslySetInnerHTML={{ __html: bodyText }}
+              />
+            ) : (
+              <div 
+                className="reveal stagger-1 text-midnight/80 text-left text-lg leading-[1.8]"
+                style={descColor ? { color: descColor } : undefined}
+              >
+                <p className="subpage-intro m-0">{bodyText}</p>
+              </div>
+            )
           ) : (
-            <div className="reveal stagger-1">
-              <p className="shared-subpage-intro" style={{ color: DescriptionColor || "rgba(22,32,71,0.8)", textAlign: "left" }}>
+            <div 
+              className="reveal stagger-1 flex flex-col gap-8 text-midnight/80 text-left text-lg leading-[1.8]"
+              style={descColor ? { color: descColor } : undefined}
+            >
+              <p className="subpage-intro m-0">
                 Our world depends on fast, reliable connectivity—from the way we interact with loved ones, educate our children, and drive business forward. More than 15 years ago, we began building the small cell and distributed antennae system (DAS) infrastructure that ensures wireless services works effectively, even in the most challenging locations. Across the country, we&apos;re building dense networks and increasing capacity, enhancing connectivity in high-demand areas.
               </p>
-              <p className="shared-subpage-intro" style={{ color: DescriptionColor || "rgba(22,32,71,0.8)", textAlign: "left", marginTop: "36px" }}>
+              <p className="subpage-intro m-0">
                 We make the process of designing and deploying wireless networks as straightforward and predictable as possible, providing a clear path forward that supports your vision long into the future.
               </p>
             </div>
@@ -81,8 +140,12 @@ export default function SharedContentWithSideGraphic({
         </div>
       </div>
 
-      <div className="shared-story-globe-full" style={{ position: "relative", zIndex: 1, overflow: "hidden" }}>
-        <img src={imageUrl} alt="Connection illustration" style={{ width: "90%", maxWidth: "90%", height: "auto", opacity: 0.18, filter: "brightness(0) saturate(0)", display: "block", margin: "0 auto" }} />
+      <div className="story-globe-full lg:hidden relative z-[1] overflow-hidden -mt-[15%] -mb-[30%]">
+        <img 
+          src={imageUrl} 
+          alt="Connection illustration" 
+          className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]" 
+        />
       </div>
     </section>
   );

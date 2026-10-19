@@ -100,15 +100,14 @@ export default function InfraPanels({ data }: InfraPanelsProps) {
       
       <div className="infra-particles" id="infra-particles"></div>
 
-      <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <div className="section-header text-center" style={{ marginBottom: "64px" }}>
-          <h2 className="section-title reveal stagger-1" style={{ fontSize: "2.4rem", fontWeight: 400, letterSpacing: "0.06em", lineHeight: 1.45 }}>
+      <div className="container relative z-[2]">
+        <div className="section-header text-center mb-16">
+          <h2 className="section-title reveal stagger-1 text-[2.4rem] font-normal tracking-[0.06em] leading-[1.45]">
             {data?.title || "The infrastructure that powers advanced connectivity"}
           </h2>
-          <p className="section-description reveal stagger-2" style={{ maxWidth: "960px", margin: "20px auto 0" }}>
+          <p className="section-description reveal stagger-2 max-w-[960px] mx-auto mt-5">
             {data?.body || "For over 15 years, we've been building and maintaining the infrastructure the wireless industry relies on."}
           </p>
-          
         </div>
 
         <div className="infra-panels">
@@ -138,15 +137,29 @@ export default function InfraPanels({ data }: InfraPanelsProps) {
                   ) : null}
                   <div className="infra-panel-text">
                     <h3 className="infra-panel-heading">{item.title}</h3>
-                    <p className="infra-panel-desc">{item.description}</p>
                     {item.link && (
-                      <Link href={item.link} aria-label={`${item.linkText || item.CTA || "Explore more"} about ${item.title}`} className="community-link-cta" style={{ display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", marginTop: "16px" }}>
-                      <span className="community-link-text" style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "#ffffff", fontFamily: "var(--font-body)", fontWeight: 600, lineHeight: 1, transition: "color 0.3s ease, transform 0.3s ease", display: "inline-block" }}>
+                      <Link 
+                        href={item.link} 
+                        aria-label={`${item.linkText || item.CTA || "Explore more"} about ${item.title}`} 
+                        className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
+                      >
+                        <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal">
                           {item.linkText || item.CTA || "Explore more"}
-                      </span>
-                        <svg className="community-link-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e8d9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", width: "16px", height: "16px", minWidth: "16px", minHeight: "16px", flexShrink: 0, transition: "transform 0.3s ease" }}>
-                          <polyline points="8 17 13 12 8 7"></polyline>
-                          <polyline points="14 17 19 12 14 7"></polyline>
+                        </span>
+                        <svg 
+                          className="community-link-arrow text-teal inline-block w-4 h-4 min-w-4 min-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" 
+                          aria-hidden="true" 
+                          width="16" 
+                          height="16" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="1.8" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="8 17 13 12 8 7" />
+                          <polyline points="14 17 19 12 14 7" />
                         </svg>
                       </Link>
                     )}
@@ -294,11 +307,28 @@ export default function InfraPanels({ data }: InfraPanelsProps) {
                 <p className="infra-panel-desc">
                   Small cells are discreet, low-powered, fiber-connected antennas that enhance connectivity by providing targeted wireless coverage and capacity in public spaces—especially in dense populations or high-traffic areas like cities and suburbs.
                 </p>
-                <Link href="/our-solutions" aria-label="Explore more about Small Cells" className="community-link-cta" style={{ display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", marginTop: "16px" }}>
-                  <span className="community-link-text" style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "#ffffff", fontFamily: "var(--font-body)", fontWeight: 600, lineHeight: 1, transition: "color 0.3s ease, transform 0.3s ease", display: "inline-block" }}>Explore more</span>
-                  <svg className="community-link-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e8d9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", width: "16px", height: "16px", minWidth: "16px", minHeight: "16px", flexShrink: 0, transition: "transform 0.3s ease" }}>
-                    <polyline points="8 17 13 12 8 7"></polyline>
-                    <polyline points="14 17 19 12 14 7"></polyline>
+                <Link 
+                  href="/our-solutions" 
+                  aria-label="Explore more about Small Cells" 
+                  className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
+                >
+                  <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal">
+                    Explore more
+                  </span>
+                  <svg 
+                    className="community-link-arrow text-teal inline-block w-4 h-4 min-w-4 min-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" 
+                    aria-hidden="true" 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="1.8" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="8 17 13 12 8 7" />
+                    <polyline points="14 17 19 12 14 7" />
                   </svg>
                 </Link>
               </div>
@@ -395,11 +425,28 @@ export default function InfraPanels({ data }: InfraPanelsProps) {
                 <p className="infra-panel-desc">
                   Distributed Antenna Systems (DAS) use small, strategically placed connection points, also called nodes, to meet the unique coverage and capacity needs of venues and indoor spaces like high-rises, hospitals, campuses, stadiums, resorts, and theme parks.
                 </p>
-                <Link href="/our-solutions" aria-label="Explore more about Distributed Antenna Systems" className="community-link-cta" style={{ display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", marginTop: "16px" }}>
-                  <span className="community-link-text" style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "#ffffff", fontFamily: "var(--font-body)", fontWeight: 600, lineHeight: 1, transition: "color 0.3s ease, transform 0.3s ease", display: "inline-block" }}>Explore more</span>
-                  <svg className="community-link-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e8d9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", width: "16px", height: "16px", minWidth: "16px", minHeight: "16px", flexShrink: 0, transition: "transform 0.3s ease" }}>
-                    <polyline points="8 17 13 12 8 7"></polyline>
-                    <polyline points="14 17 19 12 14 7"></polyline>
+                <Link 
+                  href="/our-solutions" 
+                  aria-label="Explore more about Distributed Antenna Systems" 
+                  className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
+                >
+                  <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal">
+                    Explore more
+                  </span>
+                  <svg 
+                    className="community-link-arrow text-teal inline-block w-4 h-4 min-w-4 min-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" 
+                    aria-hidden="true" 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="1.8" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="8 17 13 12 8 7" />
+                    <polyline points="14 17 19 12 14 7" />
                   </svg>
                 </Link>
               </div>

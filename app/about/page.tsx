@@ -112,7 +112,7 @@ export default async function AboutPage() {
       pos: 2,
       key: 'flow-fallback',
       el: (
-        <div key="flow-fallback" className="about-storyteller-flow" style={{ marginTop: "-1px", border: "none" }}>
+        <div key="flow-fallback" className="about-storyteller-flow -mt-px border-none">
           <div className="flow-bg-gradient flow-bg-1" aria-hidden="true"></div>
           <div className="flow-bg-gradient flow-bg-2" aria-hidden="true"></div>
           <div className="flow-bg-gradient flow-bg-3" aria-hidden="true"></div>

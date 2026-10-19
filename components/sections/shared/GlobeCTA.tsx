@@ -11,50 +11,38 @@ interface GlobeCTAProps {
 
 export default function GlobeCTA({ title, heading, description, buttonText, buttonLink }: GlobeCTAProps) {
   return (
-    <section className="section-padding subpage-cta-section" style={{ padding: "100px 0", background: "linear-gradient(135deg, #FFFFCA 0%, #FFF8E1 40%, #FFDAC8 100%)", position: "relative", overflow: "hidden" }}>
-      <div className="cta-bg-illustration" style={{ position: "absolute", right: "-8%", top: "50%", transform: "translateY(-50%) rotate(-25deg)", width: "720px", height: "130%", pointerEvents: "none" }} aria-hidden="true">
-
-        <img src="/assets/images/connection-globe-blue.svg" alt="" style={{ width: "100%", height: "100%", opacity: 0.55 }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 40%, rgba(255,218,200,1) 100%)", pointerEvents: "none" }}></div>
+    <section className="section-padding subpage-cta-section py-24 bg-gradient-to-br from-[#FFFFCA] via-[#FFF8E1] to-[#FFDAC8] relative overflow-hidden">
+      <div className="cta-bg-illustration absolute -right-[8%] top-1/2 -translate-y-1/2 -rotate-[25deg] w-[720px] h-[130%] pointer-events-none" aria-hidden="true">
+        <img src="/assets/images/connection-globe-blue.svg" alt="" className="w-full h-full opacity-55 block" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
       </div>
       
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div className="sol-split reveal" style={{ alignItems: "center" }}>
-          <div className="sol-split-text" style={{ maxWidth: "580px" }}>
+      <div className="container mx-auto px-6 relative z-[1]">
+        <div className="sol-split reveal flex items-center">
+          <div className="sol-split-text max-w-[580px]">
             {description ? (
               <>
-                <h2 className="section-title" style={{ textAlign: "left", fontWeight: 300, marginBottom: "20px", color: "var(--color-midnight-blue)", whiteSpace: "nowrap" }}>
+                <h2 className="section-title text-left font-light mb-5 text-midnight whitespace-normal sm:whitespace-nowrap font-heading text-[clamp(1.8rem,3vw,2.4rem)] uppercase leading-tight">
                   {heading || title}
                 </h2>
                 <div 
-                  className="strapi-richtext-body"
-                  style={{ fontSize: "1.05rem", lineHeight: 1.8, color: "#162047", margin: "0 0 36px" }}
+                  className="strapi-richtext-body text-[1.05rem] leading-[1.8] text-midnight mb-9 flex flex-col gap-4 [&>p]:mb-0"
                   dangerouslySetInnerHTML={{ __html: description }}
                 />
               </>
             ) : (
-              <p style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)", lineHeight: 1.5, color: "var(--color-midnight-blue)", margin: "0 0 36px", fontWeight: 300, maxWidth: "580px", textWrap: "balance" }}>
+              <p className="font-heading text-[clamp(1.3rem,2.5vw,1.7rem)] leading-[1.5] text-midnight mb-9 font-light max-w-[580px] [text-wrap:balance]">
                 {title || heading}
               </p>
             )}
             <Link 
               href={buttonLink} 
-              style={{ display: "inline-block", padding: "14px 40px", borderRadius: "999px", background: "var(--color-midnight-blue)", color: "var(--color-white)", fontFamily: "var(--font-heading)", fontSize: "0.9rem", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none", transition: "all 0.35s cubic-bezier(0.2,1,0.2,1)", border: "2px solid transparent" }} 
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "var(--color-midnight-blue)";
-                e.currentTarget.style.borderColor = "var(--color-midnight-blue)";
-              }} 
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "var(--color-midnight-blue)";
-                e.currentTarget.style.color = "var(--color-white)";
-                e.currentTarget.style.borderColor = "transparent";
-              }}
+              className="inline-block px-10 py-3.5 rounded-full bg-midnight text-white font-heading text-[0.9rem] font-medium tracking-[0.06em] uppercase no-underline transition-all duration-350 ease-[cubic-bezier(0.2,1,0.2,1)] border-2 border-transparent hover:bg-transparent hover:text-midnight hover:border-midnight hover:-translate-y-0.5"
             >
               {buttonText}
             </Link>
           </div>
-          <div></div>
+          <div />
         </div>
       </div>
     </section>

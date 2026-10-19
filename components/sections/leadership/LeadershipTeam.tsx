@@ -95,15 +95,14 @@ export default function LeadershipTeam({ data }: LeadershipTeamProps) {
 
   return (
     <>
-      <section id="leadership-team" style={{ background: "linear-gradient(180deg, #EDE9FF 0%, #F3F0FF 50%, #F8F7FF 100%)", padding: "60px 0 100px", position: "relative" }}>
-        <div className="container">
-
-          <div style={{ marginBottom: "0px", marginTop: "-180px", position: "relative", zIndex: 2 }}>
-            <div className="ld-grid">
+      <section id="leadership-team" className="relative py-16 pb-24 bg-gradient-to-b from-[#EDE9FF] via-[#F3F0FF] to-[#F8F7FF]">
+        <div className="container mx-auto px-6">
+          <div className="-mt-44 relative z-[2] mb-0">
+            <div className="ld-grid flex flex-wrap justify-center gap-6 max-w-[1200px] mx-auto">
               {membersList.map((leader, index) => (
                 <div
                   key={index}
-                  className={`ld-card reveal stagger-${(index % 4) + 1}`}
+                  className={`ld-card reveal stagger-${(index % 4) + 1} group w-[calc((100%-16px)/2)] md:w-[calc((100%-48px)/3)] relative rounded-[10px] overflow-hidden cursor-pointer aspect-[4/4.6] shadow-md hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5`}
                   onClick={(e) => openModal(leader, e.currentTarget)}
                   role="button"
                   tabIndex={0}
@@ -114,12 +113,12 @@ export default function LeadershipTeam({ data }: LeadershipTeamProps) {
                     }
                   }}
                 >
-                  <div className="ld-card-img">
-                    <img src={leader.image} alt={leader.name} />
+                  <div className="ld-card-img absolute inset-0 w-full h-full">
+                    <img src={leader.image} alt={leader.name} className="w-full h-full object-cover block" />
                   </div>
-                  <div className="ld-card-overlay">
-                    <h2>{leader.name}</h2>
-                    <p>{leader.role}</p>
+                  <div className="ld-card-overlay absolute bottom-0 left-0 right-0 pt-12 pb-4 px-4 bg-gradient-to-t from-[#0a0e20]/90 via-[#0a0e20]/40 to-transparent z-[2]">
+                    <h2 className="font-heading font-semibold text-sm md:text-base text-white m-0 mb-0.5">{leader.name}</h2>
+                    <p className="text-xs text-white/90 leading-tight m-0">{leader.role}</p>
                   </div>
                 </div>
               ))}
@@ -128,18 +127,17 @@ export default function LeadershipTeam({ data }: LeadershipTeamProps) {
         </div>
       </section>
 
-
       <div 
-        className={`ld-modal ${activeLeader ? 'active' : ''}`} 
+        className={`ld-modal fixed inset-0 z-[10000] flex items-center justify-center transition-all duration-350 ${activeLeader ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`} 
         id="ld-modal" 
         aria-hidden={!activeLeader}
         role="dialog"
         aria-modal="true"
         ref={modalRef}
       >
-        <div className="ld-modal-backdrop" onClick={closeModal}></div>
-        <div className="ld-modal-content">
-          <button className="ld-modal-close" onClick={closeModal} aria-label="Close">
+        <div className="ld-modal-backdrop absolute inset-0 bg-[#0a0e20]/60 backdrop-blur-md" onClick={closeModal}></div>
+        <div className={`ld-modal-content relative z-[1] w-[92vw] max-w-[1080px] max-h-[88vh] bg-[#101830] rounded-[20px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-400 ${activeLeader ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-4 opacity-0'}`}>
+          <button className="ld-modal-close absolute top-4 right-4 md:top-5 md:right-5 z-[5] text-white/60 hover:text-white p-2 cursor-pointer transition-colors" onClick={closeModal} aria-label="Close">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
@@ -147,17 +145,17 @@ export default function LeadershipTeam({ data }: LeadershipTeamProps) {
 
           {activeLeader && (
             <>
-              <div className="ld-modal-top">
-                <div className="ld-modal-photo-wrap">
-                  <img className="ld-modal-photo" src={activeLeader.image} alt={activeLeader.name} />
+              <div className="ld-modal-top flex flex-col md:flex-row items-center gap-6 md:gap-8 p-6 md:p-12 border-b border-white/10 flex-shrink-0 text-center md:text-left">
+                <div className="ld-modal-photo-wrap flex-shrink-0">
+                  <img className="ld-modal-photo w-20 h-20 md:w-36 md:h-36 rounded-full md:rounded-2xl object-cover object-top" src={activeLeader.image} alt={activeLeader.name} />
                 </div>
-                <div className="ld-modal-identity">
-                  <h2 className="ld-modal-name">{activeLeader.name}</h2>
-                  <p className="ld-modal-role">{activeLeader.role}</p>
+                <div className="ld-modal-identity flex-1">
+                  <h2 className="ld-modal-name font-heading text-xl md:text-3xl font-normal text-white m-0 mb-1.5">{activeLeader.name}</h2>
+                  <p className="ld-modal-role font-body text-sm text-[#00e8d9] m-0">{activeLeader.role}</p>
                 </div>
               </div>
               <div
-                className="ld-modal-bottom"
+                className="ld-modal-bottom p-6 md:p-10 overflow-y-auto flex-1 columns-1 md:columns-2 gap-10 bg-white rounded-b-[20px] text-[#0d1224]/80 text-sm md:text-base leading-relaxed space-y-3.5"
                 dangerouslySetInnerHTML={{ __html: activeLeader.bio }}
               />
             </>

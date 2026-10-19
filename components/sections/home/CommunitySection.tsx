@@ -33,69 +33,85 @@ export default function CommunitySection({ data }: CommunitySectionProps) {
   const cta = data?.cta?.[0];
 
   return (
-    <section className="community-section" id="community" style={{ padding: 0 }}>
-
+    <section className="community-section p-0" id="community">
       <div className="community-bg">
-        <picture style={{ width: "100%", height: "100%", display: "block" }}>
+        <picture className="w-full h-full block">
           <source media="(max-width: 600px)" srcSet={mobileImg} />
           <img src={desktopImg} alt={data?.title || "Community impact"} className="community-bg-img" />
         </picture>
       </div>
 
-      <div className="community-veil"></div>
+      <div className="community-veil" />
 
-      <div className="container" style={{ position: "relative", zIndex: 2, paddingTop: "70px", paddingBottom: "90px" }}>
-        <div style={{ maxWidth: "600px" }}>
-          <h2 className="section-title reveal challenges-heading" style={{ color: "var(--color-white)", fontSize: "2.4rem", fontWeight: 400, letterSpacing: "0.06em", marginBottom: "24px", lineHeight: 1.45, textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+      <div className="container relative z-[2] pt-[70px] pb-[90px]">
+        <div className="max-w-[600px]">
+          <h2 className="section-title reveal challenges-heading text-white text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]">
             {data?.title || "Keeping communities safe and connected"}
           </h2>
-          <p className="reveal stagger-1 challenges-body" style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "1.05rem", lineHeight: 1.8, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.4)" }}>
+          <p className="reveal stagger-1 challenges-body text-white/80 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]">
             {data?.body || "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes."}
           </p>
 
-          <div className="reveal stagger-2" style={{ marginTop: "36px", maxWidth: "600px", display: "flex", flexDirection: "column", gap: 0 }}>
+          <div className="reveal stagger-2 mt-9 max-w-[600px] flex flex-col gap-0">
             {cardsList && cardsList.length > 0 ? (
               cardsList.map((item, index, array) => (
                 <div key={index}>
-                  <div style={{ padding: index === 0 ? "0 0 24px 0" : index === array.length - 1 ? "24px 0 0 0" : "24px 0" }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontSize: "1rem", fontWeight: 700, color: "#00e8d9", lineHeight: 1.2, letterSpacing: "0.06em", marginBottom: "6px", textTransform: "uppercase" }}>
+                  <div className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}>
+                    <div className="font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase">
                       {item.title}
                     </div>
-                    <p style={{ fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(255,255,255,0.8)", margin: 0 }}>
+                    <p className="text-[0.9rem] leading-[1.65] text-white/80 m-0">
                       {item.description}
                     </p>
                   </div>
                   {index < array.length - 1 && (
-                    <div style={{ width: "60%", height: "1px", background: "linear-gradient(to right, rgba(255,255,255,0.15), transparent)", margin: 0 }}></div>
+                    <div className="w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
                   )}
                 </div>
               ))
             ) : (
               <>
-                <div style={{ paddingBottom: "24px" }}>
-                  <div style={{ fontFamily: "var(--font-heading)", fontSize: "1rem", fontWeight: 700, color: "#00e8d9", lineHeight: 1.2, letterSpacing: "0.06em", marginBottom: "6px", textTransform: "uppercase" }}>Reliability</div>
-                  <p style={{ fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(255,255,255,0.8)", margin: 0 }}>Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on.</p>
+                <div className="pb-6">
+                  <div className="font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase">Reliability</div>
+                  <p className="text-[0.9rem] leading-[1.65] text-white/80 m-0">Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on.</p>
                 </div>
-                <div style={{ width: "60%", height: "1px", background: "linear-gradient(to right, rgba(255,255,255,0.15), transparent)", margin: 0 }}></div>
-                <div style={{ padding: "24px 0" }}>
-                  <div style={{ fontFamily: "var(--font-heading)", fontSize: "1rem", fontWeight: 700, color: "#00e8d9", lineHeight: 1.2, letterSpacing: "0.06em", marginBottom: "6px", textTransform: "uppercase" }}>Opportunity</div>
-                  <p style={{ fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(255,255,255,0.8)", margin: 0 }}>Advanced wireless connectivity helps communities support the technology of today—and tomorrow—while also attracting businesses that require flexible, uninterrupted access to remote data and cloud services.</p>
+                <div className="w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
+                <div className="py-6">
+                  <div className="font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase">Opportunity</div>
+                  <p className="text-[0.9rem] leading-[1.65] text-white/80 m-0">Advanced wireless connectivity helps communities support the technology of today—and tomorrow—while also attracting businesses that require flexible, uninterrupted access to remote data and cloud services.</p>
                 </div>
-                <div style={{ width: "60%", height: "1px", background: "linear-gradient(to right, rgba(255,255,255,0.15), transparent)", margin: 0 }}></div>
-                <div style={{ paddingTop: "24px" }}>
-                  <div style={{ fontFamily: "var(--font-heading)", fontSize: "1rem", fontWeight: 700, color: "#00e8d9", lineHeight: 1.2, letterSpacing: "0.06em", marginBottom: "6px", textTransform: "uppercase" }}>Safety</div>
-                  <p style={{ fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(255,255,255,0.8)", margin: 0 }}>In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters and other first responders can access the essential data they need to do their jobs effectively.</p>
+                <div className="w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
+                <div className="pt-6">
+                  <div className="font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase">Safety</div>
+                  <p className="text-[0.9rem] leading-[1.65] text-white/80 m-0">In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters and other first responders can access the essential data they need to do their jobs effectively.</p>
                 </div>
               </>
             )}
           </div>
 
-          <div className="reveal stagger-3" style={{ marginTop: "36px" }}>
-            <Link href={cta?.url || "/community"} aria-label={`${cta?.label || "Learn More"} about our community impact`} className="community-link-cta" style={{ display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none" }}>
-              <span style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "#ffffff", fontFamily: "var(--font-body)", fontWeight: 400, lineHeight: 1, transition: "color 0.3s ease" }}>{cta?.label || "Learn More"}</span>
-              <svg className="community-link-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e8d9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", transition: "transform 0.3s ease" }}>
-                <polyline points="8 17 13 12 8 7"></polyline>
-                <polyline points="14 17 19 12 14 7"></polyline>
+          <div className="reveal stagger-3 mt-9">
+            <Link 
+              href={cta?.url || "/community"} 
+              aria-label={`${cta?.label || "Learn More"} about our community impact`} 
+              className="community-link-cta group inline-flex items-center gap-2 no-underline"
+            >
+              <span className="text-xs uppercase tracking-[0.15em] text-white font-body font-normal leading-none transition-colors duration-300 group-hover:text-teal">
+                {cta?.label || "Learn More"}
+              </span>
+              <svg 
+                className="community-link-arrow text-teal inline-block transition-transform duration-300 group-hover:translate-x-1" 
+                aria-hidden="true" 
+                width="16" 
+                height="16" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.8" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <polyline points="8 17 13 12 8 7" />
+                <polyline points="14 17 19 12 14 7" />
               </svg>
             </Link>
           </div>

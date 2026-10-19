@@ -73,159 +73,273 @@ export default function ContactForm() {
   ];
 
   return (
-    <div className="ct-storyteller-flow" style={{ marginTop: "-1px", border: "none" }}>
-      <section className="section-light" id="contact-form-section" style={{ background: "transparent", padding: "80px 0", position: "relative", overflow: "hidden" }}>
-        <div className="infra-grid-bg" aria-hidden="true" style={{ opacity: 0.08 }}></div>
-        <div className="container" style={{ position: "relative", zIndex: 2 }}>
-          <div className="ct-form-card reveal stagger-1">
+    <div className="relative overflow-hidden bg-[#ededee] -mt-px border-0">
+      <section className="relative overflow-hidden py-20 bg-[#ededee]" id="contact-form-section">
+        <div className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div className="container mx-auto px-6 relative z-[2]">
+          <div className="max-w-[680px] mx-auto relative reveal stagger-1">
             {status === "success" ? (
-              <div style={{ textAlign: "center", padding: "60px 20px" }}>
-                <h3 style={{ fontSize: "1.8rem", color: "var(--color-midnight-blue)", marginBottom: "16px" }}>Thank You!</h3>
-                <p style={{ color: "rgba(22,32,71,0.7)", fontSize: "1.1rem" }}>Your message has been sent successfully. We will be in touch shortly.</p>
+              <div className="text-center py-[60px] px-5">
+                <h3 className="text-[1.8rem] text-[#162047] mb-4 font-heading font-normal">Thank You!</h3>
+                <p className="text-[#162047]/70 text-[1.1rem]">Your message has been sent successfully. We will be in touch shortly.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} id="contact-form">
                 {status === "error" && (
-                  <div style={{ backgroundColor: "#fee2e2", border: "1px solid #ef4444", color: "#b91c1c", padding: "12px", borderRadius: "8px", marginBottom: "24px", fontSize: "0.95rem" }}>
+                  <div className="bg-red-100 border border-red-500 text-red-700 p-3 rounded-lg mb-6 text-[0.95rem]">
                     {errorMessage}
                   </div>
                 )}
 
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="first-name" className="form-label">First Name <span style={{ color: "#e53935" }}>*</span></label>
-                <input type="text" id="first-name" name="first_name" className="form-input" placeholder="First" required value={firstName} onChange={(e) => setFirstName(e.target.value)} disabled={status === 'loading'} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="last-name" className="form-label">Last Name <span style={{ color: "#e53935" }}>*</span></label>
-                <input type="text" id="last-name" name="last_name" className="form-input" placeholder="Last" required value={lastName} onChange={(e) => setLastName(e.target.value)} disabled={status === 'loading'} />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="company" className="form-label">Organization <span style={{ color: "#e53935" }}>*</span></label>
-                <input type="text" id="company" name="company" className="form-input" placeholder="Your Organization" required value={company} onChange={(e) => setCompany(e.target.value)} disabled={status === 'loading'} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">Email <span style={{ color: "#e53935" }}>*</span></label>
-                <input type="email" id="email" name="email" className="form-input" placeholder="email@company.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={status === 'loading'} />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="phone" className="form-label">Phone Number</label>
-                <input type="tel" id="phone" name="phone" className="form-input" placeholder="+1 000-000-0000" value={phone} onChange={(e) => setPhone(e.target.value)} disabled={status === 'loading'} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="postal-code" className="form-label">Postal Code</label>
-                <input type="text" id="postal-code" name="postal_code" className="form-input" placeholder="99999" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} disabled={status === 'loading'} />
-              </div>
-            </div>
-
-            <div className="form-group form-group--full">
-              <label id="interest-label" className="form-label" onClick={() => document.getElementById('interest-wrapper')?.focus()}>Who are you reaching out to? <span style={{ color: "#e53935" }}>*</span></label>
-              <div
-                className={`custom-select-wrapper ${dropdownOpen ? 'open' : ''}`}
-                id="interest-wrapper"
-                role="combobox"
-                aria-expanded={dropdownOpen}
-                aria-haspopup="listbox"
-                aria-controls="interest-listbox"
-                aria-labelledby="interest-label"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                onBlur={() => {
-                  setDropdownOpen(false);
-                  setFocusedOptionIndex(-1);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    if (!dropdownOpen) {
-                      setDropdownOpen(true);
-                      setFocusedOptionIndex(interestOptions.findIndex(opt => opt.value === interest) >= 0 ? interestOptions.findIndex(opt => opt.value === interest) : 0);
-                    } else {
-                      if (focusedOptionIndex >= 0 && focusedOptionIndex < interestOptions.length) {
-                        setInterest(interestOptions[focusedOptionIndex].value);
-                      }
-                      setDropdownOpen(false);
-                    }
-                  } else if (e.key === 'Escape') {
-                    setDropdownOpen(false);
-                    setFocusedOptionIndex(-1);
-                  } else if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    if (!dropdownOpen) {
-                      setDropdownOpen(true);
-                      setFocusedOptionIndex(interestOptions.findIndex(opt => opt.value === interest) >= 0 ? interestOptions.findIndex(opt => opt.value === interest) : 0);
-                    } else {
-                      setFocusedOptionIndex(prev => (prev < interestOptions.length - 1 ? prev + 1 : prev));
-                    }
-                  } else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    if (dropdownOpen) {
-                      setFocusedOptionIndex(prev => (prev > 0 ? prev - 1 : 0));
-                    }
-                  }
-                }}
-                tabIndex={0}
-              >
-                <div className="form-select custom-select-trigger" tabIndex={-1}>
-                  <span className="custom-select-value" style={{ color: interest ? '#162047' : 'rgba(22,32,71,0.5)' }}>
-                    {interest ? interestOptions.find(opt => opt.value === interest)?.label : "Please select one of the following options"}
-                  </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="first-name" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                      First Name <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="first-name"
+                      name="first_name"
+                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                      placeholder="First"
+                      required
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      disabled={status === 'loading'}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="last-name" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                      Last Name <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="last-name"
+                      name="last_name"
+                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                      placeholder="Last"
+                      required
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      disabled={status === 'loading'}
+                    />
+                  </div>
                 </div>
-                {dropdownOpen && (
-                  <ul className="custom-select-options" role="listbox" id="interest-listbox">
-                    {interestOptions.map((option, index) => (
-                      <li
-                        key={option.value}
-                        data-value={option.value}
-                        role="option"
-                        aria-selected={interest === option.value}
-                        className={interest === option.value ? 'selected' : ''}
-                        style={{
-                          backgroundColor: focusedOptionIndex === index ? 'rgba(0, 232, 217, 0.1)' : undefined,
-                          color: focusedOptionIndex === index ? 'var(--color-sky-teal)' : undefined
-                        }}
-                        onMouseEnter={() => setFocusedOptionIndex(index)}
-                        onMouseDown={(e) => {
-                          e.preventDefault(); // Prevents the wrapper from losing focus
-                          e.stopPropagation();
-                          setInterest(option.value);
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="company" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                      Organization <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                      placeholder="Your Organization"
+                      required
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      disabled={status === 'loading'}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                      Email <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                      placeholder="email@company.com"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={status === 'loading'}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="phone" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                      placeholder="+1 000-000-0000"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      disabled={status === 'loading'}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="postal-code" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                      Postal Code
+                    </label>
+                    <input
+                      type="text"
+                      id="postal-code"
+                      name="postal_code"
+                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                      placeholder="99999"
+                      value={postalCode}
+                      onChange={(e) => setPostalCode(e.target.value)}
+                      disabled={status === 'loading'}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 mb-5">
+                  <label
+                    id="interest-label"
+                    className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed cursor-pointer"
+                    onClick={() => document.getElementById('interest-wrapper')?.focus()}
+                  >
+                    Who are you reaching out to? <span className="text-red-600">*</span>
+                  </label>
+                  <div
+                    className="relative w-full"
+                    id="interest-wrapper"
+                    role="combobox"
+                    aria-expanded={dropdownOpen}
+                    aria-haspopup="listbox"
+                    aria-controls="interest-listbox"
+                    aria-labelledby="interest-label"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    onBlur={() => {
+                      setDropdownOpen(false);
+                      setFocusedOptionIndex(-1);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (!dropdownOpen) {
+                          setDropdownOpen(true);
+                          setFocusedOptionIndex(interestOptions.findIndex(opt => opt.value === interest) >= 0 ? interestOptions.findIndex(opt => opt.value === interest) : 0);
+                        } else {
+                          if (focusedOptionIndex >= 0 && focusedOptionIndex < interestOptions.length) {
+                            setInterest(interestOptions[focusedOptionIndex].value);
+                          }
                           setDropdownOpen(false);
-                        }}
+                        }
+                      } else if (e.key === 'Escape') {
+                        setDropdownOpen(false);
+                        setFocusedOptionIndex(-1);
+                      } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (!dropdownOpen) {
+                          setDropdownOpen(true);
+                          setFocusedOptionIndex(interestOptions.findIndex(opt => opt.value === interest) >= 0 ? interestOptions.findIndex(opt => opt.value === interest) : 0);
+                        } else {
+                          setFocusedOptionIndex(prev => (prev < interestOptions.length - 1 ? prev + 1 : prev));
+                        }
+                      } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (dropdownOpen) {
+                          setFocusedOptionIndex(prev => (prev > 0 ? prev - 1 : 0));
+                        }
+                      }
+                    }}
+                    tabIndex={0}
+                  >
+                    <div
+                      className={`w-full bg-transparent border-[1.5px] ${dropdownOpen ? 'border-[#00e8d9] ring-2 ring-[#00e8d9]/20' : 'border-[#162047]/40 hover:border-[#162047]/35'} rounded-[10px] px-[18px] py-[15px] flex items-center justify-between cursor-pointer transition-all duration-300 ease-out outline-none`}
+                      tabIndex={-1}
+                    >
+                      <span className={`text-xs ${interest ? 'text-[#162047] text-[0.95rem]' : 'text-[#162047]/50'}`}>
+                        {interest ? interestOptions.find(opt => opt.value === interest)?.label : "Please select one of the following options"}
+                      </span>
+                      <svg
+                        className={`w-3 h-2 text-[#162047]/40 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        {option.label}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <select name="interest" aria-hidden="true" tabIndex={-1} style={{ opacity: 0, position: "absolute", zIndex: -1, width: 0, height: 0 }} value={interest} onChange={(e) => setInterest(e.target.value)} required>
-                  <option value="" disabled>Please select one of the following options</option>
-                  {interestOptions.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+                        <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    {dropdownOpen && (
+                      <ul
+                        className="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border-[1.5px] border-[#162047]/15 rounded-[10px] shadow-[0_12px_32px_rgba(22,32,71,0.1)] overflow-hidden z-20 py-1 max-h-[240px] overflow-y-auto"
+                        role="listbox"
+                        id="interest-listbox"
+                      >
+                        {interestOptions.map((option, index) => (
+                          <li
+                            key={option.value}
+                            data-value={option.value}
+                            role="option"
+                            aria-selected={interest === option.value}
+                            className={`px-[18px] py-3 text-[0.95rem] text-[#162047]/80 cursor-pointer transition-colors duration-200 hover:bg-[#00e8d9]/10 hover:text-[#162047] ${
+                              interest === option.value ? 'bg-[#00e8d9]/15 text-[#162047] font-medium' : ''
+                            } ${focusedOptionIndex === index ? 'bg-[#00e8d9]/10 text-[#162047]' : ''}`}
+                            onMouseEnter={() => setFocusedOptionIndex(index)}
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setInterest(option.value);
+                              setDropdownOpen(false);
+                            }}
+                          >
+                            {option.label}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <select
+                      name="interest"
+                      aria-hidden="true"
+                      tabIndex={-1}
+                      className="sr-only"
+                      value={interest}
+                      onChange={(e) => setInterest(e.target.value)}
+                      required
+                    >
+                      <option value="" disabled>Please select one of the following options</option>
+                      {interestOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
 
-            <div className="form-group form-group--full">
-              <label htmlFor="comments" className="form-label">How can we help you? <span style={{ color: "#e53935" }}>*</span></label>
-              <textarea id="comments" name="comments" className="form-textarea" placeholder="Type your comments here." required value={comments} onChange={(e) => setComments(e.target.value)} disabled={status === 'loading'}></textarea>
-            </div>
+                <div className="flex flex-col gap-2 mb-5">
+                  <label htmlFor="comments" className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed">
+                    How can we help you? <span className="text-red-600">*</span>
+                  </label>
+                  <textarea
+                    id="comments"
+                    name="comments"
+                    className="w-full min-h-[148px] resize-none bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                    placeholder="Type your comments here."
+                    required
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
+                    disabled={status === 'loading'}
+                  />
+                </div>
 
-            <div style={{ textAlign: "center", paddingTop: "12px", paddingBottom: "40px" }}>
-              <button type="submit" className="ct-submit-btn" disabled={status === 'loading'} style={{ opacity: status === 'loading' ? 0.7 : 1 }}>
-                {status === 'loading' ? 'Sending...' : 'Submit'}
-              </button>
-            </div>
-          </form>
-          )}
+                <div className="text-center pt-3 pb-10">
+                  <button
+                    type="submit"
+                    className={`inline-block font-heading text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-[#162047] bg-[#00e8d9] border-2 border-[#00e8d9] rounded-full px-12 py-3.5 cursor-pointer transition-all duration-300 ease-out hover:bg-transparent hover:border-[#162047] hover:text-[#162047] hover:-translate-y-0.5 active:translate-y-0 shadow-sm ${
+                      status === 'loading' ? 'opacity-70 cursor-not-allowed' : 'opacity-100'
+                    }`}
+                    disabled={status === 'loading'}
+                  >
+                    {status === 'loading' ? 'Sending...' : 'SUBMIT'}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   );
 }

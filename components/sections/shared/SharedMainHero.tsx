@@ -187,54 +187,43 @@ export default function SharedMainHero({
   return (
     <section
       id="shared-main-hero"
-      className="shared-mh-section"
+      className="shared-mh-section relative grid place-items-center h-screen min-h-[600px] w-full overflow-hidden"
     >
-      <style>{`
-        @keyframes shared-mh-breathe-teal {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.07); }
-        }
-        @keyframes shared-mh-breathe-white {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(0.93); }
-        }
-      `}</style>
-
       {/* Background with animated shapes */}
       <div
         ref={bgRef}
-        className="shared-mh-bg"
+        className="shared-mh-bg absolute inset-0 pointer-events-none"
         style={{ backgroundColor: resolvedBg }}
         aria-hidden="true"
       >
-        <div className="shared-mh-shapes-container">
-          <div ref={shapesWrapRef} className="shared-mh-shapes-wrap">
+        <div className="shared-mh-shapes-container absolute inset-0 pointer-events-none select-none flex items-center justify-center">
+          <div ref={shapesWrapRef} className="shared-mh-shapes-wrap relative h-full w-full opacity-0">
 
             {/* Teal shape */}
             <div
               ref={tealShapeRef}
-              className="shared-mh-shape shared-mh-shape--teal"
+              className="shared-mh-shape shared-mh-shape--teal absolute [width:170vmin] [aspect-ratio:1955/1769] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              style={{ left: "26%", top: "33%", rotate: "180deg" }}
             >
               <div
                 ref={tealInnerRef}
-                className="shared-mh-shape-inner"
-                style={{ animation: "shared-mh-breathe-teal 20s ease-in-out infinite" }}
+                className="shared-mh-shape-inner relative h-full w-full animate-breathe-teal"
               >
-                <Image src="/assets/shape-teal.svg" alt="" fill style={{ objectFit: "contain" }} priority />
+                <Image src="/assets/shape-teal.svg" alt="" fill className="object-contain" priority />
               </div>
             </div>
 
             {/* White shape */}
             <div
               ref={whiteShapeRef}
-              className="shared-mh-shape shared-mh-shape--white"
+              className="shared-mh-shape shared-mh-shape--white absolute [width:170vmin] [aspect-ratio:1940/1757] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              style={{ left: "73%", top: "97%", rotate: "525deg" }}
             >
               <div
                 ref={whiteInnerRef}
-                className="shared-mh-shape-inner"
-                style={{ animation: "shared-mh-breathe-white 20s ease-in-out 10s infinite" }}
+                className="shared-mh-shape-inner relative h-full w-full animate-breathe-white"
               >
-                <Image src="/assets/shape-white.svg" alt="" fill style={{ objectFit: "contain" }} priority />
+                <Image src="/assets/shape-white.svg" alt="" fill className="object-contain" priority />
               </div>
             </div>
 
@@ -243,14 +232,14 @@ export default function SharedMainHero({
       </div>
 
       {/* Content */}
-      <div className="shared-mh-content">
+      <div className="shared-mh-content relative z-[5] px-6 pt-[150px] pb-[100px] text-center">
         <h1
-          className="shared-mh-heading"
+          className="shared-mh-heading mx-auto max-w-[980px] uppercase font-normal tracking-[0.12em] font-heading text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.4]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: heading || "" }}
         />
         <p
-          className="shared-mh-description"
+          className="shared-mh-description mx-auto mt-10 max-w-[800px] font-normal text-[clamp(1.05rem,1.8vw,1.25rem)] leading-[1.6] text-center"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
@@ -258,12 +247,11 @@ export default function SharedMainHero({
 
       {/* Scroll indicator */}
       <div
-        className={`shared-mh-scroll-indicator ${isScrolled ? "is-scrolled" : ""}`}
+        className={`shared-mh-scroll-indicator ${isScrolled ? "is-scrolled pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
         id="shared-scroll-indicator"
-        style={{ opacity: isScrolled ? 0 : 0.7, pointerEvents: isScrolled ? 'none' : 'auto', transition: 'opacity 0.3s ease' }}
       >
-        <span className="shared-mh-scroll-text">{scrollText || "Scroll to explore"}</span>
-        <div className="shared-mh-scroll-arrow">
+        <span className="shared-mh-scroll-text block text-xs uppercase tracking-[0.15em] text-white font-body font-normal">{scrollText || "Scroll to explore"}</span>
+        <div className="shared-mh-scroll-arrow text-teal animate-bounce">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
           </svg>

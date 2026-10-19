@@ -62,106 +62,60 @@ export default function BackgroundFeatureSection({
   const textMaxWidth = MaxWidthText || (hasCards ? "620px" : "560px");
 
   return (
-    <section style={{ position: "relative", overflow: "hidden", padding: 0 }}>
-      <style>{`
-        .bg-feature-desktop { display: none; }
-        .bg-feature-mobile { display: block; }
-        @media (min-width: 768px) {
-          .bg-feature-desktop { display: block; }
-          .bg-feature-mobile { display: none; }
-        }
-        @media (max-width: 480px) {
-          .challenges-veil {
-            background: linear-gradient(153deg, rgba(13, 18, 36, 0.92) 0%, rgba(13, 18, 36, 0.82) 38%, rgba(13, 18, 36, 0.45) 60%, transparent 80%) !important;
-          }
-        }
-        @media (min-width: 769px) and (max-width: 1079px) {
-          .challenges-veil {
-            background: rgba(10, 22, 40, 0.75) !important;
-          }
-          .challenges-pillars {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 24px !important;
-          }
-            .challenges-pillar {
-        text-align: center !important;
-        padding: 0 !important;
-    }
-            .challenges-pillar-desc {
-        font-size: 0.84rem !important;
-        line-height: 1.55 !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        text-align: center !important;
-    }
-         .shared-dcg-panel-card svg {
-    margin-top: 0px;
-  }
-    .shared-igs-heading {
-        font-size: 2rem !important;
-    }
-        }
-      `}</style>
-
+    <section className="relative overflow-hidden p-0">
       {/* Desktop Image */}
-      <div className="bg-feature-desktop" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+      <div className="hidden md:block absolute inset-0 z-0">
         <Image
           src={finalDesktopUrl}
           alt={Heading || "Feature Background Desktop"}
           fill
-          style={{ objectFit: "cover", objectPosition: "center top", display: "block" }}
+          className="object-cover object-top block"
           aria-hidden="true"
         />
       </div>
 
       {/* Mobile Image */}
-      <div className="bg-feature-mobile" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+      <div className="block md:hidden absolute inset-0 z-0">
         <Image
           src={finalMobileUrl}
           alt={Heading || "Feature Background Mobile"}
           fill
-          style={{ objectFit: "cover", objectPosition: "center top", display: "block" }}
+          className="object-cover object-top block"
           aria-hidden="true"
         />
       </div>
 
-      <div className="challenges-veil" style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(90deg, rgba(13, 18, 36, 0.92) 0%, rgba(13, 18, 36, 0.82) 38%, rgba(13, 18, 36, 0.45) 60%, transparent 80%)" }}></div>
+      <div className="challenges-veil absolute inset-0 z-[1] [background-image:linear-gradient(90deg,rgba(13,18,36,0.92)_0%,rgba(13,18,36,0.82)_38%,rgba(13,18,36,0.45)_60%,transparent_80%)] max-[480px]:[background-image:linear-gradient(153deg,rgba(13,18,36,0.92)_0%,rgba(13,18,36,0.82)_38%,rgba(13,18,36,0.45)_60%,transparent_80%)]" />
 
-      <div className="challenges-bottom-gradient" style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "380px", zIndex: 1, background: "linear-gradient(180deg, transparent 0%, rgba(13, 18, 36, 0.72) 40%, rgba(13, 18, 36, 0.95) 100%)" }}></div>
+      <div className="challenges-bottom-gradient absolute inset-x-0 bottom-0 h-[380px] z-[1] [background-image:linear-gradient(180deg,transparent_0%,rgba(13,18,36,0.72)_40%,rgba(13,18,36,0.95)_100%)]" />
 
-      <div className="container bg-feature-container" style={{ position: "relative", zIndex: 2, paddingTop: topPadding, paddingBottom: bottomPadding }}>
+      <div 
+        className="container bg-feature-container relative z-[2]" 
+        style={{ paddingTop: topPadding, paddingBottom: bottomPadding }}
+      >
         <div style={{ maxWidth: textMaxWidth }}>
           {Heading && (
-            <h2 className="section-title reveal" style={{ color: FontColorHeading || "var(--color-white)", fontSize: "2.4rem", fontWeight: 400, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px", lineHeight: 1.45, textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+            <h2 
+              className="section-title reveal text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] uppercase mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]" 
+              style={{ color: FontColorHeading || undefined }}
+            >
               {Heading}
             </h2>
           )}
 
           {Description && (
-            <p className="reveal stagger-1" style={{ color: FontColorDescription || "rgba(255, 255, 255, 0.8)", fontSize: "1.05rem", lineHeight: 1.8, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.4)" }} dangerouslySetInnerHTML={{ __html: Description }} />
+            <p 
+              className="reveal stagger-1 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] text-white/80" 
+              style={{ color: FontColorDescription || undefined }} 
+              dangerouslySetInnerHTML={{ __html: Description }} 
+            />
           )}
 
           {CTALabel && CTALink && (
-            <div className="reveal stagger-2" style={{ marginTop: "40px" }}>
+            <div className="reveal stagger-2 mt-10">
               <Link
                 href={CTALink}
-                style={{
-                  display: "inline-block",
-                  padding: "14px 40px",
-                  borderRadius: "999px",
-                  background: "var(--color-sky-teal)",
-                  color: "var(--color-midnight-blue)",
-                  fontFamily: "var(--font-heading)",
-                  fontSize: "0.9rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                  transition: "all 0.35s cubic-bezier(0.2, 1, 0.2, 1)",
-                  border: "2px solid var(--color-sky-teal)"
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--color-sky-teal)' }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--color-sky-teal)'; e.currentTarget.style.color = 'var(--color-midnight-blue)' }}
+                className="inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-[0.9rem] font-semibold tracking-[0.06em] uppercase no-underline transition-all duration-300 border-2 border-teal hover:bg-transparent hover:text-teal"
               >
                 {CTALabel}
               </Link>

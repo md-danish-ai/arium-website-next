@@ -7,31 +7,33 @@ interface LeadershipHeroProps {
 
 export default function LeadershipHero({ heading, intro }: LeadershipHeroProps) {
   return (
-    <section className="subpage-header" id="leadership-header" style={{ background: "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 40%, #C4B5F7 70%, #DDD5FF 100%)", padding: "200px 24px 180px", overflow: "visible" }}>
-      <div style={{ position: "absolute", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.18) 0%, transparent 65%)", top: "-100px", right: "-50px", pointerEvents: "none", filter: "blur(40px)" }}></div>
-      <div style={{ position: "absolute", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 60%)", top: "20%", left: "10%", pointerEvents: "none", filter: "blur(50px)" }}></div>
-      <div style={{ position: "absolute", width: "350px", height: "350px", borderRadius: "50%", background: "radial-gradient(circle, rgba(184,169,240,0.4) 0%, transparent 65%)", bottom: "10%", right: "20%", pointerEvents: "none", filter: "blur(60px)" }}></div>
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,218,200,0.12) 0%, transparent 60%)", bottom: "-200px", left: "-100px", pointerEvents: "none", filter: "blur(30px)" }}></div>
+    <section className="subpage-header relative bg-gradient-to-br from-[#B8A9F0] via-[#D2C7FF] to-[#DDD5FF] pt-[180px] md:pt-[200px] pb-36 md:pb-44 px-6 overflow-visible" id="leadership-header">
+      <div className="absolute w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.18)_0%,transparent_65%)] -top-[100px] -right-[50px] pointer-events-none blur-[40px]" />
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,transparent_60%)] top-[20%] left-[10%] pointer-events-none blur-[50px]" />
+      <div className="absolute w-[350px] h-[350px] rounded-full bg-[radial-gradient(circle,rgba(184,169,240,0.4)_0%,transparent_65%)] bottom-[10%] right-[20%] pointer-events-none blur-[60px]" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_60%)] -bottom-[200px] -left-[100px] pointer-events-none blur-[30px]" />
 
-      <nav className="reveal" aria-label="Breadcrumb" style={{ position: "absolute", top: "140px", left: 0, right: 0, zIndex: 2, padding: "0 clamp(24px, 4vw, 64px)" }}>
-        <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-body)", fontSize: "0.78rem", letterSpacing: "0.04em" }}>
+      <nav className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-6 md:px-16" aria-label="Breadcrumb">
+        <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-xs tracking-wider">
           <li>
             <Link
               href="/about"
-              className="breadcrumb-link"
+              className="breadcrumb-link text-[#162047]/50 hover:text-[#162047] no-underline transition-opacity duration-300"
             >
               Our Company
             </Link>
           </li>
-          <li style={{ color: "#162047", opacity: 0.3, fontSize: "0.7rem" }}>/</li>
-          <li style={{ color: "#162047", opacity: 0.8, fontWeight: 500 }}>Leadership</li>
+          <li className="text-[#162047]/30 text-[0.7rem]">/</li>
+          <li className="text-[#162047]/80 font-medium">Leadership</li>
         </ol>
       </nav>
 
-      <div className="subpage-header-inner" style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-        <div className="subpage-header-text" style={{ alignItems: "center", textAlign: "center", maxWidth: "960px" }}>
-          <h1 className="subpage-title reveal stagger-1">{heading || "Our Leadership"}</h1>
-          <p className="subpage-intro reveal stagger-2">
+      <div className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
+        <div className="subpage-header-text flex flex-col items-center text-center max-w-[960px]">
+          <h1 className="subpage-title reveal stagger-1 font-heading text-3xl md:text-5xl uppercase tracking-wider text-[#162047] font-light leading-tight mb-4">
+            {heading || "Our Leadership"}
+          </h1>
+          <p className="subpage-intro reveal stagger-2 text-[#162047]/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             {intro || "Seasoned industry leaders driving strategic growth and operational excellence."}
           </p>
         </div>

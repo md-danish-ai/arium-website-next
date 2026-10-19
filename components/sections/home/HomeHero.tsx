@@ -164,37 +164,34 @@ export default function HomeHero({
     <section 
       id="hero" 
       ref={heroRef}
-      style={{ position: "relative", display: "grid", placeItems: "center", height: "100vh", minHeight: "600px", width: "100%" }}
+      className="relative grid place-items-center h-screen min-h-[600px] w-full overflow-hidden"
     >
-      <style>{`
-        @keyframes breathe-teal {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.07); }
-        }
-        @keyframes breathe-white {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(0.93); }
-        }
-      `}</style>
-      <div ref={bgRef} id="hero-bg" style={{ backgroundColor: "#162047", position: "absolute", inset: 0, pointerEvents: "none" }} aria-hidden="true">
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", userSelect: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div ref={shapesWrapRef} style={{ position: "relative", height: "100%", width: "100%", opacity: 0 }}>
+      <div 
+        ref={bgRef} 
+        id="hero-bg" 
+        className="absolute inset-0 bg-midnight pointer-events-none" 
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none">
+          <div ref={shapesWrapRef} className="relative h-full w-full opacity-0">
             
             <div 
               ref={tealShapeRef}
-              style={{ position: "absolute", width: "170vmin", aspectRatio: "1955/1769", pointerEvents: "none", opacity: 0.5, willChange: "transform", left: "26%", top: "33%", translate: "-50% -50%", rotate: "180deg" }}
+              className="absolute [width:170vmin] [aspect-ratio:1955/1769] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              style={{ left: "26%", top: "33%", rotate: "180deg" }}
             >
-              <div ref={tealInnerRef} style={{ position: "relative", height: "100%", width: "100%", animation: "breathe-teal 20s ease-in-out infinite" }}>
-                <Image src="/assets/shape-teal.svg" alt="" fill style={{ objectFit: "contain" }} priority />
+              <div ref={tealInnerRef} className="relative h-full w-full animate-breathe-teal">
+                <Image src="/assets/shape-teal.svg" alt="" fill className="object-contain" priority />
               </div>
             </div>
             
             <div 
               ref={whiteShapeRef}
-              style={{ position: "absolute", width: "170vmin", aspectRatio: "1940/1757", pointerEvents: "none", opacity: 0.5, willChange: "transform", left: "73%", top: "97%", translate: "-50% -50%", rotate: "525deg" }}
+              className="absolute [width:170vmin] [aspect-ratio:1940/1757] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              style={{ left: "73%", top: "97%", rotate: "525deg" }}
             >
-              <div ref={whiteInnerRef} style={{ position: "relative", height: "100%", width: "100%", animation: "breathe-white 20s ease-in-out 10s infinite" }}>
-                <Image src="/assets/shape-white.svg" alt="" fill style={{ objectFit: "contain" }} priority />
+              <div ref={whiteInnerRef} className="relative h-full w-full animate-breathe-white">
+                <Image src="/assets/shape-white.svg" alt="" fill className="object-contain" priority />
               </div>
             </div>
 
@@ -202,21 +199,28 @@ export default function HomeHero({
         </div>
       </div>
 
-      <div style={{ padding: "150px 24px 100px", textAlign: "center", position: "relative", zIndex: 5 }}>
+      <div className="relative z-[5] px-6 pt-[150px] pb-[100px] text-center">
         <h1 
-          style={{ maxWidth: "980px", margin: "0 auto", textTransform: "uppercase", fontWeight: 400, color: "#fff", letterSpacing: "0.05em", fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 4vw, 3.2rem)", lineHeight: 1.4 }}
+          className="mx-auto max-w-[980px] uppercase font-normal text-white tracking-[0.05em] font-heading text-[clamp(2rem,4vw,3.2rem)] leading-[1.4]"
           dangerouslySetInnerHTML={{ __html: title }}
         />
         <p 
-          style={{ maxWidth: "800px", margin: "40px auto 0", color: "#fff", fontWeight: 400, fontSize: "clamp(1.05rem, 1.8vw, 1.25rem)", lineHeight: 1.6, textAlign: "center" }}
+          className="mx-auto mt-10 max-w-[800px] text-white font-normal text-[clamp(1.05rem,1.8vw,1.25rem)] leading-[1.6]"
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
       </div>
 
-      <div className="scroll-indicator" id="scroll-indicator" style={{ zIndex: 5 }}>
-        <span className="scroll-indicator-text">Scroll to explore</span>
-        <div className="scroll-indicator-arrow">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      <div 
+        className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity duration-300" 
+        id="scroll-indicator"
+      >
+        <span className="scroll-indicator-text block text-xs uppercase tracking-[0.15em] text-white font-body font-normal">
+          Scroll to explore
+        </span>
+        <div className="scroll-indicator-arrow text-teal animate-bounce">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+          </svg>
         </div>
       </div>
     </section>

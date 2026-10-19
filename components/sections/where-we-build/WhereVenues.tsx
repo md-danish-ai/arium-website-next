@@ -26,34 +26,41 @@ export default function WhereVenues({ data }: WhereVenuesProps) {
     : venueImages;
 
   return (
-    <section className="ov-feature ov-feature--flip ov-feature--teal" id="venues-feature">
-
-      <div style={{ position: "absolute", width: "700px", height: "700px", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,232,217,0.18) 0%, transparent 60%)", top: "-180px", left: "-150px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,218,200,0.12) 0%, transparent 65%)", bottom: "-180px", right: "-120px", pointerEvents: "none" }}></div>
-      <div style={{ position: "absolute", width: "450px", height: "450px", borderRadius: "50%", background: "radial-gradient(circle, rgba(210,199,255,0.08) 0%, transparent 70%)", top: "30%", right: "20%", pointerEvents: "none" }}></div>
+    <section className="ov-feature ov-feature--flip ov-feature--teal relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-[#E4FAF8] via-[#BCF6F2] to-[#E8FBF9]" id="venues-feature">
+      <div className="absolute w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.18)_0%,transparent_60%)] -top-[180px] -left-[150px] pointer-events-none" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_65%)] -bottom-[180px] -right-[120px] pointer-events-none" />
+      <div className="absolute w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(210,199,255,0.08)_0%,transparent_70%)] top-[30%] right-[20%] pointer-events-none" />
       
-      <div className="container ov-feature-inner">
-        <div className="ov-feature-text reveal">
-          <h2 className="ov-feature-heading">{data?.title || "Buildings and Venues"}</h2>
+      <div className="container ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
+        <div className="ov-feature-text reveal flex flex-col gap-5 lg:order-2">
+          <h2 className="ov-feature-heading font-heading text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-wider text-[#162047] leading-tight m-0">
+            {data?.title || "Buildings and Venues"}
+          </h2>
           {data?.body ? (
             <div 
-              className="ov-feature-desc strapi-richtext-body"
+              className="ov-feature-desc strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="ov-feature-desc">Our distributed antenna systems (DAS) and small cell networks bring advanced connectivity to in-building environments. We partner with large stadiums, commercial buildings, theme parks, campuses, and other private venues, helping customers stay connected in even the most crowded or hard-to-reach areas.</p>
+            <p className="ov-feature-desc text-[#162047]/85 text-base md:text-lg leading-relaxed m-0">
+              Our distributed antenna systems (DAS) and small cell networks bring advanced connectivity to in-building environments. We partner with large stadiums, commercial buildings, theme parks, campuses, and other private venues, helping customers stay connected in even the most crowded or hard-to-reach areas.
+            </p>
           )}
-          <Link href={data?.cta?.url || "/private-venues"} aria-label={`${data?.cta?.label || "Learn more"} about private venues`} className="ov-feature-cta reveal stagger-2">
+          <Link 
+            href={data?.cta?.url || "/private-venues"} 
+            aria-label={`${data?.cta?.label || "Learn more"} about private venues`} 
+            className="ov-feature-cta reveal stagger-2 inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-[#162047] bg-[#162047] text-white font-heading text-xs uppercase tracking-widest font-semibold hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5 self-start mt-2 group"
+          >
             {data?.cta?.label || "Learn more"}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
               <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
             </svg>
           </Link>
         </div>
         
-        <div className="ov-showcase reveal stagger-1">
-          <div className="ov-showcase-stage" style={{ height: "100%", width: "100%", position: "relative" }}>
-            <img src={carouselImages[0].src} alt={carouselImages[0].alt} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }} />
+        <div className="ov-showcase reveal stagger-1 lg:order-1">
+          <div className="ov-showcase-stage aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
+            <img src={carouselImages[0].src} alt={carouselImages[0].alt} className="w-full h-full object-cover" />
           </div>
         </div>
       </div>
