@@ -167,18 +167,18 @@ export default function Header({ layoutData }: { layoutData?: any }) {
             <>
               <span
                 dangerouslySetInnerHTML={{ __html: layoutData.logoDesktop }}
-                className="nav-logo-desktop hidden lg:block [&>svg]:w-[132px] [&>svg]:xl:w-[162px] [&>svg]:h-auto [&>svg]:text-white"
+                className="nav-logo-desktop hidden min-[1080px]:block [&>svg]:w-[132px] [&>svg]:xl:w-[162px] [&>svg]:h-auto [&>svg]:text-white"
               />
               <span
                 dangerouslySetInnerHTML={{ __html: layoutData.logoMobile }}
-                className="nav-logo-mobile block lg:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
+                className="nav-logo-mobile block min-[1080px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
               />
             </>
           ) : (
             <>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="nav-logo-desktop hidden lg:block w-[132px] xl:w-[162px] h-auto text-white"
+                className="nav-logo-desktop hidden min-[1080px]:block w-[132px] xl:w-[162px] h-auto text-white"
                 viewBox="0 0 216 94.951"
                 width="162"
                 height="72"
@@ -195,7 +195,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
               </svg>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="nav-logo-mobile block lg:hidden w-[189px] h-auto text-white"
+                className="nav-logo-mobile block min-[1080px]:hidden w-[189px] h-auto text-white"
                 viewBox="0 0 382.282 68.139"
                 aria-hidden="true"
               >
@@ -271,10 +271,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                       </svg>
                     </button>
                     <div
-                      className={`nav-dropdown-menu absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 min-w-[200px] bg-[#162047]/95 backdrop-blur-xl border border-white/10 rounded-2xl py-2 px-1 shadow-2xl z-50 transition-all duration-200 ${
+                      className={`nav-dropdown-menu absolute top-[calc(100%+8px)] min-w-[200px] bg-[#162047]/98 backdrop-blur-xl border border-teal/25 rounded-[14px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.08)] z-50 flex flex-col gap-0.5 transition-all duration-200 ${
                         openDropdown === dropId
-                          ? "opacity-100 visible translate-y-0 pointer-events-auto"
-                          : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                          ? "opacity-100 visible pointer-events-auto"
+                          : "opacity-0 invisible pointer-events-none"
                       }`}
                       role="menu"
                     >
@@ -282,10 +282,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                         <Link
                           key={subItem.id}
                           href={subItem.url || "#"}
-                          className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                          className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                             pathname === subItem.url
-                              ? "text-teal font-semibold bg-white/10"
-                              : "text-white/90 hover:text-teal hover:bg-white/5"
+                              ? "active text-teal font-semibold bg-teal/15"
+                              : "text-white hover:text-teal hover:bg-teal/15"
                           }`}
                           role="menuitem"
                           onClick={closeMobileMenu}
@@ -343,19 +343,19 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </svg>
                 </button>
                 <div
-                  className={`nav-dropdown-menu absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 min-w-[200px] bg-[#162047]/95 backdrop-blur-xl border border-white/10 rounded-2xl py-2 px-1 shadow-2xl z-50 transition-all duration-200 ${
+                  className={`nav-dropdown-menu absolute top-[calc(100%+8px)] min-w-[200px] bg-[#162047]/98 backdrop-blur-xl border border-teal/25 rounded-[14px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.08)] z-50 flex flex-col gap-0.5 transition-all duration-200 ${
                     openDropdown === "company"
-                      ? "opacity-100 visible translate-y-0 pointer-events-auto"
-                      : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                      ? "opacity-100 visible pointer-events-auto"
+                      : "opacity-0 invisible pointer-events-none"
                   }`}
                   role="menu"
                 >
                   <Link
                     href="/about"
-                    className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                       pathname === "/about"
-                        ? "text-teal font-semibold bg-white/10"
-                        : "text-white/90 hover:text-teal hover:bg-white/5"
+                        ? "active text-teal font-semibold bg-teal/15"
+                        : "text-white hover:text-teal hover:bg-teal/15"
                     }`}
                     role="menuitem"
                     onClick={closeMobileMenu}
@@ -364,10 +364,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/leadership"
-                    className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                       pathname === "/leadership"
-                        ? "text-teal font-semibold bg-white/10"
-                        : "text-white/90 hover:text-teal hover:bg-white/5"
+                        ? "active text-teal font-semibold bg-teal/15"
+                        : "text-white hover:text-teal hover:bg-teal/15"
                     }`}
                     role="menuitem"
                     onClick={closeMobileMenu}
@@ -376,10 +376,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/board-of-directors"
-                    className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                       pathname === "/board-of-directors"
-                        ? "text-teal font-semibold bg-white/10"
-                        : "text-white/90 hover:text-teal hover:bg-white/5"
+                        ? "active text-teal font-semibold bg-teal/15"
+                        : "text-white hover:text-teal hover:bg-teal/15"
                     }`}
                     role="menuitem"
                     onClick={closeMobileMenu}
@@ -427,19 +427,19 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </svg>
                 </button>
                 <div
-                  className={`nav-dropdown-menu absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 min-w-[200px] bg-[#162047]/95 backdrop-blur-xl border border-white/10 rounded-2xl py-2 px-1 shadow-2xl z-50 transition-all duration-200 ${
+                  className={`nav-dropdown-menu absolute top-[calc(100%+8px)] min-w-[200px] bg-[#162047]/98 backdrop-blur-xl border border-teal/25 rounded-[14px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.08)] z-50 flex flex-col gap-0.5 transition-all duration-200 ${
                     openDropdown === "where"
-                      ? "opacity-100 visible translate-y-0 pointer-events-auto"
-                      : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                      ? "opacity-100 visible pointer-events-auto"
+                      : "opacity-0 invisible pointer-events-none"
                   }`}
                   role="menu"
                 >
                   <Link
                     href="/where-we-build"
-                    className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                       pathname === "/where-we-build"
-                        ? "text-teal font-semibold bg-white/10"
-                        : "text-white/90 hover:text-teal hover:bg-white/5"
+                        ? "active text-teal font-semibold bg-teal/15"
+                        : "text-white hover:text-teal hover:bg-teal/15"
                     }`}
                     role="menuitem"
                     onClick={closeMobileMenu}
@@ -448,10 +448,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/right-of-ways"
-                    className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                       pathname === "/right-of-ways"
-                        ? "text-teal font-semibold bg-white/10"
-                        : "text-white/90 hover:text-teal hover:bg-white/5"
+                        ? "active text-teal font-semibold bg-teal/15"
+                        : "text-white hover:text-teal hover:bg-teal/15"
                     }`}
                     role="menuitem"
                     onClick={closeMobileMenu}
@@ -460,10 +460,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/private-venues"
-                    className={`nav-dropdown-link block px-4 py-2.5 text-sm font-heading rounded-xl transition-all duration-200 no-underline ${
+                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
                       pathname === "/private-venues"
-                        ? "text-teal font-semibold bg-white/10"
-                        : "text-white/90 hover:text-teal hover:bg-white/5"
+                        ? "active text-teal font-semibold bg-teal/15"
+                        : "text-white hover:text-teal hover:bg-teal/15"
                     }`}
                     role="menuitem"
                     onClick={closeMobileMenu}
