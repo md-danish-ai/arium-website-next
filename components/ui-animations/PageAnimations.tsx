@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import {
   useScrollReveal,
   useParallax,
@@ -9,11 +11,18 @@ import {
 } from "@hooks/useAnimations";
 
 export default function PageAnimations() {
-  useScrollReveal();
-  useParallax();
-  useScrollIndicator();
-  useCounters();
-  useTimeline();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Scroll to top upon navigating to a new page
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+  }, [pathname]);
+
+  useScrollReveal(pathname);
+  useParallax(pathname);
+  useScrollIndicator(pathname);
+  useCounters(pathname);
+  useTimeline(pathname);
 
   return null;
 }
