@@ -9,6 +9,7 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TypographyVariant;
   as?: React.ElementType;
   weight?: TypographyWeight;
+  uppercase?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
@@ -29,45 +30,63 @@ const variantTagMap: Record<TypographyVariant, React.ElementType> = {
   quote: "blockquote",
 };
 
+// Default weights per variant (only applied if `weight` prop is not explicitly passed)
+const defaultWeightMap: Record<TypographyVariant, TypographyWeight> = {
+  h1: "light",
+  h2: "light",
+  h3: "normal",
+  h4: "bold",
+  h5: "semibold",
+  h6: "normal",
+  b1: "normal",
+  b2: "normal",
+  b3: "normal",
+  b4: "medium",
+  stat: "extrabold",
+  button: "semibold",
+  quote: "light",
+};
+
+// All variants use 100% fluid responsive clamp() with font-family, letter-spacing, and line-height.
 const variantStyleMap: Record<TypographyVariant, string> = {
-  // H1: Main Hero Heading (Fluid 32px -> 56px, uppercase, tracking 0.05em, leading 1.15)
-  h1: "font-heading font-light uppercase tracking-[0.05em] text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.15]",
+  // H1: Main Hero Heading (.shared-img-hero-heading: Fluid 30px -> 52px, tracking 0.08em, leading 1.2)
+  h1: "font-heading tracking-[0.08em] text-[clamp(1.85rem,3.5vw,3.2rem)] leading-[1.2]",
 
-  // H2: Subpage Hero Heading (Fluid 28px -> 48px, uppercase, tracking 0.05em, leading 1.2)
-  h2: "font-heading font-light uppercase tracking-[0.05em] text-[clamp(1.8rem,3.5vw,3rem)] leading-[1.2]",
+  // H2: Subpage Hero Heading (.subpage-title: Fluid 29px -> 45px, tracking 0.05em, leading 1.2)
+  h2: "font-heading tracking-[0.05em] text-[clamp(1.8rem,3.2vw,2.8rem)] leading-[1.2]",
 
-  // H3: Section Heading (Fluid 26px -> 38px, uppercase, tracking 0.06em, leading 1.35)
-  h3: "font-heading font-normal uppercase tracking-[0.06em] text-[clamp(1.75rem,3vw,2.4rem)] leading-[1.35]",
+  // H3: Section Heading (.section-title: Fluid 28px -> 38px, tracking 0.06em, leading 1.4)
+  h3: "font-heading tracking-[0.06em] text-[clamp(1.75rem,0.5rem+2.2vw,2.4rem)] leading-[1.4]",
 
-  // H4: Card / Column Heading (Fluid 18px -> 22px, bold, uppercase, tracking 0.04em, leading 1.3)
-  h4: "font-heading font-bold uppercase tracking-[0.04em] text-[clamp(1.1rem,1.8vw,1.35rem)] leading-[1.3]",
+  // H4: Card / Benefit / Pillar Heading (.shared-benefits-title: Fluid 17.5px -> 22.4px, tracking 0.06em, leading 1.2)
+  h4: "font-heading tracking-[0.06em] text-[clamp(1.1rem,1.8vw,1.4rem)] leading-[1.2]",
 
-  // H5: Sub-card / Feature Heading (16px -> 18px, semibold, uppercase)
-  h5: "font-heading font-semibold uppercase tracking-[0.04em] text-base md:text-lg leading-snug",
+  // H5: Sub-card / Modal Member Heading (Fluid 16px -> 18.5px, tracking 0.04em, leading-snug)
+  h5: "font-heading tracking-[0.04em] text-[clamp(1rem,1.4vw,1.15rem)] leading-snug",
 
-  // H6: Eyebrow / Small Header (14px -> 16px, medium, uppercase, tracking 0.08em)
-  h6: "font-heading font-medium uppercase tracking-[0.08em] text-sm md:text-base leading-snug",
+  // H6: Eyebrow / Interactive Trigger (.sas-item-title: Fluid 13px -> 14px, tracking 0.15em, leading-snug)
+  h6: "font-heading tracking-[0.15em] text-[clamp(0.8rem,1vw,0.875rem)] leading-snug",
 
-  // B1: Lead / Large Intro Body (Fluid 16px -> 18px, relaxed, text-midnight/80)
-  b1: "font-body font-normal text-[clamp(1rem,1.4vw,1.15rem)] leading-relaxed text-[#162047]/80",
+  // B1: Lead / Large Intro Body (.section-description: Fluid 16px -> 19px, leading 1.7)
+  b1: "font-body text-[clamp(1rem,1.4vw,1.18rem)] leading-[1.7]",
 
-  // B2: Standard Body Text (14px -> 16px, relaxed, text-midnight/80)
-  b2: "font-body font-normal text-sm md:text-base leading-relaxed text-[#162047]/80",
+  // B2: Standard Body Text (Fluid 14px -> 16px, leading 1.65)
+  b2: "font-body text-[clamp(0.875rem,1.1vw,1rem)] leading-[1.65]",
 
-  // B3: Compact Body Text / Card Description (12px -> 14px, text-midnight/75)
-  b3: "font-body font-normal text-xs md:text-sm leading-relaxed text-[#162047]/75",
+  // B3: Compact Body Text / Card Description (Fluid 13px -> 14px, leading 1.6)
+  b3: "font-body text-[clamp(0.8rem,0.9vw,0.875rem)] leading-[1.6]",
 
-  // B4: Caption / Breadcrumb / Metadata Tag (12px, medium, uppercase, tracking 0.08em)
-  b4: "font-body font-medium uppercase tracking-[0.08em] text-xs leading-none",
+  // B4: Caption / Category Tag / Form Label (Fluid 11px -> 12px, tracking 0.08em, leading-none)
+  b4: "font-body tracking-[0.08em] text-[clamp(0.7rem,0.8vw,0.75rem)] leading-none",
 
-  // Stat: Big KPI Numbers (e.g. 100K+, 700+, 15+)
-  stat: "font-heading font-extrabold tracking-tight text-[clamp(2.5rem,5vw,4.2rem)] leading-none",
+  // Stat: Big KPI Numbers (.sol-kpi-num: Fluid 35px -> 58px, tracking -0.03em, leading-none)
+  stat: "font-heading tracking-[-0.03em] text-[clamp(2.2rem,4.5vw,3.6rem)] leading-none",
 
-  // Button: CTA button typography (12px -> 14px, uppercase, tracking 0.1em)
-  button: "font-heading font-semibold uppercase tracking-[0.1em] text-xs md:text-sm leading-none",
+  // Button: CTA Button Label (Fluid 13px -> 14px, tracking 0.1em, leading-none)
+  button: "font-heading tracking-[0.1em] text-[clamp(0.8rem,1vw,0.85rem)] leading-none",
 
-  // Quote: Testimonial Quotes (italic, relaxed)
-  quote: "font-body font-light italic text-base md:text-lg leading-relaxed text-[#162047]/85",
+  // Quote: Testimonial Quotes (.tm-panel-text: Fluid 16px -> 18.5px, italic, leading 1.8)
+  quote: "font-body italic text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.8]",
 };
 
 const weightMap: Record<TypographyWeight, string> = {
@@ -83,16 +102,25 @@ export default function Typography({
   variant = "b2",
   as,
   weight,
+  uppercase,
   className = "",
   children,
   ...props
 }: TypographyProps) {
   const Component = as || variantTagMap[variant] || "div";
   const variantStyles = variantStyleMap[variant] || "";
-  const weightStyle = weight ? weightMap[weight] : "";
+
+  // Dynamic weight resolution (prop override > variant default)
+  const resolvedWeight = weight || defaultWeightMap[variant] || "normal";
+  const weightClass = weightMap[resolvedWeight] || "";
+
+  // Uppercase prop
+  const uppercaseClass = uppercase ? "uppercase" : "";
+
+  const classes = [variantStyles, weightClass, uppercaseClass, className].filter(Boolean).join(" ");
 
   return (
-    <Component className={`${variantStyles} ${weightStyle} ${className}`.trim()} {...props}>
+    <Component className={classes} {...props}>
       {children}
     </Component>
   );
