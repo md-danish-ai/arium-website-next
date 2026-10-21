@@ -151,18 +151,21 @@ export default function BackgroundFeatureSection({
           <div className="container">
             <div className="reveal stagger-2 challenges-pillars grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {cardsToRender.map((card: any, index: number) => (
-                <div className="challenges-pillar flex flex-col" key={index}>
+                <div
+                  className="challenges-pillar flex flex-col items-center text-center pb-5"
+                  key={index}
+                >
                   <Typography
                     variant="h4"
                     uppercase
-                    className="challenges-pillar-label mb-2"
+                    className="challenges-pillar-label mb-2 text-teal font-heading font-bold text-[1.5rem] md:text-[2.2rem] tracking-[0.08em] [text-shadow:0_2px_16px_rgba(0,0,0,0.5)]"
                     style={{ color: card.HeadingColor || undefined }}
                   >
                     {card.Heading || card.title}
                   </Typography>
                   <Typography
                     variant="b2"
-                    className="challenges-pillar-desc text-white/80"
+                    className="challenges-pillar-desc text-white/85 text-[0.85rem] md:text-[0.9rem] leading-[1.65] max-w-[520px] mx-auto text-center"
                     style={{ color: card.TextColor || undefined }}
                   >
                     {card.Description || card.description}

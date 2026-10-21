@@ -165,7 +165,11 @@ export default function SharedDetailedCardGrid({
   const hasCards = rawCards && rawCards.length > 0;
 
   return (
-    <section className="infra-section" id="infrastructure" style={backgroundStyle}>
+    <section
+      className="infra-section py-16 md:py-24 lg:py-28 relative overflow-hidden bg-midnight"
+      id="infrastructure"
+      style={backgroundStyle}
+    >
       <div className="infra-grid-bg"></div>
 
       <div className="infra-particles" id="infra-particles"></div>
@@ -180,7 +184,7 @@ export default function SharedDetailedCardGrid({
           </p>
         </div>
 
-        <div className="infra-panels">
+        <div className="infra-panels grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {hasCards ? (
             rawCards.map((item, index) => {
               let imageUrl = "";
@@ -217,8 +221,11 @@ export default function SharedDetailedCardGrid({
               const ctaLink = item.CtaLink || item.ctaLink || item.link;
 
               return (
-                <div className="infra-panel reveal stagger-3" key={index}>
-                  <div className="infra-panel-card">
+                <div
+                  className="infra-panel transition-all duration-300 hover:-translate-y-1.5 reveal stagger-3"
+                  key={index}
+                >
+                  <div className="infra-panel-card bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
                     {imageUrl ? (
                       <div
                         style={{
@@ -243,9 +250,15 @@ export default function SharedDetailedCardGrid({
                         className="[&>svg]:infra-panel-svg [&>svg]:draw-svg"
                       />
                     ) : null}
-                    <div className="infra-panel-text">
-                      <h3 className="infra-panel-heading">{titleText}</h3>
-                      {descText ? <p className="infra-panel-desc">{descText}</p> : null}
+                    <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full">
+                      <h3 className="infra-panel-heading font-heading text-xl md:text-[1.35rem] font-normal text-white uppercase tracking-[0.05em] mb-2.5">
+                        {titleText}
+                      </h3>
+                      {descText ? (
+                        <p className="infra-panel-desc text-white/80 font-body text-sm md:text-base leading-relaxed max-w-[480px] mx-auto">
+                          {descText}
+                        </p>
+                      ) : null}
                       {ctaLink && (
                         <Link
                           href={ctaLink}
@@ -279,8 +292,8 @@ export default function SharedDetailedCardGrid({
             })
           ) : (
             <>
-              <div className="infra-panel reveal stagger-3">
-                <div className="infra-panel-card">
+              <div className="infra-panel transition-all duration-300 hover:-translate-y-1.5 reveal stagger-3">
+                <div className="infra-panel-card bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="-25 0 240 240"
@@ -706,9 +719,11 @@ export default function SharedDetailedCardGrid({
                       </clipPath>
                     </defs>
                   </svg>
-                  <div className="infra-panel-text">
-                    <h3 className="infra-panel-heading">Small Cells</h3>
-                    <p className="infra-panel-desc">
+                  <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full">
+                    <h3 className="infra-panel-heading font-heading text-xl md:text-[1.35rem] font-normal text-white uppercase tracking-[0.05em] mb-2.5">
+                      Small Cells
+                    </h3>
+                    <p className="infra-panel-desc text-white/80 font-body text-sm md:text-base leading-relaxed max-w-[480px] mx-auto">
                       Small cells are discreet, low-powered, fiber-connected antennas that enhance
                       connectivity by providing targeted wireless coverage and capacity in public
                       spaces—especially in dense populations or high-traffic areas like cities and
@@ -742,8 +757,8 @@ export default function SharedDetailedCardGrid({
                 </div>
               </div>
 
-              <div className="infra-panel reveal stagger-4">
-                <div className="infra-panel-card">
+              <div className="infra-panel transition-all duration-300 hover:-translate-y-1.5 reveal stagger-4">
+                <div className="infra-panel-card bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="-30 0 240 240"
@@ -1071,9 +1086,11 @@ export default function SharedDetailedCardGrid({
                       </clipPath>
                     </defs>
                   </svg>
-                  <div className="infra-panel-text">
-                    <h3 className="infra-panel-heading">Distributed Antenna Systems</h3>
-                    <p className="infra-panel-desc">
+                  <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full">
+                    <h3 className="infra-panel-heading font-heading text-xl md:text-[1.35rem] font-normal text-white uppercase tracking-[0.05em] mb-2.5">
+                      Distributed Antenna Systems
+                    </h3>
+                    <p className="infra-panel-desc text-white/80 font-body text-sm md:text-base leading-relaxed max-w-[480px] mx-auto">
                       Distributed Antenna Systems (DAS) use small, strategically placed connection
                       points, also called nodes, to meet the unique coverage and capacity needs of
                       venues and indoor spaces like high-rises, hospitals, campuses, stadiums,

@@ -1821,131 +1821,7 @@ p {
   box-shadow: 0 0 20px rgba(0, 232, 217, 0.15);
 }
 
-/* Responsive */
-@media (max-width: 1500px) {
-  .infra-section > .container {
-    zoom: 0.82;
-  }
-}
 
-@media (max-width: 1079px) {
-  .infra-panels {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .infra-panel-card {
-    border-radius: 20px;
-    padding: 0 0 36px;
-  }
-
-  .infra-panel-card .infra-panel-svg {
-    width: 40%;
-    margin-top: 32px;
-  }
-
-  .infra-panel-text {
-    padding: 28px 32px 0;
-  }
-
-  .infra-panel-heading {
-    font-size: 1.2rem;
-  }
-
-  .infra-panel-desc {
-    font-size: 0.95rem;
-    max-height: none;
-  }
-
-  .infra-panel-link {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .infra-section {
-    padding: 60px 0 !important;
-  }
-
-  .infra-panels {
-    max-width: 100%;
-    gap: 24px;
-  }
-
-  .infra-panel-card {
-    border-radius: 16px;
-    padding: 0 0 28px;
-  }
-
-  .infra-panel-card .infra-panel-svg {
-    width: 50% !important;
-    margin-top: 24px;
-  }
-
-  .infra-panel-text {
-    padding: 20px 20px 0;
-  }
-
-  .infra-panel-heading {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-  }
-
-  .infra-panel-desc {
-    font-size: 0.88rem;
-    line-height: 1.6;
-    margin-bottom: 18px;
-  }
-
-  .infra-panel-link {
-    font-size: 0.82rem;
-    padding: 9px 22px;
-  }
-}
-
-@media (max-width: 480px) {
-  .infra-section {
-    padding: 40px 0 !important;
-  }
-
-  .infra-panels {
-    gap: 20px;
-  }
-
-  .infra-panel-card {
-    border-radius: 14px;
-    padding: 0 0 24px;
-  }
-
-  .infra-panel-card .infra-panel-svg {
-    width: 50% !important;
-    margin-top: 20px;
-  }
-
-  .infra-panel-text {
-    padding: 16px 16px 0;
-  }
-
-  .infra-panel-heading {
-    font-size: 1rem;
-    letter-spacing: 0.03em;
-    margin-bottom: 8px;
-  }
-
-  .infra-panel-desc {
-    font-size: 0.82rem;
-    line-height: 1.55;
-    margin-bottom: 14px;
-  }
-
-  .infra-panel-link {
-    font-size: 0.78rem;
-    padding: 8px 18px;
-  }
-}
 
 /* ═══════════════════════════════════════════ */
 /* COMMUNITY SECTION                           */
@@ -5422,39 +5298,8 @@ body {
     font-size: 2rem !important;
   }
 
-  .challenges-pillar {
-    padding: 0 !important;
-    text-align: center !important;
-  }
-
-  .challenges-pillar-label {
-    font-size: 1.5rem !important;
-    margin-bottom: 8px !important;
-    text-align: center !important;
-  }
-
   .shared-journey-timeline .shared-journey-tl-desc {
     padding-top: 0px !important;
-  }
-
-  .shared-swi-section {
-    padding: 56px 0 80px !important;
-  }
-
-  .shared-dcg-section {
-    padding: 80px 0 56px !important;
-  }
-
-  .shared-dcg-panel-heading {
-    font-size: 1.15rem !important;
-  }
-
-  .challenges-pillar-desc {
-    font-size: 0.84rem !important;
-    line-height: 1.55 !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    text-align: center !important;
   }
 
   .shared-benefits-grid {
@@ -5506,7 +5351,6 @@ body {
   .ov-feature-heading,
   .culture-hero-heading,
   .subpage-story-heading,
-  .challenges-heading,
   .commit-hero-title,
   #about h2,
   #our-solutions h2,
@@ -5520,7 +5364,6 @@ body {
   }
 
   /* 2. Pillar Label (1rem) */
-  .challenges-pillar-label,
   .cr-pillar-title,
   .cr-benefit-heading,
   .ind-interactive-title,
@@ -5549,7 +5392,6 @@ body {
   }
 
   /* 4. Pillars Description (0.85rem + letter spacing) */
-  .challenges-pillar-desc,
   .cr-pillar-text,
   .cr-benefit-desc,
   .ind-expand-desc,
@@ -5793,131 +5635,7 @@ body {
     padding: 0px 0 60px !important;
   }
 
-  .challenges-hero-container {
-    padding-top: 80px !important;
-    padding-bottom: 20px !important;
-  }
-}
 
-/* Network Challenges Section Responsive Styles */
-.challenges-hero-container {
-  padding-top: 180px;
-  padding-bottom: 60px;
-}
-
-@media (min-width: 769px) and (max-width: 1079px) {
-  .challenges-veil {
-    background: rgba(10, 22, 40, 0.75) !important;
-  }
-
-  .shared-swi-top-grid {
-    grid-template-columns: 1fr !important;
-    gap: 80px !important;
-  }
-
-  .shared-igs-heading {
-    font-size: 2rem !important;
-  }
-
-  .challenges-pillars {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 24px !important;
-  }
-
-  .shared-dcg-panels {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-  }
-}
-
-.challenges-pillars-container {
-  padding: 48px 0 56px;
-}
-
-@media (max-width: 780px) {
-  .challenges-pillars-container {
-    padding-top: 0px !important;
-  }
-}
-
-.challenges-pillars {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(40px, 5vw, 80px);
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.challenges-pillar {
-  padding: 0px 0px 20px;
-  text-align: center;
-}
-
-.challenges-pillar-label {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #00e8d9;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
-}
-
-.challenges-pillar-desc {
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0;
-}
-
-@media (max-width: 1079px) {
-  .challenges-pillars {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-  }
-
-  .challenges-pillar {
-    padding: 0px 0px !important;
-    text-align: left !important;
-  }
-
-  .challenges-pillar-label {
-    margin-bottom: 12px !important;
-  }
-
-  .challenges-pillar-desc {
-    font-size: 0.9rem !important;
-    max-width: 520px;
-  }
-}
-
-@media (max-width: 768px) {
-  .challenges-pillars {
-    gap: 20px !important;
-  }
-
-  .challenges-pillar {
-    padding: 0 !important;
-    max-width: 376px !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  .challenges-pillar-label {
-    font-size: 1.5rem !important;
-    margin-bottom: 6px !important;
-    text-shadow: none !important;
-  }
-
-  .challenges-pillar-desc {
-    font-size: 0.85rem !important;
-  }
 
   /* Position subpage CTA background illustration below text on mobile */
   .subpage-cta-section {
@@ -6171,10 +5889,6 @@ body {
 }
 
 @media (max-width: 600px) {
-  .challenges-pillar-label {
-    font-size: 1rem !important;
-    line-height: 1.35 !important;
-  }
 
   .container.bg-feature-container h2 {
     font-size: 1.2rem !important;

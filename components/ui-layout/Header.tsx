@@ -224,13 +224,18 @@ export default function Header({ layoutData }: { layoutData?: any }) {
           <span className="nav-toggle-bar"></span>
         </button>
 
-        <nav aria-label="Main navigation" className="nav-links flex items-center gap-1.5 xl:gap-2.5" id="nav-links">
+        <nav
+          aria-label="Main navigation"
+          className="nav-links flex items-center gap-1.5 xl:gap-2.5"
+          id="nav-links"
+        >
           {layoutData?.navigation && layoutData.navigation.length > 0 ? (
             layoutData.navigation.map((navItem: any) => {
               if (navItem.dropdown && navItem.dropdown.length > 0) {
                 const dropId = navItem.label.toLowerCase().replace(/\s+/g, "-");
                 const isDropActive = navItem.dropdown.some(
-                  (sub: any) => sub.url && (pathname === sub.url || pathname.startsWith(sub.url + "/"))
+                  (sub: any) =>
+                    sub.url && (pathname === sub.url || pathname.startsWith(sub.url + "/"))
                 );
                 return (
                   <div
@@ -383,7 +388,11 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                 </div>
               </div>
-              <Link href="/solutions" className={getLinkClass("/solutions")} onClick={closeMobileMenu}>
+              <Link
+                href="/solutions"
+                className={getLinkClass("/solutions")}
+                onClick={closeMobileMenu}
+              >
                 Our Solutions
               </Link>
               <div
@@ -463,7 +472,11 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                 </div>
               </div>
-              <Link href="/community" className={getLinkClass("/community")} onClick={closeMobileMenu}>
+              <Link
+                href="/community"
+                className={getLinkClass("/community")}
+                onClick={closeMobileMenu}
+              >
                 Your Community
               </Link>
               <Link href="/careers" className={getLinkClass("/careers")} onClick={closeMobileMenu}>
