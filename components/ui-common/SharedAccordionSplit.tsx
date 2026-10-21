@@ -212,7 +212,7 @@ export default function SharedAccordionSplit({
         >
           {/* LEFT */}
           <div
-            className="sas-col-left reveal flex flex-col"
+            className="sas-col-left reveal flex flex-col min-[1450px]:max-w-[700px]"
             style={isCareers ? { maxWidth: "660px" } : undefined}
           >
             {Heading && (

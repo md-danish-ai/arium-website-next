@@ -6,9 +6,9 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-flex-row">
+    <footer className="footer relative z-10 overflow-hidden min-h-[280px] flex items-center py-5 md:py-8 lg:py-0">
+      <div className="container mx-auto px-6">
+        <div className="footer-flex-row flex flex-col min-[601px]:flex-row items-center min-[601px]:items-start gap-8 min-[601px]:gap-15">
           <Link
             href="/"
             aria-label="Arium Networks"
@@ -18,18 +18,18 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
               <>
                 <span
                   dangerouslySetInnerHTML={{ __html: layoutData.FooterLogoDesktop }}
-                  className="footer-logo-desktop hidden lg:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
+                  className="footer-logo-desktop hidden min-[1080px]:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
                 />
                 <span
                   dangerouslySetInnerHTML={{ __html: layoutData.FooterLogoMobile }}
-                  className="footer-logo-mobile block lg:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
+                  className="footer-logo-mobile block min-[1080px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
                 />
               </>
             ) : (
               <>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="footer-logo-desktop hidden lg:block w-[160px] h-auto text-white"
+                  className="footer-logo-desktop hidden min-[1080px]:block w-[160px] h-auto text-white"
                   viewBox="0 0 216 94.951"
                 >
                   <path
@@ -43,7 +43,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="footer-logo-mobile block lg:hidden w-[189px] h-auto text-white"
+                  className="footer-logo-mobile block min-[1080px]:hidden w-[189px] h-auto text-white"
                   viewBox="0 0 382.282 68.139"
                   aria-hidden="true"
                 >
@@ -60,9 +60,9 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
             )}
           </Link>
 
-          <div className="footer-links-col">
-            <div className="footer-links-inner">
-              <div className="footer-social-row">
+          <div className="footer-links-col flex-1 min-w-0 w-full min-[601px]:w-auto">
+            <div className="footer-links-inner w-full min-[601px]:w-fit min-[601px]:ml-auto">
+              <div className="footer-social-row flex items-center justify-between pb-6 w-full px-5 min-[601px]:px-0">
                 {layoutData?.footerColumn?.footerLinks?.find(
                   (link: any) => link.url === "/contact"
                 ) ? (
@@ -144,7 +144,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
 
               <div className="border-t border-white/15 my-4" />
 
-              <div className="footer-legal-row flex flex-wrap items-center justify-center lg:justify-start gap-x-6 lg:gap-x-8 gap-y-2 mt-4">
+              <div className="footer-legal-row flex flex-wrap items-center justify-center min-[601px]:justify-start gap-x-[clamp(20px,4vw,32px)] md:gap-x-9 gap-y-3 pt-4.5 md:pt-6 text-center min-[601px]:text-left">
                 {layoutData?.footerColumn?.footerLinks?.length > 0 ? (
                   layoutData.footerColumn.footerLinks
                     .filter((link: any) => link.url !== "/contact")
@@ -154,7 +154,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                        className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                       >
                         {link.name}
                       </a>
@@ -165,7 +165,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                       href="https://d2919ce8l80osk.cloudfront.net/Acessibility_Statement_Arium_Networks_Redline_v_Send42726_1f79ed2b31.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                      className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                     >
                       Accessibility Statements
                     </a>
@@ -173,7 +173,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                       href="https://d2919ce8l80osk.cloudfront.net/Ethics_Policy_Arium_Networks_043026_6bd2df50a0.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                      className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                     >
                       Ethics Policy
                     </a>
@@ -181,7 +181,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                       href="https://d2919ce8l80osk.cloudfront.net/Regulatory_Status_Arium_Networks_Redline_v_Send42726_6ffecd8508.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                      className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                     >
                       Regulatory Statement
                     </a>
@@ -189,7 +189,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                       href="https://d2919ce8l80osk.cloudfront.net/Acceptable_Use_Policy_Arium_Networks_v0422726_a5e69bb019.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                      className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                     >
                       Acceptable Use
                     </a>
@@ -197,7 +197,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                       href="https://d2919ce8l80osk.cloudfront.net/Privacy_Statement_Arium_Networks_Redline_v_Send42726_4d4afd83b8.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                      className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                     >
                       Privacy Policy
                     </a>
@@ -205,7 +205,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                       href="https://d2919ce8l80osk.cloudfront.net/Terms_of_Use_Arium_Networks_043026_accfd8cd2c.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/75 text-[0.78rem] no-underline hover:text-white transition-colors"
+                      className="text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors"
                     >
                       Terms of Use
                     </a>
@@ -213,7 +213,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                 )}
               </div>
 
-              <p className="footer-copyright mt-6 text-xs text-white/50 text-center lg:text-left">
+              <p className="footer-copyright text-[0.78rem] text-white/60 text-center min-[601px]:text-right mt-9 min-[601px]:mt-14">
                 {layoutData?.Copyright || `© ${currentYear} Arium Networks.`}
               </p>
             </div>

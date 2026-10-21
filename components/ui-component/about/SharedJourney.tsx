@@ -95,11 +95,14 @@ export default function SharedJourney({
         </div>
 
         {/* Timeline */}
-        <div className="shared-journey-timeline reveal stagger-3">
-          {/* Continuous horizontal line on desktop */}
-          <div className="shared-journey-tl-line" aria-hidden="true" />
+        <div className="shared-journey-timeline reveal stagger-3 relative w-full max-w-[1200px] xl:max-w-[1420px] mx-auto pl-9 pr-4 md:px-0 mt-5 md:mt-0">
+          {/* Continuous horizontal line on desktop, vertical on mobile, hidden on tablet */}
+          <div
+            className="shared-journey-tl-line absolute z-[1] block md:hidden min-[1080px]:block left-[12px] top-2 bottom-2 w-[2px] h-auto right-auto bg-gradient-to-b from-[#009e94] via-[#7b6ab8] to-[#009e94] min-[1080px]:top-[72px] min-[1080px]:left-0 min-[1080px]:right-0 min-[1080px]:w-auto min-[1080px]:h-[2px] min-[1080px]:bg-gradient-to-r min-[1080px]:from-[rgba(0,158,148,0.6)] min-[1080px]:via-[rgba(123,106,184,0.6)] min-[1080px]:to-[rgba(0,158,148,0.6)]"
+            aria-hidden="true"
+          />
           {/* Milestone items */}
-          <div className="shared-journey-tl-items">
+          <div className="shared-journey-tl-items flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 min-[1080px]:grid-cols-4 min-[1080px]:gap-4 xl:gap-0 relative z-[2]">
             {items.map((item, index) => {
               const textClass = accentTextClasses[index % accentTextClasses.length];
               const itemTitle = item.Title || (item as any).title || "";
@@ -112,8 +115,18 @@ export default function SharedJourney({
               const itemBadge = item.BadgeText || (item as any).badge || (item as any).badgeText;
 
               return (
-                <div key={index} className="shared-journey-tl-item">
-                  <span className={`shared-journey-tl-year ${textClass}`}>
+                <div
+                  key={index}
+                  className="shared-journey-tl-item relative flex flex-col items-start text-left p-0 border-none bg-transparent shadow-none max-w-[320px] md:max-w-none md:bg-white/60 md:border md:border-[#162047]/[0.08] md:rounded-2xl md:p-6 min-[1080px]:bg-transparent min-[1080px]:border-transparent min-[1080px]:p-5 xl:p-5 min-[1080px]:rounded-2xl min-[1080px]:transition-all min-[1080px]:duration-300"
+                >
+                  {/* Mobile bullet dot along the vertical timeline */}
+                  <span
+                    className="md:hidden absolute -left-[30px] top-1.5 w-3 h-3 rounded-full bg-[#009e94] border-2 border-white shadow-[0_0_0_3px_rgba(22,32,71,0.04)] z-[3]"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className={`shared-journey-tl-year ${textClass} pb-1.5 md:pb-0 min-[1080px]:pb-5 font-heading font-extrabold text-[1.15rem] md:text-[1.15rem] min-[1080px]:text-[1.3rem] uppercase tracking-[0.06em]`}
+                  >
                     <span>{itemTitle}</span>
                     {itemBadge && (
                       <span className="shared-journey-tl-badge">
@@ -122,7 +135,9 @@ export default function SharedJourney({
                       </span>
                     )}
                   </span>
-                  <p className="shared-journey-tl-desc">{itemDesc}</p>
+                  <p className="shared-journey-tl-desc pt-0 md:pt-3 text-[0.85rem] md:text-[0.85rem] min-[1080px]:text-[0.9rem] leading-[1.6] md:leading-[1.7] text-midnight/75 md:text-midnight/85">
+                    {itemDesc}
+                  </p>
                 </div>
               );
             })}

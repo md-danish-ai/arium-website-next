@@ -90,7 +90,7 @@ export default function SharedProcess({
 
           {/* ─── TAB NAVIGATION ─── */}
           <div
-            className="process-tabs reveal stagger-3"
+            className="process-tabs reveal stagger-3 hidden md:grid max-[1079px]:gap-8 max-[1280px]:max-w-[800px] mx-auto"
             role="tablist"
             aria-label="Service delivery process"
             style={
@@ -146,8 +146,8 @@ export default function SharedProcess({
           </div>
 
           {/* ─── TAB PANELS (STEP CARDS GRID) ─── */}
-          <div className="process-tab-content reveal stagger-4">
-            <div className="process-slider-track">
+          <div className="process-tab-content reveal stagger-4 max-md:p-0 max-md:overflow-visible">
+            <div className="process-slider-track max-md:flex max-md:flex-col max-md:gap-8">
               {pillars.map((pillar, index) => {
                 const isActive = activeTab === index;
                 const isRollingOut = rollingOutTab === index;
@@ -161,11 +161,11 @@ export default function SharedProcess({
                     aria-labelledby={`tab-${pillar.id}`}
                     aria-hidden={!isActive}
                     tabIndex={isActive ? 0 : -1}
-                    className={`row-detail-panel hz-phase-panel ${panelClass}`}
+                    className={`row-detail-panel hz-phase-panel ${panelClass} max-md:relative max-md:w-full max-md:opacity-100 max-md:pointer-events-auto max-md:transform-none max-md:p-0`}
                   >
-                    <div className="mobile-phase-label">
+                    <div className="mobile-phase-label hidden max-md:flex items-center gap-2.5 mx-4 mb-3.5 font-heading text-xl font-bold text-midnight">
                       <div
-                        className="mobile-phase-icon"
+                        className="mobile-phase-icon w-[38px] h-[38px] rounded-[10px] flex items-center justify-center text-midnight shrink-0"
                         style={{
                           background:
                             pillar.timelineItems?.[0]?.backgroundColor ||
@@ -178,7 +178,7 @@ export default function SharedProcess({
                       {pillar.title}
                     </div>
                     <div
-                      className="hz-steps-grid"
+                      className="hz-steps-grid max-[1079px]:flex max-[1079px]:flex-row max-[1079px]:overflow-x-auto max-[1079px]:snap-x max-[1079px]:snap-mandatory max-[1079px]:gap-4 max-[1079px]:px-4 max-[1079px]:pb-5 max-[1079px]:justify-start max-[1079px]:items-stretch"
                       style={
                         isRightOfWays
                           ? {
@@ -203,7 +203,7 @@ export default function SharedProcess({
                         return (
                           <div
                             key={idx}
-                            className="process-step-card"
+                            className="process-step-card max-[1079px]:shrink-0 max-[1079px]:snap-start max-[1079px]:w-[280px] max-[1079px]:min-w-[270px] max-[1079px]:max-w-[290px] max-[1079px]:min-h-[300px] max-[1079px]:p-6"
                             style={
                               {
                                 width: "100%",

@@ -61,7 +61,7 @@ export default function SharedBenefits({
           </div>
 
           {cards && cards.length > 0 && (
-            <div className="shared-benefits-grid reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16 px-6 lg:px-12 max-w-[1600px] mx-auto">
+            <div className="shared-benefits-grid reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 min-[780px]:max-[1079px]:gap-[50px] lg:gap-16 px-6 lg:px-12 max-w-[1600px] mx-auto">
               {cards.map((card, index) => {
                 const imgUrl = card.image?.url || card.image?.data?.attributes?.url;
                 const absoluteImgUrl = imgUrl ? GetStrapiMediaUrl(imgUrl) : null;

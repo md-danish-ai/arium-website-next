@@ -36,7 +36,7 @@ export default function SharedHero({
 
   return (
     <section
-      className="shared-img-hero relative min-h-[80vh] flex items-center overflow-hidden"
+      className="shared-img-hero relative min-h-[80vh] max-md:min-h-[60vh] flex items-center overflow-hidden"
       id={id}
     >
       <div className="shared-img-hero-bg absolute inset-0 z-[1]">

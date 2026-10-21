@@ -116,7 +116,7 @@ export default function BackgroundFeatureSection({
           <Typography
             variant="h3"
             uppercase
-            className="reveal mb-6 [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+            className="reveal mb-6 text-[1.2rem] md:text-[1.7rem] lg:text-[2.2rem] leading-[1.4] tracking-[0.08em] md:tracking-[0.1em] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: FontColorHeading || undefined }}
           >
             {Heading || "Solving the toughest network challenges"}
@@ -147,7 +147,7 @@ export default function BackgroundFeatureSection({
       </div>
 
       {hasCards && (
-        <div className="bg-feature-cards-wrap relative z-[2] pb-12 md:pb-20">
+        <div className="bg-feature-cards-wrap relative z-[2] pt-0 pb-[60px] md:pt-4 md:pb-20">
           <div className="container">
             <div className="reveal stagger-2 challenges-pillars grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {cardsToRender.map((card: any, index: number) => (

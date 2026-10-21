@@ -33,7 +33,7 @@ export default function SharedCenteredImageCTA({
 
   return (
     <section
-      className="shared-centered-image-cta-section relative overflow-hidden min-h-[clamp(440px,82vh,620px)]"
+      className="shared-centered-image-cta-section relative overflow-hidden min-h-[clamp(440px,82vh,620px)] sm:min-h-[clamp(460px,88vh,720px)]"
       id="centered-image-cta"
     >
       <div className="shared-centered-image-cta-bg absolute inset-0 z-0">
@@ -45,7 +45,7 @@ export default function SharedCenteredImageCTA({
         />
       </div>
 
-      <div className="shared-centered-image-cta-content relative z-[2] flex items-center justify-center min-h-[clamp(440px,82vh,620px)] py-16">
+      <div className="shared-centered-image-cta-content relative z-[2] flex items-center justify-center min-h-[clamp(440px,82vh,620px)] sm:min-h-[clamp(460px,88vh,720px)] py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="shared-centered-image-cta-textbox relative max-w-[860px] mx-auto before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[200%] before:h-[250%] before:bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.85)_0%,rgba(10,22,40,0.65)_30%,rgba(10,22,40,0.35)_55%,transparent_80%)] before:-z-[1] before:pointer-events-none">
             <Typography
