@@ -4832,23 +4832,19 @@ body {
 /*  Structured, directional, interactive     */
 /* ───────────────────────────────────────── */
 
-.section-light .pv-tl-desc,
-.section-light .row-tl-desc {
+.section-light .pv-tl-desc {
   color: rgba(22, 32, 71, 0.65);
 }
 
-.section-light .pv-pillar-name,
-.section-light .row-pillar-name {
+.section-light .pv-pillar-name {
   color: #162047;
 }
 
-.section-light .pv-pillar-steps li,
-.section-light .row-pillar-steps li {
+.section-light .pv-pillar-steps li {
   color: rgba(22, 32, 71, 0.65);
 }
 
-.section-light .pv-pillar-steps li::before,
-.section-light .row-pillar-steps li::before {
+.section-light .pv-pillar-steps li::before {
   color: var(--pillar-color);
 }
 
