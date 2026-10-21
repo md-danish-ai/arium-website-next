@@ -117,18 +117,35 @@ export default function Header({ layoutData }: { layoutData?: any }) {
 
   const getLinkClass = (path: string) => {
     const active = isActive(path);
-    return `nav-link inline-flex items-center gap-1.5 px-4 xl:px-5 py-2.5 text-sm font-heading rounded-full border border-transparent whitespace-nowrap leading-none transition-all duration-200 cursor-pointer ${
+    return `w-full min-[1080px]:w-auto inline-flex items-center justify-between min-[1080px]:justify-start gap-1.5 px-4 py-3 min-[1080px]:px-4 min-[1080px]:py-3.5 min-[1280px]:px-4 min-[1280px]:py-4 xl:px-5 xl:py-3.5 text-[1.05rem] min-[1080px]:text-[0.84rem] min-[1280px]:text-[0.86rem] xl:text-sm font-heading rounded-lg min-[1080px]:rounded-full border border-transparent whitespace-nowrap leading-none transition-all duration-200 cursor-pointer ${
       active
-        ? "nav-link--active text-teal font-semibold hover:text-midnight hover:bg-teal hover:border-teal/60 hover:font-bold"
-        : "text-white font-normal hover:text-midnight hover:bg-teal hover:border-teal/60 hover:shadow-[0_1px_3px_rgba(0,0,0,0.1)] hover:font-bold"
+        ? "text-teal font-semibold bg-teal/5 min-[1080px]:bg-transparent min-[1080px]:hover:!text-[#162047] min-[1080px]:hover:bg-teal min-[1080px]:hover:border-teal/60 min-[1080px]:hover:font-bold"
+        : "text-white/90 min-[1080px]:text-white font-normal hover:text-teal hover:bg-teal/8 min-[1080px]:hover:!text-[#162047] min-[1080px]:hover:bg-teal min-[1080px]:hover:border-teal/60 min-[1080px]:hover:shadow-[0_1px_3px_rgba(0,0,0,0.1)] min-[1080px]:hover:font-bold"
     }`;
   };
 
   const getDropdownToggleClass = (active: boolean, isOpen: boolean) => {
-    return `nav-dropdown-toggle inline-flex items-center gap-1.5 px-4 xl:px-5 py-2.5 text-sm font-heading rounded-full border border-transparent bg-transparent whitespace-nowrap leading-none transition-all duration-200 cursor-pointer ${
+    return `w-full min-[1080px]:w-auto inline-flex items-center justify-between min-[1080px]:justify-start gap-1.5 px-4 py-3 min-[1080px]:px-4 min-[1080px]:py-3.5 min-[1280px]:px-4 min-[1280px]:py-4 xl:px-5 xl:py-3.5 text-[1.05rem] min-[1080px]:text-[0.84rem] min-[1280px]:text-[0.86rem] xl:text-sm font-heading rounded-lg min-[1080px]:rounded-full border-none min-[1080px]:border min-[1080px]:border-transparent bg-transparent whitespace-nowrap leading-none transition-all duration-200 cursor-pointer ${
       active || isOpen
         ? "text-teal font-semibold"
-        : "text-white font-normal hover:text-teal hover:font-bold"
+        : "text-white/90 min-[1080px]:text-white font-normal hover:text-teal hover:bg-teal/8 min-[1080px]:hover:bg-transparent min-[1080px]:hover:text-teal min-[1080px]:hover:font-bold"
+    }`;
+  };
+
+  const getDropdownMenuClass = (isOpen: boolean) => {
+    return `w-full min-w-full overflow-hidden flex flex-col gap-1 transition-[max-height,opacity] duration-380 ease-out box-border static bg-transparent border-none shadow-none min-[1080px]:absolute min-[1080px]:top-full min-[1080px]:mt-2.5 min-[1080px]:left-1/2 min-[1080px]:-translate-x-1/2 min-[1080px]:min-w-[230px] min-[1080px]:w-max min-[1080px]:bg-[#172047] min-[1080px]:backdrop-blur-xl min-[1080px]:border min-[1080px]:border-[#1d4964]/70 min-[1080px]:rounded-[20px] min-[1080px]:shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.06)] min-[1080px]:p-3 min-[1080px]:gap-1 min-[1080px]:transition-[opacity,visibility] min-[1080px]:duration-200 min-[1080px]:z-50 ${
+      isOpen
+        ? "max-h-[260px] opacity-100 visible pointer-events-auto pt-2 px-3 pb-1 min-[1080px]:max-h-none min-[1080px]:p-3"
+        : "max-h-0 opacity-0 invisible pointer-events-none p-0 min-[1080px]:p-0"
+    }`;
+  };
+
+  const getDropdownLinkClass = (url: string) => {
+    const active = pathname === url || (url !== "/" && pathname.startsWith(url + "/"));
+    return `block w-full text-left px-3.5 py-2.5 min-[1080px]:px-4.5 min-[1080px]:py-2.5 text-[0.95rem] min-[1080px]:text-[1.05rem] font-heading font-medium rounded-lg min-[1080px]:rounded-[14px] transition-all duration-200 no-underline box-border whitespace-nowrap cursor-pointer ${
+      active
+        ? "!text-teal font-medium !bg-[#1c3657]"
+        : "text-white/85 min-[1080px]:text-white hover:!text-teal hover:!bg-[#1c3657]"
     }`;
   };
 
@@ -145,21 +162,20 @@ export default function Header({ layoutData }: { layoutData?: any }) {
   );
 
   const navClasses = [
-    "nav",
-    "w-full fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-    isScrolled ? "nav--scrolled bg-[#162047]/95 backdrop-blur-md shadow-lg" : "bg-transparent",
-    isLightHeroPage ? "nav--solid bg-[#162047]/95 backdrop-blur-md shadow-lg" : "",
-    isMobileOpen ? "nav--mobile-open" : "",
+    "w-full fixed top-0 left-0 right-0 z-50 text-white transition-[color,background-color,box-shadow] duration-300",
+    isScrolled || isLightHeroPage
+      ? "bg-[#162047]/95 backdrop-blur-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.15)]"
+      : "bg-transparent",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
     <header className={navClasses} id="main-nav" ref={navRef}>
-      <div className="nav-inner flex items-center justify-between max-w-[1440px] mx-auto px-6 py-4 md:px-8 md:py-5">
+      <div className="flex items-center justify-between max-w-[1440px] mx-auto px-5 py-3.5 min-[1080px]:px-8 min-[1080px]:py-3.5 min-[1280px]:py-4 xl:py-5 min-[1080px]:max-h-[800px]:py-2.5 box-border">
         <Link
           href="/"
-          className="nav-logo shrink-0"
+          className="flex items-center shrink-0 pointer-events-auto"
           aria-label="Arium Networks Home"
           onClick={closeMobileMenu}
         >
@@ -167,25 +183,25 @@ export default function Header({ layoutData }: { layoutData?: any }) {
             <>
               <span
                 dangerouslySetInnerHTML={{ __html: layoutData.logoDesktop }}
-                className="nav-logo-desktop hidden min-[1080px]:block [&>svg]:w-[132px] [&>svg]:xl:w-[162px] [&>svg]:h-auto [&>svg]:text-white"
+                className="hidden min-[1080px]:block [&>svg]:w-[126px] [&>svg]:min-[1080px]:max-h-[800px]:w-[120px] [&>svg]:min-[1280px]:w-[132px] [&>svg]:xl:w-[162px] [&>svg]:h-auto [&>svg]:text-white"
               />
               <span
                 dangerouslySetInnerHTML={{ __html: layoutData.logoMobile }}
-                className="nav-logo-mobile block min-[1080px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
+                className="block min-[1080px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
               />
             </>
           ) : (
             <>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="nav-logo-desktop hidden min-[1080px]:block w-[132px] xl:w-[162px] h-auto text-white"
+                className="hidden min-[1080px]:block w-[126px] min-[1080px]:max-h-[800px]:w-[120px] min-[1280px]:w-[132px] xl:w-[162px] h-auto text-white"
                 viewBox="0 0 216 94.951"
                 width="162"
                 height="72"
                 aria-hidden="true"
               >
                 <path
-                  d="M105.081 62.566h-8.66l-2.099 5.572h-2.605l6.634-17.055c.482-1.254 1.086-1.881 2.388-1.881 1.351 0 2.026.603 2.533 1.881l6.634 17.055h-2.678zm-7.767-2.388h6.851l-3.136-8.153c-.072-.169-.145-.265-.314-.265-.145 0-.241.097-.313.265zm21.807-4.342V58.2h-1.254c-2.267 0-3.884 1.496-3.884 3.956v5.982h-2.412v-5.982c0-4.318 2.557-6.32 6.296-6.32zm1.906-4.632c0-.893.748-1.64 1.664-1.64.893 0 1.64.748 1.64 1.64 0 .917-.748 1.664-1.64 1.664a1.667 1.667 0 0 1-1.664-1.664m2.871 4.632v12.302h-2.412V55.836zm8.491 12.544c-3.281 0-5.693-2.147-5.693-5.91v-6.634h2.412v6.634c0 2.34 1.399 3.57 3.281 3.57s3.281-1.23 3.281-3.57v-6.634h2.412v6.634c0 3.763-2.412 5.91-5.693 5.91m18.816-.242h-2.412v-7.116c0-1.978-1.158-3.088-2.75-3.088-1.568 0-2.75 1.11-2.75 3.088v7.116h-2.412v-7.116c0-3.401 2.195-5.428 5.066-5.428 1.761 0 3.208.772 4.053 2.123.844-1.351 2.292-2.123 4.053-2.123 2.895 0 5.066 2.026 5.066 5.428v7.116h-2.412v-7.116c0-1.978-1.158-3.088-2.75-3.088-1.568 0-2.75 1.11-2.75 3.088v7.116Zm-46.654 26.571h-2.485v-15.68c0-2.026 1.182-3.257 2.967-3.257 1.472 0 2.292.724 3.184 2.653l6.537 13.074c.217.386.41.675.772.675.338 0 .579-.241.579-.651V75.892h2.485v15.68c0 2.05-1.158 3.257-2.943 3.257-1.447 0-2.34-.724-3.232-2.629l-6.537-13.074c-.193-.41-.386-.7-.772-.7-.338 0-.555.265-.555.651v15.631Zm22.941.242c-3.715 0-6.369-2.653-6.369-6.392 0-3.763 2.726-6.392 6.489-6.392 3.546 0 6.079 2.436 6.079 5.814 0 .506-.048.941-.145 1.375h-9.239q-.651 0-.651.579c0 1.327 1.616 2.871 3.932 2.871 1.471 0 2.943-.531 3.594-1.809h2.388c-.917 2.702-3.305 3.956-6.079 3.956Zm-3.908-7.503h7.237c.29 0 .482-.169.482-.458 0-1.278-1.447-2.75-3.667-2.75-2.195 0-3.763 1.254-4.053 3.208Zm18.358 7.43c-2.822 0-4.414-1.496-4.414-4.559v-5.717h-3.136v-2.195h2.219c.555 0 .917-.338.917-.917v-3.426h2.412v4.342h4.849v2.195h-4.849v5.524c0 1.592.603 2.436 2.388 2.436.603 0 1.399-.048 2.461-.193v2.316c-1.061.169-2.026.193-2.846.193Zm12.375-10.783c.338-1.327 1.182-1.857 2.195-1.857 1.037 0 1.858.506 2.195 1.857l2.292 8.129c.048.121.121.217.241.217s.193-.096.241-.217l2.75-9.818h2.509l-3.257 10.614c-.458 1.52-1.303 1.857-2.268 1.857-.941 0-1.785-.434-2.147-1.857l-2.34-8.129c-.048-.145-.145-.217-.265-.217s-.193.072-.241.217l-2.292 8.129c-.362 1.471-1.182 1.857-2.123 1.857-1.037 0-1.882-.41-2.292-1.857l-3.208-10.614h2.557l2.726 9.818c.048.145.121.217.241.217.096 0 .193-.072.217-.217l2.267-8.129Zm13.22 4.463c0-3.715 2.726-6.392 6.441-6.392 3.739 0 6.441 2.678 6.441 6.392 0 3.739-2.702 6.392-6.441 6.392-3.715 0-6.441-2.653-6.441-6.392m10.421 0c0-2.34-1.64-4.053-3.98-4.053-2.316 0-3.98 1.713-3.98 4.053s1.665 4.053 3.98 4.053c2.34 0 3.98-1.713 3.98-4.053m12.037-6.151v2.364h-1.254c-2.267 0-3.884 1.496-3.884 3.956v5.982h-2.412v-5.982c0-4.318 2.557-6.32 6.296-6.32zm1.882-6.513h2.412V94.71h-2.412zm3.498 12.447c0-.507.121-.82.893-1.592l4.342-4.342h2.967l-5.235 5.235c-.217.217-.314.41-.314.603 0 .169.096.338.314.555l5.5 5.91h-3.184l-4.414-4.752c-.7-.796-.868-1.158-.868-1.616Zm9.288 2.533h2.533c.41 1.423 1.809 2.002 3.498 2.002 1.713 0 2.895-.555 2.895-1.761 0-1.013-.82-1.447-1.978-1.52l-2.702-.217c-2.171-.169-3.884-1.23-3.884-3.425 0-2.485 2.195-3.787 5.114-3.787 2.822 0 5.114 1.206 5.717 3.86h-2.557c-.507-1.351-1.906-1.809-3.16-1.809-1.592 0-2.702.531-2.702 1.64 0 .989.772 1.375 1.954 1.447l2.629.193c2.436.193 3.98 1.278 3.98 3.449 0 2.629-2.34 4.004-5.428 4.004-3.039 0-5.403-1.375-5.91-4.077Z"
+                  d="M105.081 62.566h-8.66l-2.099 5.572h-2.605l6.634-17.055c.482-1.254 1.086-1.881 2.388-1.881 1.351 0 2.026.603 2.533 1.881l6.634 17.055h-2.678zm-7.767-2.388h6.851l-3.136-8.153c-.072-.169-.145-.265-.314-.265-.145 0-.241.097-.313.265zm21.807-4.342V58.2h-1.254c-2.267 0-3.884 1.496-3.884 3.956v5.982h-2.412v-5.982c0-4.318 2.557-6.32 6.296-6.32zm1.906-4.632c0-.893.748-1.64 1.664-1.64.893 0 1.64.748 1.64 1.64 0 .917-.748 1.664-1.64 1.64a1.667 1.667 0 0 1-1.664-1.64m2.871 4.632v12.302h-2.412V55.836zm8.491 12.544c-3.281 0-5.693-2.147-5.693-5.91v-6.634h2.412v6.634c0 2.34 1.399 3.57 3.281 3.57s3.281-1.23 3.281-3.57v-6.634h2.412v6.634c0 3.763-2.412 5.91-5.693 5.91m18.816-.242h-2.412v-7.116c0-1.978-1.158-3.088-2.75-3.088-1.568 0-2.75 1.11-2.75 3.088v7.116h-2.412v-7.116c0-3.401 2.195-5.428 5.066-5.428 1.761 0 3.208.772 4.053 2.123.844-1.351 2.292-2.123 4.053-2.123 2.895 0 5.066 2.026 5.066 5.428v7.116h-2.412v-7.116c0-1.978-1.158-3.088-2.75-3.088-1.568 0-2.75 1.11-2.75 3.088v7.116Zm-46.654 26.571h-2.485v-15.68c0-2.026 1.182-3.257 2.967-3.257 1.472 0 2.292.724 3.184 2.653l6.537 13.074c.217.386.41.675.772.675.338 0 .579-.241.579-.651V75.892h2.485v15.68c0 2.05-1.158 3.257-2.943 3.257-1.447 0-2.34-.724-3.232-2.629l-6.537-13.074c-.193-.41-.386-.7-.772-.7-.338 0-.555.265-.555.651v15.631Zm22.941.242c-3.715 0-6.369-2.653-6.369-6.392 0-3.763 2.726-6.392 6.489-6.392 3.546 0 6.079 2.436 6.079 5.814 0 .506-.048.941-.145 1.375h-9.239q-.651 0-.651.579c0 1.327 1.616 2.871 3.932 2.871 1.471 0 2.943-.531 3.594-1.809h2.388c-.917 2.702-3.305 3.956-6.079 3.956Zm-3.908-7.503h7.237c.29 0 .482-.169.482-.458 0-1.278-1.447-2.75-3.667-2.75-2.195 0-3.763 1.254-4.053 3.208Zm18.358 7.43c-2.822 0-4.414-1.496-4.414-4.559v-5.717h-3.136v-2.195h2.219c.555 0 .917-.338.917-.917v-3.426h2.412v4.342h4.849v2.195h-4.849v5.524c0 1.592.603 2.436 2.388 2.436.603 0 1.399-.048 2.461-.193v2.316c-1.061.169-2.026.193-2.846.193Zm12.375-10.783c.338-1.327 1.182-1.857 2.195-1.857 1.037 0 1.858.506 2.195 1.857l2.292 8.129c.048.121.121.217.241.217s.193-.096.241-.217l2.75-9.818h2.509l-3.257 10.614c-.458 1.52-1.303 1.857-2.268 1.857-.941 0-1.785-.434-2.147-1.857l-2.34-8.129c-.048-.145-.145-.217-.265-.217s-.193.072-.241.217l-2.292 8.129c-.362 1.471-1.182 1.857-2.123 1.857-1.037 0-1.882-.41-2.292-1.857l-3.208-10.614h2.557l2.726 9.818c.048.145.121.217.241.217.096 0 .193-.072.217-.217l2.267-8.129Zm13.22 4.463c0-3.715 2.726-6.392 6.441-6.392 3.739 0 6.441 2.678 6.441 6.392 0 3.739-2.702 6.392-6.441 6.392-3.715 0-6.441-2.653-6.441-6.392m10.421 0c0-2.34-1.64-4.053-3.98-4.053-2.316 0-3.98 1.713-3.98 4.053s1.665 4.053 3.98 4.053c2.34 0 3.98-1.713 3.98-4.053m12.037-6.151v2.364h-1.254c-2.267 0-3.884 1.496-3.884 3.956v5.982h-2.412v-5.982c0-4.318 2.557-6.32 6.296-6.32zm1.882-6.513h2.412V94.71h-2.412zm3.498 12.447c0-.507.121-.82.893-1.592l4.342-4.342h2.967l-5.235 5.235c-.217.217-.314.41-.314.603 0 .169.096.338.314.555l5.5 5.91h-3.184l-4.414-4.752c-.7-.796-.868-1.158-.868-1.616Zm9.288 2.533h2.533c.41 1.423 1.809 2.002 3.498 2.002 1.713 0 2.895-.555 2.895-1.761 0-1.013-.82-1.447-1.978-1.52l-2.702-.217c-2.171-.169-3.884-1.23-3.884-3.425 0-2.485 2.195-3.787 5.114-3.787 2.822 0 5.114 1.206 5.717 3.86h-2.557c-.507-1.351-1.906-1.809-3.16-1.809-1.592 0-2.702.531-2.702 1.64 0 .989.772 1.375 1.954 1.447l2.629.193c2.436.193 3.98 1.278 3.98 3.449 0 2.629-2.34 4.004-5.428 4.004-3.039 0-5.403-1.375-5.91-4.077Z"
                   className="fill-current"
                 />
                 <path
@@ -195,7 +211,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
               </svg>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="nav-logo-mobile block min-[1080px]:hidden w-[189px] h-auto text-white"
+                className="block min-[1080px]:hidden w-[189px] h-auto text-white"
                 viewBox="0 0 382.282 68.139"
                 aria-hidden="true"
               >
@@ -213,20 +229,34 @@ export default function Header({ layoutData }: { layoutData?: any }) {
         </Link>
 
         <button
-          className="nav-toggle"
+          className="block min-[1080px]:hidden bg-transparent border-none cursor-pointer p-3 min-w-[44px] min-h-[44px] -mr-2 z-[51] pointer-events-auto focus-visible:outline-2 focus-visible:outline-teal focus-visible:outline-offset-4 focus-visible:rounded"
           id="nav-toggle"
           aria-label="Toggle navigation"
           aria-expanded={isMobileOpen}
           onClick={toggleMobileMenu}
         >
-          <span className="nav-toggle-bar"></span>
-          <span className="nav-toggle-bar"></span>
-          <span className="nav-toggle-bar"></span>
+          <span
+            className={`block w-5 h-[3px] bg-teal my-1 rounded-[2px] transition-all duration-300 ${
+              isMobileOpen ? "translate-y-[7px] rotate-45" : ""
+            }`}
+          ></span>
+          <span
+            className={`block w-5 h-[3px] bg-teal my-1 rounded-[2px] transition-all duration-300 ${
+              isMobileOpen ? "opacity-0" : "opacity-100"
+            }`}
+          ></span>
+          <span
+            className={`block w-5 h-[3px] bg-teal my-1 rounded-[2px] transition-all duration-300 ${
+              isMobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+            }`}
+          ></span>
         </button>
 
         <nav
           aria-label="Main navigation"
-          className="nav-links flex items-center gap-1.5 xl:gap-2.5"
+          className={`fixed top-0 bottom-0 h-screen w-[300px] bg-[#101836]/[0.985] backdrop-blur-[25px] flex flex-col justify-start items-start pt-[100px] px-6 pb-10 gap-2 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.25)] transition-[right] duration-300 z-40 pointer-events-auto min-[1080px]:static min-[1080px]:w-auto min-[1080px]:h-auto min-[1080px]:bg-transparent min-[1080px]:backdrop-blur-none min-[1080px]:flex-row min-[1080px]:items-center min-[1080px]:justify-end min-[1080px]:p-0 min-[1080px]:overflow-visible min-[1080px]:shadow-none min-[1080px]:z-auto min-[1080px]:gap-1 min-[1280px]:gap-1.5 xl:gap-2.5 min-[1080px]:[&>*:last-child]:-mr-[15px] min-[1280px]:[&>*:last-child]:-mr-[17px] xl:[&>*:last-child]:-mr-[21px] max-[1079px]:[&>*:last-child]:mr-0 ${
+            isMobileOpen ? "right-0" : "-right-full min-[1080px]:right-auto"
+          }`}
           id="nav-links"
         >
           {layoutData?.navigation && layoutData.navigation.length > 0 ? (
@@ -240,7 +270,11 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                 return (
                   <div
                     key={navItem.id}
-                    className={`nav-dropdown relative z-50 inline-flex flex-col items-center leading-none ${openDropdown === dropId ? "open nav-dropdown--open" : ""}`}
+                    className={`w-full min-[1080px]:w-auto rounded-[10px] min-[1080px]:rounded-none border border-transparent min-[1080px]:border-none transition-[background-color,border-color] duration-250 box-border min-[1080px]:relative min-[1080px]:z-50 min-[1080px]:inline-flex min-[1080px]:flex-col min-[1080px]:items-center min-[1080px]:leading-none ${
+                      openDropdown === dropId
+                        ? "bg-white/[0.04] border-white/[0.07] pb-2 min-[1080px]:bg-transparent min-[1080px]:border-none min-[1080px]:pb-0"
+                        : ""
+                    }`}
                     id={`nav-dropdown-${dropId}`}
                   >
                     <button
@@ -258,7 +292,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                         viewBox="0 0 10 6"
                         fill="none"
                         aria-hidden="true"
-                        className={`transition-transform duration-200 ${
+                        className={`transition-transform duration-200 shrink-0 ${
                           openDropdown === dropId ? "rotate-180 text-teal" : "text-current"
                         }`}
                       >
@@ -270,23 +304,12 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                         />
                       </svg>
                     </button>
-                    <div
-                      className={`nav-dropdown-menu absolute top-[calc(100%+8px)] min-w-[200px] bg-[#162047]/98 backdrop-blur-xl border border-teal/25 rounded-[14px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.08)] z-50 flex flex-col gap-0.5 transition-all duration-200 ${
-                        openDropdown === dropId
-                          ? "opacity-100 visible pointer-events-auto"
-                          : "opacity-0 invisible pointer-events-none"
-                      }`}
-                      role="menu"
-                    >
+                    <div className={getDropdownMenuClass(openDropdown === dropId)} role="menu">
                       {navItem.dropdown.map((subItem: any) => (
                         <Link
                           key={subItem.id}
                           href={subItem.url || "#"}
-                          className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                            pathname === subItem.url
-                              ? "active text-teal font-semibold bg-teal/15"
-                              : "text-white hover:text-teal hover:bg-teal/15"
-                          }`}
+                          className={getDropdownLinkClass(subItem.url || "#")}
                           role="menuitem"
                           onClick={closeMobileMenu}
                         >
@@ -312,7 +335,11 @@ export default function Header({ layoutData }: { layoutData?: any }) {
           ) : (
             <>
               <div
-                className={`nav-dropdown relative z-50 inline-flex flex-col items-center leading-none ${openDropdown === "company" ? "open nav-dropdown--open" : ""}`}
+                className={`w-full min-[1080px]:w-auto rounded-[10px] min-[1080px]:rounded-none border border-transparent min-[1080px]:border-none transition-[background-color,border-color] duration-250 box-border min-[1080px]:relative min-[1080px]:z-50 min-[1080px]:inline-flex min-[1080px]:flex-col min-[1080px]:items-center min-[1080px]:leading-none ${
+                  openDropdown === "company"
+                    ? "bg-white/[0.04] border-white/[0.07] pb-2 min-[1080px]:bg-transparent min-[1080px]:border-none min-[1080px]:pb-0"
+                    : ""
+                }`}
                 id="nav-dropdown-company"
               >
                 <button
@@ -330,7 +357,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                     viewBox="0 0 10 6"
                     fill="none"
                     aria-hidden="true"
-                    className={`transition-transform duration-200 ${
+                    className={`transition-transform duration-200 shrink-0 ${
                       openDropdown === "company" ? "rotate-180 text-teal" : "text-current"
                     }`}
                   >
@@ -342,21 +369,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                     />
                   </svg>
                 </button>
-                <div
-                  className={`nav-dropdown-menu absolute top-[calc(100%+8px)] min-w-[200px] bg-[#162047]/98 backdrop-blur-xl border border-teal/25 rounded-[14px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.08)] z-50 flex flex-col gap-0.5 transition-all duration-200 ${
-                    openDropdown === "company"
-                      ? "opacity-100 visible pointer-events-auto"
-                      : "opacity-0 invisible pointer-events-none"
-                  }`}
-                  role="menu"
-                >
+                <div className={getDropdownMenuClass(openDropdown === "company")} role="menu">
                   <Link
                     href="/about"
-                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                      pathname === "/about"
-                        ? "active text-teal font-semibold bg-teal/15"
-                        : "text-white hover:text-teal hover:bg-teal/15"
-                    }`}
+                    className={getDropdownLinkClass("/about")}
                     role="menuitem"
                     onClick={closeMobileMenu}
                   >
@@ -364,11 +380,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/leadership"
-                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                      pathname === "/leadership"
-                        ? "active text-teal font-semibold bg-teal/15"
-                        : "text-white hover:text-teal hover:bg-teal/15"
-                    }`}
+                    className={getDropdownLinkClass("/leadership")}
                     role="menuitem"
                     onClick={closeMobileMenu}
                   >
@@ -376,11 +388,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/board-of-directors"
-                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                      pathname === "/board-of-directors"
-                        ? "active text-teal font-semibold bg-teal/15"
-                        : "text-white hover:text-teal hover:bg-teal/15"
-                    }`}
+                    className={getDropdownLinkClass("/board-of-directors")}
                     role="menuitem"
                     onClick={closeMobileMenu}
                   >
@@ -396,7 +404,11 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                 Our Solutions
               </Link>
               <div
-                className={`nav-dropdown relative z-50 inline-flex flex-col items-center leading-none ${openDropdown === "where" ? "open nav-dropdown--open" : ""}`}
+                className={`w-full min-[1080px]:w-auto rounded-[10px] min-[1080px]:rounded-none border border-transparent min-[1080px]:border-none transition-[background-color,border-color] duration-250 box-border min-[1080px]:relative min-[1080px]:z-50 min-[1080px]:inline-flex min-[1080px]:flex-col min-[1080px]:items-center min-[1080px]:leading-none ${
+                  openDropdown === "where"
+                    ? "bg-white/[0.04] border-white/[0.07] pb-2 min-[1080px]:bg-transparent min-[1080px]:border-none min-[1080px]:pb-0"
+                    : ""
+                }`}
                 id="nav-dropdown-where"
               >
                 <button
@@ -414,7 +426,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                     viewBox="0 0 10 6"
                     fill="none"
                     aria-hidden="true"
-                    className={`transition-transform duration-200 ${
+                    className={`transition-transform duration-200 shrink-0 ${
                       openDropdown === "where" ? "rotate-180 text-teal" : "text-current"
                     }`}
                   >
@@ -426,21 +438,10 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                     />
                   </svg>
                 </button>
-                <div
-                  className={`nav-dropdown-menu absolute top-[calc(100%+8px)] min-w-[200px] bg-[#162047]/98 backdrop-blur-xl border border-teal/25 rounded-[14px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,232,217,0.08)] z-50 flex flex-col gap-0.5 transition-all duration-200 ${
-                    openDropdown === "where"
-                      ? "opacity-100 visible pointer-events-auto"
-                      : "opacity-0 invisible pointer-events-none"
-                  }`}
-                  role="menu"
-                >
+                <div className={getDropdownMenuClass(openDropdown === "where")} role="menu">
                   <Link
                     href="/where-we-build"
-                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                      pathname === "/where-we-build"
-                        ? "active text-teal font-semibold bg-teal/15"
-                        : "text-white hover:text-teal hover:bg-teal/15"
-                    }`}
+                    className={getDropdownLinkClass("/where-we-build")}
                     role="menuitem"
                     onClick={closeMobileMenu}
                   >
@@ -448,11 +449,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/right-of-ways"
-                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                      pathname === "/right-of-ways"
-                        ? "active text-teal font-semibold bg-teal/15"
-                        : "text-white hover:text-teal hover:bg-teal/15"
-                    }`}
+                    className={getDropdownLinkClass("/right-of-ways")}
                     role="menuitem"
                     onClick={closeMobileMenu}
                   >
@@ -460,11 +457,7 @@ export default function Header({ layoutData }: { layoutData?: any }) {
                   </Link>
                   <Link
                     href="/private-venues"
-                    className={`nav-dropdown-link block w-full px-3.5 py-2 text-[0.9rem] leading-snug font-heading font-medium rounded-lg transition-all duration-200 no-underline ${
-                      pathname === "/private-venues"
-                        ? "active text-teal font-semibold bg-teal/15"
-                        : "text-white hover:text-teal hover:bg-teal/15"
-                    }`}
+                    className={getDropdownLinkClass("/private-venues")}
                     role="menuitem"
                     onClick={closeMobileMenu}
                   >
