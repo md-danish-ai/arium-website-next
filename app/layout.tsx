@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "@ui-layout/Header";
+import Navbar from "@ui-layout/navbar";
 import Footer from "@ui-layout/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
@@ -72,7 +72,7 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
-        <Header layoutData={layout} />
+        <Navbar layoutData={layout} />
         <main id="main-content">
           <PageAnimations />
           {children}
