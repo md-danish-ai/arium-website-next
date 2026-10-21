@@ -4954,7 +4954,6 @@ body {
   .subpage-title,
   .abt-hero-heading,
   .cr-hero-heading,
-  .ov-hero-heading,
   .hero-title,
   .subpage-header h1,
   h1 {
@@ -4976,7 +4975,6 @@ body {
   .section-title,
   .section-header h2,
   .cta-title,
-  .ov-feature-heading,
   .culture-hero-heading,
   .subpage-story-heading,
   .commit-hero-title,
@@ -5009,7 +5007,6 @@ body {
   .culture-hero-desc,
   .commit-desc,
   .commit-lead,
-  .ov-feature-desc,
   .hero-desc {
     font-size: 0.9rem !important;
     line-height: 1.65 !important;
