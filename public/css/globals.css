@@ -1743,201 +1743,6 @@ p {
   box-shadow: 0 0 20px rgba(0, 232, 217, 0.15);
 }
 
-
-
-/* ═══════════════════════════════════════════ */
-/* COMMUNITY SECTION                           */
-/* ═══════════════════════════════════════════ */
-.community-section {
-  position: relative;
-  min-height: 720px;
-  overflow: hidden;
-  background: var(--color-midnight-blue);
-}
-
-/* ── Full-bleed background image ── */
-.community-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 65%;
-  z-index: 0;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.4) 15%,
-    rgba(0, 0, 0, 0.85) 35%,
-    black 50%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.4) 15%,
-    rgba(0, 0, 0, 0.85) 35%,
-    black 50%
-  );
-}
-
-.community-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* ── Gradient veil (bottom fade only) ── */
-.community-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top, rgba(10, 22, 40, 0.5) 0%, transparent 18%);
-  pointer-events: none;
-}
-
-/* ── Content layer ── */
-.community-content {
-  position: relative;
-  z-index: 2;
-  padding: 100px 0;
-}
-
-.community-header {
-  max-width: 750px;
-  margin-bottom: 40px;
-}
-
-.community-heading {
-  font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 500;
-  text-transform: uppercase;
-  color: var(--color-white);
-  line-height: 1.2;
-  margin: 0 0 20px;
-}
-
-.community-subtitle {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.65);
-  margin: 0;
-  max-width: 680px;
-}
-
-/* ── Unified pillar box ── */
-.community-pillars {
-  max-height: 480px;
-  object-fit: contain;
-  object-position: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 232, 217, 0.1);
-  border-radius: 24px;
-  padding: 8px 0;
-  position: relative;
-  overflow: hidden;
-  transition:
-    background 0.4s ease,
-    box-shadow 0.4s ease,
-    border-color 0.4s ease;
-}
-
-.community-pillars::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0, 232, 217, 0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.community-pillars:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(0, 232, 217, 0.2);
-  box-shadow:
-    0 12px 48px rgba(0, 0, 0, 0.35),
-    0 0 40px rgba(0, 232, 217, 0.04);
-}
-
-.community-pillars:hover::before {
-  opacity: 1;
-}
-
-.community-pillar {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 24px 28px 24px 12px;
-}
-
-.community-pillar-icon {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  padding: 6px;
-  color: var(--color-sky-teal);
-  margin-top: 2px;
-}
-
-.community-pillar-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.community-pillar-divider {
-  height: 1px;
-  margin: 0 28px 0 12px;
-  background: linear-gradient(to right, rgba(0, 232, 217, 0.15), transparent 80%);
-}
-
-.community-pillar-title {
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-sky-teal);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin: 0 0 6px;
-}
-
-.community-pillar-desc {
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .community-section {
-    min-height: auto;
-  }
-
-  .community-content {
-    padding: 60px 0;
-  }
-
-  .community-header {
-    max-width: 100%;
-  }
-
-  .community-pillars {
-    max-width: 100%;
-  }
-
-  .community-veil {
-    background: rgba(10, 22, 40, 0.75);
-  }
-
-  .community-bg {
-    width: 100%;
-  }
-}
-
 /* ═══════════════════════════════════════════ */
 /* CAREERS CTA SECTION                         */
 /* ═══════════════════════════════════════════ */
@@ -4829,28 +4634,6 @@ body {
 
 
 
-/* ───────────────────────────────────────── */
-/*  COMMUNITY IMAGE CARDS                    */
-/* ───────────────────────────────────────── */
-
-.section-light .cm-img-card {
-  border-color: rgba(22, 32, 71, 0.07) !important;
-  border-radius: 16px;
-  box-shadow:
-    0 1px 2px rgba(22, 32, 71, 0.04),
-    0 4px 12px rgba(22, 32, 71, 0.04),
-    0 12px 32px rgba(22, 32, 71, 0.03);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.section-light .cm-img-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 4px 8px rgba(22, 32, 71, 0.04),
-    0 12px 28px rgba(22, 32, 71, 0.06),
-    0 24px 48px rgba(22, 32, 71, 0.04);
-  border-color: rgba(0, 232, 217, 0.15) !important;
-}
 
 /* ───────────────────────────────────────── */
 /*  QUOTE DECORATIONS                        */
@@ -4969,7 +4752,6 @@ body {
   .cr-pillar-title,
   .cr-benefit-heading,
   .commit-pillar-title,
-  .cm-pillar-title,
   .hz-step-title,
   .trust-card h3,
   .blog-card-title {
@@ -4994,7 +4776,6 @@ body {
   .cr-pillar-text,
   .cr-benefit-desc,
   .commit-pillar-text,
-  .cm-pillar-desc,
   .hz-step-desc,
   .trust-card p,
   .blog-card-excerpt {
@@ -5005,23 +4786,6 @@ body {
 
   /* Commitments Hero Image Container Sizing is handled on page level */
 
-  /* 5. Keeping Communities Section Fixes */
-  #community .container p {
-    width: 100% !important;
-  }
-
-  /* Benefits Section — Mobile (matches V6.1) */
-  #benefits {
-    padding: 50px 0 !important;
-    border-top: none !important;
-    margin-top: -1px !important;
-  }
-
-  /* How We Work section — Mobile (matches V6.1) */
-  #how-we-work .container {
-    padding-top: 80px !important;
-    padding-bottom: 80px !important;
-  }
 
   /* Testimonials section — Mobile (matches V6.1) */
   #testimonials .section-title {
@@ -5444,21 +5208,6 @@ body {
     white-space: normal !important;
   }
 
-  #faq {
-    padding: 50px 0 !important;
-  }
-
-  #faq .section-title {
-    font-size: 1.2rem !important;
-    font-weight: 400 !important;
-    line-height: 1.4 !important;
-    letter-spacing: 0.1em !important;
-  }
-
-  .cm-faq-question {
-    font-size: 0.9rem !important;
-    padding: 14px 18px !important;
-  }
 
   section#stats {
     padding: 50px 0px !important;
@@ -6042,28 +5791,6 @@ body {
   }
 }
 
-/* ═══════════════════════════════════════════ */
-/* IMAGE CARD GRID (SHARED)                    */
-/* ═══════════════════════════════════════════ */
-.image-card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 64px;
-}
 
-@media (max-width: 767px) {
-  .image-card-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .cm-section-title {
-    font-size: 2rem !important;
-  }
-
-  .cm-pillar-title {
-    font-size: 1.8rem !important;
-  }
-}
 
 

@@ -20,7 +20,7 @@ export default function CommunitySmallCells({ data }: CommunitySmallCellsProps) 
   return (
     <section
       id="what-are-small-cells"
-      className="relative overflow-hidden py-24 min-h-[420px] flex items-center bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]"
+      className="relative overflow-hidden py-16 md:py-24 min-h-[420px] flex items-center bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]"
     >
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />

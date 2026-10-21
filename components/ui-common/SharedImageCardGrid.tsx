@@ -46,7 +46,10 @@ const FALLBACK_BENEFITS = [
 export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) {
   const benefits: any[] = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
   return (
-    <section id="benefits" className="relative overflow-hidden py-[120px] bg-secondary-grey">
+    <section
+      id="benefits"
+      className="relative overflow-hidden py-14 md:py-24 lg:py-28 bg-secondary-grey"
+    >
       <div className="infra-grid-bg" aria-hidden="true" />
       <ParticleBackground id="benefits-particles" count={35} />
 
@@ -66,7 +69,7 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
           </Typography>
         </div>
 
-        <div className="reveal stagger-2 image-card-grid w-full">
+        <div className="reveal stagger-2 image-card-grid grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full">
           {benefits.map((benefit, index) => {
             let extractedUrl = "";
             if (typeof benefit.image === "string") {
@@ -104,7 +107,7 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
                   variant="h4"
                   uppercase
                   weight="bold"
-                  className="cm-pillar-title leading-none tracking-[0.08em] mb-3"
+                  className="cm-pillar-title leading-none tracking-[0.08em] mb-3 text-2xl md:text-3xl"
                   style={{ color: benefit.TitleColor || "#7C5CBF" }}
                 >
                   {benefit.title}
@@ -112,7 +115,7 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
                 <Typography
                   as="p"
                   variant="b2"
-                  className="cm-pillar-desc leading-[1.65] mb-7 w-full"
+                  className="cm-pillar-desc leading-[1.65] mb-7 w-full text-base"
                   style={{ color: benefit.DescriptionColor || "#162047" }}
                 >
                   {benefit.description}

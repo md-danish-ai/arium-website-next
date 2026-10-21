@@ -35,7 +35,7 @@ export default function CommunityHowWeWork({ data }: CommunityHowWeWorkProps) {
       <div className="absolute left-0 right-0 bottom-0 h-[200px] z-[1] bg-gradient-to-t from-[#0d1224]/50 to-transparent" />
       <div className="absolute left-0 right-0 top-0 h-[150px] z-[1] bg-gradient-to-b from-[#0d1224]/40 to-transparent" />
 
-      <div className="container relative z-[2] py-32 md:py-40">
+      <div className="container relative z-[2] py-20 md:py-32 lg:py-40">
         <div className="max-w-[560px]">
           <Typography
             as="h2"

@@ -61,7 +61,7 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
       <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
       <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
 
-      <section id="faq" className="bg-transparent py-24 md:py-32 relative overflow-hidden">
+      <section id="faq" className="bg-transparent py-14 md:py-24 lg:py-32 relative overflow-hidden">
         <div className="container relative z-[1]">
           <div className="section-header text-center mb-16">
             <Typography
