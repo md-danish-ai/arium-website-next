@@ -55,7 +55,7 @@ export default function GlobeCTA({
                 as="p"
                 variant="h3"
                 weight="light"
-                className="leading-[1.5] text-midnight mb-9 max-w-[580px] [text-wrap:balance]"
+                className="!tracking-normal !text-[clamp(1.3rem,2.5vw,1.7rem)] leading-[1.5] text-midnight mb-9 max-w-[580px] [text-wrap:balance]"
               >
                 {title || heading}
               </Typography>

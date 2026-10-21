@@ -144,7 +144,7 @@ export default function SharedCommitments({
               "We are guided by a clear set of commitments that shape how we partner and deliver value:"}
           </Typography>
 
-          <div className="shared-commit-pillars grid grid-cols-1 md:grid-cols-3 gap-10 mt-14">
+          <div className="shared-commit-pillars grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 mt-14">
             {pillars.map((pillar, index) => {
               const barBgClass = defaultBarBgClasses[index % defaultBarBgClasses.length];
 
