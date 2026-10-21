@@ -25,6 +25,7 @@
       "@ui-component/*": ["./components/ui-component/*"],
       "@ui-shared": ["./components/ui-shared"],
       "@ui-shared/*": ["./components/ui-shared/*"],
+      "@ui-element": ["./components/ui-element"],
       "@ui-element/*": ["./components/ui-element/*"],
       "@ui-layout/*": ["./components/ui-layout/*"],
       "@ui-animations/*": ["./components/ui-animations/*"],
