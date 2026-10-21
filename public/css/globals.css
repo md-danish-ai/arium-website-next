@@ -2254,94 +2254,6 @@ p {
   box-shadow: 0 0 40px rgba(0, 232, 217, 0.15);
 }
 
-/* ═══════════════════════════════════════════ */
-/* INDUSTRIES SECTION                            */
-/* ═══════════════════════════════════════════ */
-.industries-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-4);
-  margin-top: var(--spacing-8);
-}
-
-@media (max-width: 1079px) {
-  .industries-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .industries-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Bento box layout for 5 items (2 on top, 3 on bottom) */
-.bento-5 {
-  grid-template-columns: repeat(6, 1fr);
-}
-
-.bento-5 > .card:nth-child(1),
-.bento-5 > .card:nth-child(2) {
-  grid-column: span 3;
-}
-
-.bento-5 > .card:nth-child(3),
-.bento-5 > .card:nth-child(4),
-.bento-5 > .card:nth-child(5) {
-  grid-column: span 2;
-}
-
-@media (max-width: 1079px) {
-  .bento-5 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .bento-5 > .card:nth-child(n) {
-    grid-column: span 1;
-  }
-
-  .bento-5 > .card:last-child {
-    grid-column: span 2;
-  }
-}
-
-@media (max-width: 768px) {
-  .bento-5 {
-    grid-template-columns: 1fr;
-  }
-
-  .bento-5 > .card:nth-child(n),
-  .bento-5 > .card:last-child {
-    grid-column: 1 / -1;
-  }
-}
-
-.industry-card {
-  padding: var(--spacing-5);
-  display: flex;
-  flex-direction: column;
-}
-
-.industry-icon {
-  margin-bottom: var(--spacing-3);
-}
-
-.industry-title {
-  font-size: 1.25rem;
-  margin-bottom: var(--spacing-2);
-}
-
-.industry-desc {
-  font-size: 0.95rem;
-  margin-bottom: 0;
-  flex-grow: 1;
-}
-
-.industry-card:hover svg {
-  stroke: var(--color-sky-teal);
-  transition: stroke 0.3s ease;
-}
 
 /* ═══════════════════════════════════════════ */
 /* JOURNEY — COMPACT HORIZONTAL TIMELINE         */
@@ -3124,8 +3036,6 @@ p {
   }
 }
 
-.industry-icon .lucide,
-.solution-icon .lucide,
 .feature-icon .lucide,
 .card-icon .lucide {
   width: 28px;
@@ -4185,7 +4095,6 @@ body {
 /*  4. ICON CONTAINERS — Tinted, Premium     */
 /* ───────────────────────────────────────── */
 
-.section-light .industry-icon,
 .section-light .process-icon {
   background: linear-gradient(135deg, rgba(0, 232, 217, 0.08) 0%, rgba(0, 232, 217, 0.03) 100%);
   border: 1px solid rgba(0, 232, 217, 0.12);
@@ -4194,24 +4103,15 @@ body {
 }
 
 /* Remove pseudo-element glow */
-.section-light .industry-icon::before,
 .section-light .process-icon::before {
   display: none;
 }
 
 /* SVG — full opacity, brand color */
-.section-light .industry-icon svg,
 .section-light .process-icon svg {
   color: var(--color-sky-teal);
   opacity: 1;
   stroke-width: 1.8px;
-}
-
-/* Icon hover: accent glow reveals */
-.section-light *:hover > .industry-icon {
-  box-shadow: 0 4px 16px rgba(0, 232, 217, 0.15);
-  border-color: rgba(0, 232, 217, 0.2);
-  transform: translateY(-1px);
 }
 
 /* ───────────────────────────────────────── */
@@ -4224,8 +4124,7 @@ body {
   opacity: 0.55;
 }
 
-.section-light .wim-art-glow,
-.section-light .sol-art-glow {
+.section-light .wim-art-glow {
   opacity: 0.15;
 }
 
@@ -4386,31 +4285,7 @@ body {
   /* Defer styling to page-level styles in about.html */
 }
 
-/* Solution KPIs */
-.section-light .sol-kpi-num {
-  color: var(--color-midnight-blue) !important;
-  font-weight: 800;
-}
 
-.section-light .sol-kpi-label {
-  color: rgba(22, 32, 71, 0.65);
-}
-
-.section-light .sol-kpi-item {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.section-light .sol-kpi-item:hover .sol-kpi-label {
-  color: rgba(22, 32, 71, 0.9);
-}
-
-.section-light .sol-kpi-item:hover {
-  background: rgba(22, 32, 71, 0.018);
-  border-radius: 12px;
-  box-shadow:
-    0 0 0 1px rgba(22, 32, 71, 0.04),
-    0 4px 12px rgba(22, 32, 71, 0.03);
-}
 
 /* ───────────────────────────────────────── */
 /*  D. TIMELINE ITEMS — Understated but      */
@@ -5080,7 +4955,6 @@ body {
   .abt-hero-heading,
   .cr-hero-heading,
   .ov-hero-heading,
-  .sol-hero-heading,
   .hero-title,
   .subpage-header h1,
   h1 {
@@ -5107,7 +4981,6 @@ body {
   .subpage-story-heading,
   .commit-hero-title,
   #about h2,
-  #our-solutions h2,
   #faq h2,
   #eeo-statement h2,
   #hero h2,
@@ -5120,7 +4993,6 @@ body {
   /* 2. Pillar Label (1rem) */
   .cr-pillar-title,
   .cr-benefit-heading,
-  .ind-interactive-title,
   .commit-pillar-title,
   .cm-pillar-title,
   .hz-step-title,
@@ -5138,8 +5010,7 @@ body {
   .commit-desc,
   .commit-lead,
   .ov-feature-desc,
-  .hero-desc,
-  .sol-split-text p {
+  .hero-desc {
     font-size: 0.9rem !important;
     line-height: 1.65 !important;
     letter-spacing: 0.02em !important;
@@ -5148,8 +5019,6 @@ body {
   /* 4. Pillars Description (0.85rem + letter spacing) */
   .cr-pillar-text,
   .cr-benefit-desc,
-  .ind-expand-desc,
-  .ind-expand-desc span,
   .commit-pillar-text,
   .cm-pillar-desc,
   .hz-step-desc,
@@ -5457,20 +5326,7 @@ body {
     display: none !important;
   }
 
-  /* Reduce subpage CTA paragraph text size on mobile viewports */
-  .subpage-cta-section .sol-split-text p {
-    font-size: 1.15rem !important;
-    line-height: 1.5 !important;
-    font-weight: 300 !important;
-    margin-bottom: 24px !important;
-  }
 
-  /* Reduce size of the CTA button on mobile */
-  .subpage-cta-section .sol-split-text a {
-    padding: 10px 28px !important;
-    font-size: 0.8rem !important;
-    margin-top: 20px !important;
-  }
 }
 
 @media (max-width: 1079px) {
@@ -6236,22 +6092,4 @@ body {
   }
 }
 
-/* ═══════════════════════════════════════════ */
-/* STORYTELLER FLOW (COMMUNITY / SOLUTIONS)    */
-/* ═══════════════════════════════════════════ */
-.sol-storyteller-flow {
-  background: radial-gradient(
-    circle at 50% 50%,
-    #ffffff 0%,
-    #f5f0ff 40%,
-    #ebe2ff 75%,
-    #dfd4ff 100%
-  ) !important;
-  position: relative;
-  overflow: hidden;
-}
 
-.sol-storyteller-flow .section-light {
-  border-top: none !important;
-  background: transparent !important;
-}

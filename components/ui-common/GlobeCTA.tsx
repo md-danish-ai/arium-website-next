@@ -28,7 +28,7 @@ export default function GlobeCTA({
           alt=""
           className="w-full h-full opacity-55 block"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
       </div>
 
       <div className="container mx-auto px-6 relative z-[1]">
@@ -46,7 +46,7 @@ export default function GlobeCTA({
                   {heading || title}
                 </Typography>
                 <div
-                  className="strapi-richtext-body text-[1.05rem] leading-[1.8] text-midnight mb-9 flex flex-col gap-4 [&>p]:mb-0"
+                  className="strapi-richtext-body text-base md:text-[1.05rem] leading-relaxed md:leading-[1.8] text-midnight mb-6 md:mb-9 flex flex-col gap-4 [&>p]:mb-0 font-light"
                   dangerouslySetInnerHTML={{ __html: description }}
                 />
               </>
@@ -55,14 +55,14 @@ export default function GlobeCTA({
                 as="p"
                 variant="h3"
                 weight="light"
-                className="!tracking-normal !text-[clamp(1.3rem,2.5vw,1.7rem)] leading-[1.5] text-midnight mb-9 max-w-[580px] [text-wrap:balance]"
+                className="!tracking-normal !text-[clamp(1.15rem,2.5vw,1.7rem)] leading-[1.5] text-midnight mb-6 md:mb-9 max-w-[580px] [text-wrap:balance]"
               >
                 {title || heading}
               </Typography>
             )}
             <Link
               href={buttonLink}
-              className="inline-block px-10 py-3.5 rounded-full bg-midnight text-white font-heading text-[0.9rem] font-medium tracking-[0.06em] uppercase no-underline transition-all duration-350 ease-[cubic-bezier(0.2,1,0.2,1)] border-2 border-transparent hover:bg-transparent hover:text-midnight hover:border-midnight hover:-translate-y-0.5"
+              className="inline-block px-7 sm:px-10 py-2.5 sm:py-3.5 rounded-full bg-midnight text-white font-heading text-[0.8rem] sm:text-[0.9rem] font-medium tracking-[0.06em] uppercase no-underline transition-all duration-350 ease-[cubic-bezier(0.2,1,0.2,1)] border-2 border-transparent hover:bg-transparent hover:text-midnight hover:border-midnight hover:-translate-y-0.5 mt-4 sm:mt-0"
             >
               {buttonText}
             </Link>

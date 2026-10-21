@@ -62,7 +62,14 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
           const flowClass = hasIllustration ? "sol-storyteller-flow" : "about-storyteller-flow";
 
           return (
-            <div key={`flow-group-${groupIndex}`} className={`${flowClass} -mt-px border-none`}>
+            <div
+              key={`flow-group-${groupIndex}`}
+              className={`${flowClass} ${
+                hasIllustration
+                  ? "bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] [&_.section-light]:border-t-0 [&_.section-light]:bg-transparent"
+                  : ""
+              } relative overflow-hidden -mt-px border-none`}
+            >
               <div className="flow-bg-gradient flow-bg-1 pointer-events-none" aria-hidden="true" />
               <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
               <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
