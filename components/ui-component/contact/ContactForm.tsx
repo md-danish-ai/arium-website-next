@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Typography } from "@ui-element";
 
 export default function ContactForm() {
   const [firstName, setFirstName] = useState("");
@@ -83,12 +84,12 @@ export default function ContactForm() {
           <div className="max-w-[680px] mx-auto relative reveal stagger-1">
             {status === "success" ? (
               <div className="text-center py-[60px] px-5">
-                <h3 className="text-[1.8rem] text-[#162047] mb-4 font-heading font-normal">
+                <Typography variant="h3" as="h3" className="text-[#162047] mb-4">
                   Thank You!
-                </h3>
-                <p className="text-[#162047]/70 text-[1.1rem]">
+                </Typography>
+                <Typography variant="b1" as="p" className="text-[#162047]/70">
                   Your message has been sent successfully. We will be in touch shortly.
-                </p>
+                </Typography>
               </div>
             ) : (
               <form onSubmit={handleSubmit} id="contact-form">
@@ -100,12 +101,16 @@ export default function ContactForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div className="flex flex-col gap-2">
-                    <label
+                    <Typography
+                      variant="b4"
+                      as="label"
+                      uppercase
+                      weight="medium"
                       htmlFor="first-name"
-                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                     >
                       First Name <span className="text-red-600">*</span>
-                    </label>
+                    </Typography>
                     <input
                       type="text"
                       id="first-name"
@@ -119,12 +124,16 @@ export default function ContactForm() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label
+                    <Typography
+                      variant="b4"
+                      as="label"
+                      uppercase
+                      weight="medium"
                       htmlFor="last-name"
-                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                     >
                       Last Name <span className="text-red-600">*</span>
-                    </label>
+                    </Typography>
                     <input
                       type="text"
                       id="last-name"
@@ -141,12 +150,16 @@ export default function ContactForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div className="flex flex-col gap-2">
-                    <label
+                    <Typography
+                      variant="b4"
+                      as="label"
+                      uppercase
+                      weight="medium"
                       htmlFor="company"
-                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                     >
                       Organization <span className="text-red-600">*</span>
-                    </label>
+                    </Typography>
                     <input
                       type="text"
                       id="company"
@@ -160,12 +173,16 @@ export default function ContactForm() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label
+                    <Typography
+                      variant="b4"
+                      as="label"
+                      uppercase
+                      weight="medium"
                       htmlFor="email"
-                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                     >
                       Email <span className="text-red-600">*</span>
-                    </label>
+                    </Typography>
                     <input
                       type="email"
                       id="email"
@@ -182,12 +199,16 @@ export default function ContactForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div className="flex flex-col gap-2">
-                    <label
+                    <Typography
+                      variant="b4"
+                      as="label"
+                      uppercase
+                      weight="medium"
                       htmlFor="phone"
-                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                     >
                       Phone Number
-                    </label>
+                    </Typography>
                     <input
                       type="tel"
                       id="phone"
@@ -200,12 +221,16 @@ export default function ContactForm() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label
+                    <Typography
+                      variant="b4"
+                      as="label"
+                      uppercase
+                      weight="medium"
                       htmlFor="postal-code"
-                      className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                     >
                       Postal Code
-                    </label>
+                    </Typography>
                     <input
                       type="text"
                       id="postal-code"
@@ -220,13 +245,17 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex flex-col gap-2 mb-5">
-                  <label
+                  <Typography
+                    variant="b4"
+                    as="label"
+                    uppercase
+                    weight="medium"
                     id="interest-label"
-                    className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed cursor-pointer"
+                    className="tracking-[0.06em] text-[#162047]/85 leading-relaxed cursor-pointer"
                     onClick={() => document.getElementById("interest-wrapper")?.focus()}
                   >
                     Who are you reaching out to? <span className="text-red-600">*</span>
-                  </label>
+                  </Typography>
                   <div
                     className="relative w-full"
                     id="interest-wrapper"
@@ -363,12 +392,16 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex flex-col gap-2 mb-5">
-                  <label
+                  <Typography
+                    variant="b4"
+                    as="label"
+                    uppercase
+                    weight="medium"
                     htmlFor="comments"
-                    className="font-heading text-xs font-medium tracking-[0.06em] text-[#162047]/85 uppercase leading-relaxed"
+                    className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
                   >
                     How can we help you? <span className="text-red-600">*</span>
-                  </label>
+                  </Typography>
                   <textarea
                     id="comments"
                     name="comments"
@@ -384,12 +417,19 @@ export default function ContactForm() {
                 <div className="text-center pt-3 pb-10">
                   <button
                     type="submit"
-                    className={`inline-block font-heading text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-[#162047] bg-[#00e8d9] border-2 border-[#00e8d9] rounded-full px-12 py-3.5 cursor-pointer transition-all duration-300 ease-out hover:bg-transparent hover:border-[#162047] hover:text-[#162047] hover:-translate-y-0.5 active:translate-y-0 shadow-sm ${
+                    className={`inline-block border-2 border-[#00e8d9] bg-[#00e8d9] rounded-full px-12 py-3.5 cursor-pointer transition-all duration-300 ease-out hover:bg-transparent hover:border-[#162047] hover:text-[#162047] hover:-translate-y-0.5 active:translate-y-0 shadow-sm ${
                       status === "loading" ? "opacity-70 cursor-not-allowed" : "opacity-100"
                     }`}
                     disabled={status === "loading"}
                   >
-                    {status === "loading" ? "Sending..." : "SUBMIT"}
+                    <Typography
+                      variant="button"
+                      uppercase
+                      weight="semibold"
+                      className="text-[#162047]"
+                    >
+                      {status === "loading" ? "Sending..." : "SUBMIT"}
+                    </Typography>
                   </button>
                 </div>
               </form>

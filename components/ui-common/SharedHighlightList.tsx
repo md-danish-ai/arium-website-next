@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface HighlightItem {
   id?: number;
@@ -43,9 +44,14 @@ export default function SharedHighlightList({
       <div className="container mx-auto px-6 relative z-[2]">
         {/* Centered Header */}
         <div className="shared-hl-header text-center mb-14">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] max-w-[880px] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight">
+          <Typography
+            as="h2"
+            variant="h2"
+            uppercase
+            className="section-title reveal stagger-1 tracking-[0.06em] max-w-[880px] mx-auto leading-[1.45] text-midnight"
+          >
             {heading}
-          </h2>
+          </Typography>
           {description && (
             <div
               className="reveal stagger-1 shared-hl-desc text-midnight/80 text-[1.05rem] leading-[1.8] max-w-[800px] mx-auto mt-5 flex flex-col gap-4 [&>p]:mb-0"
@@ -64,7 +70,12 @@ export default function SharedHighlightList({
                     key={index}
                     className={`shared-hl-box reveal stagger-${(index % 5) + 1} py-6 flex items-center`}
                   >
-                    <h3 className="shared-hl-box-title inline-flex items-center gap-3 text-midnight text-[0.95rem] font-medium m-0 text-left">
+                    <Typography
+                      as="h3"
+                      variant="b2"
+                      weight="medium"
+                      className="shared-hl-box-title inline-flex items-center gap-3 text-midnight m-0 text-left"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -79,7 +90,7 @@ export default function SharedHighlightList({
                         <polyline points="13 17 18 12 13 7" />
                       </svg>
                       {item.ListName}
-                    </h3>
+                    </Typography>
                   </div>
                 );
               })}

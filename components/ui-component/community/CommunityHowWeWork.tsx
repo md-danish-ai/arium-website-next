@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { Typography } from "@ui-element";
 
 interface CommunityHowWeWorkProps {
   data?: {
@@ -36,9 +37,14 @@ export default function CommunityHowWeWork({ data }: CommunityHowWeWorkProps) {
 
       <div className="container relative z-[2] py-32 md:py-40">
         <div className="max-w-[560px]">
-          <h2 className="reveal font-heading text-white text-3xl md:text-5xl font-normal uppercase leading-tight mb-6">
+          <Typography
+            as="h2"
+            variant="h2"
+            uppercase
+            className="reveal text-white leading-tight mb-6"
+          >
             {data?.title || "How we work in your community"}
-          </h2>
+          </Typography>
           {data?.body ? (
             <div
               className="reveal stagger-1 text-white/85 text-base md:text-lg leading-relaxed mb-9 flex flex-col gap-5"
@@ -46,15 +52,15 @@ export default function CommunityHowWeWork({ data }: CommunityHowWeWorkProps) {
             />
           ) : (
             <div className="text-white/85 text-base md:text-lg leading-relaxed mb-9 space-y-5">
-              <p className="reveal stagger-1 m-0">
+              <Typography as="p" variant="b1" className="reveal stagger-1 m-0">
                 We are expanding our small cell network across every major U.S. market. We use a
                 structured, collaborative process that balances the needs of local communities,
                 municipalities, and wireless carriers.
-              </p>
-              <p className="reveal stagger-2 m-0">
+              </Typography>
+              <Typography as="p" variant="b1" className="reveal stagger-2 m-0">
                 This means building the vital connectivity that meets current needs while being
                 ready for future technologies and growth.
-              </p>
+              </Typography>
             </div>
           )}
           {data?.cta ? (

@@ -10,6 +10,7 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   weight?: TypographyWeight;
   uppercase?: boolean;
+  htmlFor?: string;
   className?: string;
   children?: React.ReactNode;
 }

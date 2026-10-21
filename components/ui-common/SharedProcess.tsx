@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { Typography } from "@ui-element";
 
 export interface TimelineItem {
   label: string;
@@ -65,8 +66,11 @@ export default function SharedProcess({
         />
         <div className="container mx-auto px-4 sm:px-6 relative z-[2] max-w-[1440px]">
           <div className="section-header text-center mb-14">
-            <h2
-              className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase mx-auto"
+            <Typography
+              as="h2"
+              variant="h2"
+              uppercase
+              className="section-title reveal stagger-1 tracking-[0.06em] leading-[1.45] text-midnight mx-auto"
               style={
                 maxWidthTitle || isRightOfWays
                   ? { maxWidth: isRightOfWays ? maxWidthTitle || "880px" : maxWidthTitle }
@@ -74,10 +78,14 @@ export default function SharedProcess({
               }
             >
               {title}
-            </h2>
-            <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 text-midnight text-base leading-relaxed">
+            </Typography>
+            <Typography
+              as="p"
+              variant="b1"
+              className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 text-midnight leading-relaxed"
+            >
               {description}
-            </p>
+            </Typography>
           </div>
 
           {/* ─── TAB NAVIGATION ─── */}

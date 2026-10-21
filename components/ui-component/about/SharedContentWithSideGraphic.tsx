@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface SharedContentWithSideGraphicProps {
   Heading?: string;
@@ -119,12 +120,15 @@ export default function SharedContentWithSideGraphic({
 
       <div className="container mx-auto px-6 relative z-[1]">
         <div className="max-w-[760px] text-left">
-          <h2
-            className="subpage-story-heading reveal text-midnight text-left font-heading text-[clamp(1.75rem,2.2vw,2.2rem)] font-normal mb-6 leading-[1.35] whitespace-normal lg:whitespace-nowrap uppercase"
+          <Typography
+            as="h2"
+            variant="h2"
+            uppercase
+            className="reveal text-midnight text-left mb-6 leading-[1.35] whitespace-normal lg:whitespace-nowrap"
             style={headColor ? { color: headColor } : undefined}
           >
             {headingText}
-          </h2>
+          </Typography>
           {bodyText ? (
             bodyText.includes("<") && bodyText.includes(">") ? (
               <div
@@ -137,7 +141,9 @@ export default function SharedContentWithSideGraphic({
                 className="reveal stagger-1 text-midnight/80 text-left text-lg leading-[1.8]"
                 style={descColor ? { color: descColor } : undefined}
               >
-                <p className="subpage-intro m-0">{bodyText}</p>
+                <Typography variant="b1" as="p" className="m-0">
+                  {bodyText}
+                </Typography>
               </div>
             )
           ) : (
@@ -145,19 +151,19 @@ export default function SharedContentWithSideGraphic({
               className="reveal stagger-1 flex flex-col gap-8 text-midnight/80 text-left text-lg leading-[1.8]"
               style={descColor ? { color: descColor } : undefined}
             >
-              <p className="subpage-intro m-0">
+              <Typography variant="b1" as="p" className="m-0">
                 Our world depends on fast, reliable connectivity—from the way we interact with loved
                 ones, educate our children, and drive business forward. More than 15 years ago, we
                 began building the small cell and distributed antennae system (DAS) infrastructure
                 that ensures wireless services works effectively, even in the most challenging
                 locations. Across the country, we&apos;re building dense networks and increasing
                 capacity, enhancing connectivity in high-demand areas.
-              </p>
-              <p className="subpage-intro m-0">
+              </Typography>
+              <Typography variant="b1" as="p" className="m-0">
                 We make the process of designing and deploying wireless networks as straightforward
                 and predictable as possible, providing a clear path forward that supports your
                 vision long into the future.
-              </p>
+              </Typography>
             </div>
           )}
         </div>

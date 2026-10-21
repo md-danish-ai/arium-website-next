@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface SectionPointer {
   id?: number;
@@ -114,23 +115,26 @@ export default function SharedImageGradientSplit({
 
       <div className="shared-igs-veil absolute inset-0 z-[1] bg-gradient-to-t from-[#0a1628]/50 to-transparent pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-[2] pt-[50px] pb-[54px]">
+      <div className="container mx-auto px-6 relative z-[2] py-12 md:py-16 lg:py-20">
         <div className="shared-igs-inner max-w-[600px]">
-          <h2
-            className="section-title reveal challenges-heading shared-igs-heading font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white mb-6 leading-[1.45] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+          <Typography
+            variant="h3"
+            uppercase
+            className="section-title reveal challenges-heading shared-igs-heading text-white mb-6 [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: HeadingColor || undefined }}
           >
             {heading || "Keeping communities safe and connected"}
-          </h2>
-          <p
-            className="reveal stagger-1 shared-igs-body text-white/80 text-[1.05rem] leading-[1.8] m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
+          </Typography>
+          <Typography
+            variant="b1"
+            className="reveal stagger-1 shared-igs-body text-white/80 m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
             style={{ color: DescriptionTextColor || undefined }}
           >
             {description ||
               "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes."}
-          </p>
+          </Typography>
 
-          <div className="reveal stagger-2 shared-igs-pointers mt-9 max-w-[600px] flex flex-col gap-0">
+          <div className="reveal stagger-2 shared-igs-pointers mt-8 md:mt-9 max-w-[600px] flex flex-col gap-0">
             {pointersToRender.map((item: any, index: number, array: any[]) => {
               const itemHeading = item.Heading || item.title || "";
               const itemDesc = item.Description || item.description || "";
@@ -139,18 +143,21 @@ export default function SharedImageGradientSplit({
                   <div
                     className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}
                   >
-                    <div
-                      className="shared-igs-pointer-heading font-heading text-[1.15rem] font-bold text-teal leading-[1.2] tracking-[0.06em] mb-1.5 uppercase"
+                    <Typography
+                      variant="h5"
+                      uppercase
+                      className="shared-igs-pointer-heading text-teal mb-1.5"
                       style={{ color: item.FontHeading || undefined }}
                     >
                       {itemHeading}
-                    </div>
-                    <p
-                      className="shared-igs-pointer-desc text-[0.9rem] leading-[1.65] text-white/80 m-0"
+                    </Typography>
+                    <Typography
+                      variant="b3"
+                      className="shared-igs-pointer-desc text-white/80 m-0"
                       style={{ color: item.FontDescription || undefined }}
                     >
                       {itemDesc}
-                    </p>
+                    </Typography>
                   </div>
                   {index < array.length - 1 && (
                     <div className="shared-igs-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
@@ -161,7 +168,7 @@ export default function SharedImageGradientSplit({
           </div>
 
           {ctaText && ctaUrl && (
-            <div className="reveal stagger-3 shared-igs-cta-wrap mt-9">
+            <div className="reveal stagger-3 shared-igs-cta-wrap mt-8 md:mt-9">
               <Link
                 href={ctaUrl}
                 aria-label={`${ctaText}`}
@@ -169,9 +176,13 @@ export default function SharedImageGradientSplit({
                 target={ctaUrl.startsWith("http") ? "_blank" : undefined}
                 rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
               >
-                <span className="shared-igs-link-text text-xs uppercase tracking-[0.15em] text-white font-body font-normal leading-none transition-colors duration-300 group-hover:text-teal">
+                <Typography
+                  variant="b4"
+                  uppercase
+                  className="shared-igs-link-text text-white tracking-[0.15em] transition-colors duration-300 group-hover:text-teal"
+                >
                   {ctaText}
-                </span>
+                </Typography>
                 <svg
                   className="shared-igs-link-arrow w-4 h-4 text-teal transition-transform duration-300 group-hover:translate-x-1 inline-block"
                   aria-hidden="true"

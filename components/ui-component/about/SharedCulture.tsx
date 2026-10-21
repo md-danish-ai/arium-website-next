@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Typography } from "@ui-element";
 
 interface CulturePillar {
   Heading?: string;
@@ -149,12 +150,15 @@ export default function SharedCulture({
       <div className="container mx-auto px-6 relative z-[2]">
         <div className="culture-content-grid shared-culture-content-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="culture-left-column shared-culture-left-column reveal max-w-[640px] text-left">
-            <h2
-              className="culture-hero-heading shared-culture-hero-heading font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white leading-[1.35] uppercase mb-4"
+            <Typography
+              variant="h3"
+              as="h2"
+              uppercase
+              className="culture-hero-heading shared-culture-hero-heading text-white mb-4"
               style={{ color: HeadingColor || undefined }}
             >
               {headingText}
-            </h2>
+            </Typography>
 
             {descText ? (
               descText.includes("<") && descText.includes(">") ? (
@@ -164,22 +168,26 @@ export default function SharedCulture({
                   dangerouslySetInnerHTML={{ __html: descText }}
                 />
               ) : (
-                <p
-                  className="culture-hero-desc shared-culture-hero-desc text-[1.05rem] leading-[1.8] text-white/80 mb-8"
+                <Typography
+                  variant="b1"
+                  as="p"
+                  className="culture-hero-desc shared-culture-hero-desc text-white/80 mb-8"
                   style={{ color: DescriptionColor || undefined }}
                 >
                   {descText}
-                </p>
+                </Typography>
               )
             ) : (
-              <p
-                className="culture-hero-desc shared-culture-hero-desc text-[1.05rem] leading-[1.8] text-white/80 mb-8"
+              <Typography
+                variant="b1"
+                as="p"
+                className="culture-hero-desc shared-culture-hero-desc text-white/80 mb-8"
                 style={{ color: DescriptionColor || undefined }}
               >
                 Our infrastructure powers the connected world we all rely on. By joining our team,
                 you&apos;ll be at the center of it all, helping us shape the future of connectivity
                 by playing a meaningful role in building the next generation of wireless technology.
-              </p>
+              </Typography>
             )}
 
             <div className="culture-pillars-container shared-culture-pillars-container mt-9 max-w-[585px] flex flex-col gap-0">
@@ -191,18 +199,24 @@ export default function SharedCulture({
                     <div
                       className={`culture-mobile-pillar shared-culture-mobile-pillar pillar-${index + 1} shared-culture-pillar-${index + 1} ${index === 0 ? "pb-6" : index === pillars.length - 1 ? "pt-6" : "py-6"}`}
                     >
-                      <div
-                        className="culture-mobile-pillar-title shared-culture-mobile-pillar-title font-heading text-base font-bold text-teal leading-tight tracking-[0.06em] mb-1.5 uppercase"
+                      <Typography
+                        variant="h5"
+                        as="div"
+                        uppercase
+                        weight="bold"
+                        className="culture-mobile-pillar-title shared-culture-mobile-pillar-title text-teal mb-1.5"
                         style={{ color: pillar.HeadingColor || undefined }}
                       >
                         {pTitle}
-                      </div>
-                      <p
-                        className="culture-mobile-pillar-desc shared-culture-mobile-pillar-desc text-[0.9rem] leading-[1.65] text-white/80 m-0"
+                      </Typography>
+                      <Typography
+                        variant="b3"
+                        as="p"
+                        className="culture-mobile-pillar-desc shared-culture-mobile-pillar-desc text-white/80 m-0"
                         style={{ color: pillar.DescriptionColor || undefined }}
                       >
                         {pDesc}
-                      </p>
+                      </Typography>
                     </div>
                     {index < pillars.length - 1 && (
                       <div className="culture-pillar-divider shared-culture-pillar-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
@@ -217,7 +231,9 @@ export default function SharedCulture({
                 href={ctaUrl}
                 className="culture-cta-btn inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-sm font-semibold tracking-wider uppercase no-underline transition-all duration-300 hover:bg-white hover:-translate-y-0.5"
               >
-                {ctaLabel}
+                <Typography variant="button" uppercase weight="semibold" className="text-midnight">
+                  {ctaLabel}
+                </Typography>
               </Link>
             </div>
           </div>

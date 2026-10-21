@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Typography } from "@ui-element";
 
 interface FAQItem {
   Question: string;
@@ -42,17 +43,24 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
         <div className="container mx-auto px-6 relative z-[1]">
           <div className="section-header text-center mb-16">
             {Heading && (
-              <h2
-                className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase"
+              <Typography
+                as="h2"
+                variant="h2"
+                uppercase
+                className="section-title reveal stagger-1 tracking-[0.06em] leading-[1.45] text-midnight"
                 style={{ color: HeadingColor || undefined }}
               >
                 {Heading}
-              </h2>
+              </Typography>
             )}
             {Description && (
-              <p className="reveal stagger-2 text-midnight/75 max-w-[800px] mx-auto mt-4 text-[1.1rem] leading-relaxed">
+              <Typography
+                as="p"
+                variant="b1"
+                className="reveal stagger-2 text-midnight/75 max-w-[800px] mx-auto mt-4 leading-relaxed"
+              >
                 {Description}
-              </p>
+              </Typography>
             )}
           </div>
 
@@ -66,13 +74,15 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
                     className={`cm-faq-item bg-white rounded-2xl border border-midnight/[0.08] overflow-hidden shadow-[0_2px_12px_rgba(22,32,71,0.04)] hover:border-midnight/15 hover:shadow-md transition-all duration-350 ${isOpen ? "open" : ""}`}
                   >
                     <button
-                      className="cm-faq-question w-full flex items-center justify-between gap-4 py-5 px-7 text-left font-heading text-[1.02rem] font-medium text-midnight leading-snug cursor-pointer transition-colors duration-300 hover:text-teal focus-visible:outline-teal"
+                      className="cm-faq-question w-full flex items-center justify-between gap-4 py-5 px-7 text-left leading-snug cursor-pointer transition-colors duration-300 hover:text-teal focus-visible:outline-teal"
                       onClick={() => toggleFAQ(index)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${index}`}
                       style={faq.QuestionColor ? { color: faq.QuestionColor } : undefined}
                     >
-                      <span>{faq.Question}</span>
+                      <Typography as="span" variant="h5" weight="medium" className="text-midnight">
+                        {faq.Question}
+                      </Typography>
                       <svg
                         className={`cm-faq-chevron shrink-0 text-midnight/40 transition-transform duration-350 ${isOpen ? "rotate-180 text-teal" : ""}`}
                         aria-hidden="true"
@@ -91,12 +101,14 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
                       id={`faq-answer-${index}`}
                     >
                       <div className="overflow-hidden">
-                        <p
-                          className="px-7 pb-6 m-0 text-[0.95rem] leading-[1.75] text-midnight/85"
+                        <Typography
+                          as="p"
+                          variant="b2"
+                          className="px-7 pb-6 m-0 leading-[1.75] text-midnight/85"
                           style={{ color: faq.AnswerColor || undefined }}
                         >
                           {faq.Answer}
-                        </p>
+                        </Typography>
                       </div>
                     </div>
                   </div>

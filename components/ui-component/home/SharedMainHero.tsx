@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { Typography } from "@ui-element";
 
 interface SharedMainHeroProps {
   heading?: string;
@@ -329,13 +330,16 @@ export default function SharedMainHero({
 
       {/* Content */}
       <div className="shared-mh-content relative z-[5] px-6 pt-[150px] pb-[100px] text-center">
-        <h1
-          className="shared-mh-heading mx-auto max-w-[980px] uppercase font-normal tracking-[0.12em] font-heading text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.4]"
+        <Typography
+          variant="h1"
+          uppercase
+          className="shared-mh-heading mx-auto max-w-[980px] tracking-[0.12em]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: heading || "" }}
         />
-        <p
-          className="shared-mh-description mx-auto mt-10 max-w-[800px] font-normal text-[clamp(1.05rem,1.8vw,1.25rem)] leading-[1.6] text-center"
+        <Typography
+          variant="b1"
+          className="shared-mh-description mx-auto mt-8 md:mt-10 max-w-[800px] text-center"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
@@ -346,9 +350,13 @@ export default function SharedMainHero({
         className={`shared-mh-scroll-indicator ${isScrolled ? "is-scrolled pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
         id="shared-scroll-indicator"
       >
-        <span className="shared-mh-scroll-text block text-xs uppercase tracking-[0.15em] text-white font-body font-normal">
+        <Typography
+          variant="b4"
+          uppercase
+          className="shared-mh-scroll-text block text-white/80 tracking-[0.15em]"
+        >
           {scrollText || "Scroll to explore"}
-        </span>
+        </Typography>
         <div className="shared-mh-scroll-arrow text-teal animate-bounce">
           <svg
             width="24"

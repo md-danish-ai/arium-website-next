@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Typography } from "@ui-element";
 
 interface SharedInnerPageHeroProps {
   id?: string;
@@ -99,7 +100,11 @@ export default function SharedInnerPageHero({
               </Link>
             </li>
             <li className="text-midnight/30 text-[0.7rem]">/</li>
-            <li className="text-midnight/80 font-medium">{cleanTitle}</li>
+            <li>
+              <Typography variant="b4" uppercase className="text-midnight/80 font-medium">
+                {cleanTitle}
+              </Typography>
+            </li>
           </ol>
         </nav>
       )}
@@ -111,15 +116,21 @@ export default function SharedInnerPageHero({
         >
           {heroTag && (
             <>
-              <p className="reveal stagger-1 font-body text-base font-medium text-midnight/70 mb-4 tracking-[0.12em] uppercase">
+              <Typography
+                variant="b4"
+                uppercase
+                className="reveal stagger-1 text-midnight/70 mb-4 tracking-[0.12em]"
+              >
                 {heroTag}
-              </p>
+              </Typography>
               <div className="reveal stagger-1 w-12 h-0.5 bg-midnight mx-auto mb-5" />
             </>
           )}
 
-          <h1
-            className="subpage-title reveal stagger-2 text-center"
+          <Typography
+            variant="h2"
+            uppercase
+            className="subpage-title reveal stagger-2 text-center text-midnight"
             dangerouslySetInnerHTML={{
               __html:
                 heroTitle ||
@@ -134,8 +145,9 @@ export default function SharedInnerPageHero({
           {(heroDescription ||
             pathname.includes("/leadership") ||
             pathname.includes("/board-of-directors")) && (
-            <p
-              className="subpage-intro reveal stagger-3 text-center"
+            <Typography
+              variant="b1"
+              className="subpage-intro reveal stagger-3 text-center text-midnight/80 max-w-[800px] mx-auto mt-4"
               dangerouslySetInnerHTML={{
                 __html:
                   heroDescription ||

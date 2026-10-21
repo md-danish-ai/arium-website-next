@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Typography } from "@ui-element";
 
 interface FAQItem {
   title: string;
@@ -63,9 +64,14 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
       <section id="faq" className="bg-transparent py-24 md:py-32 relative overflow-hidden">
         <div className="container relative z-[1]">
           <div className="section-header text-center mb-16">
-            <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide text-3xl md:text-4xl text-[#162047] uppercase leading-snug">
+            <Typography
+              as="h2"
+              variant="h2"
+              uppercase
+              className="section-title reveal stagger-1 tracking-wide text-[#162047] leading-snug"
+            >
               {data?.title || "Frequently asked questions"}
-            </h2>
+            </Typography>
           </div>
 
           <div className="cm-faq-grid max-w-[900px] mx-auto flex flex-col gap-3.5">
@@ -82,9 +88,9 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${index}`}
                     >
-                      <span className="font-heading font-medium text-base md:text-lg text-[#162047]">
+                      <Typography as="span" variant="h5" weight="medium" className="text-[#162047]">
                         {faq.title}
-                      </span>
+                      </Typography>
                       <svg
                         className={`cm-faq-chevron flex-shrink-0 text-[#162047] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                         aria-hidden="true"
@@ -102,9 +108,13 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
                       className={`cm-faq-answer px-5 md:px-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-6 opacity-100" : "max-h-0 pb-0 opacity-0"}`}
                       id={`faq-answer-${index}`}
                     >
-                      <p className="text-sm md:text-base text-[#162047]/75 leading-relaxed m-0">
+                      <Typography
+                        as="p"
+                        variant="b2"
+                        className="text-[#162047]/75 leading-relaxed m-0"
+                      >
                         {faq.description}
-                      </p>
+                      </Typography>
                     </div>
                   </div>
                 </div>

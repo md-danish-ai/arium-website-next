@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ParticleBackground from "@ui-animations/ParticleBackground";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface CommunitySmallCellsProps {
   data?: {
@@ -28,9 +29,9 @@ export default function CommunitySmallCells({ data }: CommunitySmallCellsProps) 
       <div className="container relative z-[1]">
         <div className="sol-split reveal grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="sol-split-text flex flex-col">
-            <h2 className="subpage-story-heading text-left font-heading text-3xl md:text-4xl font-normal text-[#162047] uppercase mb-6">
+            <Typography as="h2" variant="h2" uppercase className="text-left text-[#162047] mb-6">
               {data?.title || "What is a small cell?"}
-            </h2>
+            </Typography>
             {data?.body ? (
               <div
                 className="subpage-intro strapi-richtext-body text-[#162047] text-left text-base md:text-lg flex flex-col gap-5 leading-relaxed"
@@ -38,21 +39,21 @@ export default function CommunitySmallCells({ data }: CommunitySmallCellsProps) 
               />
             ) : (
               <div className="text-[#162047] text-left text-base md:text-lg leading-relaxed space-y-5">
-                <p className="subpage-intro m-0">
+                <Typography as="p" variant="b1" className="m-0">
                   When you are driving on a major highway, you can see large cell towers along the
                   road. These towers manage the wireless traffic for miles around them. As wireless
                   traffic grows, the signal becomes strained &mdash; much like a traffic jam on a
                   highway.
-                </p>
-                <p className="subpage-intro m-0">
+                </Typography>
+                <Typography as="p" variant="b1" className="m-0">
                   Small cells are compact, discreet antennas often mounted on streetlights or
                   utility poles. They boost wireless coverage and capacity in the areas that need it
                   most. Most people don&apos;t even notice them.
-                </p>
-                <p className="subpage-intro m-0">
+                </Typography>
+                <Typography as="p" variant="b1" className="m-0">
                   Think of small cells as adding extra lanes to the wireless highway &mdash;
                   reducing congestion and helping everyone stay connected.
-                </p>
+                </Typography>
               </div>
             )}
           </div>

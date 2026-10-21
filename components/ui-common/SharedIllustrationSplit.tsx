@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface Statistic {
   Number?: string;
@@ -66,12 +67,15 @@ export default function SharedIllustrationSplit({
             className={`sol-split-text flex flex-col ${isMediaLeft ? "md:order-2" : "md:order-1"}`}
           >
             {heading && (
-              <h2
-                className="section-title text-left font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight mb-3 uppercase"
+              <Typography
+                as="h2"
+                variant="h2"
+                uppercase
+                className="section-title text-left tracking-[0.06em] leading-[1.45] text-midnight mb-3"
                 style={{ color: HeadingColor || undefined }}
               >
                 {heading}
-              </h2>
+              </Typography>
             )}
 
             {description && (
@@ -89,16 +93,24 @@ export default function SharedIllustrationSplit({
                   <div key={`stat-${index}`} className="sol-kpi-item flex flex-col gap-1">
                     {stat.Number ? (
                       <>
-                        <span
-                          className="sol-kpi-num font-heading text-3xl font-bold tracking-tight leading-none"
+                        <Typography
+                          as="span"
+                          variant="stat"
+                          weight="bold"
+                          className="sol-kpi-num tracking-tight leading-none"
                           style={{ color: stat.NumberColor || "#7c5cbf" }}
                         >
                           {stat.Number}
-                        </span>
+                        </Typography>
                         {stat.Label && (
-                          <p className="sol-kpi-label text-xs uppercase tracking-wider text-midnight/70 m-0">
+                          <Typography
+                            as="p"
+                            variant="b4"
+                            uppercase
+                            className="sol-kpi-label tracking-wider text-midnight/70 m-0"
+                          >
                             {stat.Label}
-                          </p>
+                          </Typography>
                         )}
                       </>
                     ) : (

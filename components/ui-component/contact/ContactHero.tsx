@@ -1,3 +1,6 @@
+import React from "react";
+import { Typography } from "@ui-element";
+
 interface ContactHeroProps {
   heading?: string;
   intro?: string;
@@ -6,7 +9,7 @@ interface ContactHeroProps {
 export default function ContactHero({ heading, intro }: ContactHeroProps) {
   return (
     <section
-      className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[180px] md:pt-[200px] pb-24 md:pb-32 px-6"
+      className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[160px] md:pt-[200px] pb-20 md:pb-28 px-6"
       id="contact-header"
     >
       {/* Ambient glow: top-right teal */}
@@ -16,13 +19,20 @@ export default function ContactHero({ heading, intro }: ContactHeroProps) {
 
       <div className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
         <div className="subpage-header-text flex flex-col items-center text-center max-w-[960px]">
-          <h1 className="subpage-title reveal stagger-1 font-heading text-3xl md:text-5xl uppercase tracking-wider text-[#162047] font-light leading-tight mb-4">
+          <Typography
+            variant="h2"
+            uppercase
+            className="subpage-title reveal stagger-1 text-[#162047] mb-4 text-center"
+          >
             {heading || "Contact us"}
-          </h1>
-          <p className="subpage-intro reveal stagger-2 text-[#162047]/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          </Typography>
+          <Typography
+            variant="b1"
+            className="subpage-intro reveal stagger-2 text-[#162047]/80 max-w-2xl mx-auto text-center"
+          >
             {intro ||
               "Looking for more information? Or ready to discuss your connectivity needs? Fill out the form so we can connect you to the right team."}
-          </p>
+          </Typography>
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@ui-element";
 
 interface TestimonialCard {
   personName: string;
@@ -41,16 +42,23 @@ export default function SharedTestimonials({
         />
         <div className="container mx-auto px-6 relative z-[2]">
           {(heading || description) && (
-            <div className="section-header text-center mb-16">
+            <div className="section-header text-center mb-12 md:mb-16">
               {heading && (
-                <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase">
+                <Typography
+                  variant="h3"
+                  uppercase
+                  className="section-title reveal stagger-1 text-midnight text-center"
+                >
                   {heading}
-                </h2>
+                </Typography>
               )}
               {description && (
-                <p className="section-description reveal stagger-2 max-w-[680px] mx-auto mt-4 text-midnight text-base leading-relaxed">
+                <Typography
+                  variant="b1"
+                  className="section-description reveal stagger-2 max-w-[680px] mx-auto mt-4 text-midnight text-center"
+                >
                   {description}
-                </p>
+                </Typography>
               )}
             </div>
           )}
@@ -65,7 +73,7 @@ export default function SharedTestimonials({
               return (
                 <div
                   key={idx}
-                  className={`tm-panel reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-9 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full`}
+                  className={`tm-panel reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full`}
                 >
                   <span
                     className="tm-quote-symbol font-serif text-[5rem] leading-none opacity-50 absolute top-5 left-7 pointer-events-none select-none text-teal"
@@ -73,19 +81,30 @@ export default function SharedTestimonials({
                   >
                     “
                   </span>
-                  <p className="tm-panel-text font-body z-[1] grow pt-10 text-[1.05rem] italic font-light leading-[1.8] text-white relative m-0 mb-6">
+                  <Typography
+                    variant="quote"
+                    className="tm-panel-text z-[1] grow pt-10 text-white relative m-0 mb-6"
+                  >
                     {card.personMessage}
-                  </p>
+                  </Typography>
                   <div
-                    className="tm-panel-footer mx-[-36px] sm:mx-[-40px] mb-[-36px] sm:mb-[-40px] px-9 sm:px-10 py-5 border-t border-white/10 shrink-0"
+                    className="tm-panel-footer mx-[-32px] sm:mx-[-40px] mb-[-32px] sm:mb-[-40px] px-8 sm:px-10 py-5 border-t border-white/10 shrink-0"
                     style={{ backgroundColor: footerBg }}
                   >
-                    <p className="tm-panel-name font-heading font-bold text-base text-midnight m-0 tracking-[0.02em]">
+                    <Typography
+                      variant="h5"
+                      as="p"
+                      uppercase
+                      className="tm-panel-name font-bold text-midnight m-0 tracking-[0.02em]"
+                    >
                       {card.personName}
-                    </p>
-                    <p className="tm-panel-role text-xs text-midnight/80 mt-1 mb-0 font-normal">
+                    </Typography>
+                    <Typography
+                      variant="b4"
+                      className="tm-panel-role text-midnight/80 mt-1 mb-0 font-normal normal-case"
+                    >
                       {card.personDesignation}
-                    </p>
+                    </Typography>
                   </div>
                 </div>
               );

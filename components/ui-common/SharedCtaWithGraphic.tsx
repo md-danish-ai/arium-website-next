@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface SharedCtaWithGraphicProps {
   heading: string;
@@ -39,18 +40,21 @@ export default function SharedCtaWithGraphic({
     >
       <div className="shared-cta-graphic-flex-wrapper container mx-auto px-6 relative z-[2] flex flex-row items-center">
         <div className="shared-cta-graphic-text-col max-w-[min(640px,58vw)] py-24 text-left">
-          <h2
-            className="shared-cta-graphic-title reveal stagger-1 font-heading text-[clamp(1.8rem,3.2vw,2.4rem)] font-normal tracking-[0.06em] leading-[1.45] text-midnight mb-4"
+          <Typography
+            variant="h3"
+            uppercase
+            className="shared-cta-graphic-title reveal stagger-1 text-midnight mb-4"
             style={{ color: HeadingColor || undefined }}
           >
             {heading}
-          </h2>
-          <p
-            className="shared-cta-graphic-description reveal stagger-2 text-[1.05rem] leading-[1.75] text-midnight/85 mb-8"
+          </Typography>
+          <Typography
+            variant="b1"
+            className="shared-cta-graphic-description reveal stagger-2 text-midnight/85 mb-8"
             style={{ color: DescriptionColor || undefined }}
           >
             {description}
-          </p>
+          </Typography>
           {ctaText && ctaLink && (
             <div className="shared-cta-graphic-actions reveal stagger-3 flex justify-start">
               <Link

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Typography } from "@ui-element";
 
 interface IndustryFallback {
   title: string;
@@ -157,21 +158,27 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
         <div className="ind-two-col grid grid-cols-1 lg:grid-cols-[1.4fr_0.9fr] gap-12 lg:gap-20 items-start">
           {/* LEFT: Section heading & description */}
           <div className="ind-col-left reveal lg:sticky lg:top-36 max-w-[540px]">
-            <h2 className="section-title text-left font-heading font-light text-3xl md:text-5xl uppercase tracking-wider text-white mb-6">
+            <Typography
+              variant="h2"
+              as="h2"
+              uppercase
+              weight="light"
+              className="text-left text-white mb-6"
+            >
               {data?.title || "Industries That Require Advanced Connectivity"}
-            </h2>
+            </Typography>
             {data?.body ? (
               <div
                 className="section-description strapi-richtext-body text-white/80 text-base md:text-lg leading-relaxed text-left m-0"
                 dangerouslySetInnerHTML={{ __html: data.body }}
               />
             ) : (
-              <p className="section-description text-white/80 text-base md:text-lg leading-relaxed text-left m-0">
+              <Typography variant="b1" as="p" className="text-white/80 text-left m-0">
                 We partner with industries like yours, designing the right mix of small cells and
                 DAS to meet performance, aesthetic, and operational requirements, all while
                 leveraging our long-standing relationships with MNOs, utilities, public safety
                 agencies, and more.
-              </p>
+              </Typography>
             )}
           </div>
 
@@ -202,16 +209,21 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
                           dangerouslySetInnerHTML={{ __html: industry.icon }}
                         />
                       )}
-                      <h3 className="ind-interactive-title font-heading text-sm font-normal text-white uppercase tracking-[0.15em] m-0 transition-colors duration-300 group-hover:text-teal">
+                      <Typography
+                        variant="h6"
+                        as="h3"
+                        uppercase
+                        className="text-white m-0 transition-colors duration-300 group-hover:text-teal"
+                      >
                         {industry.title}
-                      </h3>
+                      </Typography>
                     </div>
                     <div
                       className={`ind-expand-desc overflow-hidden transition-all duration-300 ${isActive ? "max-h-40 opacity-100 pt-2 pl-16" : "max-h-0 opacity-0"}`}
                     >
-                      <span className="text-white/70 text-xs md:text-sm leading-relaxed block">
+                      <Typography variant="b3" as="span" className="text-white/70 block">
                         {industry.description}
-                      </span>
+                      </Typography>
                     </div>
                   </div>
                 );

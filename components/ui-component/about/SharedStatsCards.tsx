@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@ui-element";
 
 interface StatsCardItem {
   Title?: string;
@@ -79,13 +80,17 @@ export default function SharedStatsCards({
     <section className="shared-stats-cards-section section-light bg-white py-24 relative overflow-hidden z-[2]">
       <div className="container mx-auto px-6 relative z-[2]">
         <div className="section-header text-center mb-20">
-          <h2 className="section-title reveal font-heading font-normal tracking-[0.06em] text-[2.4rem] leading-[1.45] text-midnight uppercase">
+          <Typography variant="h3" as="h2" uppercase className="section-title reveal text-midnight">
             {headingStr}
-          </h2>
+          </Typography>
           {Description && (
-            <p className="section-description reveal stagger-1 max-w-[780px] mx-auto mt-5 text-midnight/85 text-base leading-relaxed">
+            <Typography
+              variant="b1"
+              as="p"
+              className="section-description reveal stagger-1 max-w-[780px] mx-auto mt-5 text-midnight/85"
+            >
               {Description}
-            </p>
+            </Typography>
           )}
         </div>
 
@@ -131,22 +136,33 @@ export default function SharedStatsCards({
                   aria-hidden="true"
                 />
                 <div className="shared-stats-kpi-num-row relative z-[2] flex items-baseline">
-                  <span
-                    className="shared-stats-kpi-num counter font-heading text-[4.2rem] font-extrabold text-midnight leading-none tracking-[-0.04em]"
+                  <Typography
+                    variant="stat"
+                    className="shared-stats-kpi-num counter text-midnight"
                     data-target={targetNum}
                     data-suffix={suffix}
                   >
                     0
-                  </span>
+                  </Typography>
                 </div>
                 <div className={`w-9 h-0.5 opacity-60 mb-1 ${scheme.barBg}`} />
-                <p className="shared-stats-kpi-label relative z-[2] text-midnight/85 text-base leading-[1.65] m-0">
+                <Typography
+                  variant="b2"
+                  as="p"
+                  className="shared-stats-kpi-label relative z-[2] text-midnight/85 m-0"
+                >
                   {item.Description}
-                </p>
+                </Typography>
                 {item.Badge && (
-                  <cite className="shared-stats-kpi-cite self-start text-[0.68rem] not-italic font-semibold uppercase tracking-[0.12em] text-midnight/75 mt-6 px-3.5 py-1.5 rounded-full border border-midnight/10 bg-white/40">
+                  <Typography
+                    variant="b4"
+                    as="cite"
+                    uppercase
+                    weight="semibold"
+                    className="shared-stats-kpi-cite self-start not-italic text-midnight/75 mt-6 px-3.5 py-1.5 rounded-full border border-midnight/10 bg-white/40"
+                  >
                     {item.Badge}
-                  </cite>
+                  </Typography>
                 )}
               </div>
             );

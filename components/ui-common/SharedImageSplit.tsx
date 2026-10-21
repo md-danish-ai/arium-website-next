@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface SharedImageSplitProps {
   data: {
@@ -65,12 +66,15 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
             className={`image-split-text flex flex-col ${isMediaLeft ? "lg:order-2" : "lg:order-1"}`}
           >
             {Heading && (
-              <h2
-                className="font-heading text-left font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.4] text-midnight mb-6 uppercase"
+              <Typography
+                as="h2"
+                variant="h2"
+                uppercase
+                className="text-left tracking-[0.06em] leading-[1.4] text-midnight mb-6"
                 style={{ color: HeadingColor || undefined }}
               >
                 {Heading}
-              </h2>
+              </Typography>
             )}
 
             {Description && (

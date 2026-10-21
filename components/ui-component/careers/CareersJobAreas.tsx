@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Typography } from "@ui-element";
 
 interface JobAreaCard {
   title: string;
@@ -38,19 +39,27 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
       <div className="container relative z-[2]">
         {/* Centered Header */}
         <div className="section-header text-center mb-14">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide max-w-[880px] mx-auto text-3xl md:text-4xl text-[#162047] leading-snug">
+          <Typography
+            variant="h3"
+            as="h2"
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+          >
             {data?.title || "Our Core Job Areas"}
-          </h2>
+          </Typography>
           {data?.body ? (
             <div
               className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5"
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5">
+            <Typography
+              variant="b1"
+              as="p"
+              className="reveal stagger-1 text-[#162047]/80 max-w-[800px] mx-auto mt-5"
+            >
               Our teams work cross-functionally to design, build, and support wireless
               infrastructure. These core job types include:
-            </p>
+            </Typography>
           )}
         </div>
 
@@ -66,10 +75,15 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
                     className={`cr-job-box reveal stagger-${(index % 5) + 1} py-5 flex items-center`}
                     style={{ "--item-accent": accentColor } as React.CSSProperties}
                   >
-                    <h3 className="cr-job-box-title inline-flex items-center gap-3 text-[#162047] text-base md:text-lg font-medium m-0 text-left">
+                    <Typography
+                      variant="h5"
+                      as="h3"
+                      weight="medium"
+                      className="cr-job-box-title inline-flex items-center gap-3 text-[#162047] m-0 text-left"
+                    >
                       <span className="w-2.5 h-2.5 rounded-full bg-[#7C5CBF] flex-shrink-0" />
                       {area.title}
-                    </h3>
+                    </Typography>
                   </div>
                 );
               })}
@@ -80,9 +94,16 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
                 href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
+                className="btn-primary group inline-flex items-center justify-center bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
               >
-                Explore opportunities
+                <Typography
+                  variant="button"
+                  uppercase
+                  weight="semibold"
+                  className="text-white group-hover:text-[#162047]"
+                >
+                  Explore opportunities
+                </Typography>
               </Link>
             </div>
           </div>

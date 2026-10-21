@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@ui-element";
 
 interface TestimonialCard {
   title: string;
@@ -77,9 +78,13 @@ export default function CareersTestimonials({ data }: CareersTestimonialsProps) 
       />
       <div className="container relative z-[2]">
         <div className="section-header text-center mb-16 md:mb-18">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide max-w-[880px] mx-auto text-3xl md:text-4xl leading-relaxed text-[#162047]">
+          <Typography
+            variant="h3"
+            as="h2"
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+          >
             {data?.title || "Meet the Arium Networks Team"}
-          </h2>
+          </Typography>
         </div>
         <div className="tm-row careers-tm-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1440px] mx-auto">
           {testimonials.map((testimonial, index) => {
@@ -93,16 +98,29 @@ export default function CareersTestimonials({ data }: CareersTestimonialsProps) 
                 <span className="tm-quote-symbol text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">
                   “
                 </span>
-                <p className="tm-panel-text text-sm md:text-base italic text-[#162047]/85 leading-relaxed flex-1 mb-6">
+                <Typography
+                  variant="quote"
+                  as="blockquote"
+                  className="tm-panel-text text-[#162047]/85 flex-1 mb-6"
+                >
                   {testimonial.description}
-                </p>
+                </Typography>
                 <div className="tm-panel-footer pt-4 border-t border-black/10">
-                  <p className="tm-panel-name font-heading font-bold text-sm tracking-wide text-[#162047] m-0">
+                  <Typography
+                    variant="h6"
+                    as="p"
+                    weight="bold"
+                    className="tm-panel-name text-[#162047] m-0"
+                  >
                     {testimonial.title}
-                  </p>
-                  <p className="tm-panel-role text-xs text-[#162047]/60 mt-1 m-0">
+                  </Typography>
+                  <Typography
+                    variant="b4"
+                    as="p"
+                    className="tm-panel-role text-[#162047]/60 mt-1 m-0"
+                  >
                     {testimonial.badge}
-                  </p>
+                  </Typography>
                 </div>
               </div>
             );

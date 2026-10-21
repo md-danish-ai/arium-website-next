@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface StatItem {
   Number: string;
@@ -94,16 +95,18 @@ export default function SharedStatsWithImage({
       <div className="shared-swi-bg-gradient absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
 
       <div className="container mx-auto px-6 relative z-[1]">
-        <div className="shared-swi-header mb-16 text-center reveal">
-          <h2
-            className="shared-swi-title font-heading text-[clamp(1.8rem,3vw,2.4rem)] font-normal tracking-[0.06em] text-white leading-[1.45] text-center max-w-full"
+        <div className="shared-swi-header mb-12 md:mb-16 text-center reveal">
+          <Typography
+            variant="h3"
+            uppercase
+            className="shared-swi-title text-center text-white max-w-full"
             style={{ color: HeadingColor || undefined }}
           >
             {heading || "Scale and experience to match your ambition"}
-          </h2>
+          </Typography>
         </div>
 
-        <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-12 items-center">
+        <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
           <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 h-full reveal stagger-1">
             {cardsToRender.map((stat: any, index: number, array: any[]) => {
               const numStr = stat.Number || stat.value || "0";
@@ -134,28 +137,30 @@ export default function SharedStatsWithImage({
 
               return (
                 <div
-                  className={`shared-swi-bento-card rounded-2xl p-5 min-h-[136px] flex flex-col justify-center gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl ${!stat.BgColor ? colorClass : ""} ${isLastSpan2 ? "col-span-2 min-h-[110px] items-center text-center" : ""}`}
+                  className={`shared-swi-bento-card rounded-2xl p-4 md:p-5 min-h-[136px] flex flex-col justify-center gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl ${!stat.BgColor ? colorClass : ""} ${isLastSpan2 ? "col-span-2 min-h-[110px] items-center text-center" : ""}`}
                   style={{
                     backgroundColor: stat.BgColor || undefined,
                   }}
                   key={index}
                 >
                   <div>
-                    <span
-                      className="shared-swi-number counter font-heading text-[clamp(2rem,3vw,2.8rem)] font-extrabold text-midnight leading-none tracking-[-0.04em]"
+                    <Typography
+                      variant="stat"
+                      className="shared-swi-number counter text-midnight"
                       style={{ color: stat.NumberColor || undefined }}
                       data-target={target}
                       data-suffix={suffix}
                     >
                       0
-                    </span>
+                    </Typography>
                   </div>
-                  <p
-                    className="text-[0.82rem] font-medium text-midnight m-0 whitespace-nowrap"
+                  <Typography
+                    variant="b4"
+                    className="text-midnight whitespace-nowrap m-0 font-medium normal-case"
                     style={{ color: stat.DescriptionColor || undefined }}
                   >
                     {descStr}
-                  </p>
+                  </Typography>
                 </div>
               );
             })}

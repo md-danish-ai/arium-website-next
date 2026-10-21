@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { Typography } from "@ui-element";
 
 interface LeadershipCard {
   title: string;
@@ -132,10 +133,17 @@ export default function LeadershipTeam({ data }: LeadershipTeamProps) {
                     />
                   </div>
                   <div className="ld-card-overlay absolute bottom-0 left-0 right-0 pt-12 pb-4 px-4 bg-gradient-to-t from-[#0a0e20]/90 via-[#0a0e20]/40 to-transparent z-[2]">
-                    <h2 className="font-heading font-semibold text-sm md:text-base text-white m-0 mb-0.5">
+                    <Typography
+                      variant="h5"
+                      as="h2"
+                      weight="semibold"
+                      className="text-white m-0 mb-0.5"
+                    >
                       {leader.name}
-                    </h2>
-                    <p className="text-xs text-white/90 leading-tight m-0">{leader.role}</p>
+                    </Typography>
+                    <Typography variant="b4" as="p" className="text-white/90 leading-tight m-0">
+                      {leader.role}
+                    </Typography>
                   </div>
                 </div>
               ))}
@@ -188,12 +196,12 @@ export default function LeadershipTeam({ data }: LeadershipTeamProps) {
                   />
                 </div>
                 <div className="ld-modal-identity flex-1">
-                  <h2 className="ld-modal-name font-heading text-xl md:text-3xl font-normal text-white m-0 mb-1.5">
+                  <Typography variant="h3" as="h2" className="ld-modal-name text-white m-0 mb-1.5">
                     {activeLeader.name}
-                  </h2>
-                  <p className="ld-modal-role font-body text-sm text-[#00e8d9] m-0">
+                  </Typography>
+                  <Typography variant="b3" as="p" className="ld-modal-role text-[#00e8d9] m-0">
                     {activeLeader.role}
-                  </p>
+                  </Typography>
                 </div>
               </div>
               <div

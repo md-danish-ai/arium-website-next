@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -215,8 +216,10 @@ export default function SharedAccordionSplit({
             style={isCareers ? { maxWidth: "660px" } : undefined}
           >
             {Heading && (
-              <h2
-                className={`section-title sas-heading font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.35] uppercase mb-4 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
+              <Typography
+                variant="h3"
+                uppercase
+                className={`section-title sas-heading mb-4 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
                   ...(isCareers
@@ -225,7 +228,7 @@ export default function SharedAccordionSplit({
                 }}
               >
                 {Heading}
-              </h2>
+              </Typography>
             )}
             {Description && (
               <div
@@ -265,8 +268,11 @@ export default function SharedAccordionSplit({
                           aria-hidden="true"
                         />
                       )}
-                      <h3
-                        className={`sas-item-title font-heading text-sm font-normal uppercase tracking-[0.15em] m-0 transition-colors duration-300 ${isActive ? "text-teal" : "text-white group-hover:text-teal"}`}
+                      <Typography
+                        variant="h6"
+                        as="h3"
+                        uppercase
+                        className={`sas-item-title tracking-[0.15em] m-0 transition-colors duration-300 ${isActive ? "text-teal" : "text-white group-hover:text-teal"}`}
                         style={{
                           color: isActive
                             ? item.TitleHoverColor || undefined
@@ -274,15 +280,17 @@ export default function SharedAccordionSplit({
                         }}
                       >
                         {item.Title}
-                      </h3>
+                      </Typography>
                     </div>
 
                     <div
                       className={`sas-item-body grid transition-[grid-template-rows] duration-500 ease-out pl-16 ${isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                     >
                       <div className="sas-item-body-inner min-h-0 overflow-hidden">
-                        <span
-                          className={`block font-body text-xs leading-relaxed text-white/80 pt-2 transition-all duration-500 ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}`}
+                        <Typography
+                          variant="b3"
+                          as="span"
+                          className={`block pt-2 transition-all duration-500 text-white/80 ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}`}
                           style={{ color: item.DescriptionColor || undefined }}
                           dangerouslySetInnerHTML={{ __html: item.Description || "" }}
                         />

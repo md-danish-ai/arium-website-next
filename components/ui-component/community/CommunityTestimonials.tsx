@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@ui-element";
 
 interface TestimonialCard {
   title: string;
@@ -69,9 +70,14 @@ export default function CommunityTestimonials({ data }: CommunityTestimonialsPro
       />
       <div className="container relative z-[2]">
         <div className="section-header text-center mb-16 md:mb-18">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide text-3xl md:text-4xl leading-relaxed text-[#162047] max-w-[880px] mx-auto">
+          <Typography
+            as="h2"
+            variant="h2"
+            uppercase
+            className="section-title reveal stagger-1 tracking-wide leading-relaxed text-[#162047] max-w-[880px] mx-auto"
+          >
             {data?.title || "Communities support advanced connectivity"}
-          </h2>
+          </Typography>
         </div>
 
         <div className="tm-row community-tm-row grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
@@ -86,16 +92,29 @@ export default function CommunityTestimonials({ data }: CommunityTestimonialsPro
                 <span className="tm-quote-symbol text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">
                   “
                 </span>
-                <p className="tm-panel-text text-base italic text-[#162047]/85 leading-relaxed flex-1 mb-6">
+                <Typography
+                  as="p"
+                  variant="b2"
+                  className="tm-panel-text text-[#162047]/85 leading-relaxed flex-1 mb-6"
+                >
                   {testimonial.description}
-                </p>
+                </Typography>
                 <div className="tm-panel-footer pt-4 border-t border-black/10">
-                  <p className="tm-panel-name font-heading font-bold text-sm tracking-wide text-[#162047] m-0">
+                  <Typography
+                    as="p"
+                    variant="h6"
+                    weight="bold"
+                    className="tm-panel-name tracking-wide text-[#162047] m-0"
+                  >
                     {testimonial.title}
-                  </p>
-                  <p className="tm-panel-role text-xs text-[#162047]/60 mt-1 m-0">
+                  </Typography>
+                  <Typography
+                    as="p"
+                    variant="b4"
+                    className="tm-panel-role text-[#162047]/60 mt-1 m-0"
+                  >
                     {testimonial.badge}
-                  </p>
+                  </Typography>
                 </div>
               </div>
             );

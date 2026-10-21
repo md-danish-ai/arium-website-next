@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ParticleBackground from "@ui-animations/ParticleBackground";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface BenefitCard {
   title: string;
@@ -54,12 +55,15 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
 
       <div className="container mx-auto px-6 relative z-[2]">
         <div className="section-header text-center mb-16">
-          <h2
-            className="section-title cm-section-title reveal stagger-1 font-normal tracking-[0.08em] max-w-[880px] mx-auto text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] uppercase text-[#162047]"
+          <Typography
+            as="h2"
+            variant="h2"
+            uppercase
+            className="section-title cm-section-title reveal stagger-1 tracking-[0.08em] max-w-[880px] mx-auto leading-[1.45] text-[#162047]"
             style={{ color: data?.HeadingColor || "#162047" }}
           >
             {data?.title || "Why small cells matter"}
-          </h2>
+          </Typography>
         </div>
 
         <div className="reveal stagger-2 image-card-grid w-full">
@@ -95,18 +99,24 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
                     className="w-[120px] h-[120px] object-contain block mix-blend-multiply"
                   />
                 </div>
-                <div
-                  className="cm-pillar-title font-heading text-[1.55rem] font-bold leading-none tracking-[0.08em] mb-3 uppercase"
+                <Typography
+                  as="h3"
+                  variant="h4"
+                  uppercase
+                  weight="bold"
+                  className="cm-pillar-title leading-none tracking-[0.08em] mb-3"
                   style={{ color: benefit.TitleColor || "#7C5CBF" }}
                 >
                   {benefit.title}
-                </div>
-                <p
-                  className="cm-pillar-desc text-[0.92rem] leading-[1.65] mb-7 w-full"
+                </Typography>
+                <Typography
+                  as="p"
+                  variant="b2"
+                  className="cm-pillar-desc leading-[1.65] mb-7 w-full"
                   style={{ color: benefit.DescriptionColor || "#162047" }}
                 >
                   {benefit.description}
-                </p>
+                </Typography>
               </div>
             );
           })}

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { Typography } from "@ui-element";
 
 interface GlobeCTAProps {
   title?: string;
@@ -35,18 +36,29 @@ export default function GlobeCTA({
           <div className="sol-split-text max-w-[580px]">
             {description ? (
               <>
-                <h2 className="section-title text-left font-light mb-5 text-midnight whitespace-normal sm:whitespace-nowrap font-heading text-[clamp(1.8rem,3vw,2.4rem)] uppercase leading-tight">
+                <Typography
+                  as="h2"
+                  variant="h2"
+                  uppercase
+                  weight="light"
+                  className="section-title text-left mb-5 text-midnight whitespace-normal sm:whitespace-nowrap leading-tight"
+                >
                   {heading || title}
-                </h2>
+                </Typography>
                 <div
                   className="strapi-richtext-body text-[1.05rem] leading-[1.8] text-midnight mb-9 flex flex-col gap-4 [&>p]:mb-0"
                   dangerouslySetInnerHTML={{ __html: description }}
                 />
               </>
             ) : (
-              <p className="font-heading text-[clamp(1.3rem,2.5vw,1.7rem)] leading-[1.5] text-midnight mb-9 font-light max-w-[580px] [text-wrap:balance]">
+              <Typography
+                as="p"
+                variant="h3"
+                weight="light"
+                className="leading-[1.5] text-midnight mb-9 max-w-[580px] [text-wrap:balance]"
+              >
                 {title || heading}
-              </p>
+              </Typography>
             )}
             <Link
               href={buttonLink}

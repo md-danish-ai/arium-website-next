@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface PeopleCard {
   Name: string;
@@ -137,10 +138,17 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
                     />
                   </div>
                   <div className="people-card-overlay absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0a0e20]/85 via-[#0a0e20]/40 to-transparent z-[2]">
-                    <h2 className="font-heading font-semibold text-[0.92rem] text-white m-0 mb-0.5">
+                    <Typography
+                      as="h3"
+                      variant="b2"
+                      weight="semibold"
+                      className="text-white m-0 mb-0.5"
+                    >
                       {leader.name}
-                    </h2>
-                    <p className="text-[0.72rem] text-white/90 m-0 leading-tight">{leader.role}</p>
+                    </Typography>
+                    <Typography as="p" variant="b4" className="text-white/90 m-0 leading-tight">
+                      {leader.role}
+                    </Typography>
                   </div>
                 </div>
               ))}
@@ -196,12 +204,16 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
                   />
                 </div>
                 <div className="people-modal-identity flex-1">
-                  <h2 className="people-modal-name font-heading text-[clamp(1.4rem,2.5vw,2rem)] font-normal text-white m-0 mb-1.5">
+                  <Typography
+                    as="h2"
+                    variant="h3"
+                    className="people-modal-name text-white m-0 mb-1.5"
+                  >
                     {activeLeader.name}
-                  </h2>
-                  <p className="people-modal-role font-body text-sm text-teal m-0">
+                  </Typography>
+                  <Typography as="p" variant="b4" className="people-modal-role text-teal m-0">
                     {activeLeader.role}
-                  </p>
+                  </Typography>
                 </div>
               </div>
               <div

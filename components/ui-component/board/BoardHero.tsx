@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Typography } from "@ui-element";
 
 interface BoardHeroProps {
   heading?: string;
@@ -20,7 +21,11 @@ export default function BoardHero({ heading, intro }: BoardHeroProps) {
         className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-6 md:px-16"
         aria-label="Breadcrumb"
       >
-        <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-xs tracking-wider">
+        <Typography
+          variant="b4"
+          as="ol"
+          className="list-none p-0 m-0 flex items-center gap-2 tracking-wider"
+        >
           <li>
             <Link
               href="/about"
@@ -31,18 +36,28 @@ export default function BoardHero({ heading, intro }: BoardHeroProps) {
           </li>
           <li className="text-[#162047]/30 text-[0.7rem]">/</li>
           <li className="text-[#162047]/80 font-medium">Board of Directors</li>
-        </ol>
+        </Typography>
       </nav>
 
       <div className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
         <div className="subpage-header-text flex flex-col items-center text-center max-w-[960px]">
-          <h1 className="subpage-title reveal stagger-1 font-heading text-3xl md:text-5xl uppercase tracking-wider text-[#162047] font-light leading-tight mb-4">
+          <Typography
+            variant="h2"
+            as="h1"
+            uppercase
+            weight="light"
+            className="reveal stagger-1 text-[#162047] mb-4"
+          >
             {heading || "Board of Directors"}
-          </h1>
-          <p className="subpage-intro reveal stagger-2 text-[#162047]/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          </Typography>
+          <Typography
+            variant="b1"
+            as="p"
+            className="reveal stagger-2 text-[#162047]/80 max-w-2xl mx-auto"
+          >
             {intro ||
               "Guiding strategy and governance with decades of industry leadership and investment expertise."}
-          </p>
+          </Typography>
         </div>
       </div>
     </section>

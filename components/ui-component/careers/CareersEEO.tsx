@@ -1,3 +1,5 @@
+import { Typography } from "@ui-element";
+
 interface CareersEEOProps {
   data?: {
     body?: string;
@@ -18,7 +20,11 @@ export default function CareersEEO({ data }: CareersEEOProps) {
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="font-body text-xs md:text-sm leading-relaxed text-[#162047]/80 mx-auto font-normal tracking-wide text-center">
+            <Typography
+              variant="b3"
+              as="p"
+              className="text-[#162047]/80 mx-auto tracking-wide text-center"
+            >
               We are an equal opportunity employer. We recruit, hire and promote without regard to
               race, color, religion, creed, national origin or ancestry, ethnicity, sex (including
               pregnancy or pregnancy related conditions), gender (including gender identity and
@@ -26,7 +32,7 @@ export default function CareersEEO({ data }: CareersEEOProps) {
               or mental disability, citizenship, past, current or prospective service in the
               uniformed services, genetic information, marital status or any other characteristic
               protected under applicable federal, state or local law.
-            </p>
+            </Typography>
           )}
         </div>
       </div>

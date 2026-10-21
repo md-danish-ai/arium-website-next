@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ImageCarousel from "@ui-element/ImageCarousel";
+import { Typography } from "@ui-element";
 
 const venueImages = [
   { src: "/assets/images/overview-buildings-Venues.png", alt: "Fans at a venue" },
@@ -36,28 +37,41 @@ export default function WhereVenues({ data }: WhereVenuesProps) {
 
       <div className="container ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
         <div className="ov-feature-text reveal flex flex-col gap-5 lg:order-2">
-          <h2 className="ov-feature-heading font-heading text-3xl md:text-4xl lg:text-5xl font-light uppercase tracking-wider text-[#162047] leading-tight m-0">
+          <Typography
+            variant="h2"
+            as="h2"
+            uppercase
+            weight="light"
+            className="ov-feature-heading text-[#162047] leading-tight m-0"
+          >
             {data?.title || "Buildings and Venues"}
-          </h2>
+          </Typography>
           {data?.body ? (
             <div
               className="ov-feature-desc strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="ov-feature-desc text-[#162047]/85 text-base md:text-lg leading-relaxed m-0">
+            <Typography variant="b1" as="p" className="ov-feature-desc text-[#162047]/85 m-0">
               Our distributed antenna systems (DAS) and small cell networks bring advanced
               connectivity to in-building environments. We partner with large stadiums, commercial
               buildings, theme parks, campuses, and other private venues, helping customers stay
               connected in even the most crowded or hard-to-reach areas.
-            </p>
+            </Typography>
           )}
           <Link
             href={data?.cta?.url || "/private-venues"}
             aria-label={`${data?.cta?.label || "Learn more"} about private venues`}
-            className="ov-feature-cta reveal stagger-2 inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-[#162047] bg-[#162047] text-white font-heading text-xs uppercase tracking-widest font-semibold hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5 self-start mt-2 group"
+            className="ov-feature-cta reveal stagger-2 inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-[#162047] bg-[#162047] text-white hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5 self-start mt-2 group"
           >
-            {data?.cta?.label || "Learn more"}
+            <Typography
+              variant="button"
+              uppercase
+              weight="semibold"
+              className="text-white group-hover:text-[#162047]"
+            >
+              {data?.cta?.label || "Learn more"}
+            </Typography>
             <svg
               width="14"
               height="14"

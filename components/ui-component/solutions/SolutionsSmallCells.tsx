@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { Typography } from "@ui-element";
 
 interface StatItem {
   value: string;
@@ -28,9 +29,9 @@ export default function SolutionsSmallCells({ data }: SolutionsSmallCellsProps) 
       <div className="container mx-auto max-w-[1200px]">
         <div className="sol-split grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="sol-split-text flex flex-col">
-            <h2 className="section-title text-left font-heading font-normal tracking-wide text-3xl md:text-4xl text-[#162047] leading-snug mb-3">
+            <Typography variant="h3" as="h2" className="text-left text-[#162047] mb-3">
               {data?.title || "Small Cells"}
-            </h2>
+            </Typography>
 
             {data?.body ? (
               <div
@@ -38,17 +39,17 @@ export default function SolutionsSmallCells({ data }: SolutionsSmallCellsProps) 
                 dangerouslySetInnerHTML={{ __html: data.body }}
               />
             ) : (
-              <div className="text-[#162047] text-base leading-relaxed mb-8 space-y-4">
-                <p className="m-0">
+              <div className="text-[#162047] mb-8 space-y-4">
+                <Typography variant="b1" as="p" className="text-[#162047] m-0">
                   For more than 15 years, we&apos;ve partnered with mobile network operators (MNOs)
                   to design and deploy small cells that add targeted coverage and capacity. Our
                   discrete antennas help communities and wireless carriers keep pace with growing
                   demand.
-                </p>
-                <p className="m-0">
+                </Typography>
+                <Typography variant="b1" as="p" className="text-[#162047] m-0">
                   Our small cell networks strengthen everyday connectivity and critical
                   communication—supporting faster speeds and more reliable service.
-                </p>
+                </Typography>
               </div>
             )}
 
@@ -59,12 +60,16 @@ export default function SolutionsSmallCells({ data }: SolutionsSmallCellsProps) 
                   className="sol-kpi-item flex flex-col gap-1 py-4 cursor-default"
                   style={{ "--kpi-color": "#7c5cbf" } as React.CSSProperties}
                 >
-                  <span className="sol-kpi-num font-heading text-5xl md:text-6xl font-extrabold text-[#7c5cbf] leading-none tracking-tight">
+                  <Typography variant="stat" className="sol-kpi-num text-[#7c5cbf]">
                     {stat.value}
-                  </span>
-                  <p className="sol-kpi-label font-body text-base text-[#162047] m-0 leading-relaxed max-w-[200px]">
+                  </Typography>
+                  <Typography
+                    variant="b3"
+                    as="p"
+                    className="sol-kpi-label text-[#162047] m-0 max-w-[200px]"
+                  >
                     {stat.label}
-                  </p>
+                  </Typography>
                 </div>
               ))}
             </div>
@@ -76,9 +81,14 @@ export default function SolutionsSmallCells({ data }: SolutionsSmallCellsProps) 
                   className="sol-kpi-item"
                   style={{ "--kpi-color": "#7c5cbf" } as React.CSSProperties}
                 >
-                  <p className="sol-kpi-label-pill font-body text-xs md:text-sm text-[#162047] bg-[#162047]/10 px-4 py-1.5 rounded-full inline-block mt-2 font-medium w-fit">
+                  <Typography
+                    variant="b4"
+                    as="p"
+                    weight="medium"
+                    className="sol-kpi-label-pill text-[#162047] bg-[#162047]/10 px-4 py-1.5 rounded-full inline-block mt-2 w-fit"
+                  >
                     {stat.label}
-                  </p>
+                  </Typography>
                 </div>
               ))}
             </div>

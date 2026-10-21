@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
+import { Typography } from "@ui-element";
 
 interface BenefitCard {
   title: string;
@@ -61,20 +62,28 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
 
       <div className="container relative z-[1]">
         <div className="section-header text-center mb-16">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide max-w-[880px] mx-auto text-3xl md:text-4xl text-[#162047] leading-snug">
+          <Typography
+            variant="h3"
+            as="h2"
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+          >
             {data?.title || "Our Total Benefits Package"}
-          </h2>
+          </Typography>
           {data?.body ? (
             <div
               className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 text-base md:text-lg leading-relaxed"
               dangerouslySetInnerHTML={{ __html: data.body }}
             />
           ) : (
-            <p className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 text-base md:text-lg leading-relaxed">
+            <Typography
+              variant="b1"
+              as="p"
+              className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80"
+            >
               We offer competitive compensation and benefits designed to support you at work and in
               life. Full-time team members are eligible for a comprehensive benefits package that
               includes:
-            </p>
+            </Typography>
           )}
         </div>
       </div>
@@ -104,15 +113,23 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
                 height={128}
                 className="cr-benefit-icon w-24 h-24 md:w-32 md:h-32 mb-2 opacity-90 mx-auto"
               />
-              <div
-                className="cr-benefit-heading font-heading text-lg md:text-xl font-bold uppercase tracking-wider mb-2"
+              <Typography
+                variant="h4"
+                as="h3"
+                uppercase
+                weight="bold"
+                className="cr-benefit-heading mb-2 tracking-wider"
                 style={{ color: benefit.TitleColor || "#009886" }}
               >
                 {benefit.title}
-              </div>
-              <p className="cr-benefit-desc text-sm md:text-base text-[#162047]/75 leading-relaxed max-w-[340px] m-0">
+              </Typography>
+              <Typography
+                variant="b2"
+                as="p"
+                className="cr-benefit-desc text-[#162047]/75 max-w-[340px] m-0"
+              >
                 {benefit.description}
-              </p>
+              </Typography>
             </div>
           );
         })}

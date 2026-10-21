@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@ui-element";
 
 interface TestimonialCard {
   title?: string;
@@ -48,9 +49,13 @@ export default function PrivateVenuesTestimonials({ data }: PrivateVenuesTestimo
       />
       <div className="container relative z-[2]">
         <div className="section-header text-center mb-16 md:mb-18">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-wide max-w-[880px] mx-auto text-3xl md:text-4xl leading-relaxed text-[#162047]">
+          <Typography
+            variant="h3"
+            as="h2"
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+          >
             {data?.title || "What venue operators are saying"}
-          </h2>
+          </Typography>
         </div>
         <div className="tm-row grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1040px] mx-auto">
           {testimonials.map((card, idx) => {
@@ -75,14 +80,29 @@ export default function PrivateVenuesTestimonials({ data }: PrivateVenuesTestimo
                 >
                   “
                 </span>
-                <p className="tm-panel-text text-base italic text-[#162047]/85 leading-relaxed flex-1 mb-6">
+                <Typography
+                  variant="quote"
+                  as="blockquote"
+                  className="tm-panel-text text-[#162047]/85 flex-1 mb-6"
+                >
                   {card.description}
-                </p>
+                </Typography>
                 <div className="tm-panel-footer pt-4 border-t border-black/10">
-                  <p className="tm-panel-name font-heading font-bold text-sm tracking-wide text-[#162047] m-0">
+                  <Typography
+                    variant="h6"
+                    as="p"
+                    weight="bold"
+                    className="tm-panel-name text-[#162047] m-0"
+                  >
                     {card.title}
-                  </p>
-                  <p className="tm-panel-role text-xs text-[#162047]/60 mt-1 m-0">{card.badge}</p>
+                  </Typography>
+                  <Typography
+                    variant="b4"
+                    as="p"
+                    className="tm-panel-role text-[#162047]/60 mt-1 m-0"
+                  >
+                    {card.badge}
+                  </Typography>
                 </div>
               </div>
             );

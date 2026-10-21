@@ -18,18 +18,18 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
               <>
                 <span
                   dangerouslySetInnerHTML={{ __html: layoutData.FooterLogoDesktop }}
-                  className="contents"
+                  className="footer-logo-desktop hidden lg:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
                 />
                 <span
                   dangerouslySetInnerHTML={{ __html: layoutData.FooterLogoMobile }}
-                  className="contents"
+                  className="footer-logo-mobile block lg:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
                 />
               </>
             ) : (
               <>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="footer-logo-desktop w-[160px] h-auto text-white"
+                  className="footer-logo-desktop hidden lg:block w-[160px] h-auto text-white"
                   viewBox="0 0 216 94.951"
                 >
                   <path
@@ -43,7 +43,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="footer-logo-mobile w-[189px] h-auto text-white"
+                  className="footer-logo-mobile block lg:hidden w-[189px] h-auto text-white"
                   viewBox="0 0 382.282 68.139"
                   aria-hidden="true"
                 >
@@ -144,7 +144,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
 
               <div className="border-t border-white/15 my-4" />
 
-              <div className="footer-legal-row">
+              <div className="footer-legal-row flex flex-wrap items-center justify-center lg:justify-start gap-x-6 lg:gap-x-8 gap-y-2 mt-4">
                 {layoutData?.footerColumn?.footerLinks?.length > 0 ? (
                   layoutData.footerColumn.footerLinks
                     .filter((link: any) => link.url !== "/contact")
@@ -213,7 +213,7 @@ export default function Footer({ layoutData }: { layoutData?: any }) {
                 )}
               </div>
 
-              <p className="footer-copyright">
+              <p className="footer-copyright mt-6 text-xs text-white/50 text-center lg:text-left">
                 {layoutData?.Copyright || `© ${currentYear} Arium Networks.`}
               </p>
             </div>
