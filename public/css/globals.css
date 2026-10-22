@@ -570,15 +570,6 @@ svg {
   margin-bottom: var(--spacing-4);
 }
 
-/* Infrastructure Section */
-.infra-section {
-  background: var(--color-midnight-blue);
-  padding: 100px 0;
-  position: relative;
-  overflow: hidden;
-  scroll-margin-top: 100px;
-}
-
 /* Subtle dot grid pattern */
 .infra-grid-bg {
   position: absolute;
@@ -608,13 +599,6 @@ svg {
   50% {
     transform: translate(var(--dx), var(--dy));
   }
-}
-
-/* Side-by-side panels */
-.infra-panels {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
 }
 
 .infra-panel {
@@ -685,75 +669,6 @@ svg {
   filter: drop-shadow(0 0 28px rgba(0, 232, 217, 0.22));
 }
 
-/* Text section inside card */
-.infra-panel-text {
-  padding: 24px 32px 0;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Heading — prominent */
-.infra-panel-heading {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--color-white);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 10px;
-}
-
-/* Description — readable */
-.infra-panel-desc {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: #ffffffe3;
-  margin: 0 0 18px;
-  max-height: none;
-  overflow: visible;
-  transition: color 0.4s ease;
-}
-
-.infra-panel:hover .infra-panel-desc {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* Ghost-button CTA */
-.infra-panel-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-heading);
-  font-size: 0.88rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-midnight-blue);
-  text-decoration: none;
-  padding: 10px 24px;
-  background: var(--color-sky-teal);
-  border: 1px solid var(--color-sky-teal);
-  border-radius: 100px;
-  transition: all 0.3s ease;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.infra-panel:hover .infra-panel-link {
-  background: transparent;
-  color: var(--color-sky-teal);
-  border-color: var(--color-sky-teal);
-  box-shadow: 0 0 16px rgba(0, 232, 217, 0.2);
-}
-
-.infra-panel-link:hover {
-  gap: 12px;
-  color: var(--color-sky-teal);
-  background: transparent;
-  border-color: var(--color-sky-teal);
-  box-shadow: 0 0 20px rgba(0, 232, 217, 0.15);
-}
 
 /* Scroll Reveal Animations */
 .reveal {
@@ -1494,18 +1409,6 @@ body {
   }
 }
 
-/* User typography size increases on mobile viewports */
-@media (max-width: 768px) {
-  #infrastructure .section-description {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-  }
-
-  .infra-panel-desc {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-  }
-}
 
 @media (max-width: 768px) {
   /* Position subpage CTA background illustration below text on mobile */

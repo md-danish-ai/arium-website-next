@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import { getStrapiURL } from "@lib/api";
+import { Typography } from "@ui-element";
 import { DetailedCardGridProps } from "./type";
 
 export default function DetailedCardGrid({
@@ -124,7 +125,7 @@ export default function DetailedCardGrid({
 
   return (
     <section
-      className="infra-section py-16 md:py-24 lg:py-28 relative overflow-hidden bg-midnight"
+      className="infra-section py-10 max-[768px]:py-12 md:py-20 lg:py-24 relative overflow-hidden bg-midnight"
       id="infrastructure"
       style={backgroundStyle}
     >
@@ -133,16 +134,25 @@ export default function DetailedCardGrid({
       <div className="infra-particles" id="infra-particles"></div>
 
       <div className="container relative z-[2]">
-        <div className="section-header text-center mb-16">
-          <h2 className="section-title reveal stagger-1 text-[2.4rem] font-normal tracking-[0.06em] leading-[1.45]">
+        <div className="section-header text-center mb-8 md:mb-12 lg:mb-16">
+          <Typography
+            variant="h3"
+            uppercase
+            weight="normal"
+            className="section-title reveal stagger-1 m-0 text-white"
+          >
             {sectionTitle}
-          </h2>
-          <p className="section-description reveal stagger-2 max-w-[960px] mx-auto mt-5">
+          </Typography>
+          <Typography
+            variant="b1"
+            weight="normal"
+            className="section-description reveal stagger-2 max-w-[960px] mx-auto mt-4 md:mt-5 text-white/80"
+          >
             {sectionDesc}
-          </p>
+          </Typography>
         </div>
 
-        <div className="infra-panels grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-5 lg:gap-8 max-w-[520px] md:max-w-none mx-auto w-full">
           {hasCards ? (
             rawCards.map((item, index) => {
               let imageUrl = "";
@@ -184,10 +194,10 @@ export default function DetailedCardGrid({
 
               return (
                 <div
-                  className="infra-panel transition-all duration-300 hover:-translate-y-1.5 reveal stagger-3"
+                  className="infra-panel w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-3"
                   key={index}
                 >
-                  <div className="infra-panel-card bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
+                  <div className="infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
                     {imageUrl ? (
                       <div
                         style={{
@@ -216,13 +226,22 @@ export default function DetailedCardGrid({
                       />
                     ) : null}
                     <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full">
-                      <h3 className="infra-panel-heading font-heading text-xl md:text-[1.35rem] font-normal text-white uppercase tracking-[0.05em] mb-2.5">
+                      <Typography
+                        variant="h4"
+                        uppercase
+                        weight="normal"
+                        className="infra-panel-heading m-0 mb-2 md:mb-2.5 text-white"
+                      >
                         {titleText}
-                      </h3>
+                      </Typography>
                       {descText ? (
-                        <p className="infra-panel-desc text-white/80 font-body text-sm md:text-base leading-relaxed max-w-[480px] mx-auto">
+                        <Typography
+                          variant="b2"
+                          weight="normal"
+                          className="infra-panel-desc text-white/80 max-w-[480px] mx-auto m-0"
+                        >
                           {descText}
-                        </p>
+                        </Typography>
                       ) : null}
                       {ctaLink && (
                         <Link
@@ -230,7 +249,7 @@ export default function DetailedCardGrid({
                           aria-label={`${ctaText} about ${titleText}`}
                           className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
                         >
-                          <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal">
+                          <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap">
                             {ctaText}
                           </span>
                           <svg
@@ -257,8 +276,8 @@ export default function DetailedCardGrid({
             })
           ) : (
             <>
-              <div className="infra-panel transition-all duration-300 hover:-translate-y-1.5 reveal stagger-3">
-                <div className="infra-panel-card bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
+              <div className="infra-panel w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-3">
+                <div className="infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="-25 0 240 240"
@@ -685,21 +704,30 @@ export default function DetailedCardGrid({
                     </defs>
                   </svg>
                   <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full">
-                    <h3 className="infra-panel-heading font-heading text-xl md:text-[1.35rem] font-normal text-white uppercase tracking-[0.05em] mb-2.5">
+                    <Typography
+                      variant="h4"
+                      uppercase
+                      weight="normal"
+                      className="infra-panel-heading m-0 mb-2 md:mb-2.5 text-white"
+                    >
                       Small Cells
-                    </h3>
-                    <p className="infra-panel-desc text-white/80 font-body text-sm md:text-base leading-relaxed max-w-[480px] mx-auto">
+                    </Typography>
+                    <Typography
+                      variant="b2"
+                      weight="normal"
+                      className="infra-panel-desc text-white/80 max-w-[480px] mx-auto m-0"
+                    >
                       Small cells are discreet, low-powered, fiber-connected antennas that enhance
                       connectivity by providing targeted wireless coverage and capacity in public
                       spaces—especially in dense populations or high-traffic areas like cities and
                       suburbs.
-                    </p>
+                    </Typography>
                     <Link
                       href="/our-solutions"
                       aria-label="Explore more about Small Cells"
                       className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
                     >
-                      <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal">
+                      <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap">
                         Explore more
                       </span>
                       <svg
@@ -722,8 +750,8 @@ export default function DetailedCardGrid({
                 </div>
               </div>
 
-              <div className="infra-panel transition-all duration-300 hover:-translate-y-1.5 reveal stagger-4">
-                <div className="infra-panel-card bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
+              <div className="infra-panel w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-4">
+                <div className="infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-3xl pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="-30 0 240 240"
@@ -1052,21 +1080,30 @@ export default function DetailedCardGrid({
                     </defs>
                   </svg>
                   <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full">
-                    <h3 className="infra-panel-heading font-heading text-xl md:text-[1.35rem] font-normal text-white uppercase tracking-[0.05em] mb-2.5">
+                    <Typography
+                      variant="h4"
+                      uppercase
+                      weight="normal"
+                      className="infra-panel-heading m-0 mb-2 md:mb-2.5 text-white"
+                    >
                       Distributed Antenna Systems
-                    </h3>
-                    <p className="infra-panel-desc text-white/80 font-body text-sm md:text-base leading-relaxed max-w-[480px] mx-auto">
+                    </Typography>
+                    <Typography
+                      variant="b2"
+                      weight="normal"
+                      className="infra-panel-desc text-white/80 max-w-[480px] mx-auto m-0"
+                    >
                       Distributed Antenna Systems (DAS) use small, strategically placed connection
                       points, also called nodes, to meet the unique coverage and capacity needs of
                       venues and indoor spaces like high-rises, hospitals, campuses, stadiums,
                       resorts, and theme parks.
-                    </p>
+                    </Typography>
                     <Link
                       href="/our-solutions"
                       aria-label="Explore more about Distributed Antenna Systems"
                       className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
                     >
-                      <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal">
+                      <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap">
                         Explore more
                       </span>
                       <svg
