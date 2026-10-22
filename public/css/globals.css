@@ -509,24 +509,8 @@ svg {
 }
 
 @media (min-width: 1280px) and (max-width: 1439px) {
-  .shared-igs-inner {
-    max-width: min(620px, 48vw) !important;
-  }
-
   .shared-cta-graphic-title {
     font-size: clamp(2rem, 2.6vw, 2.5rem) !important;
-  }
-}
-
-@media (min-width: 1080px) and (max-width: 1279px) {
-  #image-gradient-split .shared-igs-inner,
-  .shared-igs-inner {
-    max-width: min(600px, 47vw) !important;
-  }
-
-  #image-gradient-split .shared-igs-heading,
-  .shared-igs-heading {
-    font-size: clamp(1.9rem, 0.5rem + 2.2vw, 2.4rem) !important;
   }
 }
 

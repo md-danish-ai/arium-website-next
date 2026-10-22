@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { DoubleRightArrowSvg } from "@ui-svg";
 import { ImageGradientSplitProps, SectionPointer } from "./type";
 
 interface MediaItemLike {
@@ -13,6 +16,31 @@ interface MediaItemLike {
   };
 }
 
+const DEFAULT_HEADING = "Keeping communities safe and connected";
+const DEFAULT_DESCRIPTION =
+  "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes.";
+
+const DEFAULT_POINTERS: SectionPointer[] = [
+  {
+    Heading: "Reliability",
+    Description:
+      "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps, and data they depend on.",
+  },
+  {
+    Heading: "Opportunity",
+    Description:
+      "Advanced wireless connectivity helps communities support the technology of today—and tomorrow—while also attracting businesses that require flexible, uninterrupted access to remote data and cloud services.",
+  },
+  {
+    Heading: "Safety",
+    Description:
+      "In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters, and other first responders can access the essential data they need to do their jobs effectively.",
+  },
+];
+
+const DEFAULT_DESKTOP_IMG = "/assets/images/arena_wide.jpg";
+const DEFAULT_MOBILE_IMG = "/assets/images/arena-wide-mobile.jpg";
+
 export default function ImageGradientSplit({
   heading,
   description,
@@ -23,8 +51,6 @@ export default function ImageGradientSplit({
   HeadingColor,
   DescriptionTextColor,
 }: ImageGradientSplitProps) {
-  if (!heading && !description) return null;
-
   let desktopUrl = "";
   let mobileUrl = "";
 
@@ -74,98 +100,91 @@ export default function ImageGradientSplit({
     mobileUrl = desktopUrl;
   }
 
-  const finalDesktopUrl = GetStrapiMediaUrl(desktopUrl) || "/assets/images/arena_wide.jpg";
-  const finalMobileUrl = GetStrapiMediaUrl(mobileUrl) || finalDesktopUrl;
-
-  const defaultPointers: SectionPointer[] = [
-    {
-      Heading: "Reliability",
-      Description:
-        "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on.",
-    },
-    {
-      Heading: "Opportunity",
-      Description:
-        "Advanced wireless connectivity helps communities support the technology of today—and tomorrow—while also attracting businesses that require flexible, uninterrupted access to remote data and cloud services.",
-    },
-    {
-      Heading: "Safety",
-      Description:
-        "In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters and other first responders can access the essential data they need to do their jobs effectively.",
-    },
-  ];
+  const finalDesktopUrl = GetStrapiMediaUrl(desktopUrl) || DEFAULT_DESKTOP_IMG;
+  const finalMobileUrl = GetStrapiMediaUrl(mobileUrl) || DEFAULT_MOBILE_IMG;
 
   const pointersToRender =
-    sectionPointers && sectionPointers.length > 0 ? sectionPointers : defaultPointers;
+    sectionPointers && sectionPointers.length > 0 ? sectionPointers : DEFAULT_POINTERS;
+
+  const renderedHeading = heading || DEFAULT_HEADING;
+  const renderedDescription = description || DEFAULT_DESCRIPTION;
+  const renderedCtaText = ctaText || "Learn More";
+  const renderedCtaUrl = ctaUrl || "/community";
 
   return (
     <section
-      className="shared-igs-section relative min-h-[720px] overflow-hidden bg-midnight p-0"
-      id="image-gradient-split"
+      id="community"
+      className="community-section relative min-h-[560px] overflow-hidden bg-midnight p-0"
     >
-      <div className="shared-igs-bg absolute top-0 right-0 bottom-0 w-full md:w-[60%] z-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)] md:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
+      {/* Background image (65% right on desktop, full width on mobile/tablet) */}
+      <div className="community-bg absolute top-0 right-0 bottom-0 w-full lg:w-[65%] z-0 lg:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
         <picture className="w-full h-full block">
-          <source media="(max-width: 767px)" srcSet={finalMobileUrl} />
-          <source media="(min-width: 768px)" srcSet={finalDesktopUrl} />
+          <source media="(max-width: 600px)" srcSet={finalMobileUrl} />
+          <source media="(min-width: 601px)" srcSet={finalDesktopUrl} />
           <img
             src={finalDesktopUrl}
-            alt={heading || "Section Background"}
-            className="shared-igs-bg-img w-full h-full object-cover block"
+            alt={renderedHeading}
+            className="community-bg-img w-full h-full object-cover block"
           />
         </picture>
       </div>
 
-      <div className="shared-igs-veil absolute inset-0 z-[1] bg-gradient-to-t from-[#0a1628]/50 to-transparent pointer-events-none" />
+      {/* Gradient veil (dark backdrop on mobile/tablet for readability, bottom fade on desktop) */}
+      <div className="community-veil absolute inset-0 z-[1] bg-[#0a1628]/80 lg:bg-transparent lg:bg-gradient-to-t lg:from-[#0a1628]/50 lg:via-transparent lg:to-transparent pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-[2] py-12 md:py-16 lg:py-20">
-        <div className="shared-igs-inner max-w-[600px]">
+      {/* Content */}
+      <div className="container mx-auto px-4 sm:px-6 relative z-[2] py-12 md:py-16 lg:py-[100px]">
+        <div className="community-content-inner max-w-[620px]">
           <Typography
+            as="h2"
             variant="h3"
             uppercase
-            className="section-title reveal challenges-heading shared-igs-heading text-white mb-6 [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+            className="reveal challenges-heading community-heading text-white mb-6 text-left max-w-[620px] m-0 !leading-[1.35] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: HeadingColor || undefined }}
           >
-            {heading || "Keeping communities safe and connected"}
-          </Typography>
-          <Typography
-            variant="b1"
-            className="reveal stagger-1 shared-igs-body text-white/80 m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
-            style={{ color: DescriptionTextColor || undefined }}
-          >
-            {description ||
-              "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes."}
+            {renderedHeading}
           </Typography>
 
-          <div className="reveal stagger-2 shared-igs-pointers mt-8 md:mt-9 max-w-[600px] flex flex-col gap-0">
+          <Typography
+            as="p"
+            variant="b1"
+            className="reveal stagger-1 challenges-body community-body text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
+            style={{ color: DescriptionTextColor || undefined }}
+          >
+            {renderedDescription}
+          </Typography>
+
+          {/* Vertically stacked plain text pillars left-aligned */}
+          <div className="reveal stagger-2 community-features-list max-w-[620px] flex flex-col gap-0">
             {pointersToRender.map(
               (item: SectionPointer, index: number, array: SectionPointer[]) => {
                 const itemHeading = item.Heading || item.title || "";
                 const itemDesc = item.Description || item.description || "";
+
                 return (
-                  <div key={index}>
-                    <div
-                      className={
-                        index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"
-                      }
-                    >
+                  <div key={index} className="flex flex-col">
+                    <div className="community-feature-item pt-[24px] pb-[20px]">
                       <Typography
+                        as="div"
                         variant="h5"
                         uppercase
-                        className="shared-igs-pointer-heading text-teal mb-1.5"
+                        weight="bold"
+                        className="community-feature-label text-teal mb-2.5 text-left !leading-[1.2] !tracking-[0.06em] m-0"
                         style={{ color: item.FontHeading || undefined }}
                       >
                         {itemHeading}
                       </Typography>
                       <Typography
-                        variant="b3"
-                        className="shared-igs-pointer-desc text-white/80 m-0"
+                        as="p"
+                        variant="b2"
+                        className="community-feature-desc text-[#ffffffd1] max-w-[580px] text-left m-0 !text-[clamp(0.875rem,1vw,0.95rem)] !leading-[1.7]"
                         style={{ color: item.FontDescription || undefined }}
                       >
                         {itemDesc}
                       </Typography>
                     </div>
                     {index < array.length - 1 && (
-                      <div className="shared-igs-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
+                      <div className="w-full h-px bg-gradient-to-r from-white/20 via-white/10 to-transparent m-0" />
                     )}
                   </div>
                 );
@@ -173,37 +192,20 @@ export default function ImageGradientSplit({
             )}
           </div>
 
-          {ctaText && ctaUrl && (
-            <div className="reveal stagger-3 shared-igs-cta-wrap mt-8 md:mt-9">
+          {/* CTA link below pillars */}
+          {renderedCtaText && renderedCtaUrl && (
+            <div className="reveal stagger-3 community-cta-wrap mt-6 md:mt-8 max-w-[620px]">
               <Link
-                href={ctaUrl}
-                aria-label={`${ctaText}`}
-                className="shared-igs-link-cta group inline-flex items-center gap-2 no-underline"
-                target={ctaUrl.startsWith("http") ? "_blank" : undefined}
-                rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+                href={renderedCtaUrl}
+                aria-label={`${renderedCtaText}`}
+                className="community-link-cta group inline-flex items-center gap-2 no-underline"
+                target={renderedCtaUrl.startsWith("http") ? "_blank" : undefined}
+                rel={renderedCtaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
               >
-                <Typography
-                  variant="b4"
-                  uppercase
-                  className="shared-igs-link-text text-white tracking-[0.15em] transition-colors duration-300 group-hover:text-teal"
-                >
-                  {ctaText}
-                </Typography>
-                <svg
-                  className="shared-igs-link-arrow w-4 h-4 text-teal transition-transform duration-300 group-hover:translate-x-1 inline-block"
-                  aria-hidden="true"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="8 17 13 12 8 7"></polyline>
-                  <polyline points="14 17 19 12 14 7"></polyline>
-                </svg>
+                <span className="community-link-text text-xs uppercase tracking-[0.15em] text-white/85 font-body font-medium leading-none transition-colors duration-300 group-hover:text-white whitespace-nowrap">
+                  {renderedCtaText}
+                </span>
+                <DoubleRightArrowSvg className="community-link-arrow w-4 h-4 min-w-4 min-h-4 text-teal shrink-0 transition-transform duration-300 group-hover:translate-x-1 inline-block" />
               </Link>
             </div>
           )}

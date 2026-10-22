@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
+import { DoubleDownArrowSvg } from "@ui-svg";
 import { HomeHeroProps } from "./type";
 
 export default function HomeHero({
@@ -372,17 +373,7 @@ export default function HomeHero({
           {scrollText || "Scroll to explore"}
         </Typography>
         <div className="scroll-indicator-arrow shared-mh-scroll-arrow text-teal animate-bounce">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden="true"
-          >
-            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-          </svg>
+          <DoubleDownArrowSvg width={24} height={24} />
         </div>
       </div>
     </section>
