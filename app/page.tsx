@@ -12,21 +12,97 @@ import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 export const dynamic = "force-dynamic";
 
-const CAREERS_CTA_DATA = {
-  title: "Help us shape the future of connectivity",
-  description:
-    "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",
-  buttonText: "Join Us",
-  buttonLink: "/careers",
-};
+interface StrapiMediaItem {
+  url?: string;
+  width?: number;
+  height?: number;
+  attributes?: {
+    url?: string;
+    width?: number;
+    height?: number;
+  };
+  data?: {
+    attributes?: {
+      url?: string;
+    };
+    url?: string;
+  };
+}
 
-const FINAL_CTA_DATA = {
-  title: "Where can we take your network?",
-  description:
-    "Building a new network? Densifying an existing one? Looking to improve coverage in a high-traffic venue or building? Let's talk about how we can help solve your infrastructure needs.",
-  buttonText: "Contact Us",
-  buttonLink: "/contact",
-};
+interface StrapiCTA {
+  label?: string;
+  url?: string;
+}
+
+interface StrapiCard {
+  title?: string;
+  description?: string;
+  Title?: string;
+  Description?: string;
+  Heading?: string;
+  image?: StrapiMediaItem;
+}
+
+interface StrapiStatItem {
+  Number?: string;
+  Description?: string;
+  BgColor?: string;
+  number?: string;
+  description?: string;
+  bgColor?: string;
+}
+
+interface StrapiSection {
+  key?: string;
+  title?: string;
+  body?: string;
+  cards?: StrapiCard[];
+  cardItem?: StrapiCard[];
+  stats?: StrapiStatItem[];
+  media?: StrapiMediaItem | StrapiMediaItem[];
+  cta?: StrapiCTA[];
+  __component?: string;
+}
+
+interface StrapiWidgetSection {
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id?: number | string;
+  PositionNumber?: number;
+  CustomCssClass?: string;
+  Sections?: StrapiWidgetSection[];
+}
+
+interface StrapiHomePage {
+  heroTitle?: string;
+  heroDescription?: string;
+  sections?: StrapiSection[];
+  heroMedia?: StrapiMediaItem;
+}
+
+interface SectionEntry {
+  pos: number;
+  key: string;
+  skip?: boolean;
+  el: React.ReactElement;
+}
+
+function extractMediaUrl(media?: StrapiMediaItem | StrapiMediaItem[] | null): string | undefined {
+  if (!media) return undefined;
+  if (Array.isArray(media)) {
+    return media[0]?.attributes?.url || media[0]?.url;
+  }
+  return media.data?.attributes?.url || media.attributes?.url || media.url;
+}
+
+function hasWidgetComponent(widgets: StrapiWidget[], componentName: string): boolean {
+  return widgets.some((w) =>
+    w.Sections?.some((s) => s.__component?.toLowerCase().includes(componentName.toLowerCase()))
+  );
+}
 
 export default async function Home() {
   const [pageData, widgetData] = await Promise.all([
@@ -35,92 +111,30 @@ export default async function Home() {
     ),
     fetchPageWidgets("home"),
   ]);
-  const homeContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
-  const networkChallengesData = homeContent?.sections?.find(
-    (section: any) => section.key === "What we do"
-  );
-  const infraData = homeContent?.sections?.find(
-    (section: any) => section.key === "Our Infrastructure"
-  );
-  const statsData = homeContent?.sections?.find(
-    (section: any) => section.key === "Scale and experience"
-  );
-  const communityData = homeContent?.sections?.find(
-    (section: any) => section.key === "Community Impact"
-  );
-  const careersData = homeContent?.sections?.find((section: any) => section.key === "Join Us");
-  const finalCTAData = homeContent?.sections?.find((section: any) => section.key === "Contact Us");
 
-  const careersMedia = careersData?.media
-    ? Array.isArray(careersData.media)
-      ? careersData.media[0]?.url
-      : careersData.media?.data?.attributes?.url || careersData.media?.url
-    : null;
-  const careersBgImage = careersMedia ? GetStrapiMediaUrl(careersMedia) : undefined;
+  const homeContent: StrapiHomePage | undefined = pageData?.data?.[0];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const careersCTAProps = {
-    title: careersData?.title || CAREERS_CTA_DATA.title,
-    description: careersData?.body || CAREERS_CTA_DATA.description,
-    buttonText: careersData?.cta?.[0]?.label || CAREERS_CTA_DATA.buttonText,
-    buttonLink: careersData?.cta?.[0]?.url || CAREERS_CTA_DATA.buttonLink,
-    backgroundImage: careersBgImage,
-  };
+  const getSection = (key: string): StrapiSection | undefined =>
+    homeContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  const finalCTAProps = {
-    title: finalCTAData?.title || FINAL_CTA_DATA.title,
-    description: finalCTAData?.body || FINAL_CTA_DATA.description,
-    buttonText: finalCTAData?.cta?.[0]?.label || FINAL_CTA_DATA.buttonText,
-    buttonLink: finalCTAData?.cta?.[0]?.url || FINAL_CTA_DATA.buttonLink,
-  };
+  const networkChallengesData = getSection("What we do");
+  const infraData = getSection("Our Infrastructure");
+  const statsData = getSection("Scale and experience");
+  const communityData = getSection("Community Impact");
+  const careersData = getSection("Join Us");
+  const finalCTAData = getSection("Contact Us");
 
-  // Fallback check: Did Strapi give us a widget that contains CTA with Graphic?
-  const hasCtaWithGraphicWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("cta-with-graphic"))
-  );
+  const careersMediaUrl = extractMediaUrl(careersData?.media);
+  const careersBgImage = careersMediaUrl ? GetStrapiMediaUrl(careersMediaUrl) : undefined;
 
-  // Fallback check: Did Strapi give us a widget that contains Centered Image CTA?
-  const hasCenteredImageCtaWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("centered-image-cta"))
-  );
+  const hasWidget = (name: string) => hasWidgetComponent(globalWidgets, name);
 
-  // Fallback check: Did Strapi give us a widget that contains ImageGradientSplit?
-  const hasImageGradientSplitWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("image-gradient-split"))
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains StatsWithImage?
-  const hasStatsWithImageWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("stats-with-image"))
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains DetailedCardGrid?
-  const hasDetailedCardGridWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("detailed-card-grid"))
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains MainHero?
-  const hasMainHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("main-hero"))
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains Background Feature Section?
-  const hasBackgroundFeatureWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some(
-      (s: any) =>
-        s.__component?.includes("background-feature-section") ||
-        s.__component?.includes("backgroundfeaturesection")
-    )
-  );
-
-  type SectionEntry = { pos: number; key: string; el: React.ReactElement };
-  const sectionMap: SectionEntry[] = [];
-
-  // Position 0 — Hero
-  if (!hasMainHeroWidget) {
-    sectionMap.push({
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 0,
       key: "hero",
+      skip: hasWidget("main-hero"),
       el: (
         <HomeHero
           key="hero"
@@ -128,14 +142,11 @@ export default async function Home() {
           description={homeContent?.heroDescription}
         />
       ),
-    });
-  }
-
-  // Position 1 — Network Challenges (What we do)
-  if (!hasBackgroundFeatureWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 1,
       key: "challenges",
+      skip: hasWidget("background-feature") || hasWidget("backgroundfeature"),
       el: (
         <BackgroundFeatureSection
           key="challenges-fallback"
@@ -145,23 +156,17 @@ export default async function Home() {
           BackgroundImage={networkChallengesData?.media}
         />
       ),
-    });
-  }
-
-  // Position 2 — Infrastructure panels
-  if (!hasDetailedCardGridWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 2,
       key: "infra",
+      skip: hasWidget("detailed-card-grid"),
       el: <DetailedCardGrid key="infra" data={infraData} />,
-    });
-  }
-
-  // Position 3 — Stats counter
-  if (!hasStatsWithImageWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 3,
       key: "stats",
+      skip: hasWidget("stats-with-image"),
       el: (
         <StatsWithImage
           key="stats"
@@ -170,14 +175,11 @@ export default async function Home() {
           image={statsData?.media}
         />
       ),
-    });
-  }
-
-  // Position 4 — Community section
-  if (!hasImageGradientSplitWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 4,
       key: "community",
+      skip: hasWidget("image-gradient-split"),
       el: (
         <ImageGradientSplit
           key="community"
@@ -189,61 +191,58 @@ export default async function Home() {
           ctaUrl={communityData?.cta?.[0]?.url}
         />
       ),
-    });
-  }
-
-  // Position 5 — Careers CTA
-  if (!hasCenteredImageCtaWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 5,
       key: "careers",
+      skip: hasWidget("centered-image-cta"),
       el: (
         <SharedCenteredImageCTA
           key="careers"
-          heading={careersCTAProps.title}
-          text={careersCTAProps.description}
-          ctaLabel={careersCTAProps.buttonText}
-          ctaUrl={careersCTAProps.buttonLink}
-          bgImage={careersCTAProps.backgroundImage}
+          heading={careersData?.title || "Help us shape the future of connectivity"}
+          text={
+            careersData?.body ||
+            "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology."
+          }
+          ctaLabel={careersData?.cta?.[0]?.label || "Join Us"}
+          ctaUrl={careersData?.cta?.[0]?.url || "/careers"}
+          bgImage={careersBgImage}
         />
       ),
-    });
-  }
-
-  // Position 6 — Final CTA
-  if (!hasCtaWithGraphicWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 6,
       key: "finalcta",
+      skip: hasWidget("cta-with-graphic"),
       el: (
         <SharedCtaWithGraphic
           key="finalcta"
-          heading={finalCTAProps.title}
-          description={finalCTAProps.description}
-          ctaText={finalCTAProps.buttonText}
-          ctaLink={finalCTAProps.buttonLink}
+          heading={finalCTAData?.title || "Where can we take your network?"}
+          description={
+            finalCTAData?.body ||
+            "Building a new network? Densifying an existing one? Looking to improve coverage in a high-traffic venue or building? Let's talk about how we can help solve your infrastructure needs."
+          }
+          ctaText={finalCTAData?.cta?.[0]?.label || "Contact Us"}
+          ctaLink={finalCTAData?.cta?.[0]?.url || "/contact"}
         />
       ),
-    });
-  }
+    },
+  ];
 
-  // Add CMS widgets using their PositionNumber field
-  globalWidgets.forEach((widget: any) => {
-    const pos = typeof widget.PositionNumber === "number" ? widget.PositionNumber : 99;
-    sectionMap.push({
-      pos,
-      key: `widget-${widget.id}`,
-      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />,
-    });
-  });
+  const widgetSections: SectionEntry[] = globalWidgets.map((widget, idx) => ({
+    pos: typeof widget.PositionNumber === "number" ? widget.PositionNumber : 99,
+    key: `widget-${widget.id ?? idx}`,
+    el: <GlobalWidgetRenderer key={`widget-${widget.id ?? idx}`} widget={widget} />,
+  }));
 
-  // Sort by position, then render
-  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map((entry) => entry.el);
+  const renderedSections = [...fallbackSections.filter((s) => !s.skip), ...widgetSections]
+    .sort((a, b) => a.pos - b.pos)
+    .map((entry) => entry.el);
 
   return (
     <>
       <Particles />
-      {sections}
+      {renderedSections}
     </>
   );
 }

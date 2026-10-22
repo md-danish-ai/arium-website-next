@@ -117,7 +117,7 @@ export interface StatItem {
 }
 
 export interface StatsWithImageProps {
-  heading: string;
+  heading?: string;
   statscards?: StatItem[];
   image?: StrapiMediaLike;
   HeadingColor?: string;
@@ -135,8 +135,8 @@ export interface SectionPointer {
 }
 
 export interface ImageGradientSplitProps {
-  heading: string;
-  description: string;
+  heading?: string;
+  description?: string;
   sectionPointers?: SectionPointer[];
   ctaText?: string;
   ctaUrl?: string;
