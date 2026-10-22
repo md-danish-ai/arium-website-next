@@ -91,20 +91,25 @@ export default function BackgroundFeatureSection({
         />
       </div>
 
-      <div className="challenges-veil absolute inset-0 z-[1] [background-image:linear-gradient(90deg,rgba(13,18,36,0.92)_0%,rgba(13,18,36,0.82)_38%,rgba(13,18,36,0.45)_60%,transparent_80%)] max-[480px]:[background-image:linear-gradient(153deg,rgba(13,18,36,0.92)_0%,rgba(13,18,36,0.82)_38%,rgba(13,18,36,0.45)_60%,transparent_80%)]" />
+      {/* Background Veil */}
+      <div className="challenges-veil absolute inset-0 z-[1] [background-image:linear-gradient(90deg,rgba(13,18,36,0.92)_0%,rgba(13,18,36,0.82)_38%,rgba(13,18,36,0.45)_60%,transparent_80%)] max-[1079px]:[background-image:none] max-[1079px]:bg-[#0a1628]/80 max-[480px]:bg-[#0a1628]/85" />
 
-      <div className="challenges-bottom-gradient absolute inset-x-0 bottom-0 h-[380px] z-[1] [background-image:linear-gradient(180deg,transparent_0%,rgba(13,18,36,0.72)_40%,rgba(13,18,36,0.95)_100%)]" />
+      {/* Bottom Gradient (desktop only) */}
+      <div className="challenges-bottom-gradient hidden min-[1080px]:block absolute inset-x-0 bottom-0 h-[380px] z-[1] [background-image:linear-gradient(180deg,transparent_0%,rgba(13,18,36,0.72)_40%,rgba(13,18,36,0.95)_100%)]" />
 
       <div
         className={`container bg-feature-container relative z-[2] ${
-          hasCards ? "pt-24 md:pt-40 lg:pt-44 pb-12 md:pb-16" : "py-24 md:py-36 lg:py-40"
+          hasCards
+            ? "pt-[75px] max-[768px]:pt-[85px] md:pt-[90px] lg:pt-[110px] xl:pt-[135px] pb-3 max-[768px]:pb-8 md:pb-8 lg:pb-12 xl:pb-[70px]"
+            : "py-[75px] max-[768px]:py-[85px] md:py-[100px] lg:py-[135px]"
         }`}
       >
         <div style={{ maxWidth: textMaxWidth }}>
           <Typography
             variant="h3"
             uppercase
-            className="reveal mb-6 text-[1.2rem] md:text-[1.7rem] lg:text-[2.2rem] leading-[1.4] tracking-[0.08em] md:tracking-[0.1em] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+            weight="normal"
+            className="reveal m-0 mb-3 md:mb-6 [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: FontColorHeading || undefined }}
           >
             {Heading || "Solving the toughest network challenges"}
@@ -112,6 +117,7 @@ export default function BackgroundFeatureSection({
 
           <Typography
             variant="b1"
+            weight="normal"
             className="reveal stagger-1 m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] text-white/80"
             style={{ color: FontColorDescription || undefined }}
             dangerouslySetInnerHTML={{
@@ -122,10 +128,10 @@ export default function BackgroundFeatureSection({
           />
 
           {CTALabel && CTALink && (
-            <div className="reveal stagger-2 mt-8 md:mt-10">
+            <div className="reveal stagger-2 mt-6 md:mt-8 lg:mt-10">
               <Link
                 href={CTALink}
-                className="inline-flex items-center justify-center px-8 md:px-10 py-3 md:py-3.5 rounded-full bg-teal text-midnight font-heading text-[0.85rem] md:text-[0.9rem] font-semibold tracking-[0.08em] uppercase no-underline transition-all duration-300 border-2 border-teal hover:bg-transparent hover:text-teal"
+                className="inline-flex items-center justify-center px-8 md:px-10 py-3 md:py-3.5 rounded-full bg-teal text-midnight font-heading text-[0.85rem] md:text-[0.9rem] font-semibold tracking-[0.08em] uppercase no-underline transition-all duration-300 border-2 border-teal hover:bg-transparent hover:text-teal whitespace-nowrap"
               >
                 {CTALabel}
               </Link>
@@ -135,25 +141,27 @@ export default function BackgroundFeatureSection({
       </div>
 
       {hasCards && (
-        <div className="bg-feature-cards-wrap relative z-[2] pt-0 pb-[60px] md:pt-4 md:pb-20">
+        <div className="bg-feature-cards-wrap relative z-[2] pt-3 pb-8 max-[768px]:pt-5 max-[768px]:pb-9 md:pt-6 md:pb-11 lg:pt-11 lg:pb-16 xl:pt-15 xl:pb-[70px]">
           <div className="container">
-            <div className="reveal stagger-2 challenges-pillars grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="reveal stagger-2 challenges-pillars grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-[clamp(40px,5vw,80px)] w-full max-w-full mx-auto">
               {cardsToRender.map((card: FeatureCard, index: number) => (
                 <div
-                  className="challenges-pillar flex flex-col items-center text-center pb-5"
+                  className="challenges-pillar flex flex-col items-center text-center p-0"
                   key={index}
                 >
                   <Typography
                     variant="h4"
                     uppercase
-                    className="challenges-pillar-label mb-2 text-teal font-heading font-bold text-[1.5rem] md:text-[2.2rem] tracking-[0.08em] [text-shadow:0_2px_16px_rgba(0,0,0,0.5)]"
+                    weight="bold"
+                    className="challenges-pillar-label m-0 mb-1.5 md:mb-2 lg:mb-3 text-teal [text-shadow:0_2px_16px_rgba(0,0,0,0.5)] max-[600px]:[text-shadow:none] whitespace-nowrap"
                     style={{ color: card.HeadingColor || undefined }}
                   >
                     {card.Heading || card.title}
                   </Typography>
                   <Typography
                     variant="b2"
-                    className="challenges-pillar-desc text-white/85 text-[0.85rem] md:text-[0.9rem] leading-[1.65] max-w-[520px] mx-auto text-center"
+                    weight="normal"
+                    className="challenges-pillar-desc m-0 text-white/85 max-w-[380px] mx-auto text-center"
                     style={{ color: card.TextColor || undefined }}
                   >
                     {card.Description || card.description}

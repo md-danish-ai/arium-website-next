@@ -56,11 +56,11 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   // H2: Subpage Hero Heading (.subpage-title: Fluid 29px -> 45px, tracking 0.05em, leading 1.2)
   h2: "font-heading tracking-[0.05em] text-[clamp(1.8rem,3.2vw,2.8rem)] leading-[1.2]",
 
-  // H3: Section Heading (.section-title: Fluid 28px -> 38px, tracking 0.06em, leading 1.4)
-  h3: "font-heading tracking-[0.06em] text-[clamp(1.75rem,0.5rem+2.2vw,2.4rem)] leading-[1.4]",
+  // H3: Section Heading (.section-title: Fluid 1.2rem (19.2px mobile) -> 2.4rem (38.4px desktop), tracking 0.06em, leading 1.4)
+  h3: "font-heading tracking-[0.06em] text-[clamp(1.2rem,0.5rem+2.2vw,2.4rem)] leading-[1.4]",
 
-  // H4: Card / Benefit / Pillar Heading (.shared-benefits-title: Fluid 17.5px -> 22.4px, tracking 0.06em, leading 1.2)
-  h4: "font-heading tracking-[0.06em] text-[clamp(1.1rem,1.8vw,1.4rem)] leading-[1.2]",
+  // H4: Card / Benefit / Pillar Heading (.challenges-pillar-label / .shared-benefits-title: Fluid 1rem -> 2.2rem, tracking 0.06em, leading 1.2)
+  h4: "font-heading tracking-[0.06em] text-[clamp(1rem,2vw,2.2rem)] leading-[1.2]",
 
   // H5: Sub-card / Modal Member Heading (Fluid 16px -> 18.5px, tracking 0.04em, leading-snug)
   h5: "font-heading tracking-[0.04em] text-[clamp(1rem,1.4vw,1.15rem)] leading-snug",
@@ -68,8 +68,8 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   // H6: Eyebrow / Interactive Trigger (.sas-item-title: Fluid 13px -> 14px, tracking 0.15em, leading-snug)
   h6: "font-heading tracking-[0.15em] text-[clamp(0.8rem,1vw,0.875rem)] leading-snug",
 
-  // B1: Lead / Large Intro Body (.section-description: Fluid 16px -> 19px, leading 1.7)
-  b1: "font-body text-[clamp(1rem,1.4vw,1.18rem)] leading-[1.7]",
+  // B1: Lead / Large Intro Body (.section-description: Fluid 0.9rem (14.4px mobile) -> 1.18rem desktop, leading 1.7)
+  b1: "font-body text-[clamp(0.9rem,1.2vw,1.18rem)] leading-[1.7]",
 
   // B2: Standard Body Text (Fluid 14px -> 16px, leading 1.65)
   b2: "font-body text-[clamp(0.875rem,1.1vw,1rem)] leading-[1.65]",
