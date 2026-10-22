@@ -344,13 +344,15 @@ export default function HomeHero({
         <Typography
           variant="h1"
           uppercase
-          className="shared-mh-heading mx-auto max-w-[980px] tracking-[0.12em]"
+          weight="normal"
+          className="hero-title shared-mh-heading mx-auto max-w-[970px] text-[clamp(1.8rem,3.5vw,2.8rem)] max-[768px]:text-[1.6rem] max-[480px]:text-[1.4rem] tracking-[0.12em] max-[768px]:tracking-[0.2em] leading-[1.4] max-[768px]:leading-[1.35]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: heading || "" }}
         />
         <Typography
           variant="b1"
-          className="shared-mh-description mx-auto mt-8 md:mt-10 max-w-[800px] text-center"
+          weight="normal"
+          className="hero-desc shared-mh-description mx-auto mt-10 max-[768px]:mt-6 max-[480px]:mt-5 max-w-[800px] text-[clamp(1.05rem,1.8vw,1.25rem)] max-[768px]:text-[0.9rem] leading-[1.6] max-[768px]:tracking-[0.02em] text-center"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
@@ -364,7 +366,8 @@ export default function HomeHero({
         <Typography
           variant="b4"
           uppercase
-          className="shared-mh-scroll-text block text-white/80 tracking-[0.15em]"
+          weight="normal"
+          className="scroll-indicator-text shared-mh-scroll-text block text-[0.75rem] text-white/60 tracking-[0.15em]"
         >
           {scrollText || "Scroll to explore"}
         </Typography>

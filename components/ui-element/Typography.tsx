@@ -50,8 +50,8 @@ const defaultWeightMap: Record<TypographyVariant, TypographyWeight> = {
 
 // All variants use 100% fluid responsive clamp() with font-family, letter-spacing, and line-height.
 const variantStyleMap: Record<TypographyVariant, string> = {
-  // H1: Main Hero Heading (.shared-img-hero-heading: Fluid 30px -> 52px, tracking 0.08em, leading 1.2)
-  h1: "font-heading tracking-[0.08em] text-[clamp(1.85rem,3.5vw,3.2rem)] leading-[1.2]",
+  // H1: Main Hero Heading (.hero-title: Fluid 28.8px -> 44.8px, tracking 0.12em, leading 1.4)
+  h1: "font-heading tracking-[0.12em] text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.4]",
 
   // H2: Subpage Hero Heading (.subpage-title: Fluid 29px -> 45px, tracking 0.05em, leading 1.2)
   h2: "font-heading tracking-[0.05em] text-[clamp(1.8rem,3.2vw,2.8rem)] leading-[1.2]",
