@@ -1,10 +1,10 @@
 import React from "react";
 import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
-import SharedMainHero from "@ui-component/home/SharedMainHero";
+import HomeHero from "@ui-component/home/HomeHero";
 import BackgroundFeatureSection from "@ui-component/home/BackgroundFeatureSection";
-import SharedDetailedCardGrid from "@ui-component/home/SharedDetailedCardGrid";
-import SharedStatsWithImage from "@ui-component/home/SharedStatsWithImage";
-import SharedImageGradientSplit from "@ui-component/home/SharedImageGradientSplit";
+import DetailedCardGrid from "@ui-component/home/DetailedCardGrid";
+import StatsWithImage from "@ui-component/home/StatsWithImage";
+import ImageGradientSplit from "@ui-component/home/ImageGradientSplit";
 import SharedCenteredImageCTA from "@ui-common/SharedCenteredImageCTA";
 import SharedCtaWithGraphic from "@ui-common/SharedCtaWithGraphic";
 import Particles from "@ui-animations/Particles";
@@ -122,7 +122,7 @@ export default async function Home() {
       pos: 0,
       key: "hero",
       el: (
-        <SharedMainHero
+        <HomeHero
           key="hero"
           heading={homeContent?.heroTitle}
           description={homeContent?.heroDescription}
@@ -153,7 +153,7 @@ export default async function Home() {
     sectionMap.push({
       pos: 2,
       key: "infra",
-      el: <SharedDetailedCardGrid key="infra" data={infraData} />,
+      el: <DetailedCardGrid key="infra" data={infraData} />,
     });
   }
 
@@ -163,7 +163,7 @@ export default async function Home() {
       pos: 3,
       key: "stats",
       el: (
-        <SharedStatsWithImage
+        <StatsWithImage
           key="stats"
           heading={statsData?.title}
           statscards={statsData?.stats}
@@ -179,7 +179,7 @@ export default async function Home() {
       pos: 4,
       key: "community",
       el: (
-        <SharedImageGradientSplit
+        <ImageGradientSplit
           key="community"
           heading={communityData?.title}
           description={communityData?.body}

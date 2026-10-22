@@ -4,28 +4,14 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { StatsWithImageProps, StatItem } from "./type";
 
-interface StatItem {
-  Number: string;
-  Description: string;
-  BgColor?: string;
-  NumberColor?: string;
-  DescriptionColor?: string;
-}
-
-interface SharedStatsWithImageProps {
-  heading: string;
-  statscards?: StatItem[];
-  image?: any;
-  HeadingColor?: string;
-}
-
-export default function SharedStatsWithImage({
+export default function StatsWithImage({
   heading,
   statscards,
   image,
   HeadingColor,
-}: SharedStatsWithImageProps) {
+}: StatsWithImageProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,11 +59,34 @@ export default function SharedStatsWithImage({
     return () => observer.disconnect();
   }, []);
 
-  const imageUrl =
-    image?.url || image?.data?.attributes?.url || "/assets/images/us-dot-map-faint.svg";
-  const absoluteImageUrl = imageUrl.startsWith("/assets/") ? imageUrl : GetStrapiMediaUrl(imageUrl);
+  const imgObj = image as
+    | {
+        url?: string;
+        alternativeText?: string;
+        data?: {
+          url?: string;
+          alternativeText?: string;
+          attributes?: { url?: string; alternativeText?: string };
+        };
+        attributes?: { url?: string; alternativeText?: string };
+      }
+    | undefined;
 
-  const defaultStats: any[] = [
+  const imageUrl =
+    imgObj?.url ||
+    imgObj?.data?.attributes?.url ||
+    imgObj?.data?.url ||
+    imgObj?.attributes?.url ||
+    "/assets/images/us-dot-map-faint.svg";
+  const absoluteImageUrl = imageUrl.startsWith("/assets/") ? imageUrl : GetStrapiMediaUrl(imageUrl);
+  const altText =
+    imgObj?.alternativeText ||
+    imgObj?.data?.attributes?.alternativeText ||
+    imgObj?.data?.alternativeText ||
+    heading ||
+    "Stats graphic";
+
+  const defaultStats: StatItem[] = [
     { Number: "100K+", Description: "Small cells on air or under contract", BgColor: "#898cf3" },
     { Number: "300+", Description: "DAS-connected venues and buildings", BgColor: "#bcf6f2" },
     { Number: "700+", Description: "Supported municipal networks", BgColor: "#ffffff" },
@@ -108,7 +117,7 @@ export default function SharedStatsWithImage({
 
         <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
           <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 h-full reveal stagger-1">
-            {cardsToRender.map((stat: any, index: number, array: any[]) => {
+            {cardsToRender.map((stat: StatItem, index: number, array: StatItem[]) => {
               const numStr = stat.Number || stat.value || "0";
               const targetMatch = numStr.match(/[\d.]+/);
               const target = targetMatch ? parseFloat(targetMatch[0]) : 0;
@@ -167,9 +176,12 @@ export default function SharedStatsWithImage({
           </div>
 
           <div className="shared-swi-map-container flex items-center justify-center h-full w-full reveal stagger-2">
-            <img
+            <Image
               src={absoluteImageUrl}
-              alt={image?.alternativeText || heading || "Stats graphic"}
+              alt={altText}
+              width={800}
+              height={480}
+              unoptimized
               className="w-full max-h-[480px] object-contain object-center h-auto"
             />
           </div>

@@ -1,5 +1,7 @@
-export { default as SharedMainHero } from "./SharedMainHero";
+export { default as HomeHero } from "./HomeHero";
 export { default as BackgroundFeatureSection } from "./BackgroundFeatureSection";
-export { default as SharedDetailedCardGrid } from "./SharedDetailedCardGrid";
-export { default as SharedStatsWithImage } from "./SharedStatsWithImage";
-export { default as SharedImageGradientSplit } from "./SharedImageGradientSplit";
+export { default as DetailedCardGrid } from "./DetailedCardGrid";
+export { default as StatsWithImage } from "./StatsWithImage";
+export { default as ImageGradientSplit } from "./ImageGradientSplit";
+
+export * from "./type";

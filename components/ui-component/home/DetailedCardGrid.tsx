@@ -1,54 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect } from "react";
 import { getStrapiURL } from "@lib/api";
+import { DetailedCardGridProps } from "./type";
 
-interface PanelsCard {
-  Title?: string;
-  title?: string;
-  Description?: string;
-  description?: string;
-  CtaText?: string;
-  ctaText?: string;
-  CTA?: string;
-  linkText?: string;
-  CtaLink?: string;
-  ctaLink?: string;
-  link?: string;
-  ContentColor?: string;
-  contentColor?: string;
-  IllustatioSvgCode?: string;
-  illustatioSvgCode?: string;
-  SvgCode?: string;
-  svgCode?: string;
-  icon?: string;
-  image?: any;
-  Image?: any;
-}
-
-interface SharedDetailedCardGridProps {
-  heading?: string;
-  Headings?: string;
-  Heading?: string;
-  description?: string;
-  Description?: string;
-  bgColor?: string;
-  BgColor?: string;
-  panelsCards?: PanelsCard[];
-  PanelsCards?: PanelsCard[];
-  cards?: PanelsCard[];
-  cardItem?: PanelsCard[];
-  data?: {
-    title?: string;
-    body?: string;
-    cardItem?: PanelsCard[];
-    cards?: PanelsCard[];
-    PanelsCards?: PanelsCard[];
-  };
-}
-
-export default function SharedDetailedCardGrid({
+export default function DetailedCardGrid({
   heading,
   Headings,
   Heading,
@@ -61,7 +19,7 @@ export default function SharedDetailedCardGrid({
   cards,
   cardItem,
   data,
-}: SharedDetailedCardGridProps) {
+}: DetailedCardGridProps) {
   useEffect(() => {
     const svgs = document.querySelectorAll(".draw-svg");
     if (!svgs.length) return;
@@ -192,8 +150,12 @@ export default function SharedDetailedCardGrid({
               if (imgObj) {
                 if (Array.isArray(imgObj)) {
                   imageUrl = imgObj[0]?.url || "";
-                } else {
-                  imageUrl = imgObj?.data?.attributes?.url || imgObj?.url || "";
+                } else if (typeof imgObj === "object") {
+                  const singleImg = imgObj as {
+                    url?: string;
+                    data?: { attributes?: { url?: string } };
+                  };
+                  imageUrl = singleImg.data?.attributes?.url || singleImg.url || "";
                 }
                 if (imageUrl && !imageUrl.startsWith("http")) {
                   imageUrl = getStrapiURL(imageUrl);
@@ -237,10 +199,13 @@ export default function SharedDetailedCardGrid({
                           height: "180px",
                         }}
                       >
-                        <img
+                        <Image
                           src={imageUrl}
                           alt={titleText}
-                          style={{ objectFit: "contain", height: "100%" }}
+                          width={240}
+                          height={180}
+                          unoptimized
+                          style={{ objectFit: "contain", height: "100%", width: "auto" }}
                         />
                       </div>
                     ) : cleanSvg ? (

@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedImageGradientSplit } from "@ui-component";
+import { ImageGradientSplit } from "@ui-component";
 import { SectionRendererProps } from "./helper";
 
 export default function ImageGradientSplitRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedImageGradientSplit
+    <ImageGradientSplit
       key={`image-gradient-split-${index}`}
       heading={section.Heading || section.heading || section.title}
       description={section.Description || section.description || section.body}

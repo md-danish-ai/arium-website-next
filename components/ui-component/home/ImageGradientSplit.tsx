@@ -2,27 +2,18 @@ import React from "react";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { ImageGradientSplitProps, SectionPointer } from "./type";
 
-interface SectionPointer {
-  id?: number;
-  Heading: string;
-  Description: string;
-  FontHeading?: string;
-  FontDescription?: string;
+interface MediaItemLike {
+  url?: string;
+  width?: number;
+  attributes?: {
+    url?: string;
+    width?: number;
+  };
 }
 
-interface SharedImageGradientSplitProps {
-  heading: string;
-  description: string;
-  sectionPointers?: SectionPointer[];
-  ctaText?: string;
-  ctaUrl?: string;
-  bgImage?: any;
-  HeadingColor?: string;
-  DescriptionTextColor?: string;
-}
-
-export default function SharedImageGradientSplit({
+export default function ImageGradientSplit({
   heading,
   description,
   sectionPointers,
@@ -31,20 +22,27 @@ export default function SharedImageGradientSplit({
   bgImage,
   HeadingColor,
   DescriptionTextColor,
-}: SharedImageGradientSplitProps) {
+}: ImageGradientSplitProps) {
   if (!heading && !description) return null;
 
   let desktopUrl = "";
   let mobileUrl = "";
 
-  const extractUrl = (item: any) => item?.attributes?.url || item?.url || "";
-  const getWidth = (item: any) => item?.attributes?.width || item?.width || 0;
+  const extractUrl = (item: MediaItemLike | null | undefined) =>
+    item?.attributes?.url || item?.url || "";
+  const getWidth = (item: MediaItemLike | null | undefined) =>
+    item?.attributes?.width || item?.width || 0;
 
-  let images: any[] = [];
+  let images: MediaItemLike[] = [];
   if (Array.isArray(bgImage)) {
-    images = bgImage;
-  } else if (bgImage?.data && Array.isArray(bgImage.data)) {
-    images = bgImage.data;
+    images = bgImage as MediaItemLike[];
+  } else if (
+    bgImage &&
+    typeof bgImage === "object" &&
+    "data" in bgImage &&
+    Array.isArray((bgImage as { data?: unknown }).data)
+  ) {
+    images = (bgImage as { data: MediaItemLike[] }).data;
   }
 
   if (images.length >= 2) {
@@ -67,8 +65,12 @@ export default function SharedImageGradientSplit({
   } else if (images.length === 1) {
     desktopUrl = extractUrl(images[0]);
     mobileUrl = desktopUrl;
-  } else {
-    desktopUrl = bgImage?.data?.attributes?.url || (bgImage as any)?.url || "";
+  } else if (bgImage && typeof bgImage === "object") {
+    const singleObj = bgImage as {
+      url?: string;
+      data?: { attributes?: { url?: string } };
+    };
+    desktopUrl = singleObj.data?.attributes?.url || singleObj.url || "";
     mobileUrl = desktopUrl;
   }
 
@@ -135,36 +137,40 @@ export default function SharedImageGradientSplit({
           </Typography>
 
           <div className="reveal stagger-2 shared-igs-pointers mt-8 md:mt-9 max-w-[600px] flex flex-col gap-0">
-            {pointersToRender.map((item: any, index: number, array: any[]) => {
-              const itemHeading = item.Heading || item.title || "";
-              const itemDesc = item.Description || item.description || "";
-              return (
-                <div key={index}>
-                  <div
-                    className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}
-                  >
-                    <Typography
-                      variant="h5"
-                      uppercase
-                      className="shared-igs-pointer-heading text-teal mb-1.5"
-                      style={{ color: item.FontHeading || undefined }}
+            {pointersToRender.map(
+              (item: SectionPointer, index: number, array: SectionPointer[]) => {
+                const itemHeading = item.Heading || item.title || "";
+                const itemDesc = item.Description || item.description || "";
+                return (
+                  <div key={index}>
+                    <div
+                      className={
+                        index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"
+                      }
                     >
-                      {itemHeading}
-                    </Typography>
-                    <Typography
-                      variant="b3"
-                      className="shared-igs-pointer-desc text-white/80 m-0"
-                      style={{ color: item.FontDescription || undefined }}
-                    >
-                      {itemDesc}
-                    </Typography>
+                      <Typography
+                        variant="h5"
+                        uppercase
+                        className="shared-igs-pointer-heading text-teal mb-1.5"
+                        style={{ color: item.FontHeading || undefined }}
+                      >
+                        {itemHeading}
+                      </Typography>
+                      <Typography
+                        variant="b3"
+                        className="shared-igs-pointer-desc text-white/80 m-0"
+                        style={{ color: item.FontDescription || undefined }}
+                      >
+                        {itemDesc}
+                      </Typography>
+                    </div>
+                    {index < array.length - 1 && (
+                      <div className="shared-igs-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
+                    )}
                   </div>
-                  {index < array.length - 1 && (
-                    <div className="shared-igs-divider w-[60%] h-px bg-gradient-to-r from-white/15 to-transparent m-0" />
-                  )}
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </div>
 
           {ctaText && ctaUrl && (

@@ -3,26 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
-
-interface FeatureCard {
-  id?: number;
-  Heading?: string;
-  Description?: string;
-  TextColor?: string;
-  HeadingColor?: string;
-}
-
-interface BackgroundFeatureSectionProps {
-  Heading?: string;
-  Description?: string;
-  BackgroundImage?: any;
-  CTALabel?: string;
-  CTALink?: string;
-  FeatureCards?: FeatureCard[];
-  FontColorHeading?: string;
-  FontColorDescription?: string;
-  MaxWidthText?: string;
-}
+import { BackgroundFeatureSectionProps, FeatureCard } from "./type";
 
 export default function BackgroundFeatureSection({
   Heading,
@@ -39,13 +20,20 @@ export default function BackgroundFeatureSection({
   let mobileUrl = "";
 
   if (Array.isArray(BackgroundImage)) {
-    desktopUrl = BackgroundImage[0]?.url || "";
-    mobileUrl = BackgroundImage[1]?.url || desktopUrl;
-  } else if (BackgroundImage?.data && Array.isArray(BackgroundImage.data)) {
-    desktopUrl = BackgroundImage.data[0]?.attributes?.url || "";
-    mobileUrl = BackgroundImage.data[1]?.attributes?.url || desktopUrl;
-  } else {
-    desktopUrl = BackgroundImage?.data?.attributes?.url || (BackgroundImage as any)?.url || "";
+    desktopUrl = BackgroundImage[0]?.url || BackgroundImage[0]?.attributes?.url || "";
+    mobileUrl = BackgroundImage[1]?.url || BackgroundImage[1]?.attributes?.url || desktopUrl;
+  } else if (BackgroundImage && "data" in BackgroundImage && Array.isArray(BackgroundImage.data)) {
+    desktopUrl = BackgroundImage.data[0]?.attributes?.url || BackgroundImage.data[0]?.url || "";
+    mobileUrl =
+      BackgroundImage.data[1]?.attributes?.url || BackgroundImage.data[1]?.url || desktopUrl;
+  } else if (BackgroundImage && typeof BackgroundImage === "object") {
+    const bgObj = BackgroundImage as {
+      url?: string;
+      data?: { url?: string; attributes?: { url?: string } };
+      attributes?: { url?: string };
+    };
+    desktopUrl =
+      bgObj.data?.attributes?.url || bgObj.data?.url || bgObj.attributes?.url || bgObj.url || "";
     mobileUrl = desktopUrl;
   }
 
@@ -150,7 +138,7 @@ export default function BackgroundFeatureSection({
         <div className="bg-feature-cards-wrap relative z-[2] pt-0 pb-[60px] md:pt-4 md:pb-20">
           <div className="container">
             <div className="reveal stagger-2 challenges-pillars grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {cardsToRender.map((card: any, index: number) => (
+              {cardsToRender.map((card: FeatureCard, index: number) => (
                 <div
                   className="challenges-pillar flex flex-col items-center text-center pb-5"
                   key={index}
