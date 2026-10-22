@@ -281,8 +281,8 @@ export default function HomeHero({
 
   return (
     <section
-      id="shared-main-hero"
-      className="shared-mh-section relative grid place-items-center h-screen min-h-[600px] w-full overflow-hidden"
+      id="hero"
+      className="shared-mh-section relative grid place-items-center h-screen h-[100svh] min-h-[600px] w-full overflow-hidden"
     >
       {/* Background with animated shapes */}
       <div
@@ -340,19 +340,19 @@ export default function HomeHero({
       </div>
 
       {/* Content */}
-      <div className="shared-mh-content relative z-[5] px-6 pt-[150px] pb-[100px] text-center">
+      <div className="shared-mh-content relative z-[5] px-10 max-[768px]:px-6 pt-[150px] pb-[100px] text-center w-full">
         <Typography
           variant="h1"
           uppercase
           weight="normal"
-          className="hero-title shared-mh-heading mx-auto max-w-[970px] text-[clamp(1.8rem,3.5vw,2.8rem)] max-[768px]:text-[1.6rem] max-[480px]:text-[1.4rem] tracking-[0.12em] max-[768px]:tracking-[0.2em] leading-[1.4] max-[768px]:leading-[1.35]"
+          className="hero-title shared-mh-heading m-0 mb-0 mx-auto max-w-[970px] text-[clamp(1.8rem,3.5vw,2.8rem)] max-[768px]:text-[1.6rem] max-[480px]:text-[1.4rem] tracking-[0.12em] leading-[1.4] relative z-[1]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: heading || "" }}
         />
         <Typography
           variant="b1"
           weight="normal"
-          className="hero-desc shared-mh-description mx-auto mt-10 max-[768px]:mt-6 max-[480px]:mt-5 max-w-[800px] text-[clamp(1.05rem,1.8vw,1.25rem)] max-[768px]:text-[0.9rem] leading-[1.6] max-[768px]:tracking-[0.02em] text-center"
+          className="hero-desc shared-mh-description mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] text-[clamp(1.05rem,1.8vw,1.25rem)] max-[768px]:text-[0.9rem] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
@@ -360,18 +360,18 @@ export default function HomeHero({
 
       {/* Scroll indicator */}
       <div
-        className={`shared-mh-scroll-indicator ${isScrolled ? "is-scrolled pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
-        id="shared-scroll-indicator"
+        className={`scroll-indicator shared-mh-scroll-indicator ${isScrolled ? "is-scrolled pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
+        id="scroll-indicator"
       >
         <Typography
           variant="b4"
           uppercase
           weight="normal"
-          className="scroll-indicator-text shared-mh-scroll-text block text-[0.75rem] text-white/60 tracking-[0.15em]"
+          className="scroll-indicator-text shared-mh-scroll-text block text-[0.75rem] text-white/60 tracking-[0.15em] font-normal whitespace-nowrap"
         >
           {scrollText || "Scroll to explore"}
         </Typography>
-        <div className="shared-mh-scroll-arrow text-teal animate-bounce">
+        <div className="scroll-indicator-arrow shared-mh-scroll-arrow text-teal animate-bounce">
           <svg
             width="24"
             height="24"

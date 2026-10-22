@@ -185,24 +185,21 @@ svg {
 }
 
 /* Base Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-  margin-top: 0;
-  margin-bottom: var(--spacing-3);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-}
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    margin: 0;
+    font-weight: 400;
+  }
 
-p {
-  margin-top: 0;
-  margin-bottom: var(--spacing-3);
+  p {
+    margin: 0;
+  }
 }
 
 .gradient-text {
@@ -1380,8 +1377,7 @@ body {
   /* 0. Main Subpage Hero H1 Titles (1.5rem on mobile for better text wrap and vertical space) */
   .subpage-title,
   .abt-hero-heading,
-  .subpage-header h1,
-  h1 {
+  .subpage-header h1 {
     font-size: 1.5rem !important;
     font-weight: 400 !important;
     line-height: 1.35 !important;
@@ -1404,8 +1400,7 @@ body {
   .subpage-story-heading,
   .commit-hero-title,
   #about h2,
-  #faq h2,
-  h2 {
+  #faq h2 {
     font-size: 1.2rem !important;
     line-height: 1.4 !important;
     letter-spacing: 0.1em !important;
