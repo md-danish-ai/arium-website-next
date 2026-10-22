@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@ui-layout/navbar";
-import Footer from "@ui-layout/Footer";
+import Footer from "@ui-layout/footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 import PageAnimations from "@ui-animations/PageAnimations";
