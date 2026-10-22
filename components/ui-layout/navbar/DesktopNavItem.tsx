@@ -40,7 +40,7 @@ export default function DesktopNavItem({
       <Link
         href={route.url}
         onClick={onClose}
-        className={`inline-flex items-center justify-start gap-1.5 px-4 py-3.5 min-[1280px]:px-4 min-[1280px]:py-4 xl:px-5 xl:py-3.5 text-[0.84rem] min-[1280px]:text-[0.86rem] xl:text-sm font-heading rounded-full border border-transparent whitespace-nowrap leading-none transition-all duration-200 cursor-pointer ${
+        className={`inline-flex items-center justify-start gap-1.5 px-4 py-3.5 min-[1280px]:px-4 min-[1280px]:py-4 xl:px-5 xl:py-3.5 text-[0.84rem] min-[1280px]:text-[0.86rem] xl:text-sm font-heading rounded-2xl border border-transparent whitespace-nowrap leading-none transition-all duration-200 cursor-pointer ${
           isCurrentActive
             ? "text-teal font-semibold bg-transparent hover:!text-[#162047] hover:bg-teal hover:border-teal/60 hover:font-bold"
             : "text-white font-normal hover:!text-[#162047] hover:bg-teal hover:border-teal/60 hover:shadow-[0_1px_3px_rgba(0,0,0,0.1)] hover:font-bold"

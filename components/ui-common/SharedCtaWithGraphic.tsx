@@ -1,15 +1,28 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 
-interface SharedCtaWithGraphicProps {
+export interface StrapiMedia {
+  url?: string;
+  alternativeText?: string;
+  data?: {
+    attributes?: {
+      url?: string;
+      alternativeText?: string;
+    };
+  };
+}
+
+export type GraphicType = string | StrapiMedia | null;
+
+export interface SharedCtaWithGraphicProps {
   heading: string;
   description: string;
   ctaText?: string;
   ctaLink?: string;
-  graphic?: any;
+  graphic?: GraphicType;
   bgColor?: string;
   HeadingColor?: string;
   DescriptionColor?: string;
@@ -32,62 +45,74 @@ export default function SharedCtaWithGraphic({
   const absoluteGraphicUrl = graphicUrl
     ? GetStrapiMediaUrl(graphicUrl)
     : "/assets/images/connection-cta.svg";
+  const altText =
+    (typeof graphic === "object" && graphic?.alternativeText) ||
+    (typeof graphic === "object" && graphic?.data?.attributes?.alternativeText) ||
+    heading ||
+    "CTA Graphic";
+  const isSvg =
+    absoluteGraphicUrl.toLowerCase().endsWith(".svg") || absoluteGraphicUrl.includes(".svg");
 
   return (
     <section
       className="shared-cta-graphic-section relative overflow-hidden bg-[#D2C7FF]"
       style={bgColor ? { background: bgColor } : undefined}
     >
-      <div className="shared-cta-graphic-flex-wrapper container mx-auto px-6 relative z-[2] flex flex-row items-center">
-        <div className="shared-cta-graphic-text-col max-w-[min(640px,58vw)] py-24 text-left">
+      <div className="container mx-auto px-6 sm:px-8 max-w-[1440px] relative z-[2]">
+        <div className="w-full max-w-full md:max-w-[550px] lg:max-w-[650px] py-12 sm:py-16 md:py-20 lg:py-24 text-left">
           <Typography
+            as="h2"
             variant="h3"
             uppercase
-            className="shared-cta-graphic-title reveal stagger-1 text-midnight mb-4"
+            weight="bold"
+            className="reveal stagger-1 m-0 mb-4 md:mb-6 text-midnight leading-[1.15] tracking-tight"
             style={{ color: HeadingColor || undefined }}
           >
             {heading}
           </Typography>
+
           <Typography
+            as="p"
             variant="b1"
-            className="shared-cta-graphic-description reveal stagger-2 text-midnight/85 mb-8"
+            className="reveal stagger-2 m-0 mb-6 md:mb-8 text-midnight/85 max-w-[620px] leading-[1.6]"
             style={{ color: DescriptionColor || undefined }}
           >
             {description}
           </Typography>
+
           {ctaText && ctaLink && (
-            <div className="shared-cta-graphic-actions reveal stagger-3 flex justify-start">
+            <div className="reveal stagger-3 flex justify-start">
               <Link
                 href={ctaLink}
                 target={ctaLink.startsWith("http") ? "_blank" : undefined}
                 rel={ctaLink.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="shared-cta-graphic-btn-outline inline-flex items-center gap-2 font-heading text-sm font-semibold uppercase tracking-wider text-white no-underline px-7 py-3 bg-midnight border border-midnight rounded-full transition-all duration-300 hover:bg-transparent hover:text-midnight hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center whitespace-nowrap px-8 py-3.5 bg-midnight text-white border border-midnight rounded-full transition-all duration-300 hover:bg-transparent hover:border-midnight hover:text-midnight hover:-translate-y-0.5 no-underline shadow-sm"
               >
-                {ctaText}
+                <Typography
+                  as="span"
+                  variant="button"
+                  weight="semibold"
+                  uppercase
+                  className="whitespace-nowrap tracking-wider text-white group-hover:text-midnight transition-colors duration-300"
+                >
+                  {ctaText}
+                </Typography>
               </Link>
             </div>
           )}
         </div>
       </div>
+
       <div
-        className="shared-cta-graphic-illustration-wrap absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden"
+        className="shared-cta-graphic-illustration-wrap absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden opacity-25 sm:opacity-40 md:opacity-100 transition-opacity duration-300"
         aria-hidden="true"
       >
-        <img
+        <Image
           src={absoluteGraphicUrl}
-          alt={graphic?.alternativeText || heading || "CTA Graphic"}
+          alt={altText}
+          fill
+          unoptimized={isSvg}
           className="shared-cta-graphic-illustration-img w-full h-full block object-contain object-right"
-        />
-        <div
-          className="shared-cta-graphic-illustration-fade hidden"
-          aria-hidden="true"
-          style={
-            bgColor
-              ? {
-                  background: `linear-gradient(90deg, rgba(210, 199, 255, 0) 7.64%, ${bgColor} 101.48%)`,
-                }
-              : undefined
-          }
         />
       </div>
     </section>
