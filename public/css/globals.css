@@ -520,8 +520,6 @@ svg {
     white-space: nowrap;
   }
 
-  #sharedjourney .section-title,
-  #shared-journey .section-title,
   #journey .section-title {
     font-size: clamp(1.9rem, 0.5rem + 2.2vw, 2.4rem) !important;
   }
@@ -904,244 +902,8 @@ body {
 
 #journey,
 #shared-journey,
-#trust,
-.shared-stats-cards-section,
-#commitments,
-#shared-commitments,
-.shared-commitments-section {
+#trust {
   background: #ffffff !important;
-}
-
-.journey-timeline,
-.shared-journey-timeline {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0;
-  overflow: visible;
-}
-
-/* Single continuous horizontal line — between year and description */
-.journey-tl-line,
-.shared-journey-tl-line {
-  position: absolute;
-  top: 72px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 158, 148, 0.6),
-    rgba(123, 106, 184, 0.6) 33%,
-    rgba(196, 142, 104, 0.6) 66%,
-    rgba(0, 158, 148, 0.6)
-  );
-  z-index: 1;
-}
-
-.journey-tl-items,
-.shared-journey-tl-items {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-  z-index: 2;
-}
-
-.journey-timeline .journey-tl-item,
-.shared-journey-timeline .shared-journey-tl-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  padding: 20px;
-  position: relative;
-  cursor: default;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 16px;
-  box-shadow: none;
-  transition:
-    background 0.5s ease,
-    border-color 0.5s ease,
-    box-shadow 0.5s ease,
-    opacity 0.5s ease;
-  z-index: 2;
-}
-
-.journey-timeline .journey-tl-item:nth-child(1),
-.shared-journey-timeline .shared-journey-tl-item:nth-child(1) {
-  --accent: #009e94;
-}
-.journey-timeline .journey-tl-item:nth-child(2),
-.shared-journey-timeline .shared-journey-tl-item:nth-child(2) {
-  --accent: #7b6ab8;
-}
-.journey-timeline .journey-tl-item:nth-child(3),
-.shared-journey-timeline .shared-journey-tl-item:nth-child(3) {
-  --accent: #c48e68;
-}
-.journey-timeline .journey-tl-item:nth-child(4),
-.shared-journey-timeline .shared-journey-tl-item:nth-child(4) {
-  --accent: #009e94;
-}
-
-/* Year above the line — dynamic accent color by default */
-.journey-timeline .journey-tl-year,
-.shared-journey-timeline .shared-journey-tl-year {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent, #009e94);
-  display: block;
-  padding-bottom: 20px;
-  margin-bottom: 0;
-  transition:
-    color 0.5s ease,
-    transform 0.5s ease;
-}
-
-/* Badge on timeline milestone — matching exact pill design */
-.journey-timeline .journey-tl-badge,
-.shared-journey-timeline .shared-journey-tl-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.62rem;
-  line-height: 1;
-  background: #daf3f2;
-  color: #009e94;
-  padding: 3px 8px 3px 7px;
-  border-radius: 9999px;
-  margin-left: 8px;
-  vertical-align: middle;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  user-select: none;
-  transform: translateY(-1px);
-  transition:
-    color 0.5s ease,
-    background 0.5s ease;
-}
-
-.journey-timeline .journey-tl-badge-dot,
-.shared-journey-timeline .shared-journey-tl-badge-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: #009e94;
-  display: inline-block;
-  flex-shrink: 0;
-  transition: background-color 0.5s ease;
-}
-
-/* Description below the line */
-.journey-timeline .journey-tl-desc,
-.shared-journey-timeline .shared-journey-tl-desc {
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: rgba(22, 32, 71, 0.75);
-  margin: 0;
-  padding-top: 20px;
-  transition:
-    color 0.5s ease,
-    transform 0.5s ease;
-}
-
-/* Hover — siblings fade */
-.journey-timeline .journey-tl-items:hover .journey-tl-item,
-.shared-journey-timeline .shared-journey-tl-items:hover .shared-journey-tl-item {
-  opacity: 0.35;
-  transition:
-    background 0.5s ease,
-    border-color 0.5s ease,
-    box-shadow 0.5s ease,
-    opacity 0.5s ease;
-}
-
-/* Hover — hovered item: dark card, inverted colors */
-.journey-timeline .journey-tl-items:hover .journey-tl-item:hover,
-.shared-journey-timeline .shared-journey-tl-items:hover .shared-journey-tl-item:hover {
-  opacity: 1;
-  background: linear-gradient(145deg, #1e2d5c 0%, #182350 100%);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 28px -6px rgba(13, 18, 36, 0.35);
-}
-
-.journey-timeline .journey-tl-items:hover .journey-tl-item:hover .journey-tl-year,
-.shared-journey-timeline
-  .shared-journey-tl-items:hover
-  .shared-journey-tl-item:hover
-  .shared-journey-tl-year {
-  color: #00e8d9 !important;
-  transform: translateY(6px) scale(1.15);
-  transform-origin: left center;
-}
-
-.journey-timeline .journey-tl-items:hover .journey-tl-item:nth-child(2):hover .journey-tl-year,
-.shared-journey-timeline
-  .shared-journey-tl-items:hover
-  .shared-journey-tl-item:nth-child(2):hover
-  .shared-journey-tl-year {
-  color: #c0b3ff !important;
-}
-
-.journey-timeline .journey-tl-items:hover .journey-tl-item:nth-child(3):hover .journey-tl-year,
-.shared-journey-timeline
-  .shared-journey-tl-items:hover
-  .shared-journey-tl-item:nth-child(3):hover
-  .shared-journey-tl-year {
-  color: #ffdac8 !important;
-}
-
-.journey-timeline .journey-tl-items:hover .journey-tl-item:hover .journey-tl-badge,
-.shared-journey-timeline
-  .shared-journey-tl-items:hover
-  .shared-journey-tl-item:hover
-  .shared-journey-tl-badge {
-  background: rgba(0, 232, 217, 0.22) !important;
-  color: #00e8d9 !important;
-}
-
-.journey-timeline
-  .journey-tl-items:hover
-  .journey-tl-item:hover
-  .journey-tl-badge
-  .journey-tl-badge-dot,
-.shared-journey-timeline
-  .shared-journey-tl-items:hover
-  .shared-journey-tl-item:hover
-  .shared-journey-tl-badge
-  .shared-journey-tl-badge-dot {
-  background-color: #00e8d9 !important;
-}
-
-.journey-timeline .journey-tl-items:hover .journey-tl-item:hover .journey-tl-desc,
-.shared-journey-timeline
-  .shared-journey-tl-items:hover
-  .shared-journey-tl-item:hover
-  .shared-journey-tl-desc {
-  color: #ffffff !important;
-  transform: translateY(-6px);
-}
-
-/* Commitments Section */
-
-.section-light .commit-hero {
-  border: 1px solid rgba(22, 32, 71, 0.06);
-  border-radius: 24px;
-  box-shadow:
-    0 1px 2px rgba(22, 32, 71, 0.04),
-    0 4px 12px rgba(22, 32, 71, 0.04),
-    0 12px 32px rgba(22, 32, 71, 0.05);
-  overflow: hidden;
-}
-
-.section-light .commit-lead {
-  color: #162047;
 }
 
 /* Quote Decorations */
@@ -1172,12 +934,6 @@ body {
   border-color: rgba(0, 232, 217, 0.2) !important;
 }
 
-@media (max-width: 1079px) and (min-width: 780px) {
-  .shared-journey-timeline .shared-journey-tl-desc {
-    padding-top: 0px !important;
-  }
-}
-
 /* Mobile Typography & Layout (max-width: 600px) */
 @media (max-width: 600px) {
   /* 0. Main Subpage Hero H1 Titles (1.5rem on mobile for better text wrap and vertical space) */
@@ -1203,7 +959,6 @@ body {
   .section-header h2,
   .culture-hero-heading,
   .subpage-story-heading,
-  .commit-hero-title,
   #about h2,
   #faq h2 {
     font-size: 1.2rem !important;
@@ -1212,7 +967,6 @@ body {
   }
 
   /* 2. Pillar Label (1rem) */
-  .commit-pillar-title,
   .hz-step-title,
   .trust-card h3,
   .blog-card-title {
@@ -1223,16 +977,13 @@ body {
   /* 3. Section Description (0.9rem + letter spacing) */
   .section-description,
   .subpage-intro,
-  .culture-hero-desc,
-  .commit-desc,
-  .commit-lead {
+  .culture-hero-desc {
     font-size: 0.9rem !important;
     line-height: 1.65 !important;
     letter-spacing: 0.02em !important;
   }
 
   /* 4. Pillars Description (0.85rem + letter spacing) */
-  .commit-pillar-text,
   .hz-step-desc,
   .trust-card p,
   .blog-card-excerpt {
@@ -1240,8 +991,6 @@ body {
     line-height: 1.6 !important;
     letter-spacing: 0.015em !important;
   }
-
-  /* Commitments Hero Image Container Sizing is handled on page level */
 
   /* Testimonials section — Mobile (matches V6.1) */
   #testimonials .section-title {

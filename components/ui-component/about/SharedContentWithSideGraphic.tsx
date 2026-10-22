@@ -1,51 +1,34 @@
-import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { ConnectionIllustrationSvg } from "@ui-svg";
+import { SharedContentWithSideGraphicProps, StrapiMediaLike } from "./type";
 
-interface SharedContentWithSideGraphicProps {
-  Heading?: string;
-  heading?: string;
-  Description?: string;
-  description?: string;
-  Image?: any;
-  image?: any;
-  media?: any;
-  Media?: any;
-  Gradient?: string;
-  gradient?: string;
-  HeadingColor?: string;
-  headingColor?: string;
-  DescriptionColor?: string;
-  descriptionColor?: string;
-  data?: {
-    title?: string;
-    Title?: string;
-    heading?: string;
-    Heading?: string;
-    body?: string;
-    Body?: string;
-    description?: string;
-    Description?: string;
-    media?: any;
-    Media?: any;
-    image?: any;
-    Image?: any;
-    gradient?: string;
-    Gradient?: string;
-    headingColor?: string;
-    HeadingColor?: string;
-    descriptionColor?: string;
-    DescriptionColor?: string;
-  };
-}
-
-function extractImageUrl(media: any): string {
+function extractImageUrl(media?: StrapiMediaLike | null): string {
   if (!media) return "";
   if (typeof media === "string") return media;
-  if (media.url) return media.url;
-  if (Array.isArray(media) && media[0]?.url) return media[0].url;
-  if (media.data?.attributes?.url) return media.data.attributes.url;
-  if (media.formats?.large?.url) return media.formats.large.url;
+  if (typeof media === "object" && media !== null) {
+    if ("url" in media && typeof (media as { url?: unknown }).url === "string") {
+      return (media as { url: string }).url;
+    }
+    if (Array.isArray(media) && media.length > 0) {
+      const first = media[0];
+      if (
+        typeof first === "object" &&
+        first !== null &&
+        "url" in first &&
+        typeof first.url === "string"
+      ) {
+        return first.url;
+      }
+    }
+    const mediaObj = media as Record<string, unknown>;
+    const dataObj = mediaObj.data as Record<string, unknown> | undefined;
+    const attrs = dataObj?.attributes as Record<string, unknown> | undefined;
+    if (typeof attrs?.url === "string") return attrs.url;
+    const formats = mediaObj.formats as Record<string, unknown> | undefined;
+    const large = formats?.large as Record<string, unknown> | undefined;
+    if (typeof large?.url === "string") return large.url;
+  }
   return "";
 }
 
@@ -111,12 +94,18 @@ export default function SharedContentWithSideGraphic({
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      <img
-        src={imageUrl}
-        alt=""
-        aria-hidden="true"
-        className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none"
-      />
+      {extractedUrl ? (
+        <img
+          src={imageUrl}
+          alt=""
+          aria-hidden="true"
+          className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none"
+        />
+      ) : (
+        <div className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none">
+          <ConnectionIllustrationSvg className="w-full h-full" />
+        </div>
+      )}
 
       <div className="container mx-auto px-6 relative z-[1]">
         <div className="max-w-[760px] text-left">
@@ -170,11 +159,17 @@ export default function SharedContentWithSideGraphic({
       </div>
 
       <div className="story-globe-full lg:hidden relative z-[1] overflow-hidden -mt-[15%] -mb-[30%]">
-        <img
-          src={imageUrl}
-          alt="Connection illustration"
-          className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]"
-        />
+        {extractedUrl ? (
+          <img
+            src={imageUrl}
+            alt="Connection illustration"
+            className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]"
+          />
+        ) : (
+          <div className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]">
+            <ConnectionIllustrationSvg className="w-full h-auto" />
+          </div>
+        )}
       </div>
     </section>
   );

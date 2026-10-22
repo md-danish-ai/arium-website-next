@@ -3,3 +3,5 @@ export { default as SharedJourney } from "./SharedJourney";
 export { default as SharedStatsCards } from "./SharedStatsCards";
 export { default as SharedCommitments } from "./SharedCommitments";
 export { default as SharedCulture } from "./SharedCulture";
+
+export * from "./type";

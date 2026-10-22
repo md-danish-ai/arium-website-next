@@ -1,37 +1,12 @@
 import Image from "next/image";
 import { Typography } from "@ui-element";
-
-interface PillarCard {
-  PillarText?: string;
-  PillarDescription?: string;
-  BarColor?: string;
-  PillarHeadingColor?: string;
-  PillarBgColorHover?: string;
-}
-
-interface SharedCommitmentsProps {
-  Heading?: string;
-  Description?: string;
-  BgImage?:
-    | { data?: { attributes?: { url: string; alternativeText?: string } } }
-    | { url: string; alternativeText?: string }
-    | any;
-  BgOverlay?: string;
-  PillarsDescription?: string;
-  PillarCard?: PillarCard[];
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: any[];
-    media?: any[];
-  };
-}
+import { GetStrapiMediaUrl } from "@lib/strapi";
+import { PillarCard, SharedCommitmentsProps } from "./type";
 
 export default function SharedCommitments({
   Heading,
   Description,
   BgImage,
-  BgOverlay,
   PillarsDescription,
   PillarCard,
   data,
@@ -61,67 +36,82 @@ export default function SharedCommitments({
     (PillarCard && PillarCard.length > 0 ? PillarCard : null) ||
     (data?.cards && data.cards.length > 0 ? data.cards : null) ||
     defaultPillars;
-  const pillars = rawPillars.map((p: any) => ({
-    PillarText: p.PillarText || p.title || p.heading || "",
-    PillarDescription: p.PillarDescription || p.description || p.body || "",
-    BarColor: p.BarColor || p.barColor,
-    PillarHeadingColor: p.PillarHeadingColor,
-    PillarBgColorHover: p.PillarBgColorHover,
-  }));
+  const pillars: PillarCard[] = rawPillars.map((p) => {
+    const item = p as Record<string, unknown>;
+    return {
+      PillarText: (item.PillarText || item.title || item.heading || "") as string,
+      PillarDescription: (item.PillarDescription || item.description || item.body || "") as string,
+      BarColor: (item.BarColor || item.barColor) as string | undefined,
+      PillarHeadingColor: item.PillarHeadingColor as string | undefined,
+      PillarBgColorHover: item.PillarBgColorHover as string | undefined,
+    };
+  });
 
   // Extract image URL safely
   let bgImageUrl = "/assets/images/live_about_commitments_panoramic.png";
   let bgImageAlt = "New York City skyline at sunset";
 
-  const resolvedBg = data?.media?.[0] || BgImage;
-  if (resolvedBg) {
-    if (resolvedBg.data?.attributes?.url) {
-      bgImageUrl = resolvedBg.data.attributes.url;
-      bgImageAlt = resolvedBg.data.attributes.alternativeText || bgImageAlt;
-    } else if (resolvedBg.url) {
-      bgImageUrl = resolvedBg.url;
-      bgImageAlt = resolvedBg.alternativeText || bgImageAlt;
+  const resolvedBg = (Array.isArray(data?.media) ? data?.media?.[0] : data?.media) || BgImage;
+  if (resolvedBg && typeof resolvedBg === "object") {
+    const bgObj = resolvedBg as Record<string, unknown>;
+    const dataObj = bgObj.data as Record<string, unknown> | undefined;
+    const attrs = (dataObj?.attributes || bgObj.attributes) as Record<string, unknown> | undefined;
+    const rawUrl = (attrs?.url || bgObj.url) as string | undefined;
+    if (rawUrl) {
+      bgImageUrl = rawUrl.startsWith("http") ? rawUrl : GetStrapiMediaUrl(rawUrl);
+      const rawAlt = (attrs?.alternativeText || bgObj.alternativeText) as string | undefined;
+      if (rawAlt) {
+        bgImageAlt = rawAlt;
+      }
     }
   }
 
   const defaultBarBgClasses = ["bg-[#00b4a0]", "bg-[#d4882e]", "bg-[#7c5cbf]"];
+  const headingText = Heading || data?.title || "Our Commitments to Our Customers";
+  const descriptionText = Description || data?.body;
 
   return (
     <section
-      className="shared-commitments-section section-padding section-light bg-white pt-16 pb-28 relative overflow-hidden z-[2]"
+      className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden z-[2]"
       id="shared-commitments"
     >
-      <div className="container mx-auto px-6 relative z-[2]">
-        <div className="shared-commit-hero reveal w-full rounded-3xl overflow-hidden mb-14 border border-white/[0.06] shadow-xl">
-          <div className="shared-commit-hero-img-container relative w-full h-[400px] md:h-[480px]">
-            <Image
-              src={bgImageUrl}
-              alt={bgImageAlt}
-              fill
-              className="shared-commit-hero-img object-cover block"
-            />
-            <div className="shared-commit-hero-overlay absolute inset-0 bg-gradient-to-r from-[#101830]/90 via-[#101830]/60 to-transparent pointer-events-none" />
-            <div className="shared-commit-hero-content absolute inset-0 flex items-center justify-start text-left p-8 md:p-14 lg:p-20 z-[2]">
-              <div className="shared-commit-hero-inner max-w-[640px] m-0">
-                <Typography
-                  variant="h2"
-                  as="h2"
-                  uppercase
-                  weight="light"
-                  className="shared-commit-hero-title commit-hero-title text-white m-0"
-                >
-                  {Heading || "Our Commitments to Our Customers"}
-                </Typography>
-                {Description ? (
+      <div className="container mx-auto px-5 sm:px-6 relative z-[2]">
+        {/* Panoramic Hero Banner */}
+        <div className="reveal w-full rounded-2xl md:rounded-3xl overflow-hidden mb-8 sm:mb-10 md:mb-14 border border-white/[0.06] shadow-xl relative min-h-[240px] xs:min-h-[260px] sm:min-h-[320px] md:h-[480px] lg:h-[500px] flex items-end md:items-center">
+          <Image
+            src={bgImageUrl}
+            alt={bgImageAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 95vw, 1200px)"
+            className="object-cover block"
+          />
+          {/* Gradient overlay: Bottom-up on mobile, Left-to-right on desktop */}
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#101830]/95 via-[#101830]/60 md:via-[#101830]/75 to-transparent pointer-events-none" />
+
+          <div className="relative z-[2] w-full flex items-end md:items-center justify-start text-left p-6 sm:p-8 md:p-14 lg:p-20">
+            <div className="max-w-[640px] w-full m-0">
+              <Typography
+                variant="h2"
+                as="h2"
+                uppercase
+                weight="light"
+                className="text-white m-0 tracking-[0.05em] leading-[1.25]"
+              >
+                {headingText}
+              </Typography>
+
+              {/* Description inside banner - Desktop only (>= md) */}
+              <div className="hidden md:block mt-4">
+                {descriptionText ? (
                   <div
-                    className="shared-commit-desc commit-desc strapi-richtext-body text-[1.02rem] leading-[1.75] text-white/85 mt-4 max-w-full text-left [&>p]:mb-0"
-                    dangerouslySetInnerHTML={{ __html: Description }}
+                    className="strapi-richtext-body text-white/85 max-w-full text-left [&>p]:m-0 [&>p]:leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: descriptionText }}
                   />
                 ) : (
                   <Typography
                     variant="b1"
                     as="p"
-                    className="shared-commit-desc commit-desc text-white/85 mt-4 max-w-full text-left"
+                    className="text-white/85 max-w-full text-left m-0 leading-relaxed"
                   >
                     As part of EQT&apos;s Active Core Infrastructure fund, we have the support and
                     financial capacity to invest with conviction. As opposed to many other private
@@ -134,41 +124,70 @@ export default function SharedCommitments({
           </div>
         </div>
 
-        <div className="shared-commit-part2 reveal stagger-2">
+        {/* Description outside banner - Mobile only (< md) */}
+        <div className="block md:hidden mb-6 sm:mb-8 text-left">
+          {descriptionText ? (
+            <div
+              className="strapi-richtext-body text-midnight/80 text-left [&>p]:m-0 [&>p]:leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: descriptionText }}
+            />
+          ) : (
+            <Typography
+              variant="b1"
+              as="p"
+              className="text-midnight/80 text-left m-0 leading-relaxed"
+            >
+              As part of EQT&apos;s Active Core Infrastructure fund, we have the support and
+              financial capacity to invest with conviction. As opposed to many other private equity
+              backed companies, we do not have any timeframe for liquidity, so we can invest and
+              operate for the long term.
+            </Typography>
+          )}
+        </div>
+
+        {/* Commitment Pillars Section - Exactly matching Prod (Image 2) */}
+        <div className="reveal stagger-2 w-full">
           <Typography
             variant="b1"
             as="p"
-            className="shared-commit-lead text-center text-midnight/80 mb-9"
+            className="text-center text-midnight/80 mb-10 sm:mb-12 md:mb-16 max-w-[960px] mx-auto m-0 leading-relaxed"
           >
             {PillarsDescription ||
               "We are guided by a clear set of commitments that shape how we partner and deliver value:"}
           </Typography>
 
-          <div className="shared-commit-pillars grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 xl:gap-10 mt-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-14 xl:gap-16 max-w-6xl mx-auto">
             {pillars.map((pillar, index) => {
-              const barBgClass = defaultBarBgClasses[index % defaultBarBgClasses.length];
+              const defaultBarClass = defaultBarBgClasses[index % defaultBarBgClasses.length];
+              const customBarColor = pillar.BarColor || pillar.barColor;
 
               return (
                 <div
                   key={index}
-                  className="shared-commit-pillar p-4 rounded-2xl text-center flex flex-col items-center cursor-default"
+                  className="flex flex-col items-center text-center p-2 sm:p-4 rounded-2xl bg-transparent transition-all duration-300 hover:translate-y-[-2px] cursor-default"
                 >
+                  {/* Centered pill bar */}
                   <div
-                    className={`shared-commit-pillar-bar w-10 h-[3px] rounded-sm mb-6 transition-all duration-400 ${barBgClass}`}
+                    className={`w-10 h-[3px] rounded-full mb-6 mx-auto transition-all duration-300 ${!customBarColor ? defaultBarClass : ""}`}
+                    style={customBarColor ? { backgroundColor: customBarColor } : undefined}
                   />
+
+                  {/* Centered uppercase heading */}
                   <Typography
                     variant="h5"
                     as="h3"
                     uppercase
                     weight="semibold"
-                    className="shared-commit-pillar-title text-midnight mb-3.5"
+                    className="text-midnight m-0 mb-3 text-center w-full"
                   >
                     {pillar.PillarText || `Pillar ${index + 1}`}
                   </Typography>
+
+                  {/* Centered body description */}
                   <Typography
                     variant="b3"
                     as="p"
-                    className="shared-commit-pillar-text text-midnight/80 m-0"
+                    className="text-midnight/75 m-0 text-center w-full leading-[1.7]"
                   >
                     {pillar.PillarDescription || ""}
                   </Typography>

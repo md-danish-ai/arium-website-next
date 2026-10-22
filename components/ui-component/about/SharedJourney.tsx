@@ -1,22 +1,6 @@
 import React from "react";
-
-interface SharedJourneyTimelineItem {
-  Title: string;
-  Content: string;
-  TitleColor?: string;
-  BadgeText?: string;
-}
-
-interface SharedJourneyProps {
-  Heading?: string;
-  Description?: string;
-  TimeCards?: SharedJourneyTimelineItem[];
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: any[];
-  };
-}
+import { Typography } from "@ui-element";
+import { SharedJourneyProps, SharedJourneyTimelineItem } from "./type";
 
 export default function SharedJourney({
   Heading,
@@ -49,95 +33,156 @@ export default function SharedJourney({
     (TimeCards && TimeCards.length > 0 ? TimeCards : null) ||
     (data?.cards && data.cards.length > 0 ? data.cards : null) ||
     defaultItems;
-  const items = rawCards.map((c: any) => ({
-    Title: c.Title || c.title || "",
-    Content: c.Content || c.description || c.body || "",
-    TitleColor: c.TitleColor || c.titleColor,
-    BadgeText: c.BadgeText || c.badge || c.badgeText,
-  }));
-  const accentTextClasses = [
-    "text-[#009E94]",
-    "text-[#7B6AB8]",
-    "text-[#C48E68]",
-    "text-[#009E94]",
+
+  const items: SharedJourneyTimelineItem[] = rawCards.map((c) => {
+    const item = c as Record<string, unknown>;
+    return {
+      Title: (item.Title || item.title || "") as string,
+      Content: (item.Content || item.description || item.body || item.content || "") as string,
+      TitleColor: (item.TitleColor || item.titleColor) as string | undefined,
+      BadgeText: (item.BadgeText || item.badge || item.badgeText) as string | undefined,
+    };
+  });
+
+  const accentStyles = [
+    {
+      text: "!text-[#009E94]",
+      hoverText: "group-hover:!text-[#00e8d9]",
+      dotBg: "bg-[#009E94]",
+    },
+    {
+      text: "!text-[#7B6AB8]",
+      hoverText: "group-hover:!text-[#c0b3ff]",
+      dotBg: "bg-[#7B6AB8]",
+    },
+    {
+      text: "!text-[#C48E68]",
+      hoverText: "group-hover:!text-[#ffdac8]",
+      dotBg: "bg-[#C48E68]",
+    },
+    {
+      text: "!text-[#009E94]",
+      hoverText: "group-hover:!text-[#00e8d9]",
+      dotBg: "bg-[#009E94]",
+    },
   ];
+
   const headingStr = Heading || data?.title || "A small cell leader from the beginning";
   const descStr = Description || data?.body;
 
   return (
     <section
       id="shared-journey"
-      className="section-light bg-white pt-20 pb-16 lg:pt-28 lg:pb-24 relative overflow-hidden z-[2]"
+      className="bg-white py-16 md:py-20 lg:py-28 relative overflow-hidden z-[2]"
     >
       <div className="container mx-auto px-6 relative z-[2]">
         {/* Header */}
-        <div className="section-header text-center mb-16 md:mb-20">
-          <h2 className="section-title reveal stagger-1 font-heading font-normal tracking-[0.06em] text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.45] text-midnight uppercase">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20">
+          <Typography
+            variant="h3"
+            as="h2"
+            uppercase
+            weight="light"
+            className="section-title reveal stagger-1 text-midnight m-0 mb-0"
+          >
             {headingStr}
-          </h2>
+          </Typography>
+
           {descStr ? (
             descStr.includes("<") && descStr.includes(">") ? (
               <div
-                className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed [&>p]:mb-0"
+                className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 leading-relaxed [&>p]:mb-0"
                 dangerouslySetInnerHTML={{ __html: descStr }}
               />
             ) : (
-              <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
+              <Typography
+                variant="b1"
+                as="p"
+                className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
+              >
                 {descStr}
-              </p>
+              </Typography>
             )
           ) : (
-            <p className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-5 text-midnight/80 text-base leading-relaxed">
+            <Typography
+              variant="b1"
+              as="p"
+              className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
+            >
               We&apos;ve been building small cell and DAS networks since the technology&apos;s
               inception, giving us a deep expertise that is embedded throughout our organization.
-            </p>
+            </Typography>
           )}
         </div>
 
         {/* Timeline */}
-        <div className="shared-journey-timeline reveal stagger-3 relative w-full max-w-[1200px] xl:max-w-[1420px] mx-auto pl-9 pr-4 md:px-0 mt-5 md:mt-0">
-          {/* Continuous horizontal line on desktop, vertical on mobile, hidden on tablet */}
+        <div className="relative w-full max-w-[520px] md:max-w-[1200px] xl:max-w-[1420px] mx-auto reveal stagger-3">
+          {/* Mobile vertical timeline line (< md) */}
           <div
-            className="shared-journey-tl-line absolute z-[1] block md:hidden min-[1080px]:block left-[12px] top-2 bottom-2 w-[2px] h-auto right-auto bg-gradient-to-b from-[#009e94] via-[#7b6ab8] to-[#009e94] min-[1080px]:top-[72px] min-[1080px]:left-0 min-[1080px]:right-0 min-[1080px]:w-auto min-[1080px]:h-[2px] min-[1080px]:bg-gradient-to-r min-[1080px]:from-[rgba(0,158,148,0.6)] min-[1080px]:via-[rgba(123,106,184,0.6)] min-[1080px]:to-[rgba(0,158,148,0.6)]"
+            className="md:hidden absolute left-[5px] top-2 bottom-3 w-[2px] z-[1]"
+            style={{
+              background:
+                "linear-gradient(to bottom, #009e94 0%, #7b6ab8 33%, #c48e68 66%, #009e94 100%)",
+            }}
             aria-hidden="true"
           />
-          {/* Milestone items */}
-          <div className="shared-journey-tl-items flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 min-[1080px]:grid-cols-4 min-[1080px]:gap-4 xl:gap-0 relative z-[2]">
+
+          {/* Continuous horizontal line on desktop between year and description (>= lg) */}
+          <div
+            className="hidden lg:block absolute top-[68px] left-0 right-0 h-[2px] bg-gradient-to-r from-[rgba(0,158,148,0.6)] via-[rgba(123,106,184,0.6)] to-[rgba(0,158,148,0.6)] z-[1]"
+            aria-hidden="true"
+          />
+
+          {/* Milestone items: vertical stack with line on mobile (< md), 2-col on tablet (md), 4-col on desktop (lg) */}
+          <div className="flex flex-col gap-9 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-4 xl:gap-6 relative z-[2] lg:[&:hover>div]:opacity-40 lg:[&>div:hover]:!opacity-100">
             {items.map((item, index) => {
-              const textClass = accentTextClasses[index % accentTextClasses.length];
-              const itemTitle = item.Title || (item as any).title || "";
-              const itemDesc =
-                item.Content ||
-                (item as any).content ||
-                (item as any).description ||
-                (item as any).body ||
-                "";
-              const itemBadge = item.BadgeText || (item as any).badge || (item as any).badgeText;
+              const accent = accentStyles[index % accentStyles.length];
+              const itemTitle = item.Title || "";
+              const itemDesc = item.Content || "";
+              const itemBadge = item.BadgeText;
 
               return (
                 <div
                   key={index}
-                  className="shared-journey-tl-item relative flex flex-col items-start text-left p-0 border-none bg-transparent shadow-none max-w-[320px] md:max-w-none md:bg-white/60 md:border md:border-[#162047]/[0.08] md:rounded-2xl md:p-6 min-[1080px]:bg-transparent min-[1080px]:border-transparent min-[1080px]:p-5 xl:p-5 min-[1080px]:rounded-2xl min-[1080px]:transition-all min-[1080px]:duration-300"
+                  className="group relative flex flex-col items-start text-left pl-8 md:pl-6 p-0 md:p-6 lg:p-5 rounded-2xl bg-transparent md:bg-white/70 border-0 md:border md:border-[#162047]/[0.08] shadow-none md:shadow-sm lg:bg-transparent lg:border-transparent lg:shadow-none lg:hover:bg-[#1a254b] lg:hover:bg-gradient-to-br lg:hover:from-[#1e2d5c] lg:hover:to-[#182350] lg:hover:border-white/10 lg:hover:shadow-[0_8px_28px_-6px_rgba(13,18,36,0.35)] transition-all duration-300 cursor-default"
                 >
-                  {/* Mobile bullet dot along the vertical timeline */}
+                  {/* Mobile milestone bullet dot (< md) */}
                   <span
-                    className="md:hidden absolute -left-[30px] top-1.5 w-3 h-3 rounded-full bg-[#009e94] border-2 border-white shadow-[0_0_0_3px_rgba(22,32,71,0.04)] z-[3]"
+                    className={`md:hidden absolute left-0 top-[6px] w-3 h-3 rounded-full border-2 border-white shadow-[0_0_0_1px_rgba(22,32,71,0.08)] z-10 ${accent.dotBg}`}
                     aria-hidden="true"
                   />
-                  <span
-                    className={`shared-journey-tl-year ${textClass} pb-1.5 md:pb-0 min-[1080px]:pb-5 font-heading font-extrabold text-[1.15rem] md:text-[1.15rem] min-[1080px]:text-[1.3rem] uppercase tracking-[0.06em]`}
-                  >
-                    <span>{itemTitle}</span>
+
+                  {/* Year & Badge Header */}
+                  <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2">
+                    <Typography
+                      variant="h5"
+                      as="span"
+                      uppercase
+                      weight="extrabold"
+                      className={`tracking-[0.06em] m-0 mb-0 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1 block ${accent.text} ${accent.hoverText}`}
+                    >
+                      {itemTitle}
+                    </Typography>
+
                     {itemBadge && (
-                      <span className="shared-journey-tl-badge">
-                        <span className="shared-journey-tl-badge-dot" aria-hidden="true" />
+                      <span className="whitespace-nowrap inline-flex items-center gap-1.5 text-[0.62rem] leading-none bg-[#daf3f2] text-[#009e94] px-2 py-1 rounded-full font-bold tracking-[0.06em] uppercase align-middle lg:group-hover:!bg-[#00e8d9]/25 lg:group-hover:!text-[#00e8d9] transition-all duration-300 -translate-y-0.5">
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-[#009e94] lg:group-hover:!bg-[#00e8d9] shrink-0 inline-block transition-colors duration-300"
+                          aria-hidden="true"
+                        />
                         {itemBadge}
                       </span>
                     )}
-                  </span>
-                  <p className="shared-journey-tl-desc pt-0 md:pt-3 text-[0.85rem] md:text-[0.85rem] min-[1080px]:text-[0.9rem] leading-[1.6] md:leading-[1.7] text-midnight/75 md:text-midnight/85">
+                  </div>
+
+                  {/* Description */}
+                  <Typography
+                    variant="b3"
+                    as="p"
+                    className="text-[#162047]/80 lg:group-hover:!text-white transition-all duration-300 lg:pt-5 lg:group-hover:-translate-y-1 m-0 leading-relaxed"
+                  >
                     {itemDesc}
-                  </p>
+                  </Typography>
                 </div>
               );
             })}

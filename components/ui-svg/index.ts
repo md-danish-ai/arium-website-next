@@ -1,3 +1,4 @@
+export { default as ConnectionIllustrationSvg } from "./ConnectionIllustrationSvg";
 export { default as DasSvg } from "./DasSvg";
 export { default as DoubleDownArrowSvg } from "./DoubleDownArrowSvg";
 export { default as DoubleRightArrowSvg } from "./DoubleRightArrowSvg";
@@ -8,6 +9,7 @@ export { default as LinkedInIconSvg } from "./LinkedInIconSvg";
 export { default as SmallCellsSvg } from "./SmallCellsSvg";
 export { default as TwitterXIconSvg } from "./TwitterXIconSvg";
 
+export * from "./ConnectionIllustrationSvg";
 export * from "./DasSvg";
 export * from "./DoubleDownArrowSvg";
 export * from "./DoubleRightArrowSvg";

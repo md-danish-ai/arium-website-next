@@ -1,22 +1,28 @@
 import React from "react";
+import type { Metadata } from "next";
 import SharedHero from "@ui-common/SharedHero";
-import SharedContentWithSideGraphic from "@ui-component/about/SharedContentWithSideGraphic";
-import SharedJourney from "@ui-component/about/SharedJourney";
-import SharedStatsCards from "@ui-component/about/SharedStatsCards";
-import SharedCommitments from "@ui-component/about/SharedCommitments";
-import SharedCulture from "@ui-component/about/SharedCulture";
+import {
+  SharedContentWithSideGraphic,
+  SharedJourney,
+  SharedStatsCards,
+  SharedCommitments,
+  SharedCulture,
+  AboutPageContent,
+  AboutSection,
+  AboutWidget,
+  AboutSectionEntry,
+  AboutSeoFields,
+} from "@ui-component/about";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
+import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 
 export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=about&populate[SeoFields][populate]=*"
   );
-  const seo = pageData?.data?.[0]?.SeoFields;
+  const seo: AboutSeoFields | undefined = pageData?.data?.[0]?.SeoFields;
 
   return {
     title: seo?.metaTitle || "About Us | A story rooted in connection",
@@ -28,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Arium Networks builds the small cell and DAS networks that power your most important connections.",
-      type: (seo?.ogType as any) || "website",
+      type: seo?.ogType === "article" ? "article" : "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -45,49 +51,50 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+function hasWidgetComponent(widgets: AboutWidget[], componentNames: string[]): boolean {
+  return widgets.some((w) =>
+    w.Sections?.some((s) => {
+      const comp = s.__component?.toLowerCase() || "";
+      return componentNames.some((name) => comp.includes(name.toLowerCase()));
+    })
+  );
+}
+
 export default async function AboutPage() {
   const [pageData, widgetData] = await Promise.all([
     fetchAPI(
       "/api/pages?filters[slug][$eq]=about&populate[heroMedia][populate]=*&populate[heroCtas][populate]=*&populate[sections][populate]=*"
     ),
-    fetchAPI(
-      "/api/pages?filters[slug][$eq]=about&populate[widgets][populate][Sections][populate]=*"
-    ),
+    fetchPageWidgets("about"),
   ]);
-  const aboutContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
-  const storyData = aboutContent?.sections?.find((section: any) => section.key === "Story");
-  const journeyData = aboutContent?.sections?.find((section: any) => section.key === "Journey");
-  const trustData = aboutContent?.sections?.find(
-    (section: any) => section.key === "Why our infrastructure"
-  );
-  const valuesData = aboutContent?.sections?.find((section: any) => section.key === "Values");
-  const cultureData = aboutContent?.sections?.find(
-    (section: any) => section.key === "We're Hiring"
-  );
 
-  const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
+  const aboutContent: AboutPageContent | undefined = pageData?.data?.[0];
+  const globalWidgets: AboutWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
-    sectionMap.push({
-      pos: widget.PositionNumber ?? 999,
-      key: `widget-${widget.id}`,
-      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />,
-    });
-  });
+  const getSection = (key: string): AboutSection | undefined =>
+    aboutContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  // 2. Add fallbacks for missing positions/widgets
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
-  if (!hasHeroWidget) {
-    sectionMap.push({
+  const storyData = getSection("Story");
+  const journeyData = getSection("Journey");
+  const trustData = getSection("Why our infrastructure");
+  const valuesData = getSection("Values");
+  const cultureData = getSection("We're Hiring");
+
+  const heroMediaUrl = aboutContent?.heroMedia?.[0]?.url;
+  const heroImageSrc = heroMediaUrl
+    ? GetStrapiMediaUrl(heroMediaUrl)
+    : "/assets/images/hero-about.png";
+
+  const fallbackSections: AboutSectionEntry[] = [
+    {
       pos: 0,
       key: "hero-fallback",
+      skip: globalWidgets.some((w) => w.PositionNumber === 0),
       el: (
         <SharedHero
           key="hero-fallback"
           id="about-hero"
-          imageSrc={aboutContent?.heroMedia?.[0]?.url || "/assets/images/hero-about.png"}
+          imageSrc={heroImageSrc}
           imageAlt={aboutContent?.heroMedia?.[0]?.alternativeText || "Chicago skyline"}
           heading={aboutContent?.heroTitle || "Building a more connected future"}
           intro={
@@ -96,73 +103,62 @@ export default async function AboutPage() {
           }
         />
       ),
-    });
-  }
-
-  const hasStoryWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some(
-      (s: any) =>
-        s.__component?.includes("content-with-side-graphic") ||
-        s.__component?.includes("contentwithsidegraphic")
-    )
-  );
-  if (!hasStoryWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 1,
       key: "story-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "content-with-side-graphic",
+        "contentwithsidegraphic",
+      ]),
       el: <SharedContentWithSideGraphic key="story-fallback" data={storyData} />,
-    });
-  }
-
-  const hasStorytellerWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some(
-      (s: any) =>
-        s.__component?.includes("journey") ||
-        s.__component?.includes("timeline") ||
-        s.__component?.includes("stats-card") ||
-        s.__component?.includes("statscards") ||
-        s.__component?.includes("commitments") ||
-        s.__component?.includes("commitment")
-    )
-  );
-  if (!hasStorytellerWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 2,
       key: "flow-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "journey",
+        "timeline",
+        "stats-card",
+        "statscards",
+        "commitments",
+        "commitment",
+      ]),
       el: (
         <div key="flow-fallback" className="about-storyteller-flow -mt-px border-none">
-          <div className="flow-bg-gradient flow-bg-1" aria-hidden="true"></div>
-          <div className="flow-bg-gradient flow-bg-2" aria-hidden="true"></div>
-          <div className="flow-bg-gradient flow-bg-3" aria-hidden="true"></div>
+          <div className="flow-bg-gradient flow-bg-1" aria-hidden="true" />
+          <div className="flow-bg-gradient flow-bg-2" aria-hidden="true" />
+          <div className="flow-bg-gradient flow-bg-3" aria-hidden="true" />
           <SharedJourney data={journeyData} />
           <SharedStatsCards data={trustData} />
           <SharedCommitments data={valuesData} />
         </div>
       ),
-    });
-  }
-
-  const hasCultureWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some(
-      (s: any) =>
-        s.__component?.includes("culture") ||
-        s.__component?.includes("people-global-section") ||
-        s.__component?.includes("value-proposition") ||
-        s.__component?.includes("pillar-highlights") ||
-        s.__component?.includes("core-values") ||
-        s.__component?.includes("feature-showcase")
-    )
-  );
-  if (!hasCultureWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 3,
       key: "culture-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "culture",
+        "people-global-section",
+        "value-proposition",
+        "pillar-highlights",
+        "core-values",
+        "feature-showcase",
+      ]),
       el: <SharedCulture key="culture-fallback" data={cultureData} />,
-    });
-  }
+    },
+  ];
 
-  // 3. Sort by pos and extract elements
-  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map((s) => s.el);
+  const widgetSections: AboutSectionEntry[] = globalWidgets.map((widget, idx) => ({
+    pos: typeof widget.PositionNumber === "number" ? widget.PositionNumber : 99,
+    key: `widget-${widget.id ?? idx}`,
+    el: <GlobalWidgetRenderer key={`widget-${widget.id ?? idx}`} widget={widget} />,
+  }));
 
-  return <>{sections}</>;
+  const renderedSections = [...fallbackSections.filter((s) => !s.skip), ...widgetSections]
+    .sort((a, b) => a.pos - b.pos)
+    .map((entry) => entry.el);
+
+  return <>{renderedSections}</>;
 }

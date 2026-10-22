@@ -1,37 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { Typography } from "@ui-element";
-
-interface CulturePillar {
-  Heading?: string;
-  Description?: string;
-  title?: string;
-  description?: string;
-  HeadingColor?: string;
-  DescriptionColor?: string;
-}
-
-interface SharedCultureProps {
-  Heading?: string;
-  Description?: string;
-  Pillarcard?: CulturePillar[];
-  CtaButton?: string;
-  CTALink?: string;
-  BgImage?:
-    | { data?: { attributes?: { url: string; alternativeText?: string } } }
-    | { url: string; alternativeText?: string }[]
-    | any;
-  BgGradient?: string;
-  HeadingColor?: string;
-  DescriptionColor?: string;
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: CulturePillar[];
-    cta?: { label: string; url: string }[];
-    media?: { url: string; alternativeText?: string }[];
-  };
-}
+import { GetStrapiMediaUrl } from "@lib/strapi";
+import { CulturePillar, SharedCultureProps } from "./type";
 
 export default function SharedCulture({
   Heading,
@@ -63,55 +34,86 @@ export default function SharedCulture({
     },
   ];
 
-  const pillars =
+  const rawPillars =
     (Pillarcard && Pillarcard.length > 0 ? Pillarcard : null) ||
     (data?.cards && data.cards.length > 0 ? data.cards : null) ||
     defaultPillars;
+  const pillars: CulturePillar[] = rawPillars.map((p) => {
+    const item = p as Record<string, unknown>;
+    return {
+      Heading: (item.Heading || item.title || "") as string,
+      Description: (item.Description || item.description || "") as string,
+      HeadingColor: item.HeadingColor as string | undefined,
+      DescriptionColor: item.DescriptionColor as string | undefined,
+    };
+  });
 
   // Extract media safely based on Strapi formats or fallback
   let mediaUrls = ["/assets/images/culture-bg-mobile.jpg", "/assets/images/culture-bg.jpg"];
   let mediaAlts = ["Team collaborating", "Team collaborating in modern office"];
 
-  if (data?.media && data.media.length > 0) {
+  const mediaList = Array.isArray(data?.media) ? (data.media as Record<string, unknown>[]) : null;
+  const bgObj =
+    typeof BgImage === "object" && BgImage !== null ? (BgImage as Record<string, unknown>) : null;
+
+  if (mediaList && mediaList.length > 0) {
+    const m0 = mediaList[0];
+    const m1 = mediaList.length > 1 ? mediaList[1] : m0;
     mediaUrls = [
-      data.media[0]?.url || mediaUrls[0],
-      data.media[1]?.url || data.media[0]?.url || mediaUrls[1],
+      typeof m0?.url === "string" ? m0.url : mediaUrls[0],
+      typeof m1?.url === "string" ? m1.url : mediaUrls[1],
     ];
     mediaAlts = [
-      data.media[0]?.alternativeText || mediaAlts[0],
-      data.media[1]?.alternativeText || data.media[0]?.alternativeText || mediaAlts[1],
+      typeof m0?.alternativeText === "string" ? m0.alternativeText : mediaAlts[0],
+      typeof m1?.alternativeText === "string" ? m1.alternativeText : mediaAlts[1],
     ];
-  } else if (BgImage) {
-    if (Array.isArray(BgImage) && BgImage.length > 0) {
+  } else if (bgObj) {
+    if (Array.isArray(bgObj) && bgObj.length > 0) {
+      const b0 = bgObj[0] as Record<string, unknown>;
+      const b1 = bgObj.length > 1 ? (bgObj[1] as Record<string, unknown>) : b0;
       mediaUrls = [
-        BgImage[0]?.url || mediaUrls[0],
-        BgImage[1]?.url || BgImage[0]?.url || mediaUrls[1],
+        typeof b0?.url === "string" ? b0.url : mediaUrls[0],
+        typeof b1?.url === "string" ? b1.url : mediaUrls[1],
       ];
       mediaAlts = [
-        BgImage[0]?.alternativeText || mediaAlts[0],
-        BgImage[1]?.alternativeText || BgImage[0]?.alternativeText || mediaAlts[1],
+        typeof b0?.alternativeText === "string" ? b0.alternativeText : mediaAlts[0],
+        typeof b1?.alternativeText === "string" ? b1.alternativeText : mediaAlts[1],
       ];
-    } else if (BgImage.data) {
-      const isArray = Array.isArray(BgImage.data);
-      const firstMedia = isArray ? BgImage.data[0] : BgImage.data;
-      const secondMedia = isArray && BgImage.data.length > 1 ? BgImage.data[1] : firstMedia;
+    } else if (bgObj.data) {
+      const isArray = Array.isArray(bgObj.data);
+      const dataArr = isArray
+        ? (bgObj.data as Record<string, unknown>[])
+        : [bgObj.data as Record<string, unknown>];
+      const firstMedia = dataArr[0];
+      const secondMedia = dataArr.length > 1 ? dataArr[1] : firstMedia;
+
+      const fAttrs = firstMedia?.attributes as Record<string, unknown> | undefined;
+      const sAttrs = secondMedia?.attributes as Record<string, unknown> | undefined;
 
       mediaUrls = [
-        firstMedia?.attributes?.url || firstMedia?.url || mediaUrls[0],
-        secondMedia?.attributes?.url || secondMedia?.url || mediaUrls[1],
+        ((typeof fAttrs?.url === "string" ? fAttrs.url : firstMedia?.url) as string) ||
+          mediaUrls[0],
+        ((typeof sAttrs?.url === "string" ? sAttrs.url : secondMedia?.url) as string) ||
+          mediaUrls[1],
       ];
       mediaAlts = [
-        firstMedia?.attributes?.alternativeText || firstMedia?.alternativeText || mediaAlts[0],
-        secondMedia?.attributes?.alternativeText || secondMedia?.alternativeText || mediaAlts[1],
+        ((typeof fAttrs?.alternativeText === "string"
+          ? fAttrs.alternativeText
+          : firstMedia?.alternativeText) as string) || mediaAlts[0],
+        ((typeof sAttrs?.alternativeText === "string"
+          ? sAttrs.alternativeText
+          : secondMedia?.alternativeText) as string) || mediaAlts[1],
       ];
-    } else if (BgImage.url) {
-      mediaUrls = [BgImage.url, BgImage.url];
+    } else if (typeof bgObj.url === "string") {
+      mediaUrls = [bgObj.url, bgObj.url];
       mediaAlts = [
-        BgImage.alternativeText || mediaAlts[0],
-        BgImage.alternativeText || mediaAlts[1],
+        typeof bgObj.alternativeText === "string" ? bgObj.alternativeText : mediaAlts[0],
+        typeof bgObj.alternativeText === "string" ? bgObj.alternativeText : mediaAlts[1],
       ];
     }
   }
+
+  mediaUrls = mediaUrls.map((url) => (url.startsWith("/uploads") ? GetStrapiMediaUrl(url) : url));
 
   const headingText = Heading || data?.title || "Help Us Shape the Future of Connectivity";
   const descText = Description || data?.body;
