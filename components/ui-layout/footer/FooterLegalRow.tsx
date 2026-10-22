@@ -13,33 +13,23 @@ export function FooterLegalRow({ layoutData }: FooterLegalRowProps) {
   const hasDynamicLinks = Boolean(dynamicLinks && dynamicLinks.length > 0);
 
   const linkClass =
-    "relative inline-block text-white/75 text-[0.78rem] whitespace-nowrap no-underline hover:text-white transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full";
+    "relative inline-block text-white/75 hover:text-white text-[0.78rem] font-body whitespace-nowrap no-underline transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full";
+
+  const linksToRender = hasDynamicLinks && dynamicLinks ? dynamicLinks : DEFAULT_LEGAL_LINKS;
 
   return (
-    <div className="flex flex-wrap items-center justify-center min-[601px]:justify-start gap-x-[clamp(20px,4vw,32px)] md:gap-x-9 gap-y-3 pt-4.5 md:pt-6 text-center min-[601px]:text-left">
-      {hasDynamicLinks && dynamicLinks
-        ? dynamicLinks.map((link: RawFooterLink, idx: number) => (
-            <a
-              key={link.id ?? idx}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={linkClass}
-            >
-              {link.name}
-            </a>
-          ))
-        : DEFAULT_LEGAL_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={linkClass}
-            >
-              {link.name}
-            </a>
-          ))}
+    <div className="flex flex-wrap items-center justify-center min-[601px]:justify-start gap-x-5 md:gap-x-7 gap-y-2.5 pt-1 text-center min-[601px]:text-left">
+      {linksToRender.map((link: RawFooterLink, idx: number) => (
+        <a
+          key={link.id ?? link.name ?? idx}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {link.name}
+        </a>
+      ))}
     </div>
   );
 }

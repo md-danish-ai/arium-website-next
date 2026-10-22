@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FooterLayoutData, RawSocialLink } from "./footer-data";
-import { FacebookIconSvg, LinkedInIconSvg, TwitterXIconSvg } from "./FooterSvgs";
+import { FacebookIconSvg, LinkedInIconSvg, TwitterXIconSvg } from "@ui-svg";
 
 interface FooterSocialRowProps {
   layoutData?: FooterLayoutData | null;
@@ -12,11 +12,14 @@ export function FooterSocialRow({ layoutData }: FooterSocialRowProps) {
     (link) => link.url === "/contact"
   );
 
+  const socialLinkClass =
+    "relative flex items-center p-1 -m-1 text-white hover:text-teal transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full";
+
   return (
-    <div className="flex items-center justify-between pb-6 w-full px-5 min-[601px]:px-0">
+    <div className="flex items-center justify-between w-full pb-1">
       <Link
         href="/contact"
-        className="relative inline-block text-white text-[0.95rem] no-underline hover:text-teal transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full"
+        className="relative inline-block text-white text-[1rem] font-body no-underline hover:text-teal transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full"
       >
         {contactLink?.name || "Contact Us"}
       </Link>
@@ -30,7 +33,7 @@ export function FooterSocialRow({ layoutData }: FooterSocialRowProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Arium ${social.Platform || "Social"}`}
-              className="text-white flex p-1 -m-1 hover:text-teal transition-colors"
+              className={socialLinkClass}
             >
               {social.icon ? (
                 <span
@@ -47,7 +50,7 @@ export function FooterSocialRow({ layoutData }: FooterSocialRowProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Arium Facebook"
-              className="text-white flex p-1 -m-1 hover:text-teal transition-colors"
+              className={socialLinkClass}
             >
               <FacebookIconSvg />
             </a>
@@ -56,7 +59,7 @@ export function FooterSocialRow({ layoutData }: FooterSocialRowProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Arium LinkedIn"
-              className="text-white flex p-1 -m-1 hover:text-teal transition-colors"
+              className={socialLinkClass}
             >
               <LinkedInIconSvg />
             </a>
@@ -65,7 +68,7 @@ export function FooterSocialRow({ layoutData }: FooterSocialRowProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Arium X"
-              className="text-white flex p-1 -m-1 hover:text-teal transition-colors"
+              className={socialLinkClass}
             >
               <TwitterXIconSvg />
             </a>
