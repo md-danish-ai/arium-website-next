@@ -3,8 +3,35 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { Typography } from "@ui-element";
+import { Typography, StatCard } from "@ui-element";
 import { StatsWithImageProps, StatItem } from "./type";
+
+const DEFAULT_CARD_BG_COLORS = ["#898cf3", "#bcf6f2", "#ffffff", "#ffffca", "#ffdac8"];
+
+const COLOR_MAP: Record<string, string> = {
+  purple: "#898cf3",
+  teal: "#bcf6f2",
+  white: "#ffffff",
+  yellow: "#ffffca",
+  orange: "#ffdac8",
+};
+
+const resolveBgColor = (color?: string, index: number = 0): string => {
+  if (!color) return DEFAULT_CARD_BG_COLORS[index % DEFAULT_CARD_BG_COLORS.length];
+  const normalized = color.toLowerCase().replace(/[^a-z]/g, "");
+  return COLOR_MAP[normalized] || color;
+};
+
+const DEFAULT_STATS: StatItem[] = [
+  { Number: "100K+", Description: "Small cells on air or under contract", BgColor: "#898cf3" },
+  { Number: "300+", Description: "DAS-connected venues and buildings", BgColor: "#bcf6f2" },
+  { Number: "700+", Description: "Supported municipal networks", BgColor: "#ffffff" },
+  { Number: "15+", Description: "Years of expertise", BgColor: "#ffffca" },
+  { Number: "24/7", Description: "Monitoring via the NOC", BgColor: "#ffdac8" },
+];
+
+const DEFAULT_MAP_IMAGE = "/assets/images/us-dot-map-faint.svg";
+const DEFAULT_HEADING = "Scale and experience to match your ambition";
 
 export default function StatsWithImage({
   heading,
@@ -77,7 +104,7 @@ export default function StatsWithImage({
     imgObj?.data?.attributes?.url ||
     imgObj?.data?.url ||
     imgObj?.attributes?.url ||
-    "/assets/images/us-dot-map-faint.svg";
+    DEFAULT_MAP_IMAGE;
   const absoluteImageUrl = imageUrl.startsWith("/assets/") ? imageUrl : GetStrapiMediaUrl(imageUrl);
   const altText =
     imgObj?.alternativeText ||
@@ -86,103 +113,55 @@ export default function StatsWithImage({
     heading ||
     "Stats graphic";
 
-  const defaultStats: StatItem[] = [
-    { Number: "100K+", Description: "Small cells on air or under contract", BgColor: "#898cf3" },
-    { Number: "300+", Description: "DAS-connected venues and buildings", BgColor: "#bcf6f2" },
-    { Number: "700+", Description: "Supported municipal networks", BgColor: "#ffffff" },
-    { Number: "15+", Description: "Years of expertise", BgColor: "#ffffca" },
-    { Number: "24/7", Description: "Monitoring via the NOC", BgColor: "#ffdac8" },
-  ];
-
-  const cardsToRender = statscards && statscards.length > 0 ? statscards : defaultStats;
+  const cardsToRender = statscards && statscards.length > 0 ? statscards : DEFAULT_STATS;
 
   return (
     <section
-      className="shared-swi-section relative overflow-hidden pt-[72px] pb-[120px] bg-midnight"
+      className="shared-swi-section relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24 lg:pt-[72px] lg:pb-[120px] bg-midnight"
       ref={sectionRef}
     >
       <div className="shared-swi-bg-gradient absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
 
-      <div className="container mx-auto px-6 relative z-[1]">
-        <div className="shared-swi-header mb-12 md:mb-16 text-center reveal">
+      <div className="container mx-auto px-4 sm:px-6 relative z-[1]">
+        <div className="shared-swi-header mb-8 md:mb-12 lg:mb-16 text-center reveal">
           <Typography
             variant="h3"
             uppercase
-            className="shared-swi-title text-center text-white max-w-full"
+            className="shared-swi-title text-center text-white max-w-full m-0"
             style={{ color: HeadingColor || undefined }}
           >
-            {heading || "Scale and experience to match your ambition"}
+            {heading || DEFAULT_HEADING}
           </Typography>
         </div>
 
         <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
-          <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 h-full reveal stagger-1">
+          <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 sm:gap-3.5 md:gap-4 w-full h-full reveal stagger-1">
             {cardsToRender.map((stat: StatItem, index: number, array: StatItem[]) => {
-              const numStr = stat.Number || stat.value || "0";
-              const targetMatch = numStr.match(/[\d.]+/);
-              const target = targetMatch ? parseFloat(targetMatch[0]) : 0;
-              const suffix = numStr.replace(target.toString(), "").trim();
-              const descStr = stat.Description || stat.label || "";
-
-              const defaultColors = [
-                "bg-[#898cf3]",
-                "bg-[#bcf6f2]",
-                "bg-white",
-                "bg-[#ffffca]",
-                "bg-[#ffdac8]",
-              ];
-              let colorClass = defaultColors[index % defaultColors.length];
-
-              if (stat.BgColor) {
-                const mappedColor = stat.BgColor.toLowerCase().replace(/[^a-z]/g, "");
-                if (mappedColor.includes("purple")) colorClass = "bg-[#898cf3]";
-                else if (mappedColor.includes("teal")) colorClass = "bg-[#bcf6f2]";
-                else if (mappedColor.includes("white")) colorClass = "bg-white";
-                else if (mappedColor.includes("yellow")) colorClass = "bg-[#ffffca]";
-                else if (mappedColor.includes("orange")) colorClass = "bg-[#ffdac8]";
-              }
-
               const isLastSpan2 = index === array.length - 1 && array.length % 2 !== 0;
 
               return (
-                <div
-                  className={`shared-swi-bento-card rounded-2xl p-4 md:p-5 min-h-[136px] flex flex-col justify-center gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl ${!stat.BgColor ? colorClass : ""} ${isLastSpan2 ? "col-span-2 min-h-[110px] items-center text-center" : ""}`}
-                  style={{
-                    backgroundColor: stat.BgColor || undefined,
-                  }}
+                <StatCard
                   key={index}
-                >
-                  <div>
-                    <Typography
-                      variant="stat"
-                      className="shared-swi-number counter text-midnight"
-                      style={{ color: stat.NumberColor || undefined }}
-                      data-target={target}
-                      data-suffix={suffix}
-                    >
-                      0
-                    </Typography>
-                  </div>
-                  <Typography
-                    variant="b4"
-                    className="text-midnight whitespace-nowrap m-0 font-medium normal-case"
-                    style={{ color: stat.DescriptionColor || undefined }}
-                  >
-                    {descStr}
-                  </Typography>
-                </div>
+                  number={stat.Number || stat.value || "0"}
+                  description={stat.Description || stat.label || ""}
+                  bgColor={resolveBgColor(stat.BgColor, index)}
+                  numberColor={stat.NumberColor}
+                  descriptionColor={stat.DescriptionColor}
+                  align={isLastSpan2 ? "center" : "left"}
+                  className={isLastSpan2 ? "col-span-2" : ""}
+                />
               );
             })}
           </div>
 
-          <div className="shared-swi-map-container flex items-center justify-center h-full w-full reveal stagger-2">
+          <div className="shared-swi-map-container flex items-center justify-center h-full w-full reveal stagger-2 mt-4 lg:mt-0">
             <Image
               src={absoluteImageUrl}
               alt={altText}
               width={800}
               height={480}
               unoptimized
-              className="w-full max-h-[480px] object-contain object-center h-auto"
+              className="w-full max-w-[650px] lg:max-w-none max-h-[340px] md:max-h-[420px] lg:max-h-[480px] object-contain object-center h-auto mx-auto"
             />
           </div>
         </div>

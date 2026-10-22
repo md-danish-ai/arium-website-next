@@ -80,8 +80,8 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   // B4: Caption / Category Tag / Form Label (Fluid 11px -> 12px, tracking 0.08em, leading-none)
   b4: "font-body tracking-[0.08em] text-[clamp(0.7rem,0.8vw,0.75rem)] leading-none",
 
-  // Stat: Big KPI Numbers (.sol-kpi-num: Fluid 35px -> 58px, tracking -0.03em, leading-none)
-  stat: "font-heading tracking-[-0.03em] text-[clamp(2.2rem,4.5vw,3.6rem)] leading-none",
+  // Stat: Big KPI Numbers (.stats-number / .sol-kpi-num: Fluid 32px mobile -> 44.8px desktop, tracking -0.03em, leading-none)
+  stat: "font-heading tracking-[-0.03em] text-[clamp(2rem,1.2rem+1.8vw,2.8rem)] leading-none",
 
   // Button: CTA Button Label (Fluid 13px -> 14px, tracking 0.1em, leading-none)
   button: "font-heading tracking-[0.1em] text-[clamp(0.8rem,1vw,0.85rem)] leading-none",
