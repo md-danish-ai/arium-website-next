@@ -40,7 +40,7 @@
   }
 }
 
-/* ulmGrotesk font-face declarations */
+/* UlmGrotesk Font Face Declarations */
 @font-face {
   font-family: ulmGrotesk;
   src: url("/assets/fonts/ulmGrotesk-300.otf") format("opentype");
@@ -81,9 +81,7 @@
   font-style: normal;
 }
 
-/* ═══════════════════════════════════════════ */
-/* DESIGN SYSTEM VARIABLES                       */
-/* ═══════════════════════════════════════════ */
+/* Design System Variables */
 :root {
   /* Primary Brand Colors */
   --color-midnight-blue: #162047;
@@ -94,15 +92,11 @@
 
   /* Approved Secondary Colors */
   --color-secondary-teal: #bcf6f2;
-  /* PMS 317C */
   --color-secondary-purple: #d2c7ff;
-  /* PMS 2635C */
   --color-secondary-yellow: #ffffca;
-  /* PMS 600C */
   --color-secondary-peach: #ffdac8;
-  /* PMS 475C */
   --color-secondary-grey: #ededee;
-  /* PMS CG2C */
+  
 
   /* Derived / utility */
   --color-orange-40-d: rgba(245, 166, 35, 0.4);
@@ -129,18 +123,7 @@
   --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* ═══════════════════════════════════════════════════════════════════
-     UNIFIED 1-FRAME LAYOUT SYSTEM
-     One shared frame for header, every section and footer so that the
-     logo, section content and footer always start/end on the same line
-     at every viewport width.
-     --frame       : max content width (inside the gutters)
-     --gutter      : side padding — fluid, proportional to the viewport.
-                     Reference = MacBook Pro 14" (1512px wide): 80px gutters,
-                     1352px content. 80 / 1512 = 5.29vw, never below 24px.
-     --frame-box   : total box width (content + both gutters)
-     --frame-edge  : distance from viewport edge to content edge
-     ═══════════════════════════════════════════════════════════════════ */
+  /* Unified Frame Layout System */
   --frame: 2200px;
   --gutter: max(24px, 5.29vw);
   --frame-box: calc(var(--frame) + (2 * var(--gutter)));
@@ -155,9 +138,7 @@
   }
 }
 
-/* ═══════════════════════════════════════════ */
-/* GLOBAL RESET & BASE                           */
-/* ═══════════════════════════════════════════ */
+/* Global Reset & Base Styles */
 *,
 *::before,
 *::after {
@@ -203,9 +184,7 @@ svg {
   display: block;
 }
 
-/* ═══════════════════════════════════════════ */
-/* TYPOGRAPHY                                    */
-/* ═══════════════════════════════════════════ */
+/* Base Typography */
 h1,
 h2,
 h3,
@@ -234,9 +213,7 @@ p {
   display: inline-block;
 }
 
-/* ═══════════════════════════════════════════ */
-/* UTILITY CLASSES                               */
-/* ═══════════════════════════════════════════ */
+/* Utility Classes */
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -348,9 +325,7 @@ p {
   top: 0;
 }
 
-/* ═══════════════════════════════════════════ */
-/* SUBPAGE HEADER (Tier 2/3 pages)            */
-/* ═══════════════════════════════════════════ */
+/* Subpage Header (Tier 2 & 3 Pages) */
 .subpage-header {
   background: #d2c7ff;
   color: var(--color-midnight-blue);
@@ -482,9 +457,7 @@ p {
   }
 }
 
-/* ═══════════════════════════════════════════ */
-/* BUTTONS                                       */
-/* ═══════════════════════════════════════════ */
+/* Button Components */
 .btn-primary,
 .btn-secondary,
 .btn-outline {
@@ -578,9 +551,7 @@ p {
   }
 }
 
-
-
-
+/* Section Header Typography */
 .section-eyebrow {
   color: var(--color-sky-teal);
   font-family: var(--font-heading);
@@ -602,9 +573,7 @@ p {
   margin-bottom: var(--spacing-4);
 }
 
-/* ═══════════════════════════════════════════ */
-/* INFRASTRUCTURE SECTION                      */
-/* ═══════════════════════════════════════════ */
+/* Infrastructure Section */
 .infra-section {
   background: var(--color-midnight-blue);
   padding: 100px 0;
@@ -659,7 +628,7 @@ p {
   transform: translateY(-6px);
 }
 
-/* ── Unified Card: illustration + text together ── */
+/* Infrastructure Panel Card */
 .infra-panel-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(0, 232, 217, 0.12);
@@ -789,17 +758,7 @@ p {
   box-shadow: 0 0 20px rgba(0, 232, 217, 0.15);
 }
 
-
-
-
-
-
-
-
-
-/* ═══════════════════════════════════════════ */
-/* ANIMATIONS (SCROLL REVEAL)                    */
-/* ═══════════════════════════════════════════ */
+/* Scroll Reveal Animations */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -876,9 +835,7 @@ p {
   transition-delay: 0.3s;
 }
 
-/* ═══════════════════════════════════════════ */
-/* PARTICLES                                     */
-/* ═══════════════════════════════════════════ */
+/* Floating Particles */
 .particle {
   position: absolute;
   background-color: var(--color-sky-teal);
@@ -908,109 +865,6 @@ p {
   }
 }
 
-
-
-/* ═══════════════════════════════════════════ */
-/* FOOTER BACKGROUND IMAGE & SPACING             */
-/* ═══════════════════════════════════════════ */
-.footer {
-  position: relative;
-  overflow: hidden;
-  padding: 0 !important;
-  min-height: 280px;
-  display: flex;
-  align-items: center;
-}
-
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("/assets/footer_art.png") center/cover no-repeat;
-  opacity: 0.15;
-  mix-blend-mode: lighten;
-  z-index: 0;
-  /* Gradient overlay baked into the mask */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 1) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 1) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-}
-
-.footer .container {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-}
-
-/* ═══════════════════════════════════════════ */
-/* FOOTER LINK HOVER STATES                      */
-/* ═══════════════════════════════════════════ */
-.footer-col .footer-links a:hover {
-  color: var(--color-sky-teal) !important;
-}
-
-.footer-social a:hover {
-  color: var(--color-sky-teal) !important;
-}
-
-/* Footer Link Hover Underline */
-.footer a {
-  position: relative;
-  text-decoration: none;
-}
-
-.footer a::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--color-sky-teal);
-  transition: width 0.3s ease;
-}
-
-.footer a:hover::after {
-  width: 100%;
-}
-
-.footer a[aria-label="Arium Networks"]::after,
-.footer-logo::after,
-.footer-social-link::after {
-  display: none;
-}
-
-/* Footer Copyright Spacing & Alignment */
-.footer-copyright-wrap {
-  margin-top: 3.5rem !important;
-  padding-top: 0.75rem !important;
-  width: 100%;
-}
-
-.footer-copyright {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-@media (max-width: 600px) {
-  .footer-copyright-wrap {
-    margin-top: 2rem !important;
-    padding-top: 0.5rem !important;
-  }
-}
-
 /* Page Load Fade-In */
 body {
   animation: page-fade-in 0.4s ease;
@@ -1026,16 +880,12 @@ body {
   }
 }
 
-/* CTA SECTION                                   */
-/* ═══════════════════════════════════════════ */
+/* CTA Section */
 .cta {
   position: relative;
   overflow: hidden;
   background: #d2c7ff;
 }
-
-/* Dark background only on home page CTA */
-/* (removed — keeping lavender to match original site) */
 
 .cta::before {
   display: none;
@@ -1120,7 +970,6 @@ body {
   object-position: right center;
 }
 
-
 .section-light {
   color: var(--color-midnight-blue);
 }
@@ -1131,8 +980,6 @@ body {
   font-weight: 500;
   letter-spacing: -0.02em;
 }
-
-
 
 .section-light .section-description {
   color: rgba(22, 32, 71, 0.85);
@@ -1149,18 +996,14 @@ body {
   color: #162047;
 }
 
-/* ───────────────────────────────────────── */
-/*  2. SECTION SPACING & SEPARATION          */
-/* ───────────────────────────────────────── */
+/* Section Spacing & Separation */
 
 /* Hairline divider between adjacent light sections */
 .section-light + .section-light {
   border-top: 1px solid rgba(22, 32, 71, 0.06);
 }
 
-/* ───────────────────────────────────────── */
-/*  3. AMBIENT NOISE REDUCTION               */
-/* ───────────────────────────────────────── */
+/* Ambient Noise Reduction */
 
 /* Grid pattern — barely visible on light */
 .section-light .infra-grid-bg {
@@ -1173,9 +1016,7 @@ body {
   display: none !important;
 }
 
-/* ───────────────────────────────────────── */
-/*  4. ICON CONTAINERS — Tinted, Premium     */
-/* ───────────────────────────────────────── */
+/* Process Icon Containers */
 
 .section-light .process-icon {
   background: linear-gradient(135deg, rgba(0, 232, 217, 0.08) 0%, rgba(0, 232, 217, 0.03) 100%);
@@ -1196,10 +1037,7 @@ body {
   stroke-width: 1.8px;
 }
 
-/* ───────────────────────────────────────── */
-/*  5. ILLUSTRATIONS — Supportive, Not Hero  */
-/*  Toned down so content leads              */
-/* ───────────────────────────────────────── */
+/* Supportive Section Illustrations */
 
 .section-light .wim-art-img {
   filter: drop-shadow(0 2px 8px rgba(22, 32, 71, 0.06)) saturate(0.6) brightness(1.08);
@@ -1210,15 +1048,9 @@ body {
   opacity: 0.15;
 }
 
-/* ═══════════════════════════════════════════════════════════ */
-/*  COMPONENT PERSONALITIES                                    */
-/* ═══════════════════════════════════════════════════════════ */
+/* Component Surface Themes */
 
-/* ───────────────────────────────────────── */
-/*  A. ELEVATED SURFACE CARDS                */
-/*  Standard card — visible at rest, clear   */
-/*  interactive feedback on hover            */
-/* ───────────────────────────────────────── */
+/* Elevated Surface Cards */
 
 .section-light .card,
 .section-light .infra-panel-card {
@@ -1264,12 +1096,8 @@ body {
   /* Fully opaque navy on hover */
 }
 
-/* ───────────────────────────────────────── */
-/*  D. TIMELINE ITEMS — Understated but      */
-/*  clear with depth on hover                */
-/* ───────────────────────────────────────── */
+/* Journey Timeline */
 /*  D. JOURNEY TIMELINE                      */
-/* ───────────────────────────────────────── */
 
 #journey,
 #shared-journey,
@@ -1497,12 +1325,7 @@ body {
   transform: translateY(-6px);
 }
 
-
-
-/* ───────────────────────────────────────── */
-/*  E. COMMITMENT SECTION                    */
-/*  Panoramic image is the hero element      */
-/* ───────────────────────────────────────── */
+/* Commitments Section */
 
 .section-light .commit-hero {
   border: 1px solid rgba(22, 32, 71, 0.06);
@@ -1518,21 +1341,13 @@ body {
   color: #162047;
 }
 
-
-
-
-
-/* ───────────────────────────────────────── */
-/*  QUOTE DECORATIONS                        */
-/* ───────────────────────────────────────── */
+/* Quote Decorations */
 
 .section-light svg[fill="rgba(0,232,217,0.15)"] {
   fill: rgba(22, 32, 71, 0.03);
 }
 
-/* ───────────────────────────────────────── */
-/*  INDUSTRY CARDS (vision.html)             */
-/* ───────────────────────────────────────── */
+/* Industry Cards */
 
 .section-light [style*="background: rgba(255,255,255,0.04)"],
 .section-light [style*="background: rgba(22,32,71,0.03)"],
@@ -1554,30 +1369,13 @@ body {
   border-color: rgba(0, 232, 217, 0.2) !important;
 }
 
-/* Page Load Fade-In */
-body {
-  animation: page-fade-in 0.4s ease;
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 @media (max-width: 1079px) and (min-width: 780px) {
   .shared-journey-timeline .shared-journey-tl-desc {
     padding-top: 0px !important;
   }
 }
 
-/* ==================================================== */
-/* GLOBAL MOBILE TYPOGRAPHY & LAYOUT UNIFICATION (max-width: 600px) */
-/* ==================================================== */
+/* Mobile Typography & Layout (max-width: 600px) */
 @media (max-width: 600px) {
   /* 0. Main Subpage Hero H1 Titles (1.5rem on mobile for better text wrap and vertical space) */
   .subpage-title,
@@ -1649,7 +1447,6 @@ body {
 
   /* Commitments Hero Image Container Sizing is handled on page level */
 
-
   /* Testimonials section — Mobile (matches V6.1) */
   #testimonials .section-title {
     font-size: 1.2rem !important;
@@ -1705,7 +1502,6 @@ body {
   }
 }
 
-
 /* User typography size increases on mobile viewports */
 @media (max-width: 768px) {
   #infrastructure .section-description {
@@ -1757,18 +1553,14 @@ body {
     /* Render behind section content */
   }
 
-
-
   /* Hide the horizontal fade gradient overlay div on mobile viewports */
   .subpage-cta-section .cta-bg-illustration div {
     display: none !important;
   }
 
-
 }
 
-
-/* ACCESSIBILITY: REDUCED MOTION                */
+/* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1813,9 +1605,7 @@ body {
   }
 }
 
-
-
-/* === SHARED STORYTELLER AMBIENT FLOW === */
+/* Shared Storyteller Ambient Flow Background */
 .flow-bg-gradient {
   position: absolute;
   border-radius: 50%;
@@ -1896,9 +1686,7 @@ body {
   }
 }
 
-/* ═══════════════════════════════════════════ */
-/* PROCESS TAB NAVIGATION & STYLES (MAIN)      */
-/* ═══════════════════════════════════════════ */
+/* Process Tab Navigation & Phase Slider */
 .process-tabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2090,9 +1878,7 @@ body {
   display: none;
 }
 
-/* ═══════════════════════════════════════════ */
-/* PROCESS STEP CARDS                          */
-/* ═══════════════════════════════════════════ */
+/* Process Step Cards */
 .process-step-card {
   background: #fbcbb5;
   border-radius: 20px;

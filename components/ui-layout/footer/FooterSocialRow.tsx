@@ -13,10 +13,10 @@ export function FooterSocialRow({ layoutData }: FooterSocialRowProps) {
   );
 
   return (
-    <div className="footer-social-row flex items-center justify-between pb-6 w-full px-5 min-[601px]:px-0">
+    <div className="flex items-center justify-between pb-6 w-full px-5 min-[601px]:px-0">
       <Link
         href="/contact"
-        className="text-white text-[0.95rem] no-underline hover:text-teal transition-colors"
+        className="relative inline-block text-white text-[0.95rem] no-underline hover:text-teal transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full"
       >
         {contactLink?.name || "Contact Us"}
       </Link>
