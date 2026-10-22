@@ -3,13 +3,12 @@ import { SharedHero } from "@ui-common";
 import { SectionRendererProps, GetStrapiMediaUrl } from "./helper";
 
 export default function HeroBannerRenderer({ section, index }: SectionRendererProps) {
-  const heading = section.heroTitle || section.bannerText || section.heading;
-  const intro = section.heroDescription || section.intro;
-  const mediaObj = section.heroMedia?.[0] || section.media || section.bannerImage;
-  const mediaUrl = GetStrapiMediaUrl(mediaObj?.url);
+  const heading = section.hero_title;
+  const intro = section.hero_description;
+  const mediaObj = section.hero_media?.[0];
+  const mediaUrl = mediaObj?.url ? GetStrapiMediaUrl(mediaObj.url) : undefined;
   const isVideo = mediaObj?.mime?.startsWith("video/");
-  const objectPosition =
-    section.objectPosition || section.ObjectPosition || section.object_position;
+  const objectPosition = section.object_position;
 
   return (
     <SharedHero
@@ -20,11 +19,11 @@ export default function HeroBannerRenderer({ section, index }: SectionRendererPr
       imageSrc={!isVideo ? mediaUrl : undefined}
       videoSrc={isVideo ? mediaUrl : undefined}
       imageAlt={mediaObj?.alternativeText || heading || "Hero image"}
-      ctaText={section.heroCtasLabel || section.ctaText}
-      ctaLink={section.heroCtasUrl || section.ctaLink}
+      ctaText={section.hero_CTA_label}
+      ctaLink={section.hero_CTA_url}
       isExternalLink={false}
-      maxWidthTitle={section.MaxWidthTitle}
-      maxWidthDescription={section.MaxWidthDescription}
+      maxWidthTitle={section.max_width_title}
+      maxWidthDescription={section.max_width_description}
       objectPosition={objectPosition}
     />
   );
