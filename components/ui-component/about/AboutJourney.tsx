@@ -78,7 +78,7 @@ export default function AboutJourney({ Heading, Description, TimeCards, data }: 
             as="h2"
             uppercase
             weight="light"
-            className="section-title reveal stagger-1 text-midnight m-0 mb-0"
+            className="section-title reveal stagger-1 text-midnight m-0 mb-0 min-[1080px]:text-[clamp(1.9rem,0.5rem+2.2vw,2.4rem)]"
           >
             {headingStr}
           </Typography>

@@ -87,7 +87,7 @@ export default function InnerPageHero({
 
       {parentLabel && (
         <nav
-          className="reveal absolute top-[140px] inset-x-0 z-[2] px-[clamp(24px,4vw,64px)]"
+          className="reveal absolute top-[140px] inset-x-0 z-[2] px-[clamp(24px,4vw,64px)] min-[1080px]:px-[var(--frame-edge)]"
           aria-label="Breadcrumb"
         >
           <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-[0.78rem] tracking-[0.04em]">

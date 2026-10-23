@@ -36,7 +36,7 @@ export default function DetailedCard({
 
   return (
     <div
-      className={`infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-2xl md:rounded-3xl pb-6 md:pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)] ${className}`}
+      className={`infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-2xl md:rounded-3xl pb-6 md:pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)] before:content-[''] before:absolute before:top-0 before:inset-x-0 before:h-[2px] before:bg-linear-to-r before:from-transparent before:via-teal/60 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 [&_.infra-panel-svg]:drop-shadow-[0_0_16px_rgba(0,232,217,0.12)] hover:[&_.infra-panel-svg]:drop-shadow-[0_0_28px_rgba(0,232,217,0.22)] hover:[&_.infra-panel-svg]:scale-105 [&_.infra-panel-svg]:transition-all [&_.infra-panel-svg]:duration-500 ${className}`}
     >
       {imageUrl ? (
         <div
@@ -94,12 +94,12 @@ export default function DetailedCard({
           <Link
             href={ctaLink}
             aria-label={`${ctaText} about ${title}`}
-            className="community-link-cta group inline-flex items-center gap-2 no-underline mt-4"
+            className="group inline-flex items-center gap-2 no-underline mt-4"
           >
-            <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap">
+            <span className="inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-all duration-300 group-hover:text-teal group-hover:scale-105 whitespace-nowrap">
               {ctaText}
             </span>
-            <DoubleRightArrowSvg className="community-link-arrow text-teal inline-block w-4 h-4 min-w-4 min-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+            <DoubleRightArrowSvg className="text-teal inline-block w-4 h-4 min-w-4 min-h-4 max-w-4 max-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
           </Link>
         )}
       </div>

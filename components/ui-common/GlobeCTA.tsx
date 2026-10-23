@@ -18,9 +18,9 @@ export default function GlobeCTA({
   buttonLink,
 }: GlobeCTAProps) {
   return (
-    <section className="subpage-cta-section py-24 bg-gradient-to-br from-[#FFFFCA] via-[#FFF8E1] to-[#FFDAC8] relative overflow-hidden">
+    <section className="py-24 max-md:pt-10 max-md:pb-[270px] bg-gradient-to-br from-[#FFFFCA] via-[#FFF8E1] to-[#FFDAC8] relative overflow-hidden z-[1] max-md:block">
       <div
-        className="cta-bg-illustration absolute -right-[8%] top-1/2 -translate-y-1/2 -rotate-[25deg] w-[720px] h-[130%] pointer-events-none"
+        className="absolute -right-[8%] top-1/2 -translate-y-1/2 -rotate-[25deg] w-[720px] h-[130%] pointer-events-none max-md:left-1/2 max-md:-translate-x-[51.7%] max-md:bottom-[-110px] max-md:top-auto max-md:right-auto max-md:w-[120%] max-md:max-w-[440px] max-md:h-auto max-md:aspect-[1.15/1] max-md:block max-md:overflow-visible max-md:z-[-1] max-md:rotate-0"
         aria-hidden="true"
       >
         <Image
@@ -34,7 +34,7 @@ export default function GlobeCTA({
         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-[1]">
+      <div className="container mx-auto px-6 relative z-[1] max-md:w-full">
         <div className="sol-split reveal flex items-center">
           <div className="sol-split-text max-w-[580px]">
             {description ? (

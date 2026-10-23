@@ -94,7 +94,7 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
                 href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary group inline-flex items-center justify-center bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
               >
                 <Typography
                   variant="button"

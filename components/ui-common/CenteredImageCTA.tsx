@@ -83,7 +83,7 @@ export default function CenteredImageCTA({
                   href={ctaUrl}
                   target={ctaUrl.startsWith("http") ? "_blank" : undefined}
                   rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="btn-primary inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-sm font-semibold tracking-wider uppercase no-underline transition-all duration-300 hover:bg-white hover:text-midnight hover:-translate-y-0.5 shadow-lg"
+                  className="inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-sm font-semibold tracking-wider uppercase no-underline transition-all duration-300 hover:bg-white hover:text-midnight hover:-translate-y-0.5 shadow-lg"
                 >
                   {ctaLabel}
                 </Link>

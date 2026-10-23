@@ -133,14 +133,14 @@ export default function GradientImageSplit({
               <Link
                 href={ctaUrl}
                 aria-label={`${ctaText}`}
-                className="community-link-cta group inline-flex items-center gap-2 no-underline"
+                className="group inline-flex items-center gap-2 no-underline"
                 target={ctaUrl.startsWith("http") ? "_blank" : undefined}
                 rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
               >
-                <span className="community-link-text text-xs uppercase tracking-[0.15em] text-white/85 font-body font-medium leading-none transition-colors duration-300 group-hover:text-white whitespace-nowrap">
+                <span className="inline-block text-xs uppercase tracking-[0.15em] text-white/85 font-body font-medium leading-none transition-all duration-300 group-hover:text-white group-hover:scale-105 whitespace-nowrap">
                   {ctaText}
                 </span>
-                <DoubleRightArrowSvg className="community-link-arrow w-4 h-4 min-w-4 min-h-4 text-teal shrink-0 transition-transform duration-300 group-hover:translate-x-1 inline-block" />
+                <DoubleRightArrowSvg className="w-4 h-4 min-w-4 min-h-4 max-w-4 max-h-4 text-teal shrink-0 transition-transform duration-300 group-hover:translate-x-1.5 inline-block" />
               </Link>
             </div>
           )}

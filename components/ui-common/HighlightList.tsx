@@ -95,7 +95,7 @@ export default function HighlightList({
                   href={ctaUrl}
                   target={ctaUrl.startsWith("http") ? "_blank" : undefined}
                   rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="btn-primary inline-block px-10 py-3.5 rounded-full bg-midnight text-white font-heading text-sm font-semibold tracking-wider uppercase no-underline border border-midnight transition-all duration-300 hover:bg-transparent hover:text-midnight hover:-translate-y-0.5"
+                  className="inline-block px-10 py-3.5 rounded-full bg-midnight text-white font-heading text-sm font-semibold tracking-wider uppercase no-underline border border-midnight transition-all duration-300 hover:bg-transparent hover:text-midnight hover:-translate-y-0.5"
                 >
                   {ctaLabel}
                 </Link>

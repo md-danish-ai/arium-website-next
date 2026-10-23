@@ -33,19 +33,22 @@ export default function TestimonialsSection({
 
   return (
     <div className="bg-white">
-      <section className="relative overflow-hidden py-20 bg-white" id="testimonials">
+      <section
+        className="relative overflow-hidden py-20 max-[600px]:py-[50px] bg-white"
+        id="testimonials"
+      >
         <div
           className="infra-grid-bg absolute inset-0 opacity-[0.08] pointer-events-none"
           aria-hidden="true"
         />
         <div className="container mx-auto px-6 relative z-[2]">
           {(heading || description) && (
-            <div className="section-header text-center mb-12 md:mb-16">
+            <div className="section-header text-center mb-12 md:mb-16 max-[600px]:mb-8">
               {heading && (
                 <Typography
                   variant="h3"
                   uppercase
-                  className="section-title reveal stagger-1 text-midnight text-center"
+                  className="section-title reveal stagger-1 text-midnight text-center min-[1080px]:text-[clamp(1.9rem,0.5rem+2.2vw,2.4rem)] min-[1080px]:whitespace-nowrap max-[600px]:text-[1.2rem] max-[600px]:leading-[1.4] max-[600px]:tracking-[0.1em] max-[600px]:whitespace-normal"
                 >
                   {heading}
                 </Typography>
