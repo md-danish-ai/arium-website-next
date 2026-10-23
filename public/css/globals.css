@@ -322,13 +322,9 @@ svg {
   top: 0;
 }
 
-/* Subpage Header (Tier 2 & 3 Pages) */
 .subpage-header {
-  background: #d2c7ff;
   color: var(--color-midnight-blue);
-  padding: 160px 24px 80px;
   position: relative;
-  overflow: hidden;
 }
 
 /* Force nav to scrolled (dark) state on subpages */
@@ -418,41 +414,6 @@ svg {
   gap: 20px;
 }
 
-@media (max-width: 768px) {
-  .subpage-header {
-    padding: 140px 20px 60px !important;
-  }
-
-  .subpage-header-inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    margin-top: 32px !important;
-  }
-
-  .subpage-header-brand {
-    justify-content: center;
-  }
-
-  .subpage-header-brand svg {
-    width: 140px;
-  }
-
-  .subpage-header-text {
-    text-align: center;
-  }
-
-  .subpage-header-text > p:first-child {
-    display: none !important;
-  }
-
-  nav[aria-label="Breadcrumb"] {
-    position: absolute !important;
-    top: 110px !important;
-    left: 0 !important;
-    right: 0 !important;
-    padding: 0 20px !important;
-  }
-}
 
 /* Button Components */
 .btn-primary,
@@ -938,8 +899,7 @@ body {
 @media (max-width: 600px) {
   /* 0. Main Subpage Hero H1 Titles (1.5rem on mobile for better text wrap and vertical space) */
   .subpage-title,
-  .abt-hero-heading,
-  .subpage-header h1 {
+  .abt-hero-heading {
     font-size: 1.5rem !important;
     font-weight: 400 !important;
     line-height: 1.35 !important;

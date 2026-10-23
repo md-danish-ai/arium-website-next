@@ -1,34 +1,117 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 
-interface PeopleCard {
-  Name: string;
-  Designation: string;
-  Image?: { data?: { attributes?: { url: string } } } | { url: string }[] | { url: string } | any;
-  Description: string;
+type StrapiImageField =
+  | { data?: { attributes?: { url: string } } }
+  | { url: string }[]
+  | { url: string }
+  | Record<string, unknown>;
+
+export interface PeopleCard {
+  Name?: string;
+  title?: string;
+  Designation?: string;
+  badge?: string;
+  Image?: StrapiImageField;
+  image?: StrapiImageField;
+  Description?: string;
+  description?: string;
   ModalUpperSectionBg?: string;
 }
 
-interface PeopleGlobalSectionProps {
+export interface PeopleGlobalSectionProps {
   cards?: PeopleCard[];
+  data?: {
+    cards?: PeopleCard[];
+  };
 }
 
-export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionProps) {
-  const membersList = cards.map((card) => {
-    // Handle Strapi v4 nested media structure or direct url
-    let imageUrl = "/assets/images/team/placeholder-male.png"; // default fallback
+const STATIC_FALLBACK_IMAGES: Record<string, string> = {
+  // Board of Directors
+  "Marni M. Walden": "/assets/images/team/placeholder-female.png",
+  "Gerard Ainsztein": "/assets/images/team/placeholder-male.png",
+  "Tim Biltz": "/assets/images/team/placeholder-male.png",
+  "Tim Cohen": "/assets/images/team/placeholder-male.png",
+  "Bill Hogg": "/assets/images/team/placeholder-male.png",
+  "Nirav Shah": "/assets/images/team/placeholder-male.png",
+  // Leadership Team
+  'Laurent "LT" Therivel': "/assets/images/team/placeholder-male.png",
+  "Jerry Karnick": "/assets/images/team/placeholder-male.png",
+  "Karen Rohrkemper": "/assets/images/team/placeholder-female.png",
+  "Jeffery Schott": "/assets/images/team/placeholder-male.png",
+  "Manjula Sriram": "/assets/images/team/placeholder-female.png",
+  "John Townsend": "/assets/images/team/placeholder-male.png",
+};
 
-    if (card.Image) {
-      if (Array.isArray(card.Image) && card.Image[0]?.url) {
-        imageUrl = card.Image[0].url;
-      } else if (card.Image?.url) {
-        imageUrl = card.Image.url;
-      } else if (card.Image?.data?.attributes?.url) {
-        imageUrl = card.Image.data.attributes.url;
+function extractImageUrl(image?: StrapiImageField): string | null {
+  if (!image) return null;
+
+  if (Array.isArray(image)) {
+    const first = image[0];
+    if (first && typeof first === "object" && "url" in first && typeof first.url === "string") {
+      return first.url;
+    }
+    return null;
+  }
+
+  if (typeof image === "object") {
+    if ("url" in image && typeof image.url === "string") {
+      return image.url;
+    }
+
+    if ("data" in image && image.data && typeof image.data === "object") {
+      const data = image.data;
+      if (Array.isArray(data)) {
+        const first = data[0];
+        if (first && typeof first === "object") {
+          if (
+            "attributes" in first &&
+            first.attributes &&
+            typeof first.attributes === "object" &&
+            "url" in first.attributes &&
+            typeof first.attributes.url === "string"
+          ) {
+            return first.attributes.url;
+          }
+          if ("url" in first && typeof first.url === "string") {
+            return first.url;
+          }
+        }
+      } else {
+        if (
+          "attributes" in data &&
+          data.attributes &&
+          typeof data.attributes === "object" &&
+          "url" in data.attributes &&
+          typeof data.attributes.url === "string"
+        ) {
+          return data.attributes.url;
+        }
+        if ("url" in data && typeof data.url === "string") {
+          return data.url;
+        }
       }
     }
+  }
+
+  return null;
+}
+
+export default function PeopleGlobalSection({ cards, data }: PeopleGlobalSectionProps) {
+  const cardsList = cards || data?.cards || [];
+  const membersList = cardsList.map((card) => {
+    const name = card.Name || card.title || "";
+    const role = card.Designation || card.badge || "";
+    const bioText = card.Description || card.description || "";
+
+    // Handle Strapi v4/v5 nested media structure or direct url
+    const rawImage = card.Image || card.image;
+    const extractedUrl = extractImageUrl(rawImage);
+    let imageUrl =
+      extractedUrl || STATIC_FALLBACK_IMAGES[name] || "/assets/images/team/placeholder-male.png"; // default fallback
 
     // Add Strapi absolute URL prefix if it's a relative path
     if (imageUrl.startsWith("/") && !imageUrl.startsWith("/assets")) {
@@ -36,11 +119,12 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
     }
 
     return {
-      name: card.Name || "",
-      role: card.Designation || "",
+      name,
+      role,
       image: imageUrl,
-      bio: card.Description
-        ? card.Description.split("\n\n")
+      bio: bioText
+        ? bioText
+            .split("\n\n")
             .map((p) => `<p>${p}</p>`)
             .join("")
         : "",
@@ -52,7 +136,7 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
   const triggerRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const openModal = (leader: any, currentTarget: HTMLElement) => {
+  const openModal = (leader: (typeof membersList)[0], currentTarget: HTMLElement) => {
     triggerRef.current = currentTarget;
     setActiveLeader(leader);
   };
@@ -113,13 +197,13 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
   return (
     <>
       <section className="people-global-section relative bg-gradient-to-b from-[#EDE9FF] via-[#F3F0FF] to-[#F8F7FF] pt-[60px] pb-24">
-        <div className="container mx-auto px-6">
-          <div className="people-grid-wrapper max-w-[1200px] mx-auto -mt-[180px] relative z-[2]">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="people-grid-wrapper max-w-[1200px] mx-auto -mt-20 sm:-mt-24 md:-mt-28 lg:-mt-44 relative z-[2]">
             <div className="people-grid flex flex-wrap justify-center gap-6">
               {membersList.map((leader, index) => (
                 <div
                   key={index}
-                  className={`people-card reveal stagger-${(index % 4) + 1} relative rounded-xl overflow-hidden cursor-pointer aspect-[4/4.6] shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl group w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)]`}
+                  className={`people-card reveal stagger-${(index % 4) + 1} relative rounded-xl overflow-hidden cursor-pointer aspect-[4/4.6] shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl group w-full max-w-[400px] sm:max-w-none sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]`}
                   onClick={(e) => openModal(leader, e.currentTarget)}
                   role="button"
                   tabIndex={0}
@@ -131,22 +215,29 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
                   }}
                 >
                   <div className="people-card-img absolute inset-0 w-full h-full">
-                    <img
+                    <Image
                       src={leader.image}
                       alt={leader.name}
-                      className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover object-[center_15%] block transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="people-card-overlay absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0a0e20]/85 via-[#0a0e20]/40 to-transparent z-[2]">
                     <Typography
                       as="h3"
                       variant="b2"
+                      uppercase
                       weight="semibold"
-                      className="text-white m-0 mb-0.5"
+                      className="text-white m-0 mb-0.5 whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       {leader.name}
                     </Typography>
-                    <Typography as="p" variant="b4" className="text-white/90 m-0 leading-tight">
+                    <Typography
+                      as="p"
+                      variant="b4"
+                      className="text-white/80 m-0 leading-tight whitespace-nowrap overflow-hidden text-ellipsis"
+                    >
                       {leader.role}
                     </Typography>
                   </div>
@@ -170,10 +261,10 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
           onClick={closeModal}
         />
         <div
-          className={`people-modal-content relative z-[1] w-[92vw] max-w-[1080px] max-h-[88vh] bg-midnight rounded-[20px] border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden transition-all duration-450 ${activeLeader ? "scale-100 translate-y-0 opacity-100" : "scale-95 translate-y-4 opacity-0"}`}
+          className={`people-modal-content relative z-[1] w-[92vw] max-w-[1080px] max-h-[88vh] bg-[#101830] rounded-[20px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-400 ${activeLeader ? "scale-100 translate-y-0 opacity-100" : "scale-95 translate-y-4 opacity-0"}`}
         >
           <button
-            className="people-modal-close absolute top-5 right-5 z-[5] bg-transparent border-none p-0 text-white/60 hover:text-white cursor-pointer transition-colors"
+            className="people-modal-close absolute top-4 right-4 md:top-5 md:right-5 z-[5] bg-transparent border-none p-2 text-white/60 hover:text-white cursor-pointer transition-colors"
             onClick={closeModal}
             aria-label="Close"
           >
@@ -193,31 +284,34 @@ export default function PeopleGlobalSection({ cards = [] }: PeopleGlobalSectionP
           {activeLeader && (
             <>
               <div
-                className="people-modal-top flex items-center gap-8 p-8 md:p-12 border-b border-white/10 shrink-0"
-                style={{ backgroundColor: activeLeader.modalBg }}
+                className="people-modal-top flex items-center gap-6 md:gap-8 p-6 md:p-10 border-b border-white/10 shrink-0"
+                style={{ backgroundColor: activeLeader.modalBg || "#101830" }}
               >
-                <div className="people-modal-photo-wrap shrink-0">
-                  <img
-                    className="people-modal-photo w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover block"
+                <div className="people-modal-photo-wrap shrink-0 relative w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden">
+                  <Image
+                    className="people-modal-photo object-cover object-[center_15%]"
                     src={activeLeader.image}
                     alt={activeLeader.name}
+                    fill
+                    sizes="(max-width: 768px) 96px, 128px"
                   />
                 </div>
                 <div className="people-modal-identity flex-1">
                   <Typography
                     as="h2"
                     variant="h3"
+                    uppercase
                     className="people-modal-name text-white m-0 mb-1.5"
                   >
                     {activeLeader.name}
                   </Typography>
-                  <Typography as="p" variant="b4" className="people-modal-role text-teal m-0">
+                  <Typography as="p" variant="b3" className="people-modal-role text-[#00e8d9] m-0">
                     {activeLeader.role}
                   </Typography>
                 </div>
               </div>
               <div
-                className="people-modal-bottom p-8 md:p-12 overflow-y-auto text-white/85 text-[0.95rem] leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0"
+                className="people-modal-bottom p-6 md:p-10 lg:p-12 overflow-y-auto flex-1 columns-1 md:columns-2 gap-10 bg-white rounded-b-[20px] text-[#0d1224]/80 text-sm md:text-base leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:[break-inside:avoid]"
                 dangerouslySetInnerHTML={{ __html: activeLeader.bio }}
               />
             </>

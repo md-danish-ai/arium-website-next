@@ -3,6 +3,7 @@ export { default as GlobeCTA } from "./GlobeCTA";
 export { default as SharedProcess } from "./SharedProcess";
 export { default as SharedTestimonials } from "./SharedTestimonials";
 export { default as PeopleGlobalSection } from "./PeopleGlobalSection";
+export type { PeopleCard, PeopleGlobalSectionProps } from "./PeopleGlobalSection";
 export { default as GlobalFAQ } from "./GlobalFAQ";
 export { default as SharedInnerPageHero } from "./SharedInnerPageHero";
 export { default as SharedIllustrationSplit } from "./SharedIllustrationSplit";

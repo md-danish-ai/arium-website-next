@@ -1,19 +1,52 @@
 import React from "react";
-import LeadershipHero from "@ui-component/leadership/LeadershipHero";
-import LeadershipTeam from "@ui-component/leadership/LeadershipTeam";
-import GlobeCTA from "@ui-common/GlobeCTA";
+import { SharedInnerPageHero, PeopleGlobalSection, GlobeCTA, PeopleCard } from "@ui-common";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-import type { Metadata } from "next";
+interface StrapiSectionItem {
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiSectionItem[];
+  [key: string]: unknown;
+}
+
+interface PageSection {
+  key?: string;
+  title?: string;
+  cards?: PeopleCard[];
+  cta?: Array<{ label?: string; url?: string }>;
+  [key: string]: unknown;
+}
+
+interface LeadershipPageContent {
+  heroTitle?: string;
+  heroDescription?: string;
+  sections?: PageSection[];
+  SeoFields?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogType?: "website" | "article" | "book" | "profile";
+    ogSiteName?: string;
+    preventIndexing?: boolean;
+    ogImage?: { url?: string };
+  };
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=leadership&populate[SeoFields][populate]=*"
   );
-  const seo = pageData?.data?.[0]?.SeoFields;
+  const seo = pageData?.data?.[0]?.SeoFields as LeadershipPageContent["SeoFields"];
 
   return {
     title: seo?.metaTitle || "Leadership | Arium Networks",
@@ -25,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Meet the seasoned industry leaders driving Arium Networks' strategic growth and operational excellence across telecommunications infrastructure.",
-      type: (seo?.ogType as any) || "website",
+      type: seo?.ogType || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -51,18 +84,18 @@ export default async function LeadershipPage() {
       "/api/pages?filters[slug][$eq]=leadership&populate[widgets][populate][Sections][populate]=*&populate[widgets][populate][Sections][on][shared.people-global-section][populate][Peoplecard][populate]=*&populate[widgets][populate][Sections][on][shared.global-cta][populate]=*&populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*"
     ),
   ]);
-  const leadershipContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const leadershipContent = pageData?.data?.[0] as LeadershipPageContent | undefined;
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
   const ctaSection = leadershipContent?.sections?.find(
-    (section: any) => section.key === "Explore Careers"
+    (section: PageSection) => section.key === "Explore Careers"
   );
   const cta = ctaSection?.cta?.[0];
 
   const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
 
   // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
+  globalWidgets.forEach((widget: StrapiWidget) => {
     sectionMap.push({
       pos: widget.PositionNumber ?? 999,
       key: `widget-${widget.id}`,
@@ -71,32 +104,35 @@ export default async function LeadershipPage() {
   });
 
   // 2. Add fallbacks for missing positions/widgets
-  const hasInnerHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === "shared.inner-page-hero")
+  const hasInnerHeroWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiSectionItem) => s.__component === "shared.inner-page-hero")
   );
   if (!hasInnerHeroWidget) {
     sectionMap.push({
       pos: 0,
       key: "hero-fallback",
       el: (
-        <LeadershipHero
+        <SharedInnerPageHero
           key="hero"
-          heading={leadershipContent?.heroTitle}
-          intro={leadershipContent?.heroDescription}
+          heroTitle={leadershipContent?.heroTitle || "Our Leadership"}
+          heroDescription={
+            leadershipContent?.heroDescription ||
+            "Seasoned industry leaders driving strategic growth and operational excellence."
+          }
         />
       ),
     });
   }
 
-  const hasPeopleWidget = globalWidgets.some((w: any) =>
+  const hasPeopleWidget = globalWidgets.some((w: StrapiWidget) =>
     w.Sections?.some(
-      (s: any) =>
+      (s: StrapiSectionItem) =>
         s.__component?.includes("people-global-section") || s.__component?.includes("people")
     )
   );
   if (!hasPeopleWidget) {
     const teamSection = leadershipContent?.sections?.find(
-      (section: any) =>
+      (section: PageSection) =>
         section.key === "Leadership Team" ||
         section.key === "Executive Team" ||
         section.key === "Leadership"
@@ -104,13 +140,13 @@ export default async function LeadershipPage() {
     sectionMap.push({
       pos: 1,
       key: "team-fallback",
-      el: <LeadershipTeam key="team" data={teamSection} />,
+      el: <PeopleGlobalSection key="team" data={teamSection} />,
     });
   }
 
-  const hasCtaWidget = globalWidgets.some((w: any) =>
+  const hasCtaWidget = globalWidgets.some((w: StrapiWidget) =>
     w.Sections?.some(
-      (s: any) =>
+      (s: StrapiSectionItem) =>
         s.__component?.includes("cta") ||
         s.__component?.includes("calltoaction") ||
         s.__component?.includes("call-to-action")
