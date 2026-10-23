@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Typography } from "@ui-element";
+import { FaqChevronSvg } from "@ui-svg";
 
 interface FAQItem {
   title: string;
@@ -91,18 +92,10 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
                       <Typography as="span" variant="h5" weight="medium" className="text-[#162047]">
                         {faq.title}
                       </Typography>
-                      <svg
-                        className={`cm-faq-chevron flex-shrink-0 text-[#162047] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                        aria-hidden="true"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
+                      <FaqChevronSvg
+                        isOpen={isOpen}
+                        className="cm-faq-chevron flex-shrink-0 text-[#162047]"
+                      />
                     </button>
                     <div
                       className={`cm-faq-answer px-5 md:px-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-6 opacity-100" : "max-h-0 pb-0 opacity-0"}`}

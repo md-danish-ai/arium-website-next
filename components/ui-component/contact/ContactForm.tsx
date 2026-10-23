@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Typography } from "@ui-element";
+import { DropdownArrowSvg } from "@ui-svg";
 
 export default function ContactForm() {
   const [firstName, setFirstName] = useState("");
@@ -325,20 +326,7 @@ export default function ContactForm() {
                           ? interestOptions.find((opt) => opt.value === interest)?.label
                           : "Please select one of the following options"}
                       </span>
-                      <svg
-                        className={`w-3 h-2 text-[#162047]/40 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
-                        viewBox="0 0 12 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1 1l5 5 5-5"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <DropdownArrowSvg isOpen={dropdownOpen} />
                     </div>
                     {dropdownOpen && (
                       <ul

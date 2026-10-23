@@ -4,6 +4,7 @@ import RightOfWayTestimonials from "@ui-component/where-we-build/RightOfWayTesti
 import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import React from "react";
+import { AssessmentIconSvg, PlanningIconSvg, ConstructionIconSvg } from "@ui-svg";
 
 export const dynamic = "force-dynamic";
 
@@ -123,21 +124,12 @@ const ROW_PROCESS_DATA = {
       id: "assessment",
       title: "Assessment",
       iconSvg: (
-        <svg
+        <AssessmentIconSvg
           className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
           width="36"
           height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
           strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
+        />
       ),
       themeColor: "#FBCBB5",
       steps: ["Evaluate Needs", "Identify Sites", "Assess Regulations", "Minimizing Disruption"],
@@ -164,22 +156,12 @@ const ROW_PROCESS_DATA = {
       id: "planning",
       title: "Planning",
       iconSvg: (
-        <svg
+        <PlanningIconSvg
           className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
           width="36"
           height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
           strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
-          <line x1="9" y1="3" x2="9" y2="18"></line>
-          <line x1="15" y1="6" x2="15" y2="21"></line>
-        </svg>
+        />
       ),
       themeColor: "#FBCBB5",
       steps: [
@@ -211,20 +193,12 @@ const ROW_PROCESS_DATA = {
       id: "construction",
       title: "Construction",
       iconSvg: (
-        <svg
+        <ConstructionIconSvg
           className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
           width="36"
           height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
           strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-        </svg>
+        />
       ),
       themeColor: "#FBCBB5",
       steps: ["Secure Permits", "Work with Vendors", "Follow Codes", "Complete Installation"],

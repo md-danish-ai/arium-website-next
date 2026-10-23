@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { ArrowRightSvg } from "@ui-svg";
 
 interface SharedImageSplitProps {
   data: {
@@ -95,20 +96,7 @@ export default function SharedImageSplit({ data }: SharedImageSplitProps) {
                 className="image-split-cta inline-flex items-center gap-3 px-8 py-3.5 bg-midnight text-white font-heading text-[0.85rem] font-semibold uppercase tracking-[0.1em] rounded-full border-2 border-midnight hover:bg-transparent hover:text-midnight transition-all duration-300 self-start no-underline"
               >
                 {CTAText}
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
+                <ArrowRightSvg />
               </Link>
             )}
           </div>

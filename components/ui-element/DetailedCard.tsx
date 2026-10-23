@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Typography from "./Typography";
+import { DoubleRightArrowSvg } from "@ui-svg";
 
 export interface DetailedCardProps {
   title: string;
@@ -98,21 +99,7 @@ export default function DetailedCard({
             <span className="community-link-text inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap">
               {ctaText}
             </span>
-            <svg
-              className="community-link-arrow text-teal inline-block w-4 h-4 min-w-4 min-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="8 17 13 12 8 7" />
-              <polyline points="14 17 19 12 14 7" />
-            </svg>
+            <DoubleRightArrowSvg className="community-link-arrow text-teal inline-block w-4 h-4 min-w-4 min-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         )}
       </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Typography } from "@ui-element";
+import { FaqChevronSvg } from "@ui-svg";
 
 interface FAQItem {
   Question: string;
@@ -82,18 +83,10 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
                       <Typography as="span" variant="h5" weight="medium" className="text-midnight">
                         {faq.Question}
                       </Typography>
-                      <svg
-                        className={`cm-faq-chevron shrink-0 text-midnight/40 transition-transform duration-350 ${isOpen ? "rotate-180 text-teal" : ""}`}
-                        aria-hidden="true"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
+                      <FaqChevronSvg
+                        isOpen={isOpen}
+                        className={`cm-faq-chevron shrink-0 text-midnight/40 ${isOpen ? "text-teal" : ""}`}
+                      />
                     </button>
                     <div
                       className={`cm-faq-answer grid transition-[grid-template-rows] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}

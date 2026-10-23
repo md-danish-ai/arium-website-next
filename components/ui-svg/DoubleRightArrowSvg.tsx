@@ -12,7 +12,7 @@ export default function DoubleRightArrowSvg({
   className = "",
   width = 16,
   height = 16,
-  stroke = "#00e8d9",
+  stroke = "currentColor",
   strokeWidth = "1.8",
   ...props
 }: DoubleRightArrowSvgProps) {

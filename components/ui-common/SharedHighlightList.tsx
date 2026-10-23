@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { ChevronsRightSvg } from "@ui-svg";
 
 interface HighlightItem {
   id?: number;
@@ -80,19 +81,7 @@ export default function SharedHighlightList({
                       weight="medium"
                       className="shared-hl-box-title inline-flex items-center gap-3 text-midnight m-0 text-left"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="w-5 h-5 shrink-0 text-[#7C5CBF]"
-                      >
-                        <polyline points="6 17 11 12 6 7" />
-                        <polyline points="13 17 18 12 13 7" />
-                      </svg>
+                      <ChevronsRightSvg className="w-5 h-5 shrink-0 text-[#7C5CBF]" />
                       {item.ListName}
                     </Typography>
                   </div>
