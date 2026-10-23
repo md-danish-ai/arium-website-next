@@ -13,3 +13,4 @@ export { default as SharedBenefits } from "./SharedBenefits";
 export { default as SharedHighlightList } from "./SharedHighlightList";
 export { default as SharedCtaWithGraphic } from "./SharedCtaWithGraphic";
 export { default as SharedCenteredImageCTA } from "./SharedCenteredImageCTA";
+export { default as SharedGradientImageSplit } from "./SharedGradientImageSplit";

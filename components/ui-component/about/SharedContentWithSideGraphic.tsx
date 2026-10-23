@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { ConnectionIllustrationSvg } from "@ui-svg";
@@ -95,10 +96,13 @@ export default function SharedContentWithSideGraphic({
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       {extractedUrl ? (
-        <img
+        <Image
           src={imageUrl}
           alt=""
           aria-hidden="true"
+          width={800}
+          height={800}
+          unoptimized={imageUrl.endsWith(".svg")}
           className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none"
         />
       ) : (
@@ -160,9 +164,12 @@ export default function SharedContentWithSideGraphic({
 
       <div className="story-globe-full lg:hidden relative z-[1] overflow-hidden -mt-[15%] -mb-[30%]">
         {extractedUrl ? (
-          <img
+          <Image
             src={imageUrl}
             alt="Connection illustration"
+            width={600}
+            height={600}
+            unoptimized={imageUrl.endsWith(".svg")}
             className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]"
           />
         ) : (
