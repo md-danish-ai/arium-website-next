@@ -268,16 +268,6 @@ svg {
   box-sizing: border-box;
 }
 
-.section-padding {
-  padding: var(--spacing-15) 0;
-}
-
-@media (max-width: 768px) {
-  .section-padding {
-    padding: var(--spacing-10) 0;
-  }
-}
-
 .text-center {
   text-align: center;
 }

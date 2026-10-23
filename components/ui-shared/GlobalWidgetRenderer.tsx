@@ -66,7 +66,7 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
               key={`flow-group-${groupIndex}`}
               className={`${flowClass} ${
                 hasIllustration
-                  ? "bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] [&_.section-light]:border-t-0 [&_.section-light]:bg-transparent"
+                  ? "bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] [&_.section-light]:border-none [&_.section-light+*.section-light]:border-none [&_.section-light]:bg-transparent"
                   : ""
               } relative overflow-hidden -mt-px border-none`}
             >

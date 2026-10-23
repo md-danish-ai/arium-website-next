@@ -18,7 +18,7 @@ export default function GlobeCTA({
   buttonLink,
 }: GlobeCTAProps) {
   return (
-    <section className="section-padding subpage-cta-section py-24 bg-gradient-to-br from-[#FFFFCA] via-[#FFF8E1] to-[#FFDAC8] relative overflow-hidden">
+    <section className="subpage-cta-section py-24 bg-gradient-to-br from-[#FFFFCA] via-[#FFF8E1] to-[#FFDAC8] relative overflow-hidden">
       <div
         className="cta-bg-illustration absolute -right-[8%] top-1/2 -translate-y-1/2 -rotate-[25deg] w-[720px] h-[130%] pointer-events-none"
         aria-hidden="true"

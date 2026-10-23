@@ -248,8 +248,8 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
       className="relative overflow-hidden py-14 md:py-20 lg:py-24 bg-[#101830] border-none"
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background images wrapper (Split: left portion only on desktop, top on mobile) */}
-      <div className="ind-bg-wrapper absolute left-0 top-0 w-full h-[60%] lg:h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
+      {/* Background images wrapper */}
+      <div className="ind-bg-wrapper absolute left-0 top-0 w-full h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
         {displayIndustries.map((industry, index) => (
           <Image
             key={index}
@@ -263,12 +263,12 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
           />
         ))}
         {/* Gradient overlay inside wrapper: vertical fade on mobile, horizontal fade on desktop */}
-        <div className="ind-bg-overlay absolute inset-0 z-[1] bg-gradient-to-b from-[#101830]/85 via-[#101830]/50 to-[#101830] lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-[#101830]" />
+        <div className="ind-bg-overlay absolute inset-0 z-[1] bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-[#101830]" />
       </div>
 
       {/* Two-column layout: heading left, pillars right */}
       <div className="container mx-auto px-4 sm:px-6 relative z-[2]">
-        <div className="ind-two-col flex flex-col lg:grid lg:grid-cols-[1.3fr_0.9fr] gap-10 lg:gap-16 items-start">
+        <div className="ind-two-col grid grid-cols-1 lg:grid-cols-[1.3fr_0.9fr] gap-8 lg:gap-16 items-start">
           {/* LEFT: Section heading & description */}
           <div className="ind-col-left reveal w-full lg:max-w-[540px] lg:sticky lg:top-36">
             <Typography
@@ -304,10 +304,11 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
             <div className="reveal ind-accordion-container flex flex-col gap-2.5 md:gap-3">
               {displayIndustries.map((industry, index) => {
                 const isActive = index === currentIndex;
+                const hasIcon = Boolean(industry.iconNode);
                 return (
                   <div
                     key={index}
-                    className={`ind-interactive-item group flex flex-col justify-start p-3 sm:p-3.5 md:p-4 rounded-lg border transition-all duration-350 cursor-pointer ${
+                    className={`ind-interactive-item group flex flex-col justify-start py-[14px] px-[12px] rounded-lg border transition-all duration-350 cursor-pointer ${
                       isActive
                         ? "border-[#00e8d9]/40 bg-[#0d1224]/90 shadow-lg"
                         : "border-white/10 bg-[#0d1224]/75 hover:border-[#00e8d9]/30 hover:bg-[#0d1224]/85"
@@ -315,22 +316,24 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
                     onClick={() => handleClick(index)}
                     onMouseEnter={() => handleMouseEnter(index)}
                   >
-                    <div className="ind-item-header relative flex items-center min-h-[36px] md:min-h-[40px] pl-12 md:pl-14 gap-0">
-                      <span
-                        className={`ind-icon-svg absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 md:w-9 md:h-9 flex items-center justify-center flex-shrink-0 transition-colors duration-350 [&>svg]:w-full [&>svg]:h-full ${
-                          isActive
-                            ? "[&>svg]:fill-[#00e8d9] [&>svg]:stroke-[#00e8d9]"
-                            : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
-                        }`}
-                      >
-                        {industry.iconNode}
-                      </span>
+                    <div className="ind-item-header flex items-center gap-3 min-h-[32px]">
+                      {hasIcon && (
+                        <span
+                          className={`ind-icon-svg w-6 h-6 md:w-7 md:h-7 flex items-center justify-center flex-shrink-0 transition-colors duration-350 [&>svg]:w-full [&>svg]:h-full ${
+                            isActive
+                              ? "[&>svg]:fill-[#00e8d9] [&>svg]:stroke-[#00e8d9]"
+                              : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
+                          }`}
+                        >
+                          {industry.iconNode}
+                        </span>
+                      )}
                       <Typography
                         variant="h6"
                         as="h3"
                         uppercase
                         weight="normal"
-                        className={`m-0 transition-colors duration-350 tracking-[0.12em] md:tracking-[0.15em] ${
+                        className={`m-0 transition-colors duration-350 tracking-[0.12em] md:tracking-[0.15em] text-sm sm:text-base ${
                           isActive ? "text-[#00e8d9]" : "text-white group-hover:text-[#00e8d9]"
                         }`}
                       >
@@ -338,14 +341,14 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
                       </Typography>
                     </div>
                     <div
-                      className={`ind-expand-desc overflow-hidden transition-all duration-500 pl-12 md:pl-14 ${
-                        isActive ? "max-h-48 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0"
-                      }`}
+                      className={`ind-expand-desc overflow-hidden transition-all duration-500 ${
+                        hasIcon ? "pl-9 md:pl-10" : "pl-0"
+                      } ${isActive ? "max-h-48 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0"}`}
                     >
                       <Typography
                         variant="b3"
                         as="span"
-                        className="text-white/70 block leading-relaxed"
+                        className="text-white/70 block leading-relaxed text-xs sm:text-sm"
                       >
                         {industry.description}
                       </Typography>

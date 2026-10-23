@@ -12,11 +12,17 @@ interface Statistic {
   NumberColor?: string;
 }
 
+interface StrapiMediaObject {
+  url?: string;
+  data?: { attributes?: { url?: string } };
+  alternativeText?: string;
+}
+
 interface SharedIllustrationSplitProps {
   id?: string;
   heading?: string;
   description?: string;
-  media?: { url: string; alternativeText?: string }[];
+  media?: StrapiMediaObject[] | StrapiMediaObject;
   mediaAlignment?: "Media Right" | "Media Left" | "Right" | "Left";
   statistics?: Statistic[];
   showBottomDivider?: boolean;
@@ -39,10 +45,14 @@ export default function SharedIllustrationSplit({
   const isSolutions = pathname?.includes("solutions") || pathname?.includes("/solutions");
 
   let rawImgUrl = undefined;
+  let altText: string | undefined = undefined;
   if (Array.isArray(media)) {
     rawImgUrl = media[0]?.url;
+    altText = media[0]?.alternativeText;
   } else if (media) {
-    rawImgUrl = (media as any).url || (media as any).data?.attributes?.url;
+    const singleMedia = media as StrapiMediaObject;
+    rawImgUrl = singleMedia.url ?? singleMedia.data?.attributes?.url;
+    altText = singleMedia.alternativeText;
   }
   const imgUrl = rawImgUrl
     ? GetStrapiMediaUrl(rawImgUrl)
@@ -53,19 +63,37 @@ export default function SharedIllustrationSplit({
   return (
     <section
       id={id}
-      className={`section-padding section-light relative overflow-hidden min-h-[420px] flex items-center bg-transparent ${isSolutions ? "py-10 md:py-16 lg:py-20" : "py-16 md:py-24"}`}
+      className={`relative overflow-hidden flex items-center bg-transparent border-none ${
+        isSolutions ? "py-[50px]" : "py-16 md:py-24"
+      }`}
     >
       <div
         className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
         aria-hidden="true"
       />
 
+      {/* Mobile-only illustration — absolutely pinned to top-right of section so text is full width */}
+      <div
+        className="md:hidden absolute top-[-25px] right-0 w-[150px] sm:w-[180px] pointer-events-none z-[1]"
+        aria-hidden="true"
+      >
+        <Image
+          src={imgUrl}
+          alt=""
+          aria-hidden="true"
+          width={180}
+          height={180}
+          unoptimized={imgUrl.toLowerCase().endsWith(".svg")}
+          className={`w-full h-auto opacity-75 [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
+            imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""
+          }`}
+        />
+      </div>
+
       <div className="container mx-auto px-6 relative z-[1]">
-        <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full max-w-[520px] md:max-w-none mx-auto">
+        <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           {/* Text Content Area */}
-          <div
-            className={`sol-split-text flex flex-col order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}
-          >
+          <div className={`sol-split-text order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
             {heading && (
               <Typography
                 as="h2"
@@ -89,66 +117,66 @@ export default function SharedIllustrationSplit({
 
             {/* Statistics Area */}
             {statistics && statistics.length > 0 && (
-              <div className="sol-kpis-row flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-2">
-                {statistics.map((stat, index) => {
-                  const num = stat.Number || (stat as any).value;
-                  const lbl = stat.Label || (stat as any).label;
-                  return (
-                    <div
-                      key={`stat-${index}`}
-                      className="sol-kpi-item flex flex-col gap-1 py-2 cursor-default"
-                    >
-                      {num ? (
-                        <>
+              <div className="sol-kpis-row flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
+                {statistics.map((stat, index) => (
+                  <div
+                    key={`stat-${index}`}
+                    className="sol-kpi-item flex flex-col gap-1 py-1 cursor-default shrink-0"
+                  >
+                    {stat?.Number ? (
+                      <>
+                        <Typography
+                          as="span"
+                          variant="stat"
+                          weight="bold"
+                          className="sol-kpi-num tracking-tight leading-none text-[#7c5cbf]"
+                          style={{ color: stat.NumberColor || "#7c5cbf" }}
+                        >
+                          {stat?.Number}
+                        </Typography>
+                        {stat?.Label && (
                           <Typography
-                            as="span"
-                            variant="stat"
-                            weight="bold"
-                            className="sol-kpi-num tracking-tight leading-none text-[#7c5cbf]"
-                            style={{ color: stat.NumberColor || "#7c5cbf" }}
+                            as="p"
+                            variant="b2"
+                            weight="normal"
+                            className="sol-kpi-label normal-case tracking-normal text-midnight/80 m-0 mt-1.5 whitespace-nowrap"
                           >
-                            {num}
+                            {stat?.Label}
                           </Typography>
-                          {lbl && (
-                            <Typography
-                              as="p"
-                              variant="b4"
-                              uppercase
-                              weight="normal"
-                              className="sol-kpi-label tracking-wider text-midnight/80 m-0 mt-1 max-w-[220px]"
-                            >
-                              {lbl}
-                            </Typography>
-                          )}
-                        </>
-                      ) : lbl ? (
-                        <p className="sol-kpi-label-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap">
-                          {lbl}
-                        </p>
-                      ) : null}
-                    </div>
-                  );
-                })}
+                        )}
+                      </>
+                    ) : stat?.Label ? (
+                      <p className="sol-kpi-label-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap">
+                        {stat?.Label}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
               </div>
             )}
 
             {/* Optional Bottom Divider */}
-            {showBottomDivider && <div className="w-full h-px bg-midnight/10 mt-7" />}
+            {showBottomDivider && !isSolutions && (
+              <div className="w-full h-px bg-midnight/10 mt-7" />
+            )}
           </div>
 
-          {/* Media Area */}
+          {/* Desktop / Tablet Illustration Column (>= md) */}
           <div
-            className={`sol-illustration-wrapper flex items-center self-center w-full order-2 ${
+            className={`sol-illustration-wrapper hidden md:flex items-center self-center w-full ${
               isMediaLeft
                 ? "justify-center md:justify-start md:order-1"
                 : "justify-center md:justify-end md:order-2"
             }`}
           >
             <div className="relative w-full max-w-[340px] md:max-w-[440px]">
-              <img
+              <Image
                 src={imgUrl}
-                alt={media?.[0]?.alternativeText || heading || "Illustration"}
-                className={`w-full h-auto opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
+                alt={altText || heading || "Illustration"}
+                width={440}
+                height={440}
+                unoptimized={imgUrl.toLowerCase().endsWith(".svg")}
+                className={`w-full h-auto opacity-75 md:opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
                   imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""
                 }`}
               />

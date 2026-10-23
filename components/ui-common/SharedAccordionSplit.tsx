@@ -8,6 +8,19 @@ import { Typography } from "@ui-element";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+interface StrapiMediaItem {
+  url?: string;
+  alternativeText?: string;
+  data?: {
+    attributes?: {
+      url?: string;
+    };
+  };
+  formats?: {
+    large?: { url?: string };
+  };
+}
+
 interface AccordionItem {
   Svg?: string;
   Title?: string;
@@ -16,10 +29,10 @@ interface AccordionItem {
   Description?: string;
   DescriptionColor?: string;
   BgColor?: string;
-  BgImage?: {
-    url?: string;
-    alternativeText?: string;
-  } | null;
+  BgImage?: StrapiMediaItem | StrapiMediaItem[] | string | null;
+  bgImage?: StrapiMediaItem | StrapiMediaItem[] | string | null;
+  image?: StrapiMediaItem | StrapiMediaItem[] | string | null;
+  [key: string]: unknown;
 }
 
 interface SharedAccordionSplitProps {
@@ -34,17 +47,39 @@ interface SharedAccordionSplitProps {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function extractImageUrl(bgImg: any): string {
+function extractImageUrl(bgImg: unknown): string {
   if (!bgImg) return "";
   if (typeof bgImg === "string") return bgImg;
-  if (bgImg.url) return bgImg.url;
-  if (Array.isArray(bgImg) && bgImg[0]?.url) return bgImg[0].url;
-  if (bgImg.data?.attributes?.url) return bgImg.data.attributes.url;
-  if (bgImg.formats?.large?.url) return bgImg.formats.large.url;
+  if (Array.isArray(bgImg) && bgImg.length > 0) {
+    const first: unknown = bgImg[0];
+    if (typeof first === "string") return first;
+    if (first && typeof first === "object" && "url" in first) {
+      const urlVal = (first as { url?: unknown }).url;
+      if (typeof urlVal === "string") return urlVal;
+    }
+  }
+  if (typeof bgImg === "object" && bgImg !== null) {
+    const record = bgImg as Record<string, unknown>;
+    if (typeof record.url === "string") return record.url;
+    if (record.data && typeof record.data === "object" && record.data !== null) {
+      const dataObj = record.data as Record<string, unknown>;
+      if (dataObj.attributes && typeof dataObj.attributes === "object" && dataObj.attributes !== null) {
+        const attrs = dataObj.attributes as Record<string, unknown>;
+        if (typeof attrs.url === "string") return attrs.url;
+      }
+    }
+    if (record.formats && typeof record.formats === "object" && record.formats !== null) {
+      const formats = record.formats as Record<string, unknown>;
+      if (formats.large && typeof formats.large === "object" && formats.large !== null) {
+        const large = formats.large as Record<string, unknown>;
+        if (typeof large.url === "string") return large.url;
+      }
+    }
+  }
   return "";
 }
 
-function resolveItemImage(item: any): string {
+function resolveItemImage(item: AccordionItem): string {
   const directUrl =
     extractImageUrl(item.BgImage) || extractImageUrl(item.bgImage) || extractImageUrl(item.image);
   return directUrl ? GetStrapiMediaUrl(directUrl) : "";
@@ -56,7 +91,7 @@ function parseGridColumns(raw?: string): string {
   return cleaned || "1.4fr 0.9fr";
 }
 
-function isImageVariant(items: any[], bgGradient?: string): boolean {
+function isImageVariant(items: AccordionItem[], bgGradient?: string): boolean {
   if (
     items.some(
       (item) =>
@@ -150,14 +185,14 @@ export default function SharedAccordionSplit({
 
   return (
     <section
-      className={`sas-section relative overflow-hidden py-20 ${imageMode ? "sas-image-mode border-y border-white/5" : "sas-gradient-mode border-y border-black/5"}`}
+      className={`sas-section relative overflow-hidden py-14 md:py-20 ${imageMode ? "sas-image-mode" : "sas-gradient-mode"} border-none`}
       style={{ background: sectionBg }}
       onMouseLeave={handleMouseLeave}
     >
       {/* Background images — image mode only */}
       {imageMode && (
         <div
-          className="sas-bg-images absolute left-0 top-0 bottom-0 w-full lg:w-[75%] z-0 pointer-events-none overflow-hidden"
+          className="sas-bg-images absolute inset-0 lg:w-[75%] z-0 pointer-events-none overflow-hidden"
           aria-hidden="true"
         >
           {items.map((item, i) => {
@@ -178,9 +213,9 @@ export default function SharedAccordionSplit({
               />
             );
           })}
-          {/* Gradient overlay inside wrapper */}
+          {/* Gradient overlay inside wrapper: vertical fade on mobile/tablet, horizontal fade on desktop */}
           <div
-            className="sas-overlay absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#0a0e20]/80 via-[#0a0e20]/50 to-midnight"
+            className="sas-overlay absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-midnight"
             aria-hidden="true"
           />
         </div>
@@ -205,21 +240,20 @@ export default function SharedAccordionSplit({
       )}
 
       {/* Content */}
-      <div className="container sas-container mx-auto px-6 relative z-[2]">
+      <div className="container sas-container mx-auto px-4 sm:px-6 relative z-[2]">
         <div
-          className="sas-two-col grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
-          style={{ gridTemplateColumns: gridColumns }}
+          className="sas-two-col grid grid-cols-1 lg:[grid-template-columns:var(--sas-cols)] gap-8 lg:gap-16 items-start"
+          style={{ "--sas-cols": gridColumns } as React.CSSProperties}
         >
           {/* LEFT */}
           <div
-            className="sas-col-left reveal flex flex-col min-[1450px]:max-w-[700px]"
-            style={isCareers ? { maxWidth: "660px" } : undefined}
+            className={`sas-col-left reveal flex flex-col w-full ${isCareers ? "lg:max-w-[660px]" : "min-[1450px]:max-w-[700px]"}`}
           >
             {Heading && (
               <Typography
                 variant="h3"
                 uppercase
-                className={`section-title sas-heading mb-4 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
+                className={`section-title sas-heading mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
                   ...(isCareers
@@ -241,30 +275,41 @@ export default function SharedAccordionSplit({
 
           {/* RIGHT — Accordion */}
           <div className="sas-col-right w-full">
-            <div className="reveal sas-accordion-list flex flex-col gap-3">
+            <div className="reveal sas-accordion-list flex flex-col gap-2.5 sm:gap-3">
               {items.map((item, index) => {
                 const isActive = index === currentIndex;
                 const itemBg = item.BgColor
                   ? item.BgColor
                   : imageMode
-                    ? "rgba(13,18,36,0.75)"
+                    ? isActive
+                      ? "rgba(13,18,36,0.85)"
+                      : "rgba(13,18,36,0.65)"
                     : "#162047";
+                const hasIcon = Boolean(item.Svg && item.Svg.trim() !== "");
 
                 return (
                   <div
                     key={index}
-                    className={`sas-item group flex flex-col justify-start p-4 rounded-xl border transition-all duration-400 cursor-pointer ${isActive ? "active border-teal/50 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]" : "border-white/10 hover:border-teal/30"}`}
+                    className={`sas-item group flex flex-col justify-start py-[14px] px-[12px] rounded-xl border backdrop-blur-sm transition-all duration-350 cursor-pointer ${
+                      isActive
+                        ? "active border-teal/50 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
+                        : "border-white/10 hover:border-teal/30 hover:bg-[#0d1224]/75"
+                    }`}
                     style={{
                       backgroundColor: itemBg,
                     }}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onClick={() => handleClick(index)}
                   >
-                    <div className="sas-item-header relative flex items-center min-h-[48px] pl-16">
-                      {item.Svg && (
+                    <div className="sas-item-header flex items-center gap-3 min-h-[32px]">
+                      {hasIcon && (
                         <span
-                          className={`sas-icon absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center transition-colors duration-300 [&>svg]:w-full [&>svg]:h-full ${isActive ? "text-teal stroke-teal" : "text-white/60 stroke-white/60 group-hover:text-teal group-hover:stroke-teal"}`}
-                          dangerouslySetInnerHTML={{ __html: item.Svg }}
+                          className={`sas-icon w-6 h-6 md:w-7 md:h-7 flex-shrink-0 flex items-center justify-center transition-colors duration-300 [&>svg]:w-full [&>svg]:h-full ${
+                            isActive
+                              ? "text-teal stroke-teal"
+                              : "text-white/60 stroke-white/60 group-hover:text-teal group-hover:stroke-teal"
+                          }`}
+                          dangerouslySetInnerHTML={{ __html: item.Svg! }}
                           aria-hidden="true"
                         />
                       )}
@@ -272,7 +317,9 @@ export default function SharedAccordionSplit({
                         variant="h6"
                         as="h3"
                         uppercase
-                        className={`sas-item-title tracking-[0.15em] m-0 transition-colors duration-300 ${isActive ? "text-teal" : "text-white group-hover:text-teal"}`}
+                        className={`sas-item-title tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 text-sm sm:text-base ${
+                          isActive ? "text-teal" : "text-white group-hover:text-teal"
+                        }`}
                         style={{
                           color: isActive
                             ? item.TitleHoverColor || undefined
@@ -284,13 +331,17 @@ export default function SharedAccordionSplit({
                     </div>
 
                     <div
-                      className={`sas-item-body grid transition-[grid-template-rows] duration-500 ease-out pl-16 ${isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                      className={`sas-item-body grid transition-[grid-template-rows] duration-500 ease-out ${
+                        hasIcon ? "pl-9 md:pl-10" : "pl-0"
+                      } ${isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                     >
                       <div className="sas-item-body-inner min-h-0 overflow-hidden">
                         <Typography
                           variant="b3"
                           as="span"
-                          className={`block pt-2 transition-all duration-500 text-white/80 ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}`}
+                          className={`block pt-2 transition-all duration-500 text-white/85 text-xs sm:text-sm ${
+                            isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
+                          }`}
                           style={{ color: item.DescriptionColor || undefined }}
                           dangerouslySetInnerHTML={{ __html: item.Description || "" }}
                         />
