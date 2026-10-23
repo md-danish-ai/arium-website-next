@@ -10,6 +10,77 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 
+interface StrapiMedia {
+  url: string;
+  alternativeText?: string;
+  mime?: string;
+}
+
+interface StrapiCta {
+  label: string;
+  url: string;
+}
+
+interface StrapiInnerCard {
+  heading?: string;
+  description?: string;
+}
+
+interface StrapiProcessCard {
+  title?: string;
+  icon?: string;
+  InnerCard?: StrapiInnerCard[];
+}
+
+interface StrapiSectionCard {
+  title?: string;
+  description?: string;
+  badge?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiSection {
+  key?: string;
+  title?: string;
+  body?: string;
+  cards?: (StrapiProcessCard & StrapiSectionCard)[];
+  cta?: StrapiCta;
+  [key: string]: unknown;
+}
+
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
+interface StrapiPageData {
+  id?: number | string;
+  heroTag?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  heroCtas?: StrapiCta;
+  sections?: StrapiSection[];
+  SeoFields?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogType?: string;
+    ogSiteName?: string;
+    preventIndexing?: boolean;
+    ogImage?: StrapiMedia;
+  };
+  [key: string]: unknown;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=right-of-ways&populate[SeoFields][populate]=*"
@@ -26,7 +97,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "As technology advances, Arium Networks is building the small cells that keep communities connected to what matters.",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -53,9 +124,9 @@ const ROW_PROCESS_DATA = {
       title: "Assessment",
       iconSvg: (
         <svg
-          className="tab-icon"
-          width="26"
-          height="26"
+          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -94,9 +165,9 @@ const ROW_PROCESS_DATA = {
       title: "Planning",
       iconSvg: (
         <svg
-          className="tab-icon"
-          width="26"
-          height="26"
+          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -141,9 +212,9 @@ const ROW_PROCESS_DATA = {
       title: "Construction",
       iconSvg: (
         <svg
-          className="tab-icon"
-          width="26"
-          height="26"
+          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -179,26 +250,6 @@ const ROW_PROCESS_DATA = {
   ],
 };
 
-const ROW_TESTIMONIALS_DATA = {
-  title: "What community leaders are saying",
-  testimonials: [
-    {
-      quote:
-        "Arium Networks has been a great partner. They understand how important it is to be collaborative and get the right inputs, so that we have a great design.",
-      authorName: "Kurt Woehr",
-      authorRole: "Director of RAN Engineering, AT&T",
-      glassColor: "0, 232, 217",
-    },
-    {
-      quote:
-        "Arium Networks has the skills and the techniques to work hand-in-hand with the city and implement a project of this scale.",
-      authorName: "Joe Slowik",
-      authorRole: "Director of Operations, Verizon",
-      glassColor: "255, 218, 200",
-    },
-  ],
-};
-
 export default async function RightOfWayPage() {
   const [pageData, widgetData, processWidgetData] = await Promise.all([
     fetchAPI(
@@ -211,19 +262,19 @@ export default async function RightOfWayPage() {
       "/api/pages?filters[slug][$eq]=right-of-ways&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate][ProcessCard][populate]=*&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate][StepNameIconimg][populate]=*"
     ),
   ]);
-  const rightOfWayContent = pageData?.data?.[0];
+  const rightOfWayContent: StrapiPageData | undefined = pageData?.data?.[0];
   // Merge ProcessCard data into the widget Sections from the deep fetch
-  const rawWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
-  const deepWidgets: any[] = processWidgetData?.data?.[0]?.widgets || [];
-  const globalWidgets = rawWidgets.map((widget: any) => {
-    const deepWidget = deepWidgets.find((dw: any) => dw.id === widget.id);
+  const rawWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
+  const deepWidgets: StrapiWidget[] = processWidgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = rawWidgets.map((widget: StrapiWidget) => {
+    const deepWidget = deepWidgets.find((dw: StrapiWidget) => dw.id === widget.id);
     if (!deepWidget) return widget;
     return {
       ...widget,
-      Sections: widget.Sections?.map((section: any) => {
+      Sections: widget.Sections?.map((section: StrapiWidgetSection) => {
         if (section.__component !== "shared.process") return section;
         const deepSection = deepWidget.Sections?.find(
-          (ds: any) => ds.id === section.id && ds.__component === "shared.process"
+          (ds: StrapiWidgetSection) => ds.id === section.id && ds.__component === "shared.process"
         );
         return deepSection ? { ...section, ...deepSection } : section;
       }),
@@ -231,10 +282,10 @@ export default async function RightOfWayPage() {
   });
 
   const processData = rightOfWayContent?.sections?.find(
-    (section: any) => section.key === "Structured process"
+    (section: StrapiSection) => section.key === "Structured process"
   );
   const contactData = rightOfWayContent?.sections?.find(
-    (section: any) => section.key === "Contact Us"
+    (section: StrapiSection) => section.key === "Contact Us"
   );
 
   const mappedProcessData = {
@@ -242,36 +293,36 @@ export default async function RightOfWayPage() {
     description: processData?.body || ROW_PROCESS_DATA.description,
     pillars:
       processData?.cards && processData.cards.length > 0
-        ? processData.cards.map((card: any, idx: number) => ({
+        ? processData.cards.map((card: StrapiProcessCard, idx: number) => ({
             id: card.title?.toLowerCase() || `pillar-${idx}`,
-            title: card.title,
+            title: card.title || "",
             iconSvg: card.icon ? (
               <div
-                className="w-7 h-7 flex items-center justify-center [&>svg]:w-7 [&>svg]:h-7 [&>svg]:max-w-[28px] [&>svg]:max-h-[28px]"
+                className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full"
                 dangerouslySetInnerHTML={{ __html: card.icon }}
               />
             ) : (
               ROW_PROCESS_DATA.pillars[idx]?.iconSvg
             ),
             themeColor: ROW_PROCESS_DATA.pillars[idx]?.themeColor || "#FBCBB5",
-            steps: card.InnerCard?.map((inner: any) => inner.heading) || [],
+            steps: card.InnerCard?.map((inner: StrapiInnerCard) => inner.heading || "") || [],
             timelineItems:
-              card.InnerCard?.map((inner: any) => ({
-                label: inner.heading,
-                desc: inner.description,
+              card.InnerCard?.map((inner: StrapiInnerCard) => ({
+                label: inner.heading || "",
+                desc: inner.description || "",
               })) || [],
           }))
         : ROW_PROCESS_DATA.pillars,
   };
 
-  const hasInnerHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === "shared.inner-page-hero")
+  const hasInnerHeroWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiWidgetSection) => s.__component === "shared.inner-page-hero")
   );
 
   const sectionObjects: { pos: number; element: React.ReactElement }[] = [];
 
   // 1. Add widgets
-  globalWidgets.forEach((widget: any) => {
+  globalWidgets.forEach((widget: StrapiWidget) => {
     const pos = widget.PositionNumber ?? 999;
     sectionObjects.push({
       pos,
@@ -288,20 +339,21 @@ export default async function RightOfWayPage() {
   }
 
   // Fallback check: Did Strapi give us a widget that contains a Process?
-  const hasProcessWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === "shared.process")
+  const hasProcessWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiWidgetSection) => s.__component === "shared.process")
   );
 
   // Fallback check: Did Strapi give us a widget that contains Testimonials?
-  const hasTestimonialsWidget = globalWidgets.some((w: any) =>
+  const hasTestimonialsWidget = globalWidgets.some((w: StrapiWidget) =>
     w.Sections?.some(
-      (s: any) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
+      (s: StrapiWidgetSection) =>
+        s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
     )
   );
 
   // Fallback check: Did Strapi give us a widget that contains a CTA?
-  const hasCtaWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("cta"))
+  const hasCtaWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiWidgetSection) => s.__component?.includes("cta"))
   );
 
   if (!hasProcessWidget) {
@@ -317,7 +369,9 @@ export default async function RightOfWayPage() {
       element: (
         <div key="testimonials-fallback" className="row-storyteller-flow">
           <RightOfWayTestimonials
-            data={rightOfWayContent?.sections?.find((section: any) => section.key === "Feedback")}
+            data={rightOfWayContent?.sections?.find(
+              (section: StrapiSection) => section.key === "Feedback"
+            )}
           />
         </div>
       ),

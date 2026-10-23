@@ -29,8 +29,6 @@ export default function SharedTestimonials({
 }: SharedTestimonialsProps) {
   if (!cards || cards.length === 0) return null;
 
-  // Width adapts: 1-2 cards = wider (max-width 1040px), 3+ = full width multi-col
-  const isWideLayout = cards.length <= 2;
   const cols = Math.min(cards.length, 4);
 
   return (
@@ -64,7 +62,7 @@ export default function SharedTestimonials({
           )}
 
           <div
-            className={`tm-row grid mx-auto ${cols === 1 ? "max-w-xl grid-cols-1" : cols === 2 ? "max-w-[1040px] grid-cols-1 md:grid-cols-2 gap-8" : cols === 3 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"}`}
+            className={`tm-row grid mx-auto w-full ${cols === 1 ? "max-w-xl grid-cols-1" : cols === 2 ? "max-w-[1040px] grid-cols-1 md:grid-cols-2 gap-8" : cols === 3 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"}`}
           >
             {cards.map((card, idx) => {
               const fallback = FOOTER_STYLES[idx % FOOTER_STYLES.length];
@@ -73,7 +71,7 @@ export default function SharedTestimonials({
               return (
                 <div
                   key={idx}
-                  className={`tm-panel reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full`}
+                  className={`tm-panel reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-6 sm:p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full w-full max-w-[504px] mx-auto`}
                 >
                   <span
                     className="tm-quote-symbol font-serif text-[5rem] leading-none opacity-50 absolute top-5 left-7 pointer-events-none select-none text-teal"

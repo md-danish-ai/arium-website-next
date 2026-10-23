@@ -54,13 +54,13 @@ export default function RightOfWayTestimonials({ data }: RightOfWayTestimonialsP
             {data?.title || "What community leaders are saying"}
           </Typography>
         </div>
-        <div className="tm-row grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1040px] mx-auto">
+        <div className="tm-row grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1040px] mx-auto w-full">
           {testimonials.map((card, idx) => {
             const style = CARD_STYLES[idx % CARD_STYLES.length];
             return (
               <div
                 key={idx}
-                className={`tm-panel reveal stagger-${idx + 2} relative rounded-[24px] p-8 md:p-10 flex flex-col justify-between border border-white/60 bg-white/70 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5`}
+                className={`tm-panel reveal stagger-${idx + 2} relative rounded-[24px] p-6 sm:p-8 md:p-10 flex flex-col justify-between border border-white/60 bg-white/70 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5 w-full max-w-[504px] mx-auto`}
                 style={
                   {
                     "--kpi-color": style.kpi,

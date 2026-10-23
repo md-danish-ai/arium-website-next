@@ -10,6 +10,77 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 
+interface StrapiMedia {
+  url: string;
+  alternativeText?: string;
+  mime?: string;
+}
+
+interface StrapiCta {
+  label: string;
+  url: string;
+}
+
+interface StrapiInnerCard {
+  heading?: string;
+  description?: string;
+}
+
+interface StrapiProcessCard {
+  title?: string;
+  icon?: string;
+  InnerCard?: StrapiInnerCard[];
+}
+
+interface StrapiSectionCard {
+  title?: string;
+  description?: string;
+  badge?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiSection {
+  key?: string;
+  title?: string;
+  body?: string;
+  cards?: (StrapiProcessCard & StrapiSectionCard)[];
+  cta?: StrapiCta;
+  [key: string]: unknown;
+}
+
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
+interface StrapiPageData {
+  id?: number | string;
+  heroTag?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  heroCtas?: StrapiCta;
+  sections?: StrapiSection[];
+  SeoFields?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogType?: string;
+    ogSiteName?: string;
+    preventIndexing?: boolean;
+    ogImage?: StrapiMedia;
+  };
+  [key: string]: unknown;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=private-venues&populate[SeoFields][populate]=*"
@@ -26,7 +97,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Our small cell and DAS in-building solutions enable the wireless coverage and capacity private venues need to support the demands of tenants and guests.",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -53,9 +124,9 @@ const PV_PROCESS_DATA = {
       title: "Design",
       iconSvg: (
         <svg
-          className="tab-icon"
-          width="26"
-          height="26"
+          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -90,9 +161,9 @@ const PV_PROCESS_DATA = {
       title: "Construction",
       iconSvg: (
         <svg
-          className="tab-icon"
-          width="26"
-          height="26"
+          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -122,9 +193,9 @@ const PV_PROCESS_DATA = {
       title: "Optimization",
       iconSvg: (
         <svg
-          className="tab-icon"
-          width="26"
-          height="26"
+          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -153,26 +224,6 @@ const PV_PROCESS_DATA = {
   ],
 };
 
-const PV_TESTIMONIALS_DATA = {
-  title: "What venue operators are saying",
-  testimonials: [
-    {
-      quote:
-        'I found the Arium Networks team to be highly responsive, very professional, and very willing to do whatever was necessary to make it a smooth implementation here at Snowbird."',
-      authorName: "Dave F.",
-      authorRole: "President and General Manager, Snowbird",
-      glassColor: "0, 232, 217",
-    },
-    {
-      quote:
-        'When you have a major event like the FIS Alpine Road Ski Championships in Vail, Colorado you still need to know on the public safety side that your equipment is going to work."',
-      authorName: "Kevin K.",
-      authorRole: "Deputy, Eagle County, Colorado",
-      glassColor: "255, 218, 200",
-    },
-  ],
-};
-
 export default async function PrivateVenuesPage() {
   const [pageData, widgetData, processWidgetData] = await Promise.all([
     fetchAPI(
@@ -185,19 +236,19 @@ export default async function PrivateVenuesPage() {
       "/api/pages?filters[slug][$eq]=private-venues&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate][ProcessCard][populate]=*&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate][StepNameIconimg][populate]=*"
     ),
   ]);
-  const privateVenuesContent = pageData?.data?.[0];
+  const privateVenuesContent: StrapiPageData | undefined = pageData?.data?.[0];
   // Merge ProcessCard data into the widget Sections from the deep fetch
-  const rawWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
-  const deepWidgets: any[] = processWidgetData?.data?.[0]?.widgets || [];
-  const globalWidgets = rawWidgets.map((widget: any) => {
-    const deepWidget = deepWidgets.find((dw: any) => dw.id === widget.id);
+  const rawWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
+  const deepWidgets: StrapiWidget[] = processWidgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = rawWidgets.map((widget: StrapiWidget) => {
+    const deepWidget = deepWidgets.find((dw: StrapiWidget) => dw.id === widget.id);
     if (!deepWidget) return widget;
     return {
       ...widget,
-      Sections: widget.Sections?.map((section: any) => {
+      Sections: widget.Sections?.map((section: StrapiWidgetSection) => {
         if (section.__component !== "shared.process") return section;
         const deepSection = deepWidget.Sections?.find(
-          (ds: any) => ds.id === section.id && ds.__component === "shared.process"
+          (ds: StrapiWidgetSection) => ds.id === section.id && ds.__component === "shared.process"
         );
         return deepSection ? { ...section, ...deepSection } : section;
       }),
@@ -205,10 +256,10 @@ export default async function PrivateVenuesPage() {
   });
 
   const processData = privateVenuesContent?.sections?.find(
-    (section: any) => section.key === "Service delivery process"
+    (section: StrapiSection) => section.key === "Service delivery process"
   );
   const contactData = privateVenuesContent?.sections?.find(
-    (section: any) => section.key === "Contact Us"
+    (section: StrapiSection) => section.key === "Contact Us"
   );
 
   const mappedProcessData = {
@@ -216,27 +267,27 @@ export default async function PrivateVenuesPage() {
     description: processData?.body || PV_PROCESS_DATA.description,
     pillars:
       processData?.cards && processData.cards.length > 0
-        ? processData.cards.map((card: any, idx: number) => ({
+        ? processData.cards.map((card: StrapiProcessCard, idx: number) => ({
             id: card.title?.toLowerCase() || `pillar-${idx}`,
-            title: card.title,
+            title: card.title || "",
             iconSvg: card.icon ? (
               <div dangerouslySetInnerHTML={{ __html: card.icon }} />
             ) : (
               PV_PROCESS_DATA.pillars[idx]?.iconSvg
             ),
             themeColor: PV_PROCESS_DATA.pillars[idx]?.themeColor || "#00e8d9",
-            steps: card.InnerCard?.map((inner: any) => inner.heading) || [],
+            steps: card.InnerCard?.map((inner: StrapiInnerCard) => inner.heading || "") || [],
             timelineItems:
-              card.InnerCard?.map((inner: any) => ({
-                label: inner.heading,
-                desc: inner.description,
+              card.InnerCard?.map((inner: StrapiInnerCard) => ({
+                label: inner.heading || "",
+                desc: inner.description || "",
               })) || [],
           }))
         : PV_PROCESS_DATA.pillars,
   };
 
-  const hasInnerHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === "shared.inner-page-hero")
+  const hasInnerHeroWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiWidgetSection) => s.__component === "shared.inner-page-hero")
   );
 
   const sections: React.ReactElement[] = [];
@@ -244,25 +295,26 @@ export default async function PrivateVenuesPage() {
     sections.push(<PrivateVenuesHero key="hero" data={privateVenuesContent} />);
   }
 
-  [...globalWidgets].reverse().forEach((widget: any) => {
+  [...globalWidgets].reverse().forEach((widget: StrapiWidget) => {
     const pos = widget.PositionNumber ?? sections.length;
     sections.splice(pos, 0, <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
   });
 
   // Fallback check: Did Strapi give us a widget that contains a CTA?
-  const hasCtaWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("cta"))
+  const hasCtaWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiWidgetSection) => s.__component?.includes("cta"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains a Process?
-  const hasProcessWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === "shared.process")
+  const hasProcessWidget = globalWidgets.some((w: StrapiWidget) =>
+    w.Sections?.some((s: StrapiWidgetSection) => s.__component === "shared.process")
   );
 
   // Fallback check: Did Strapi give us a widget that contains Testimonials?
-  const hasTestimonialsWidget = globalWidgets.some((w: any) =>
+  const hasTestimonialsWidget = globalWidgets.some((w: StrapiWidget) =>
     w.Sections?.some(
-      (s: any) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
+      (s: StrapiWidgetSection) =>
+        s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
     )
   );
 
@@ -279,7 +331,7 @@ export default async function PrivateVenuesPage() {
       <div key="testimonials-fallback" className="row-storyteller-flow">
         <PrivateVenuesTestimonials
           data={privateVenuesContent?.sections?.find(
-            (section: any) => section.key === "Venue operators"
+            (section: StrapiSection) => section.key === "Venue operators"
           )}
         />
       </div>

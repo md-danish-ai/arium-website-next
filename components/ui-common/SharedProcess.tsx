@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Typography } from "@ui-element";
@@ -35,20 +35,10 @@ export default function SharedProcess({
   const pathname = usePathname();
   const isRightOfWays = pathname?.includes("right-of-way");
   const [activeTab, setActiveTab] = useState(0);
-  const [rollingOutTab, setRollingOutTab] = useState<number | null>(null);
-  const isAnimating = useRef(false);
 
   const handleTabClick = (index: number) => {
-    if (activeTab === index || isAnimating.current) return;
-
-    isAnimating.current = true;
-    setRollingOutTab(activeTab);
+    if (activeTab === index) return;
     setActiveTab(index);
-
-    setTimeout(() => {
-      setRollingOutTab(null);
-      isAnimating.current = false;
-    }, 700);
   };
 
   // The V6.1 html hardcodes rgba(0, 232, 217, 0.15).
@@ -88,9 +78,9 @@ export default function SharedProcess({
             </Typography>
           </div>
 
-          {/* ─── TAB NAVIGATION ─── */}
+          {/* ─── TAB NAVIGATION (Desktop only >= 1024px) ─── */}
           <div
-            className="process-tabs reveal stagger-3 hidden md:grid max-[1079px]:gap-8 max-[1280px]:max-w-[800px] mx-auto"
+            className="reveal stagger-3 hidden lg:grid items-center mx-auto mb-10 w-full"
             role="tablist"
             aria-label="Service delivery process"
             style={
@@ -98,7 +88,7 @@ export default function SharedProcess({
                 ? {
                     gridTemplateColumns: `repeat(${pillars.length}, 1fr)`,
                     maxWidth: "1320px",
-                    gap: "20px",
+                    gap: "24px",
                   }
                 : {
                     gridTemplateColumns: `repeat(${pillars.length}, 1fr)`,
@@ -107,51 +97,67 @@ export default function SharedProcess({
                   }
             }
           >
-            {pillars.map((pillar, index) => (
-              <button
-                key={pillar.id}
-                role="tab"
-                aria-selected={activeTab === index}
-                aria-controls={`panel-${pillar.id}`}
-                id={`tab-${pillar.id}`}
-                tabIndex={activeTab === index ? 0 : -1}
-                className={`process-tab-btn ${activeTab === index ? "active" : ""}`}
-                onClick={() => handleTabClick(index)}
-                onKeyDown={(e) => {
-                  let newIndex = activeTab;
-                  if (e.key === "ArrowRight") {
-                    newIndex = (activeTab + 1) % pillars.length;
-                  } else if (e.key === "ArrowLeft") {
-                    newIndex = (activeTab - 1 + pillars.length) % pillars.length;
+            {pillars.map((pillar, index) => {
+              const accentColor =
+                pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5";
+              const isActive = activeTab === index;
+              return (
+                <button
+                  key={pillar.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`panel-${pillar.id}`}
+                  id={`tab-${pillar.id}`}
+                  tabIndex={isActive ? 0 : -1}
+                  className="group relative flex flex-col items-center justify-center p-3 cursor-pointer outline-none bg-transparent border-none transition-opacity duration-200"
+                  onClick={() => handleTabClick(index)}
+                  onKeyDown={(e) => {
+                    let newIndex = activeTab;
+                    if (e.key === "ArrowRight") {
+                      newIndex = (activeTab + 1) % pillars.length;
+                    } else if (e.key === "ArrowLeft") {
+                      newIndex = (activeTab - 1 + pillars.length) % pillars.length;
+                    }
+                    if (newIndex !== activeTab) {
+                      e.preventDefault();
+                      handleTabClick(newIndex);
+                      const nextTab = document.getElementById(`tab-${pillars[newIndex].id}`);
+                      if (nextTab) nextTab.focus();
+                    }
+                  }}
+                  style={
+                    {
+                      "--accent-color": accentColor,
+                    } as React.CSSProperties
                   }
-                  if (newIndex !== activeTab && !isAnimating.current) {
-                    e.preventDefault();
-                    handleTabClick(newIndex);
-                    const nextTab = document.getElementById(`tab-${pillars[newIndex].id}`);
-                    if (nextTab) nextTab.focus();
-                  }
-                }}
-                style={
-                  {
-                    "--accent-color":
-                      pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5",
-                    "--accent-shadow": "rgba(251, 203, 181, 0.4)",
-                  } as React.CSSProperties
-                }
-              >
-                <span className="icon-wrap">{pillar.iconSvg}</span>
-                <span className="tab-name">{pillar.title}</span>
-              </button>
-            ))}
+                >
+                  <span
+                    className={`w-16 h-16 rounded-[16px] flex items-center justify-center text-[#162047] mb-2 transition-all duration-200 border border-transparent [&_svg]:w-10 [&_svg]:h-10 lg:[&_svg]:w-11 lg:[&_svg]:h-11 [&_img]:w-12 [&_img]:h-12 lg:[&_img]:w-14 lg:[&_img]:h-14 [&_img]:object-contain ${
+                      isActive
+                        ? "bg-[var(--accent-color)] shadow-[0_10px_20px_-6px_var(--accent-color)] -translate-y-0.5"
+                        : "group-hover:bg-[var(--accent-color)] group-hover:shadow-[0_10px_20px_-6px_var(--accent-color)] group-hover:-translate-y-0.5"
+                    }`}
+                  >
+                    {pillar.iconSvg}
+                  </span>
+                  <span className="font-heading text-lg lg:text-xl font-semibold uppercase tracking-[0.08em] text-[#162047] pb-1.5 inline-block relative">
+                    {pillar.title}
+                    <span
+                      className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--accent-color)] transition-transform duration-200 origin-center ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* ─── TAB PANELS (STEP CARDS GRID) ─── */}
-          <div className="process-tab-content reveal stagger-4 max-md:p-0 max-md:overflow-visible">
-            <div className="process-slider-track max-md:flex max-md:flex-col max-md:gap-8">
+          {/* ─── TAB PANELS (STEP CARDS) ─── */}
+          <div className="reveal stagger-4 w-full max-w-[1360px] mx-auto overflow-hidden p-0 lg:py-3 lg:px-5">
+            <div className="flex flex-col gap-10 w-full lg:block">
               {pillars.map((pillar, index) => {
                 const isActive = activeTab === index;
-                const isRollingOut = rollingOutTab === index;
-                const panelClass = isActive ? "active" : isRollingOut ? "rolling-out" : "";
 
                 return (
                   <div
@@ -161,11 +167,14 @@ export default function SharedProcess({
                     aria-labelledby={`tab-${pillar.id}`}
                     aria-hidden={!isActive}
                     tabIndex={isActive ? 0 : -1}
-                    className={`row-detail-panel hz-phase-panel ${panelClass} max-md:relative max-md:w-full max-md:opacity-100 max-md:pointer-events-auto max-md:transform-none max-md:p-0`}
+                    className={`w-full transition-opacity duration-300 ${
+                      isActive ? "block" : "block lg:hidden"
+                    }`}
                   >
-                    <div className="mobile-phase-label hidden max-md:flex items-center gap-2.5 mx-4 mb-3.5 font-heading text-xl font-bold text-midnight">
+                    {/* Mobile/Tablet Phase Header (shown only on < 1024px) */}
+                    <div className="flex lg:hidden items-center gap-3.5 mx-4 mb-4 font-heading text-xl md:text-2xl font-bold text-[#162047]">
                       <div
-                        className="mobile-phase-icon w-[38px] h-[38px] rounded-[10px] flex items-center justify-center text-midnight shrink-0"
+                        className="w-[48px] h-[48px] rounded-[14px] flex items-center justify-center text-[#162047] shrink-0 [&_svg]:w-7 [&_svg]:h-7 [&_img]:w-9 [&_img]:h-9 [&_img]:object-contain"
                         style={{
                           background:
                             pillar.timelineItems?.[0]?.backgroundColor ||
@@ -177,45 +186,38 @@ export default function SharedProcess({
                       </div>
                       {pillar.title}
                     </div>
+
+                    {/* Step Cards (Mobile/Tablet swipe track, Desktop grid >= 1024px) */}
                     <div
-                      className="hz-steps-grid max-[1079px]:flex max-[1079px]:flex-row max-[1079px]:overflow-x-auto max-[1079px]:snap-x max-[1079px]:snap-mandatory max-[1079px]:gap-4 max-[1079px]:px-4 max-[1079px]:pb-5 max-[1079px]:justify-start max-[1079px]:items-stretch"
-                      style={
+                      className={`flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-5 px-4 justify-start items-stretch scrollbar-none [webkit-overflow-scrolling:touch] max-w-full ${
                         isRightOfWays
-                          ? {
-                              display: "grid",
-                              gridTemplateColumns: `repeat(${pillar.timelineItems.length}, 1fr)`,
-                              gap: "20px",
-                              width: "100%",
-                              maxWidth: "1320px",
-                              margin: "0 auto",
-                            }
-                          : {
-                              display: "flex",
-                              justifyContent: "center",
-                              gap: "24px",
-                              width: "100%",
-                              margin: "0 auto",
-                            }
-                      }
+                          ? "lg:grid lg:grid-cols-4 lg:gap-5 lg:max-w-[1320px] lg:mx-auto lg:p-0 lg:overflow-visible"
+                          : "lg:flex lg:justify-center lg:gap-6 lg:max-w-[1188px] lg:mx-auto lg:p-0 lg:overflow-visible"
+                      }`}
                     >
                       {pillar.timelineItems.map((item, idx) => {
                         const cardBg = item.backgroundColor || pillar.themeColor || "#FBCBB5";
                         return (
                           <div
                             key={idx}
-                            className="process-step-card max-[1079px]:shrink-0 max-[1079px]:snap-start max-[1079px]:w-[280px] max-[1079px]:min-w-[270px] max-[1079px]:max-w-[290px] max-[1079px]:min-h-[300px] max-[1079px]:p-6"
-                            style={
-                              {
-                                width: "100%",
-                                maxWidth: isRightOfWays ? "303px" : "380px",
-                                aspectRatio: isRightOfWays ? undefined : "1.05 / 1",
-                                background: cardBg,
-                              } as React.CSSProperties
-                            }
+                            className={`shrink-0 snap-start w-[280px] sm:w-[320px] min-w-[270px] max-w-[340px] min-h-[260px] p-6 sm:p-7 rounded-[20px] shadow-[0_4px_16px_rgba(22,32,71,0.04)] hover:shadow-[0_16px_36px_rgba(22,32,71,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-start justify-start text-left lg:w-full lg:min-w-0 lg:shrink lg:p-8 lg:min-h-[310px] ${
+                              isRightOfWays
+                                ? "lg:max-w-[303px]"
+                                : "lg:max-w-[380px] lg:aspect-[1.05/1]"
+                            }`}
+                            style={{
+                              backgroundColor: cardBg,
+                            }}
                           >
-                            <span className="process-step-badge">Step {idx + 1}</span>
-                            <h4>{item.label}</h4>
-                            <p>{item.desc}</p>
+                            <span className="self-start inline-flex items-center justify-center py-1.5 px-3.5 rounded-full bg-[#162047] text-white font-heading text-xs font-bold tracking-[0.06em] uppercase mb-4 leading-none select-none w-fit">
+                              Step {idx + 1}
+                            </span>
+                            <h4 className="font-heading text-lg lg:text-xl font-bold text-[#162047] m-0 mb-2.5 leading-[1.3] normal-case">
+                              {item.label}
+                            </h4>
+                            <p className="text-[15px] lg:text-base leading-[1.58] text-[#162047]/90 font-normal m-0">
+                              {item.desc}
+                            </p>
                           </div>
                         );
                       })}

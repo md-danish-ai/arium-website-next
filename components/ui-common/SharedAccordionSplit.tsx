@@ -63,7 +63,11 @@ function extractImageUrl(bgImg: unknown): string {
     if (typeof record.url === "string") return record.url;
     if (record.data && typeof record.data === "object" && record.data !== null) {
       const dataObj = record.data as Record<string, unknown>;
-      if (dataObj.attributes && typeof dataObj.attributes === "object" && dataObj.attributes !== null) {
+      if (
+        dataObj.attributes &&
+        typeof dataObj.attributes === "object" &&
+        dataObj.attributes !== null
+      ) {
         const attrs = dataObj.attributes as Record<string, unknown>;
         if (typeof attrs.url === "string") return attrs.url;
       }
