@@ -2,10 +2,39 @@ import React from "react";
 import { SharedImageCardGrid } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
-export default function ImageCardGridRenderer({ section, index }: SectionRendererProps) {
-  const cards = (section.cardgrid || section.cards || []).map((card: any) => ({
-    title: card.title,
-    description: card.description,
+interface MediaItem {
+  url: string;
+  alternativeText?: string;
+  width?: number;
+  height?: number;
+}
+
+interface ImageGridCardItem {
+  title?: string;
+  description?: string;
+  image?: MediaItem | string;
+  TitleColor?: string;
+  titleColor?: string;
+  DescriptionColor?: string;
+  descriptionColor?: string;
+}
+
+interface ImageCardGridSectionData {
+  Heading?: string;
+  heading?: string;
+  title?: string;
+  HeadingColor?: string;
+  cardgrid?: ImageGridCardItem[];
+  cards?: ImageGridCardItem[];
+}
+
+export default function ImageCardGridRenderer({
+  section,
+  index,
+}: SectionRendererProps<ImageCardGridSectionData>) {
+  const cards = (section.cardgrid || section.cards || []).map((card) => ({
+    title: card.title || "",
+    description: card.description || "",
     image: card.image,
     TitleColor: card.TitleColor || card.titleColor,
     DescriptionColor: card.DescriptionColor || card.descriptionColor,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 
@@ -199,27 +199,27 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const startAutoPlay = () => {
+  const stopAutoPlay = useCallback(() => {
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+      autoPlayRef.current = null;
+    }
+  }, []);
+
+  const startAutoPlay = useCallback(() => {
     if (isAutoDisabled) return;
     stopAutoPlay();
     autoPlayRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayIndustries.length);
     }, 5500);
-  };
-
-  const stopAutoPlay = () => {
-    if (autoPlayRef.current) {
-      clearInterval(autoPlayRef.current);
-      autoPlayRef.current = null;
-    }
-  };
+  }, [isAutoDisabled, displayIndustries.length, stopAutoPlay]);
 
   useEffect(() => {
     if (!isAutoDisabled) {
       startAutoPlay();
     }
     return () => stopAutoPlay();
-  }, [isAutoDisabled, displayIndustries.length]);
+  }, [isAutoDisabled, startAutoPlay, stopAutoPlay]);
 
   const handleMouseEnter = (index: number) => {
     if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);

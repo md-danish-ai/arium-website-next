@@ -8,6 +8,19 @@ export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=contact&populate[SeoFields][populate]=*"
@@ -20,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: seo?.ogTitle || "Contact Us | Arium Networks",
       description: seo?.ogDescription || "Build with clarity—connect with confidence",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -45,15 +58,15 @@ export default async function Contact() {
     ),
   ]);
   const contactContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const hasInnerHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === "shared.inner-page-hero")
+  const hasInnerHeroWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
   );
 
   const sectionObjects: { pos: number; element: React.ReactElement }[] = [];
 
-  globalWidgets.forEach((widget: any) => {
+  globalWidgets.forEach((widget) => {
     const pos = widget.PositionNumber ?? 999;
     sectionObjects.push({
       pos,

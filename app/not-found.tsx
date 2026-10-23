@@ -23,50 +23,60 @@ export default function NotFound() {
 
     let animationFrameId: number;
 
-    var SUB = 8,
-      SDT = 1 / 60 / SUB;
-    function Sp(this: any, d: number, s: number) {
-      this.v = 0;
-      this.x = 0;
-      this.t = 0;
-      this.d = d;
-      this.s = s;
-    }
-    Sp.prototype.set = function (t: number) {
-      this.t = t;
-    };
-    Sp.prototype.jump = function (v: number) {
-      this.x = v;
-      this.t = v;
-      this.v = 0;
-    };
-    Sp.prototype.get = function () {
-      return this.x;
-    };
-    Sp.prototype.step = function () {
-      for (var i = 0; i < SUB; i++) {
-        var a = (this.t - this.x) * this.s - this.v * this.d;
-        this.v += a * SDT;
-        this.x += this.v * SDT;
+    const SUB = 8;
+    const SDT = 1 / 60 / SUB;
+
+    class Spring {
+      v = 0;
+      x = 0;
+      t = 0;
+      d: number;
+      s: number;
+
+      constructor(d: number, s: number) {
+        this.d = d;
+        this.s = s;
       }
-    };
 
-    var tL = new (Sp as any)(50, 65),
-      tT = new (Sp as any)(50, 65);
-    var wL = new (Sp as any)(50, 65),
-      wT = new (Sp as any)(50, 65);
-    var tR = new (Sp as any)(50, 65),
-      wR = new (Sp as any)(50, 65);
-    var tS = new (Sp as any)(55, 40),
-      wS = new (Sp as any)(55, 40);
-    var tO = new (Sp as any)(55, 40),
-      wO = new (Sp as any)(55, 40);
+      set(t: number) {
+        this.t = t;
+      }
 
-    var K = 600,
+      jump(v: number) {
+        this.x = v;
+        this.t = v;
+        this.v = 0;
+      }
+
+      get() {
+        return this.x;
+      }
+
+      step() {
+        for (let i = 0; i < SUB; i++) {
+          const a = (this.t - this.x) * this.s - this.v * this.d;
+          this.v += a * SDT;
+          this.x += this.v * SDT;
+        }
+      }
+    }
+
+    const tL = new Spring(50, 65);
+    const tT = new Spring(50, 65);
+    const wL = new Spring(50, 65);
+    const wT = new Spring(50, 65);
+    const tR = new Spring(50, 65);
+    const wR = new Spring(50, 65);
+    const tS = new Spring(55, 40);
+    const wS = new Spring(55, 40);
+    const tO = new Spring(55, 40);
+    const wO = new Spring(55, 40);
+
+    const K = 600,
       LY = -200,
       ZY = 300;
-    var QD = { tr: 1.05, br: 0.95, bl: 1, tl: 0.9 };
-    var QS = {
+    const QD = { tr: 1.05, br: 0.95, bl: 1, tl: 0.9 };
+    const QS = {
       c: { t: 1, w: 1 },
       tr: { t: 1.3, w: 0.9 },
       br: { t: 1.2, w: 0.95 },
@@ -74,29 +84,29 @@ export default function NotFound() {
       tl: { t: 0.8, w: 1.1 },
     };
 
-    var cx = 0,
+    let cx = 0,
       cy = 0;
-    var rL = 0,
+    let rL = 0,
       rT = 0,
       rR = 0,
       rB = 0;
-    var hx = 0,
+    let hx = 0,
       hy = 0;
-    var gx = 0,
+    let gx = 0,
       gy = 0;
-    var idle = true,
+    let idle = true,
       ready = false;
-    var lastPt = 0;
+    let lastPt = 0;
 
     function shortA(cur: number, tgt: number) {
-      var d = tgt - cur;
+      let d = tgt - cur;
       while (d > 180) d -= 360;
       while (d <= -180) d += 360;
       return cur + d;
     }
 
     function init() {
-      var r = $bg!.getBoundingClientRect();
+      const r = $bg!.getBoundingClientRect();
       rL = r.left;
       rT = r.top;
       rR = r.right;
@@ -104,7 +114,7 @@ export default function NotFound() {
       cx = r.width / 2;
       cy = r.height / 2;
       if (!idle) return;
-      var hk = K / 2;
+      const hk = K / 2;
       tL.jump(cx - hk);
       tT.jump(cy + LY);
       wL.jump(cx + hk);
@@ -159,7 +169,7 @@ export default function NotFound() {
       hy += (gy - hy) * 0.03;
 
       if (idle) {
-        var hk = K / 2;
+        const hk = K / 2;
         tL.set(cx - hk);
         tT.set(cy + LY);
         wL.set(cx + hk);
@@ -171,9 +181,9 @@ export default function NotFound() {
         tR.set(shortA(tR.get(), 180));
         wR.set(shortA(wR.get(), 165));
       } else {
-        var dx = hx - cx,
+        let dx = hx - cx,
           dy = hy - cy;
-        var ln = Math.hypot(dx, dy);
+        let ln = Math.hypot(dx, dy);
         if (ln < 0.1) {
           dx = 1;
           dy = 0;
@@ -182,19 +192,27 @@ export default function NotFound() {
           dx /= ln;
           dy /= ln;
         }
-        var near = ln < 100;
-        var rt = hx > cx,
+        const near = ln < 100;
+        const rt = hx > cx,
           bel = hy > cy;
-        var qm = near ? 1 : rt && !bel ? QD.tr : rt && bel ? QD.br : !rt && bel ? QD.bl : QD.tl;
-        var dd = near ? 720 : 600 * qm;
+        const qm = near ? 1 : rt && !bel ? QD.tr : rt && bel ? QD.br : !rt && bel ? QD.bl : QD.tl;
+        const dd = near ? 720 : 600 * qm;
         tL.set(hx - dx * dd);
         tT.set(hy - dy * dd);
         wL.set(hx + dx * dd);
         wT.set(hy + dy * dd);
-        var D2R = 180 / Math.PI;
+        const D2R = 180 / Math.PI;
         tR.set(shortA(tR.get(), Math.atan2(dy * dd, dx * dd) * D2R + 45));
         wR.set(shortA(wR.get(), Math.atan2(-dy * dd, -dx * dd) * D2R - 135));
-        var qs = near ? QS.c : rt && !bel ? QS.tr : rt && bel ? QS.br : !rt && bel ? QS.bl : QS.tl;
+        const qs = near
+          ? QS.c
+          : rt && !bel
+            ? QS.tr
+            : rt && bel
+              ? QS.br
+              : !rt && bel
+                ? QS.bl
+                : QS.tl;
         tS.set(0.75 * qs.t);
         wS.set(0.75 * qs.w);
         tO.set(1);

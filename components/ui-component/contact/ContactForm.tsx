@@ -55,7 +55,7 @@ export default function ContactForm() {
         setStatus("error");
         setErrorMessage(data.error || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setErrorMessage("Network error. Please check your connection and try again.");
     }

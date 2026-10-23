@@ -3,13 +3,16 @@ import ParticleBackground from "@ui-animations/ParticleBackground";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 
-interface BenefitCard {
+interface StrapiMediaShape {
+  url?: string;
+  alternativeText?: string;
+  data?: { attributes?: { url?: string } } | { attributes?: { url?: string } }[];
+}
+
+export interface BenefitCard {
   title: string;
   description: string;
-  image?: {
-    url: string;
-    alternativeText?: string;
-  };
+  image?: StrapiMediaShape | string;
   TitleColor?: string;
   DescriptionColor?: string;
 }
@@ -22,7 +25,7 @@ interface SharedImageCardGridProps {
   };
 }
 
-const FALLBACK_BENEFITS = [
+const FALLBACK_BENEFITS: BenefitCard[] = [
   {
     title: "Reliability",
     description:
@@ -44,7 +47,7 @@ const FALLBACK_BENEFITS = [
 ];
 
 export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) {
-  const benefits: any[] = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
+  const benefits = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
   return (
     <section
       id="benefits"
@@ -74,22 +77,30 @@ export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) 
             let extractedUrl = "";
             if (typeof benefit.image === "string") {
               extractedUrl = benefit.image;
-            } else if (benefit.image?.url) {
-              extractedUrl = benefit.image.url;
-            } else if (benefit.image?.data?.attributes?.url) {
-              extractedUrl = benefit.image.data.attributes.url;
-            } else if (
-              Array.isArray(benefit.image?.data) &&
-              benefit.image.data[0]?.attributes?.url
-            ) {
-              extractedUrl = benefit.image.data[0].attributes.url;
-            } else if (Array.isArray(benefit.image) && benefit.image[0]?.url) {
-              extractedUrl = benefit.image[0].url;
+            } else if (benefit.image && typeof benefit.image === "object") {
+              if ("url" in benefit.image && benefit.image.url) {
+                extractedUrl = benefit.image.url;
+              } else if (
+                "data" in benefit.image &&
+                Array.isArray(benefit.image.data) &&
+                benefit.image.data[0]?.attributes?.url
+              ) {
+                extractedUrl = benefit.image.data[0].attributes.url;
+              } else if (
+                "data" in benefit.image &&
+                !Array.isArray(benefit.image.data) &&
+                benefit.image.data?.attributes?.url
+              ) {
+                extractedUrl = benefit.image.data.attributes.url;
+              }
             }
 
-            const imageUrl = extractedUrl
-              ? GetStrapiMediaUrl(extractedUrl)
-              : FALLBACK_BENEFITS[index]?.image || "/assets/images/placeholder.png";
+            const fallbackImage =
+              typeof FALLBACK_BENEFITS[index]?.image === "string"
+                ? (FALLBACK_BENEFITS[index].image as string)
+                : "/assets/images/placeholder.png";
+
+            const imageUrl = extractedUrl ? GetStrapiMediaUrl(extractedUrl) : fallbackImage;
 
             return (
               <div key={index} className="p-0 text-center flex flex-col items-center w-full">

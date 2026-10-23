@@ -2,10 +2,28 @@ import React from "react";
 import { SharedTestimonials } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
-export default function TestimonialsRenderer({ section, index }: SectionRendererProps) {
+interface TestimonialCardItem {
+  personName?: string;
+  personMessage?: string;
+  personDesignation?: string;
+  cardfooterBg?: string;
+}
+
+interface TestimonialsSectionData {
+  Heading?: string;
+  heading?: string;
+  Description?: string;
+  description?: string;
+  cards?: TestimonialCardItem[];
+}
+
+export default function TestimonialsRenderer({
+  section,
+  index,
+}: SectionRendererProps<TestimonialsSectionData>) {
   const heading = section.Heading || section.heading || "";
   const description = section.Description || section.description || "";
-  const cards = (section.cards || []).map((t: any) => ({
+  const cards = (section.cards || []).map((t) => ({
     personName: t.personName || "",
     personMessage: t.personMessage || "",
     personDesignation: t.personDesignation || "",

@@ -13,6 +13,25 @@ import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 import type { Metadata } from "next";
 
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
+interface CommunitySectionItem {
+  key?: string;
+  ctas?: { label?: string; url?: string }[];
+  [key: string]: unknown;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=community&populate[SeoFields][populate]=*"
@@ -29,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Arium Networks builds wireless small cell infrastructure in communities across the country, keeping you connected to what matters.",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -52,31 +71,33 @@ export default async function YourCommunityPage() {
     fetchPageWidgets("community"),
   ]);
   const communityContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
   const smallCellData = communityContent?.sections?.find(
-    (section: any) => section.key === "Small cell"
+    (section: CommunitySectionItem) => section.key === "Small cell"
   );
   const whySmallCellData = communityContent?.sections?.find(
-    (section: any) => section.key === "Small cells matter"
+    (section: CommunitySectionItem) => section.key === "Small cells matter"
   );
   const howWeWorkData = communityContent?.sections?.find(
-    (section: any) => section.key === "How we work"
+    (section: CommunitySectionItem) => section.key === "How we work"
   );
   const testimonialsData = communityContent?.sections?.find(
-    (section: any) => section.key === "Communities support"
+    (section: CommunitySectionItem) => section.key === "Communities support"
   );
-  const faqData = communityContent?.sections?.find((section: any) => section.key === "FAQ");
+  const faqData = communityContent?.sections?.find(
+    (section: CommunitySectionItem) => section.key === "FAQ"
+  );
 
-  const hasIllustrationWidgets = globalWidgets.some((w: any) =>
+  const hasIllustrationWidgets = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) =>
+      (s) =>
         s.__component?.includes("illustration-split") || s.__component?.includes("media-text-split")
     )
   );
 
-  const hasImageCardGridWidget = globalWidgets.some((w: any) =>
+  const hasImageCardGridWidget = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) =>
+      (s) =>
         s.__component?.includes("image-card-grid") ||
         s.__component?.includes("imagecardgrid") ||
         s.__component?.includes("image-card") ||
@@ -87,7 +108,7 @@ export default async function YourCommunityPage() {
   const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
 
   // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
+  globalWidgets.forEach((widget) => {
     sectionMap.push({
       pos: widget.PositionNumber ?? 999,
       key: `widget-${widget.id}`,
@@ -96,7 +117,7 @@ export default async function YourCommunityPage() {
   });
 
   // 2. Add fallbacks for missing positions/widgets
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
+  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
   if (!hasHeroWidget) {
     sectionMap.push({
       pos: 0,
@@ -135,9 +156,9 @@ export default async function YourCommunityPage() {
     });
   }
 
-  const hasBackgroundFeatureWidget = globalWidgets.some((w: any) =>
+  const hasBackgroundFeatureWidget = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) =>
+      (s) =>
         s.__component?.includes("background-feature-section") ||
         s.__component?.includes("backgroundfeaturesection")
     )
@@ -155,9 +176,9 @@ export default async function YourCommunityPage() {
     });
   }
 
-  const hasTestimonialsWidget = globalWidgets.some((w: any) =>
+  const hasTestimonialsWidget = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
+      (s) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
     )
   );
   if (!hasTestimonialsWidget) {
@@ -172,8 +193,8 @@ export default async function YourCommunityPage() {
     });
   }
 
-  const hasFaqWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("faq"))
+  const hasFaqWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component?.includes("faq"))
   );
   if (!hasFaqWidget) {
     sectionMap.push({

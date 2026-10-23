@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ParticleBackground from "@ui-animations/ParticleBackground";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 
@@ -59,9 +58,12 @@ export default function CommunitySmallCells({ data }: CommunitySmallCellsProps) 
           </div>
           <div className="sol-illustration-wrapper small-cells-illust flex items-center justify-center lg:justify-end">
             <div className="relative w-[90%] max-w-[440px]">
-              <img
+              <Image
                 src={imgUrl}
                 alt={data?.media?.[0]?.alternativeText || "Small cells illustration"}
+                width={440}
+                height={330}
+                unoptimized={imgUrl.toLowerCase().endsWith(".svg")}
                 className={`w-full h-auto opacity-85 relative z-[1] ${imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""}`}
                 style={{
                   filter:

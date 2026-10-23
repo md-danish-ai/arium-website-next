@@ -6,7 +6,7 @@ interface BenefitCard {
   title: string;
   description: string;
   TitleColor?: string;
-  image?: any;
+  image?: string | { url?: string; data?: { attributes?: { url?: string } } } | null;
 }
 
 interface CareersBenefitsProps {
@@ -90,12 +90,23 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
 
       {/* Full-width pillar grid */}
       <div className="reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 px-6 md:px-12 max-w-[1600px] mx-auto">
-        {benefits.map((benefit: any, index) => {
+        {benefits.map((benefit: BenefitCard, index) => {
           let iconSrc = STATIC_ICONS[index % STATIC_ICONS.length];
-          const customImg =
-            benefit.image?.url ||
-            benefit.image?.data?.attributes?.url ||
-            (typeof benefit.image === "string" ? benefit.image : null);
+          let customImg: string | null = null;
+          if (typeof benefit.image === "string") {
+            customImg = benefit.image;
+          } else if (benefit.image && typeof benefit.image === "object") {
+            if ("url" in benefit.image && benefit.image.url) {
+              customImg = benefit.image.url;
+            } else if (
+              "data" in benefit.image &&
+              benefit.image.data &&
+              "attributes" in benefit.image.data &&
+              benefit.image.data.attributes?.url
+            ) {
+              customImg = benefit.image.data.attributes.url;
+            }
+          }
           if (customImg) {
             iconSrc = customImg.startsWith("/assets/") ? customImg : GetStrapiMediaUrl(customImg);
           }

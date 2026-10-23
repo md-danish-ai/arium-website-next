@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ImageCarousel from "@ui-element/ImageCarousel";
+import Image from "next/image";
 import { Typography } from "@ui-element";
 
 const venueImages = [
@@ -92,10 +92,12 @@ export default function WhereVenues({ data }: WhereVenuesProps) {
 
         <div className="ov-showcase reveal stagger-1 lg:order-1">
           <div className="ov-showcase-stage aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
-            <img
+            <Image
               src={carouselImages[0].src}
               alt={carouselImages[0].alt}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
             />
           </div>
         </div>

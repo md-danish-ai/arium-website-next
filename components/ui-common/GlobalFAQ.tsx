@@ -19,7 +19,6 @@ interface GlobalFAQProps {
 
 export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData }: GlobalFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const faqs = FaqData || [];
 
   const toggleFAQ = (index: number) => {

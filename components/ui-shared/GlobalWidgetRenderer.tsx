@@ -1,9 +1,32 @@
 import React from "react";
 import { WIDGET_REGISTRY } from "./renderers";
 
-export interface GlobalWidgetProps {
-  widget: any;
+export interface GlobalWidgetSection {
+  id?: number | string;
+  __component?: string;
 }
+
+export interface GlobalWidgetData {
+  id?: number | string;
+  PositionNumber?: number;
+  CustomCssClass?: string;
+  Sections?: GlobalWidgetSection[];
+}
+
+export interface GlobalWidgetProps {
+  widget: GlobalWidgetData;
+}
+
+type GroupedSection =
+  | {
+      type: "storyteller-flow";
+      items: { section: GlobalWidgetSection; index: number }[];
+    }
+  | {
+      type: "single";
+      section: GlobalWidgetSection;
+      index: number;
+    };
 
 const STORYTELLER_COMPONENTS = new Set([
   "shared.journey",
@@ -24,18 +47,18 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
     return null;
   }
 
-  const renderNode = (section: any, index: number) => {
-    const Component = WIDGET_REGISTRY[section?.__component];
+  const renderNode = (section: GlobalWidgetSection, index: number) => {
+    const Component = section?.__component ? WIDGET_REGISTRY[section.__component] : null;
     if (!Component) return null;
     return <Component key={`widget-section-${index}`} section={section} index={index} />;
   };
 
   // Group contiguous storyteller components into storyteller-flow containers
-  const groupedSections: any[] = [];
-  let currentFlowGroup: any[] = [];
+  const groupedSections: GroupedSection[] = [];
+  let currentFlowGroup: { section: GlobalWidgetSection; index: number }[] = [];
 
-  widget.Sections.forEach((section: any, index: number) => {
-    if (STORYTELLER_COMPONENTS.has(section.__component)) {
+  widget.Sections.forEach((section: GlobalWidgetSection, index: number) => {
+    if (section.__component && STORYTELLER_COMPONENTS.has(section.__component)) {
       currentFlowGroup.push({ section, index });
     } else {
       if (currentFlowGroup.length > 0) {
@@ -55,7 +78,7 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
       {groupedSections.map((group, groupIndex) => {
         if (group.type === "storyteller-flow") {
           const hasIllustration = group.items.some(
-            (item: any) =>
+            (item) =>
               item.section.__component === "shared.illustration-split" ||
               item.section.__component === "shared.media-text-split"
           );
@@ -73,7 +96,7 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
               <div className="flow-bg-gradient flow-bg-1 pointer-events-none" aria-hidden="true" />
               <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
               <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
-              {group.items.map((item: any) => renderNode(item.section, item.index))}
+              {group.items.map((item) => renderNode(item.section, item.index))}
             </div>
           );
         }

@@ -12,7 +12,11 @@ interface HighlightItem {
 interface SharedHighlightListProps {
   heading: string;
   description: string;
-  image?: any;
+  image?: {
+    url?: string;
+    alternativeText?: string;
+    data?: { attributes?: { url?: string; alternativeText?: string } };
+  } | null;
   ctaLabel?: string;
   ctaUrl?: string;
   listItems: HighlightItem[];
@@ -114,10 +118,12 @@ export default function SharedHighlightList({
           <div className="shared-hl-right reveal h-full">
             {absoluteImgUrl && (
               <div className="shared-hl-img-box relative rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(22,32,71,0.08),0_0_40px_rgba(0,232,217,0.04)] h-full min-h-[360px]">
-                <img
+                <Image
                   src={absoluteImgUrl}
                   alt={image?.alternativeText || heading || "Highlight Image"}
-                  className="w-full h-full object-cover block"
+                  fill
+                  className="object-cover block"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="shared-hl-img-overlay absolute inset-0 rounded-2xl border border-midnight/10 pointer-events-none" />
               </div>

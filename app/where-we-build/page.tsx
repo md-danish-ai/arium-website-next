@@ -8,6 +8,28 @@ export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
+interface WhereSectionItem {
+  key?: string;
+  title?: string;
+  body?: string;
+  cta?: { label: string; url: string };
+  media?: { url: string; alternativeText?: string }[];
+  [key: string]: unknown;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=where-we-build&populate[SeoFields][populate]=*"
@@ -24,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Discover how our small cell and DAS networks enable the wireless coverage and capacity needed in the public right of way and in buildings and venues.",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -53,10 +75,10 @@ export default async function WhereWeBuildPage() {
     ),
   ]);
   const whereContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
   const sectionsMap: Record<number, React.ReactElement[]> = {};
-  globalWidgets.forEach((widget: any, index: number) => {
+  globalWidgets.forEach((widget, index: number) => {
     const pos = widget.PositionNumber ?? index;
     if (!sectionsMap[pos]) sectionsMap[pos] = [];
     sectionsMap[pos].push(<GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
@@ -69,14 +91,14 @@ export default async function WhereWeBuildPage() {
       sections.push(...sectionsMap[Number(key)]);
     });
 
-  const hasImageSplitWidgets = globalWidgets.some((w: any) =>
+  const hasImageSplitWidgets = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) => s.__component?.includes("image-split") || s.__component?.includes("imagesplit")
+      (s) => s.__component?.includes("image-split") || s.__component?.includes("imagesplit")
     )
   );
 
   // Fallback check: Did Strapi give us a widget for Position 0?
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
+  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
 
   // If no hero widget exists (e.g., Strapi is down), inject the fallback at Position 0!
   if (!hasHeroWidget) {
@@ -102,7 +124,9 @@ export default async function WhereWeBuildPage() {
       0,
       <WhereCommunities
         key="communities"
-        data={whereContent?.sections?.find((section: any) => section.key === "Communities")}
+        data={whereContent?.sections?.find(
+          (section: WhereSectionItem) => section.key === "Communities"
+        )}
       />
     );
     sections.splice(
@@ -111,7 +135,7 @@ export default async function WhereWeBuildPage() {
       <WhereVenues
         key="venues"
         data={whereContent?.sections?.find(
-          (section: any) => section.key === "Buildings and Venues"
+          (section: WhereSectionItem) => section.key === "Buildings and Venues"
         )}
       />
     );

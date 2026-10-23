@@ -8,7 +8,11 @@ interface SharedImageSplitProps {
   data: {
     Heading?: string;
     Description?: string;
-    Image?: any;
+    Image?: {
+      url?: string;
+      alternativeText?: string;
+      data?: { attributes?: { url?: string; alternativeText?: string } };
+    } | null;
     CTAText?: string;
     CTAUrl?: string;
     ImageAlignment?: string;

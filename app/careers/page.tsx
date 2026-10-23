@@ -13,6 +13,24 @@ import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
 import type { Metadata } from "next";
 
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
+interface CareersSectionItem {
+  key?: string;
+  [key: string]: unknown;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=careers&populate[SeoFields][populate]=*"
@@ -29,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Explore job opportunities with Arium Networks and help us build the next era of wireless connectivity. Discover more about our company, culture, and benefits.",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -54,27 +72,27 @@ export default async function CareersPage() {
     fetchPageWidgets("careers"),
   ]);
   const careersContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
   // Fallback check: Did Strapi give us a widget that contains an Accordion?
-  const hasAccordionWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("accordion"))
+  const hasAccordionWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component?.includes("accordion"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains Benefits?
-  const hasBenefitsWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("benefits"))
+  const hasBenefitsWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component?.includes("benefits"))
   );
 
   // Fallback check: Did Strapi give us a widget that contains Highlight List?
-  const hasHighlightListWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("highlight-list"))
+  const hasHighlightListWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component?.includes("highlight-list"))
   );
 
   const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
 
   // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
+  globalWidgets.forEach((widget) => {
     sectionMap.push({
       pos: widget.PositionNumber ?? 999,
       key: `widget-${widget.id}`,
@@ -83,7 +101,7 @@ export default async function CareersPage() {
   });
 
   // 2. Add fallbacks for missing positions/widgets
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
+  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
   if (!hasHeroWidget) {
     sectionMap.push({
       pos: 0,
@@ -120,9 +138,9 @@ export default async function CareersPage() {
     });
   }
 
-  const hasTestimonialsWidget = globalWidgets.some((w: any) =>
+  const hasTestimonialsWidget = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
+      (s) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
     )
   );
   if (!hasTestimonialsWidget) {
@@ -133,7 +151,7 @@ export default async function CareersPage() {
         <div key="testimonials-fallback" className="row-storyteller-flow">
           <CareersTestimonials
             data={careersContent?.sections?.find(
-              (section: any) => section.key === "Arium Networks Team"
+              (section: CareersSectionItem) => section.key === "Arium Networks Team"
             )}
           />
         </div>
@@ -148,7 +166,9 @@ export default async function CareersPage() {
       el: (
         <div key="jobareas" className="row-storyteller-flow">
           <CareersJobAreas
-            data={careersContent?.sections?.find((section: any) => section.key === "Job Areas")}
+            data={careersContent?.sections?.find(
+              (section: CareersSectionItem) => section.key === "Job Areas"
+            )}
           />
         </div>
       ),
@@ -162,7 +182,9 @@ export default async function CareersPage() {
       el: (
         <div key="benefits" className="bg-[#ededee]" style={{ background: "#ededee" }}>
           <CareersBenefits
-            data={careersContent?.sections?.find((section: any) => section.key === "Benefits")}
+            data={careersContent?.sections?.find(
+              (section: CareersSectionItem) => section.key === "Benefits"
+            )}
           />
         </div>
       ),
@@ -173,7 +195,9 @@ export default async function CareersPage() {
       el: (
         <CareersEEO
           key="eeo"
-          data={careersContent?.sections?.find((section: any) => section.key === "Message")}
+          data={careersContent?.sections?.find(
+            (section: CareersSectionItem) => section.key === "Message"
+          )}
         />
       ),
     });

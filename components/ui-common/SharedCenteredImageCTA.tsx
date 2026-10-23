@@ -9,7 +9,14 @@ interface SharedCenteredImageCTAProps {
   text: string;
   ctaLabel?: string;
   ctaUrl?: string;
-  bgImage?: any;
+  bgImage?:
+    | string
+    | {
+        url?: string;
+        alternativeText?: string;
+        data?: { attributes?: { url?: string; alternativeText?: string } };
+      }
+    | null;
   HeadingColor?: string;
   DescriptionColor?: string;
 }
@@ -31,6 +38,11 @@ export default function SharedCenteredImageCTA({
     ? GetStrapiMediaUrl(bgImageUrl)
     : "/assets/images/careers-bg.jpg";
 
+  const altText =
+    typeof bgImage === "object" && bgImage !== null
+      ? bgImage.alternativeText || heading || "Background Image"
+      : heading || "Background Image";
+
   return (
     <section
       className="shared-centered-image-cta-section relative overflow-hidden min-h-[clamp(440px,82vh,620px)] sm:min-h-[clamp(460px,88vh,720px)]"
@@ -39,7 +51,7 @@ export default function SharedCenteredImageCTA({
       <div className="shared-centered-image-cta-bg absolute inset-0 z-0">
         <Image
           src={absoluteBgImageUrl}
-          alt={bgImage?.alternativeText || heading || "Background Image"}
+          alt={altText}
           fill
           className="shared-centered-image-cta-bg-img w-full h-full object-cover object-[center_40%] block"
         />

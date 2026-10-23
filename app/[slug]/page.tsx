@@ -7,6 +7,19 @@ import SharedHero from "@ui-common/SharedHero";
 
 export const dynamic = "force-dynamic";
 
+interface StrapiWidgetSection {
+  id?: number | string;
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  [key: string]: unknown;
+}
+
 // ─────────────────────────────────────────────────────────────
 // SEO Metadata — resolved dynamically from Strapi
 // ─────────────────────────────────────────────────────────────
@@ -27,7 +40,7 @@ export async function generateMetadata({
     openGraph: {
       title: seo?.ogTitle || seo?.metaTitle || "Arium Networks",
       description: seo?.ogDescription || seo?.metaDescription || "",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [{ url: GetStrapiMediaUrl(seo.ogImage.url) }],
@@ -61,11 +74,11 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
   }
 
   const pageContent = pageData.data[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
   // ── Sort widgets into position map ──────────────────────────
   const sectionsMap: Record<number, React.ReactElement[]> = {};
-  globalWidgets.forEach((widget: any, index: number) => {
+  globalWidgets.forEach((widget, index: number) => {
     const pos = widget.PositionNumber ?? index;
     if (!sectionsMap[pos]) sectionsMap[pos] = [];
     sectionsMap[pos].push(<GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
@@ -77,7 +90,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     .forEach((key) => sections.push(...sectionsMap[Number(key)]));
 
   // ── Hero fallback ────────────────────────────────────────────
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
+  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
 
   if (!hasHeroWidget) {
     const heroMedia = pageContent?.heroMedia?.[0];

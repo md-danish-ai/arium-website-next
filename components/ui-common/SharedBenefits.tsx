@@ -7,7 +7,7 @@ interface BenefitCard {
   id?: number;
   title: string;
   description: string;
-  image?: any;
+  image?: { url?: string; data?: { attributes?: { url?: string } } } | null;
   TitleColor?: string;
 }
 
