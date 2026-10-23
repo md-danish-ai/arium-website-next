@@ -5,8 +5,8 @@ import BackgroundFeatureSection from "@ui-component/home/BackgroundFeatureSectio
 import DetailedCardGrid from "@ui-component/home/DetailedCardGrid";
 import StatsWithImage from "@ui-component/home/StatsWithImage";
 import ImageGradientSplit from "@ui-component/home/ImageGradientSplit";
-import SharedCenteredImageCTA from "@ui-common/SharedCenteredImageCTA";
-import SharedCtaWithGraphic from "@ui-common/SharedCtaWithGraphic";
+import CenteredImageCTA from "@ui-common/CenteredImageCTA";
+import CtaWithGraphic from "@ui-common/CtaWithGraphic";
 import Particles from "@ui-animations/Particles";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 
@@ -197,7 +197,7 @@ export default async function Home() {
       key: "careers",
       skip: hasWidget("centered-image-cta"),
       el: (
-        <SharedCenteredImageCTA
+        <CenteredImageCTA
           key="careers"
           heading={careersData?.title || "Help us shape the future of connectivity"}
           text={
@@ -215,7 +215,7 @@ export default async function Home() {
       key: "finalcta",
       skip: hasWidget("cta-with-graphic"),
       el: (
-        <SharedCtaWithGraphic
+        <CtaWithGraphic
           key="finalcta"
           heading={finalCTAData?.title || "Where can we take your network?"}
           description={

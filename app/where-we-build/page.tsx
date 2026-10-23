@@ -1,5 +1,5 @@
 import React from "react";
-import SharedHero from "@ui-common/SharedHero";
+import HeroBanner from "@ui-common/HeroBanner";
 import WhereCommunities from "@ui-component/where-we-build/WhereCommunities";
 import WhereVenues from "@ui-component/where-we-build/WhereVenues";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
@@ -103,7 +103,7 @@ export default async function WhereWeBuildPage() {
   // If no hero widget exists (e.g., Strapi is down), inject the fallback at Position 0!
   if (!hasHeroWidget) {
     sections.unshift(
-      <SharedHero
+      <HeroBanner
         key="hero-fallback"
         id="where-hero"
         imageSrc={whereContent?.heroMedia?.[0]?.url || "/assets/images/challenges-bg.png"}

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { getNormalizedNavRoutes, RawNavigationItem } from "../nav-routes";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
-import { DesktopLogoSvg, MobileLogoSvg } from "./NavbarSvgs";
+import { DesktopLogoSvg, MobileLogoSvg } from "@ui-svg";
 
 export interface NavbarLayoutData {
   logoDesktop?: string;

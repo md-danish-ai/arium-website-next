@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedTestimonials } from "@ui-common";
+import { TestimonialsSection } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 interface TestimonialCardItem {
@@ -31,7 +31,7 @@ export default function TestimonialsRenderer({
   }));
 
   return (
-    <SharedTestimonials
+    <TestimonialsSection
       key={`testimonials-${index}`}
       heading={heading}
       description={description}

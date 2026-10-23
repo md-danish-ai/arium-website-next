@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedInnerPageHero, PeopleGlobalSection, GlobeCTA, PeopleCard } from "@ui-common";
+import { InnerPageHero, PeopleGlobalSection, GlobeCTA, PeopleCard } from "@ui-common";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 import type { Metadata } from "next";
@@ -99,7 +99,7 @@ export default async function BoardOfDirectorsPage() {
   const sections: React.ReactElement[] = [];
   if (!hasInnerHeroWidget) {
     sections.push(
-      <SharedInnerPageHero
+      <InnerPageHero
         key="hero"
         heroTitle={boardContent?.heroTitle || "Board of Directors"}
         heroDescription={

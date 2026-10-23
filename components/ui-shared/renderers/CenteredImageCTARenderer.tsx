@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedCenteredImageCTA } from "@ui-common";
+import { CenteredImageCTA } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 export default function CenteredImageCTARenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedCenteredImageCTA
+    <CenteredImageCTA
       key={`centered-image-cta-${index}`}
       heading={section.Heading || section.heading || section.title}
       text={section.Text || section.text || section.description || section.body}

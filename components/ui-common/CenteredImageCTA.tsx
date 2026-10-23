@@ -4,7 +4,7 @@ import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 
-interface SharedCenteredImageCTAProps {
+interface CenteredImageCTAProps {
   heading: string;
   text: string;
   ctaLabel?: string;
@@ -21,7 +21,7 @@ interface SharedCenteredImageCTAProps {
   DescriptionColor?: string;
 }
 
-export default function SharedCenteredImageCTA({
+export default function CenteredImageCTA({
   heading,
   text,
   ctaLabel,
@@ -29,7 +29,7 @@ export default function SharedCenteredImageCTA({
   bgImage,
   HeadingColor,
   DescriptionColor,
-}: SharedCenteredImageCTAProps) {
+}: CenteredImageCTAProps) {
   if (!heading && !text) return null;
 
   const bgImageUrl =

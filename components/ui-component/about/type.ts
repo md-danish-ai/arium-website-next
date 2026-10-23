@@ -3,8 +3,8 @@ import type { StrapiMediaLike, StrapiMediaItem } from "../home/type";
 
 export type { StrapiMediaLike, StrapiMediaItem };
 
-// SharedContentWithSideGraphic Types
-export interface SharedContentWithSideGraphicProps {
+// AboutContentWithSideGraphic Types
+export interface AboutContentWithSideGraphicProps {
   Heading?: string;
   heading?: string;
   Description?: string;
@@ -41,8 +41,8 @@ export interface SharedContentWithSideGraphicProps {
   };
 }
 
-// SharedJourney Types
-export interface SharedJourneyTimelineItem {
+// AboutJourney Types
+export interface AboutJourneyTimelineItem {
   Title?: string;
   title?: string;
   Content?: string;
@@ -56,19 +56,19 @@ export interface SharedJourneyTimelineItem {
   badgeText?: string;
 }
 
-export interface SharedJourneyProps {
+export interface AboutJourneyProps {
   Heading?: string;
   Description?: string;
-  TimeCards?: SharedJourneyTimelineItem[];
+  TimeCards?: AboutJourneyTimelineItem[];
   data?: {
     title?: string;
     body?: string;
-    cards?: SharedJourneyTimelineItem[];
-    cardItem?: SharedJourneyTimelineItem[];
+    cards?: AboutJourneyTimelineItem[];
+    cardItem?: AboutJourneyTimelineItem[];
   };
 }
 
-// SharedStatsCards Types
+// AboutStatsCards Types
 export interface StatsCardItem {
   Title?: string;
   title?: string;
@@ -84,7 +84,7 @@ export interface StatsCardItem {
   DescriptionColor?: string;
 }
 
-export interface SharedStatsCardsProps {
+export interface AboutStatsCardsProps {
   Heading?: string;
   Description?: string;
   CradColorful?: StatsCardItem[];
@@ -96,7 +96,7 @@ export interface SharedStatsCardsProps {
   };
 }
 
-// SharedCommitments Types
+// AboutCommitments Types
 export interface PillarCard {
   PillarText?: string;
   title?: string;
@@ -110,7 +110,7 @@ export interface PillarCard {
   PillarBgColorHover?: string;
 }
 
-export interface SharedCommitmentsProps {
+export interface AboutCommitmentsProps {
   Heading?: string;
   Description?: string;
   BgImage?: StrapiMediaLike;
@@ -125,7 +125,7 @@ export interface SharedCommitmentsProps {
   };
 }
 
-// SharedCulture Types
+// AboutCulture Types
 export interface CulturePillar {
   Heading?: string;
   title?: string;
@@ -140,7 +140,7 @@ export interface CultureCTA {
   url?: string;
 }
 
-export interface SharedCultureProps {
+export interface AboutCultureProps {
   Heading?: string;
   Description?: string;
   Pillarcard?: CulturePillar[];

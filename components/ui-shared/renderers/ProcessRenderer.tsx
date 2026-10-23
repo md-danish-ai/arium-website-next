@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { SharedProcess } from "@ui-common";
+import { ProcessSection } from "@ui-common";
 import { SectionRendererProps, GetStrapiMediaUrl } from "./helper";
 
 interface ProcessCardItem {
@@ -80,7 +80,7 @@ export default function ProcessRenderer({
   });
 
   return (
-    <SharedProcess
+    <ProcessSection
       key={`process-${index}`}
       title={title}
       description={description}

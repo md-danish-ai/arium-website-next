@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import SharedHero from "@ui-common/SharedHero";
+import HeroBanner from "@ui-common/HeroBanner";
 
 export const dynamic = "force-dynamic";
 
@@ -99,7 +99,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
       : "/assets/images/challenges-bg.png";
 
     sections.unshift(
-      <SharedHero
+      <HeroBanner
         key="hero-fallback"
         id={`${slug}-hero`}
         imageSrc={heroImgUrl}

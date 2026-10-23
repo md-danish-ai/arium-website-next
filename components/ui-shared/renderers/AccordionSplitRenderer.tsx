@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedAccordionSplit } from "@ui-common";
+import { AccordionSplit } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 export default function AccordionSplitRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedAccordionSplit
+    <AccordionSplit
       key={`accordion-split-${index}`}
       Heading={section.Heading || section.heading}
       Description={section.Description || section.description}

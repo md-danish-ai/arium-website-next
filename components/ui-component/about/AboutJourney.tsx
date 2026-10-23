@@ -1,14 +1,9 @@
 import React from "react";
 import { Typography } from "@ui-element";
-import { SharedJourneyProps, SharedJourneyTimelineItem } from "./type";
+import { AboutJourneyProps, AboutJourneyTimelineItem } from "./type";
 
-export default function SharedJourney({
-  Heading,
-  Description,
-  TimeCards,
-  data,
-}: SharedJourneyProps) {
-  const defaultItems: SharedJourneyTimelineItem[] = [
+export default function AboutJourney({ Heading, Description, TimeCards, data }: AboutJourneyProps) {
+  const defaultItems: AboutJourneyTimelineItem[] = [
     {
       Title: "2010-2011",
       Content:
@@ -34,7 +29,7 @@ export default function SharedJourney({
     (data?.cards && data.cards.length > 0 ? data.cards : null) ||
     defaultItems;
 
-  const items: SharedJourneyTimelineItem[] = rawCards.map((c) => {
+  const items: AboutJourneyTimelineItem[] = rawCards.map((c) => {
     const item = c as Record<string, unknown>;
     return {
       Title: (item.Title || item.title || "") as string,

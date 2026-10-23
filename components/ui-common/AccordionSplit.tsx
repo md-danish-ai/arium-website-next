@@ -35,7 +35,7 @@ interface AccordionItem {
   [key: string]: unknown;
 }
 
-interface SharedAccordionSplitProps {
+interface AccordionSplitProps {
   Heading?: string;
   Description?: string;
   HeadingTextColor?: string;
@@ -118,7 +118,7 @@ function isImageVariant(items: AccordionItem[], bgGradient?: string): boolean {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function SharedAccordionSplit({
+export default function AccordionSplit({
   Heading,
   Description,
   HeadingTextColor,
@@ -126,7 +126,7 @@ export default function SharedAccordionSplit({
   BgGradient,
   TemplateGridColumns,
   Accordian = [],
-}: SharedAccordionSplitProps) {
+}: AccordionSplitProps) {
   const pathname = usePathname();
   const isCareers = pathname?.includes("careers") || pathname?.includes("/careers");
 

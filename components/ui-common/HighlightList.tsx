@@ -10,7 +10,7 @@ interface HighlightItem {
   ListName: string;
 }
 
-interface SharedHighlightListProps {
+interface HighlightListProps {
   heading: string;
   description: string;
   image?: {
@@ -23,14 +23,14 @@ interface SharedHighlightListProps {
   listItems: HighlightItem[];
 }
 
-export default function SharedHighlightList({
+export default function HighlightList({
   heading,
   description,
   image,
   ctaLabel,
   ctaUrl,
   listItems,
-}: SharedHighlightListProps) {
+}: HighlightListProps) {
   if (!heading && !listItems?.length) return null;
 
   const imgUrl = image?.url || image?.data?.attributes?.url;

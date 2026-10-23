@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
 
-interface ImageHeroProps {
+interface HeroBannerProps {
   id?: string;
   imageSrc?: string;
   videoSrc?: string;
@@ -24,7 +24,7 @@ const formatMaxWidth = (val?: string | number) => {
   return /^\d+$/.test(val.trim()) ? `${val.trim()}px` : val;
 };
 
-export default function SharedHero({
+export default function HeroBanner({
   id = "hero-section",
   imageSrc,
   videoSrc,
@@ -37,7 +37,7 @@ export default function SharedHero({
   maxWidthTitle,
   maxWidthDescription,
   objectPosition = "center top",
-}: ImageHeroProps) {
+}: HeroBannerProps) {
   const finalObjectPosition = objectPosition || "center top";
   const isExternal =
     isExternalLink ||

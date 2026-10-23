@@ -8,7 +8,7 @@ interface TestimonialCard {
   cardfooterBg?: string; // hex color e.g. "#bcf6f2"
 }
 
-interface SharedTestimonialsProps {
+interface TestimonialsSectionProps {
   heading?: string;
   description?: string;
   cards: TestimonialCard[];
@@ -22,11 +22,11 @@ const FOOTER_STYLES = [
   { bg: "var(--color-secondary-yellow)", glow: "235, 210, 0" },
 ];
 
-export default function SharedTestimonials({
+export default function TestimonialsSection({
   heading,
   description,
   cards,
-}: SharedTestimonialsProps) {
+}: TestimonialsSectionProps) {
   if (!cards || cards.length === 0) return null;
 
   const cols = Math.min(cards.length, 4);

@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedContentWithSideGraphic } from "@ui-component";
+import { AboutContentWithSideGraphic } from "@ui-component";
 import { SectionRendererProps } from "./helper";
 
 export default function ContentWithSideGraphicRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedContentWithSideGraphic
+    <AboutContentWithSideGraphic
       key={`content-side-graphic-${index}`}
       Heading={section.Heading || section.heading}
       Description={section.Description || section.description || section.body || section.Body}

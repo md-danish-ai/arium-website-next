@@ -1,5 +1,5 @@
 import React from "react";
-import SharedHero from "@ui-common/SharedHero";
+import HeroBanner from "@ui-common/HeroBanner";
 import SolutionsSmallCells from "@ui-component/solutions/SolutionsSmallCells";
 import SolutionsDas from "@ui-component/solutions/SolutionsDas";
 import SolutionsIndustries, {
@@ -139,7 +139,7 @@ export default async function SolutionsPage() {
       pos: 0,
       key: "hero-fallback",
       el: (
-        <SharedHero
+        <HeroBanner
           key="hero-fallback"
           id="solutions-hero"
           imageSrc={solutionsContent?.heroMedia?.[0]?.url || "/assets/images/hero-solutions.png"}

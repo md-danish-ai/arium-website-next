@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedCulture } from "@ui-component";
+import { AboutCulture } from "@ui-component";
 import { SectionRendererProps } from "./helper";
 
 export default function CultureRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedCulture
+    <AboutCulture
       key={`culture-${index}`}
       Heading={section.Heading || section.heading || section.title}
       Description={section.Description || section.description || section.body}

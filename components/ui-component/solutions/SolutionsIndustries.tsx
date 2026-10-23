@@ -12,13 +12,6 @@ import {
   IndustryHealthcareSvg,
   IndustryGovernmentSvg,
   IndustryAirportsSvg,
-  StadiumsIcon,
-  AmusementIcon,
-  EducationIcon,
-  RealEstateIcon,
-  HealthcareIcon,
-  GovernmentIcon,
-  AirportsIcon,
 } from "@ui-svg";
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -51,7 +44,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "We enable reliable wireless service for a better guest experience including enhanced fan engagement, public safety, mobile ticketing, concessions, and event operations.",
     theme: "teal",
     bgImage: "/assets/images/industry-stadiums.png",
-    iconNode: <StadiumsIcon />,
+    iconNode: <IndustryStadiumsSvg />,
   },
   {
     title: "Amusement Parks, Hospitality & Entertainment",
@@ -59,7 +52,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "Our solutions provide high-quality wireless coverage for your guests, improving experience satisfaction, operational efficiency, and smart property technologies.",
     theme: "purple",
     bgImage: "/assets/images/industry-amusement.png",
-    iconNode: <AmusementIcon />,
+    iconNode: <IndustryAmusementSvg />,
   },
   {
     title: "Higher Education",
@@ -67,7 +60,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "Our solutions enable digital learning and enhance campus safety by keeping faculty and students connected.",
     theme: "amber",
     bgImage: "/assets/images/industry-education.png",
-    iconNode: <EducationIcon />,
+    iconNode: <IndustryEducationSvg />,
   },
   {
     title: "Commercial Real Estate",
@@ -75,7 +68,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "We can help you improve connectivity on your property while accommodating the technologies that make your building more functional, efficient, and tenant friendly.",
     theme: "amber",
     bgImage: "/assets/images/industry-realestate.png",
-    iconNode: <RealEstateIcon />,
+    iconNode: <IndustryRealEstateSvg />,
   },
   {
     title: "Healthcare",
@@ -83,7 +76,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "Our solutions improve connectivity for staff, patients, and medical professionals.",
     theme: "blue",
     bgImage: "/assets/images/industry-healthcare.png",
-    iconNode: <HealthcareIcon />,
+    iconNode: <IndustryHealthcareSvg />,
   },
   {
     title: "State & Local Government",
@@ -91,7 +84,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "Municipalities can improve connectivity for their constituents and help agencies better serve their residents and first responders.",
     theme: "teal",
     bgImage: "/assets/images/industry-government.png",
-    iconNode: <GovernmentIcon />,
+    iconNode: <IndustryGovernmentSvg />,
   },
   {
     title: "Airports",
@@ -99,7 +92,7 @@ const INDUSTRIES: IndustryFallback[] = [
       "We enable connectivity that supports the high data demand for travelers, busy staff and back-of-house operations, and mobile ticketing, providing a better guest experience and enhanced safety.",
     theme: "purple",
     bgImage: "/assets/images/industry-airports.png",
-    iconNode: <AirportsIcon />,
+    iconNode: <IndustryAirportsSvg />,
   },
 ];
 

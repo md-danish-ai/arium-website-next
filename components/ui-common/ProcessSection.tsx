@@ -19,19 +19,19 @@ export interface PillarData {
   timelineItems: TimelineItem[];
 }
 
-interface SharedProcessProps {
+interface ProcessSectionProps {
   title: string;
   description: string;
   pillars: PillarData[];
   maxWidthTitle?: string;
 }
 
-export default function SharedProcess({
+export default function ProcessSection({
   title,
   description,
   pillars,
   maxWidthTitle,
-}: SharedProcessProps) {
+}: ProcessSectionProps) {
   const pathname = usePathname();
   const isRightOfWays = pathname?.includes("right-of-way");
   const [activeTab, setActiveTab] = useState(0);

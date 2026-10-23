@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedInnerPageHero } from "@ui-common";
+import { InnerPageHero } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 export default function InnerPageHeroRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedInnerPageHero
+    <InnerPageHero
       key={`inner-hero-${index}`}
       id={`widget-inner-hero-${index}`}
       heroTag={section.heroTag}

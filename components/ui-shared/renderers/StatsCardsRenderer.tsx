@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedStatsCards } from "@ui-component";
+import { AboutStatsCards } from "@ui-component";
 import { SectionRendererProps } from "./helper";
 
 export default function StatsCardsRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedStatsCards
+    <AboutStatsCards
       key={`stats-cards-${index}`}
       Heading={section.Heading || section.heading || section.title}
       Description={section.Description || section.description || section.body || section.Body}

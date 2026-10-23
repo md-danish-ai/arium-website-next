@@ -1,5 +1,3 @@
-export { default as AirportsIcon, default as IndustryAirportsSvg } from "./IndustryAirportsSvg";
-export { default as AmusementIcon, default as IndustryAmusementSvg } from "./IndustryAmusementSvg";
 export { default as ArrowRightSvg } from "./ArrowRightSvg";
 export { default as AssessmentIconSvg } from "./AssessmentIconSvg";
 export { default as ChevronDownIconSvg } from "./ChevronDownIconSvg";
@@ -13,29 +11,22 @@ export { default as DesktopLogoSvg } from "./DesktopLogoSvg";
 export { default as DoubleDownArrowSvg } from "./DoubleDownArrowSvg";
 export { default as DoubleRightArrowSvg } from "./DoubleRightArrowSvg";
 export { default as DropdownArrowSvg } from "./DropdownArrowSvg";
-export { default as EducationIcon, default as IndustryEducationSvg } from "./IndustryEducationSvg";
 export { default as FacebookIconSvg } from "./FacebookIconSvg";
 export { default as FaqChevronSvg } from "./FaqChevronSvg";
 export { default as FooterDesktopLogoSvg } from "./FooterDesktopLogoSvg";
 export { default as FooterMobileLogoSvg } from "./FooterMobileLogoSvg";
-export {
-  default as GovernmentIcon,
-  default as IndustryGovernmentSvg,
-} from "./IndustryGovernmentSvg";
-export {
-  default as HealthcareIcon,
-  default as IndustryHealthcareSvg,
-} from "./IndustryHealthcareSvg";
+export { default as IndustryAirportsSvg } from "./IndustryAirportsSvg";
+export { default as IndustryAmusementSvg } from "./IndustryAmusementSvg";
+export { default as IndustryEducationSvg } from "./IndustryEducationSvg";
+export { default as IndustryGovernmentSvg } from "./IndustryGovernmentSvg";
+export { default as IndustryHealthcareSvg } from "./IndustryHealthcareSvg";
+export { default as IndustryRealEstateSvg } from "./IndustryRealEstateSvg";
+export { default as IndustryStadiumsSvg } from "./IndustryStadiumsSvg";
 export { default as LinkedInIconSvg } from "./LinkedInIconSvg";
 export { default as MobileLogoSvg } from "./MobileLogoSvg";
 export { default as OptimizationIconSvg } from "./OptimizationIconSvg";
 export { default as PlanningIconSvg } from "./PlanningIconSvg";
-export {
-  default as RealEstateIcon,
-  default as IndustryRealEstateSvg,
-} from "./IndustryRealEstateSvg";
 export { default as SmallCellsSvg } from "./SmallCellsSvg";
-export { default as StadiumsIcon, default as IndustryStadiumsSvg } from "./IndustryStadiumsSvg";
 export { default as TwitterXIconSvg } from "./TwitterXIconSvg";
 
 export * from "./ArrowRightSvg";

@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedBenefits } from "@ui-common";
+import { BenefitsSection } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 export default function BenefitsRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedBenefits
+    <BenefitsSection
       key={`benefits-${index}`}
       heading={section.Heading || section.heading || section.title}
       description={section.Description || section.description || section.body}

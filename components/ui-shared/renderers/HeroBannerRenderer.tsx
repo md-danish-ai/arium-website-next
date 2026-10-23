@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedHero } from "@ui-common";
+import { HeroBanner } from "@ui-common";
 import { SectionRendererProps, GetStrapiMediaUrl } from "./helper";
 
 export default function HeroBannerRenderer({ section, index }: SectionRendererProps) {
@@ -11,7 +11,7 @@ export default function HeroBannerRenderer({ section, index }: SectionRendererPr
   const objectPosition = section.object_position;
 
   return (
-    <SharedHero
+    <HeroBanner
       key={`hero-${index}`}
       id={`widget-hero-${index}`}
       heading={heading}

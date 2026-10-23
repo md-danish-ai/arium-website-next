@@ -11,19 +11,19 @@ interface BenefitCard {
   TitleColor?: string;
 }
 
-interface SharedBenefitsProps {
+interface BenefitsSectionProps {
   heading: string;
   description: string;
   cards: BenefitCard[];
   footerText?: string;
 }
 
-export default function SharedBenefits({
+export default function BenefitsSection({
   heading,
   description,
   cards,
   footerText,
-}: SharedBenefitsProps) {
+}: BenefitsSectionProps) {
   if (!heading && !description && (!cards || cards.length === 0)) return null;
 
   return (

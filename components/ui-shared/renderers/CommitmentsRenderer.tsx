@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedCommitments } from "@ui-component";
+import { AboutCommitments } from "@ui-component";
 import { SectionRendererProps } from "./helper";
 
 export default function CommitmentsRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedCommitments
+    <AboutCommitments
       key={`commitments-${index}`}
       Heading={section.Heading || section.heading || section.title}
       Description={section.Description || section.description || section.body}

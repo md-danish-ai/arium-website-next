@@ -5,7 +5,7 @@ import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
 
-interface SharedImageSplitProps {
+interface ImageSplitProps {
   data: {
     Heading?: string;
     Description?: string;
@@ -23,7 +23,7 @@ interface SharedImageSplitProps {
   };
 }
 
-export default function SharedImageSplit({ data }: SharedImageSplitProps) {
+export default function ImageSplit({ data }: ImageSplitProps) {
   const {
     Heading,
     Description,

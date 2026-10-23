@@ -1,12 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import SharedHero from "@ui-common/SharedHero";
+import HeroBanner from "@ui-common/HeroBanner";
 import {
-  SharedContentWithSideGraphic,
-  SharedJourney,
-  SharedStatsCards,
-  SharedCommitments,
-  SharedCulture,
+  AboutContentWithSideGraphic,
+  AboutJourney,
+  AboutStatsCards,
+  AboutCommitments,
+  AboutCulture,
   AboutPageContent,
   AboutSection,
   AboutWidget,
@@ -91,7 +91,7 @@ export default async function AboutPage() {
       key: "hero-fallback",
       skip: globalWidgets.some((w) => w.PositionNumber === 0),
       el: (
-        <SharedHero
+        <HeroBanner
           key="hero-fallback"
           id="about-hero"
           imageSrc={heroImageSrc}
@@ -111,7 +111,7 @@ export default async function AboutPage() {
         "content-with-side-graphic",
         "contentwithsidegraphic",
       ]),
-      el: <SharedContentWithSideGraphic key="story-fallback" data={storyData} />,
+      el: <AboutContentWithSideGraphic key="story-fallback" data={storyData} />,
     },
     {
       pos: 2,
@@ -129,9 +129,9 @@ export default async function AboutPage() {
           <div className="flow-bg-gradient flow-bg-1" aria-hidden="true" />
           <div className="flow-bg-gradient flow-bg-2" aria-hidden="true" />
           <div className="flow-bg-gradient flow-bg-3" aria-hidden="true" />
-          <SharedJourney data={journeyData} />
-          <SharedStatsCards data={trustData} />
-          <SharedCommitments data={valuesData} />
+          <AboutJourney data={journeyData} />
+          <AboutStatsCards data={trustData} />
+          <AboutCommitments data={valuesData} />
         </div>
       ),
     },
@@ -146,7 +146,7 @@ export default async function AboutPage() {
         "core-values",
         "feature-showcase",
       ]),
-      el: <SharedCulture key="culture-fallback" data={cultureData} />,
+      el: <AboutCulture key="culture-fallback" data={cultureData} />,
     },
   ];
 

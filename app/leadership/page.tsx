@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedInnerPageHero, PeopleGlobalSection, GlobeCTA, PeopleCard } from "@ui-common";
+import { InnerPageHero, PeopleGlobalSection, GlobeCTA, PeopleCard } from "@ui-common";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 import type { Metadata } from "next";
@@ -112,7 +112,7 @@ export default async function LeadershipPage() {
       pos: 0,
       key: "hero-fallback",
       el: (
-        <SharedInnerPageHero
+        <InnerPageHero
           key="hero"
           heroTitle={leadershipContent?.heroTitle || "Our Leadership"}
           heroDescription={

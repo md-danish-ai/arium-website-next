@@ -12,7 +12,7 @@ export interface GradientSplitPointer {
   descriptionColor?: string;
 }
 
-export interface SharedGradientImageSplitProps {
+export interface GradientImageSplitProps {
   id?: string;
   heading: string;
   description?: string;
@@ -27,7 +27,7 @@ export interface SharedGradientImageSplitProps {
   className?: string;
 }
 
-export default function SharedGradientImageSplit({
+export default function GradientImageSplit({
   id = "community",
   heading,
   description,
@@ -40,7 +40,7 @@ export default function SharedGradientImageSplit({
   descriptionTextColor,
   style,
   className = "",
-}: SharedGradientImageSplitProps) {
+}: GradientImageSplitProps) {
   return (
     <section
       id={id}

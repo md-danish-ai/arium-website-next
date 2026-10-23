@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedIllustrationSplit } from "@ui-common";
+import { IllustrationSplit } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 export default function IllustrationSplitRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedIllustrationSplit
+    <IllustrationSplit
       key={`illustration-split-${index}`}
       id={`widget-illustration-split-${index}`}
       heading={section.heading || section.Heading}

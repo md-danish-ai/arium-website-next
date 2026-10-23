@@ -3,9 +3,9 @@ import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 
 export const dynamic = "force-dynamic";
 
-import SharedHero from "@ui-common/SharedHero";
+import HeroBanner from "@ui-common/HeroBanner";
 import CommunitySmallCells from "@ui-component/community/CommunitySmallCells";
-import SharedImageCardGrid from "@ui-common/SharedImageCardGrid";
+import ImageCardGrid from "@ui-common/ImageCardGrid";
 import CommunityHowWeWork from "@ui-component/community/CommunityHowWeWork";
 import CommunityTestimonials from "@ui-component/community/CommunityTestimonials";
 import CommunityFAQ from "@ui-component/community/CommunityFAQ";
@@ -123,7 +123,7 @@ export default async function YourCommunityPage() {
       pos: 0,
       key: "hero-fallback",
       el: (
-        <SharedHero
+        <HeroBanner
           key="hero-fallback"
           id="community-hero"
           imageSrc="/assets/images/hero-community.png"
@@ -152,7 +152,7 @@ export default async function YourCommunityPage() {
     sectionMap.push({
       pos: 2,
       key: "imagecardgrid-fallback",
-      el: <SharedImageCardGrid key="imagecardgrid-fallback" data={whySmallCellData} />,
+      el: <ImageCardGrid key="imagecardgrid-fallback" data={whySmallCellData} />,
     });
   }
 

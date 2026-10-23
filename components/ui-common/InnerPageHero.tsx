@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Typography } from "@ui-element";
 
-interface SharedInnerPageHeroProps {
+interface InnerPageHeroProps {
   id?: string;
   heroTag?: string;
   heroTitle?: string;
@@ -15,7 +15,7 @@ interface SharedInnerPageHeroProps {
   contentMaxWidth?: string;
 }
 
-export default function SharedInnerPageHero({
+export default function InnerPageHero({
   id = "inner-hero",
   heroTag,
   heroTitle,
@@ -24,7 +24,7 @@ export default function SharedInnerPageHero({
   heroCtasUrl,
   backgroundGradient,
   contentMaxWidth,
-}: SharedInnerPageHeroProps) {
+}: InnerPageHeroProps) {
   const pathname = usePathname() || "";
 
   let parentLabel = "";

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { SharedGradientImageSplit } from "@ui-common";
+import { GradientImageSplit } from "@ui-common";
 import { ImageGradientSplitProps, SectionPointer } from "./type";
 
 interface MediaItemLike {
@@ -112,7 +112,7 @@ export default function ImageGradientSplit({
   }));
 
   return (
-    <SharedGradientImageSplit
+    <GradientImageSplit
       id="community"
       heading={heading || DEFAULT_HEADING}
       description={description || DEFAULT_DESCRIPTION}

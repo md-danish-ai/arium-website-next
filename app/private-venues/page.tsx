@@ -1,5 +1,5 @@
 import PrivateVenuesHero from "@ui-component/where-we-build/PrivateVenuesHero";
-import SharedProcess from "@ui-common/SharedProcess";
+import ProcessSection from "@ui-common/ProcessSection";
 import PrivateVenuesTestimonials from "@ui-component/where-we-build/PrivateVenuesTestimonials";
 import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
@@ -295,7 +295,7 @@ export default async function PrivateVenuesPage() {
 
   // If no Process widget exists, inject the fallback Process
   if (!hasProcessWidget) {
-    sections.splice(1, 0, <SharedProcess key="process-fallback" {...mappedProcessData} />);
+    sections.splice(1, 0, <ProcessSection key="process-fallback" {...mappedProcessData} />);
   }
 
   // If no Testimonials widget exists, inject the fallback Testimonials

@@ -1,9 +1,9 @@
 import React from "react";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { SharedGradientImageSplit } from "@ui-common";
-import { CulturePillar, SharedCultureProps } from "./type";
+import { GradientImageSplit } from "@ui-common";
+import { CulturePillar, AboutCultureProps } from "./type";
 
-export default function SharedCulture({
+export default function AboutCulture({
   Heading,
   Description,
   Pillarcard,
@@ -14,7 +14,7 @@ export default function SharedCulture({
   HeadingColor,
   DescriptionColor,
   data,
-}: SharedCultureProps) {
+}: AboutCultureProps) {
   const defaultPillars: CulturePillar[] = [
     {
       title: "Leadership",
@@ -114,7 +114,7 @@ export default function SharedCulture({
   }));
 
   return (
-    <SharedGradientImageSplit
+    <GradientImageSplit
       id="culture"
       heading={headingText}
       description={

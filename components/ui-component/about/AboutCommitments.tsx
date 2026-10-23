@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { PillarCard, SharedCommitmentsProps } from "./type";
+import { PillarCard, AboutCommitmentsProps } from "./type";
 
-export default function SharedCommitments({
+export default function AboutCommitments({
   Heading,
   Description,
   BgImage,
   PillarsDescription,
   PillarCard,
   data,
-}: SharedCommitmentsProps) {
+}: AboutCommitmentsProps) {
   const defaultPillars: PillarCard[] = [
     {
       PillarText: "We are customer-first",

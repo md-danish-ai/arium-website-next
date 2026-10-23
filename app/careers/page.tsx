@@ -2,7 +2,7 @@ import React from "react";
 
 export const dynamic = "force-dynamic";
 
-import SharedHero from "@ui-common/SharedHero";
+import HeroBanner from "@ui-common/HeroBanner";
 import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 import CareersCultureAccordion from "@ui-component/careers/CareersCultureAccordion";
 import CareersTestimonials from "@ui-component/careers/CareersTestimonials";
@@ -107,7 +107,7 @@ export default async function CareersPage() {
       pos: 0,
       key: "hero-fallback",
       el: (
-        <SharedHero
+        <HeroBanner
           key="hero-fallback"
           id="team-hero"
           imageSrc={careersContent?.heroMedia?.[0]?.url || "/assets/images/hero-careers.png"}

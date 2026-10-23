@@ -1,5 +1,5 @@
 import RightOfWayHero from "@ui-component/where-we-build/RightOfWayHero";
-import SharedProcess from "@ui-common/SharedProcess";
+import ProcessSection from "@ui-common/ProcessSection";
 import RightOfWayTestimonials from "@ui-component/where-we-build/RightOfWayTestimonials";
 import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
@@ -333,7 +333,7 @@ export default async function RightOfWayPage() {
   if (!hasProcessWidget) {
     sectionObjects.push({
       pos: 2,
-      element: <SharedProcess key="process-fallback" {...mappedProcessData} />,
+      element: <ProcessSection key="process-fallback" {...mappedProcessData} />,
     });
   }
 

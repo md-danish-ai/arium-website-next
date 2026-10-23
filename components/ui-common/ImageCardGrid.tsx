@@ -17,7 +17,7 @@ export interface BenefitCard {
   DescriptionColor?: string;
 }
 
-interface SharedImageCardGridProps {
+interface ImageCardGridProps {
   data?: {
     title?: string;
     cards?: BenefitCard[];
@@ -46,7 +46,7 @@ const FALLBACK_BENEFITS: BenefitCard[] = [
   },
 ];
 
-export default function SharedImageCardGrid({ data }: SharedImageCardGridProps) {
+export default function ImageCardGrid({ data }: ImageCardGridProps) {
   const benefits = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
   return (
     <section

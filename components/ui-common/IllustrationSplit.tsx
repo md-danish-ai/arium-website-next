@@ -18,7 +18,7 @@ interface StrapiMediaObject {
   alternativeText?: string;
 }
 
-interface SharedIllustrationSplitProps {
+interface IllustrationSplitProps {
   id?: string;
   heading?: string;
   description?: string;
@@ -30,7 +30,7 @@ interface SharedIllustrationSplitProps {
   DescriptionColor?: string;
 }
 
-export default function SharedIllustrationSplit({
+export default function IllustrationSplit({
   id,
   heading,
   description,
@@ -40,7 +40,7 @@ export default function SharedIllustrationSplit({
   showBottomDivider = false,
   HeadingColor,
   DescriptionColor,
-}: SharedIllustrationSplitProps) {
+}: IllustrationSplitProps) {
   const pathname = usePathname();
   const isSolutions = pathname?.includes("solutions") || pathname?.includes("/solutions");
 

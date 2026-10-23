@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedImageCardGrid } from "@ui-common";
+import { ImageCardGrid } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 interface MediaItem {
@@ -46,5 +46,5 @@ export default function ImageCardGridRenderer({
     HeadingColor: section.HeadingColor,
   };
 
-  return <SharedImageCardGrid key={`image-card-grid-${index}`} data={data} />;
+  return <ImageCardGrid key={`image-card-grid-${index}`} data={data} />;
 }

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { NavRoute } from "../nav-routes";
-import { ChevronDownIcon } from "./NavbarSvgs";
+import { ChevronDownIconSvg } from "@ui-svg";
 
 interface MobileNavItemProps {
   route: NavRoute;
@@ -70,7 +70,7 @@ export default function MobileNavItem({
         }`}
       >
         {route.label}
-        <ChevronDownIcon isOpen={isOpen} />
+        <ChevronDownIconSvg isOpen={isOpen} />
       </button>
 
       <div

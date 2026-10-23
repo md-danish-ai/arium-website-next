@@ -1,10 +1,10 @@
 import React from "react";
-import { SharedHighlightList } from "@ui-common";
+import { HighlightList } from "@ui-common";
 import { SectionRendererProps } from "./helper";
 
 export default function HighlightListRenderer({ section, index }: SectionRendererProps) {
   return (
-    <SharedHighlightList
+    <HighlightList
       key={`highlight-list-${index}`}
       heading={section.Heading || section.heading || section.title}
       description={section.Description || section.description || section.body}

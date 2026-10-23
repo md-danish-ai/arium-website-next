@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography } from "@ui-element";
-import { SharedStatsCardsProps, StatsCardItem } from "./type";
+import { AboutStatsCardsProps, StatsCardItem } from "./type";
 
-export default function SharedStatsCards({
+export default function AboutStatsCards({
   Heading,
   Description,
   CradColorful,
   data,
-}: SharedStatsCardsProps) {
+}: AboutStatsCardsProps) {
   const defaultCards: StatsCardItem[] = [
     {
       Title: "39B",

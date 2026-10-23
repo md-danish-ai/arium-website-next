@@ -17,7 +17,7 @@ export interface StrapiMedia {
 
 export type GraphicType = string | StrapiMedia | null;
 
-export interface SharedCtaWithGraphicProps {
+export interface CtaWithGraphicProps {
   heading: string;
   description: string;
   ctaText?: string;
@@ -28,7 +28,7 @@ export interface SharedCtaWithGraphicProps {
   DescriptionColor?: string;
 }
 
-export default function SharedCtaWithGraphic({
+export default function CtaWithGraphic({
   heading,
   description,
   ctaText,
@@ -37,7 +37,7 @@ export default function SharedCtaWithGraphic({
   bgColor,
   HeadingColor,
   DescriptionColor,
-}: SharedCtaWithGraphicProps) {
+}: CtaWithGraphicProps) {
   if (!heading && !description) return null;
 
   const graphicUrl =

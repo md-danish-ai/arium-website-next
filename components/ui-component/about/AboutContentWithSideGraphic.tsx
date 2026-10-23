@@ -2,7 +2,7 @@ import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { ConnectionIllustrationSvg } from "@ui-svg";
-import { SharedContentWithSideGraphicProps, StrapiMediaLike } from "./type";
+import { AboutContentWithSideGraphicProps, StrapiMediaLike } from "./type";
 
 function extractImageUrl(media?: StrapiMediaLike | null): string {
   if (!media) return "";
@@ -33,7 +33,7 @@ function extractImageUrl(media?: StrapiMediaLike | null): string {
   return "";
 }
 
-export default function SharedContentWithSideGraphic({
+export default function AboutContentWithSideGraphic({
   Heading,
   heading,
   Description,
@@ -49,7 +49,7 @@ export default function SharedContentWithSideGraphic({
   DescriptionColor,
   descriptionColor,
   data,
-}: SharedContentWithSideGraphicProps) {
+}: AboutContentWithSideGraphicProps) {
   const mediaInput =
     Media ||
     image ||
