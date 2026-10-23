@@ -31,11 +31,11 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
   return (
     <div className="sol-storyteller-flow bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] relative overflow-hidden">
       <div
-        className="flow-bg-gradient flow-bg-1 absolute -top-40 -right-40 w-96 h-96 rounded-full bg-teal/10 blur-3xl pointer-events-none"
+        className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-teal/10 blur-3xl animate-orbit-teal"
         aria-hidden="true"
       />
       <div
-        className="flow-bg-gradient flow-bg-2 absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-purple-300/20 blur-3xl pointer-events-none"
+        className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-purple-300/20 blur-3xl animate-orbit-purple"
         aria-hidden="true"
       />
 

@@ -1,4 +1,5 @@
 import React from "react";
+import FlowBackground from "@ui-animations/FlowBackground";
 import { WIDGET_REGISTRY } from "./renderers";
 
 export interface GlobalWidgetSection {
@@ -93,9 +94,7 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
                   : ""
               } relative overflow-hidden -mt-px border-none`}
             >
-              <div className="flow-bg-gradient flow-bg-1 pointer-events-none" aria-hidden="true" />
-              <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
-              <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
+              <FlowBackground />
               {group.items.map((item) => renderNode(item.section, item.index))}
             </div>
           );

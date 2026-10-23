@@ -14,6 +14,7 @@ import {
   AboutSeoFields,
 } from "@ui-component/about";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import FlowBackground from "@ui-animations/FlowBackground";
 import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 
 export const dynamic = "force-dynamic";
@@ -125,10 +126,11 @@ export default async function AboutPage() {
         "commitment",
       ]),
       el: (
-        <div key="flow-fallback" className="about-storyteller-flow -mt-px border-none">
-          <div className="flow-bg-gradient flow-bg-1" aria-hidden="true" />
-          <div className="flow-bg-gradient flow-bg-2" aria-hidden="true" />
-          <div className="flow-bg-gradient flow-bg-3" aria-hidden="true" />
+        <div
+          key="flow-fallback"
+          className="about-storyteller-flow relative overflow-hidden -mt-px border-none"
+        >
+          <FlowBackground />
           <AboutJourney data={journeyData} />
           <AboutStatsCards data={trustData} />
           <AboutCommitments data={valuesData} />

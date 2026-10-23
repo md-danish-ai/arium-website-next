@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Typography } from "@ui-element";
 import { FaqChevronSvg } from "@ui-svg";
+import FlowBackground from "@ui-animations/FlowBackground";
 
 interface FAQItem {
   title: string;
@@ -58,9 +59,7 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
 
   return (
     <div className="sol-storyteller-flow relative overflow-hidden bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)]">
-      <div className="flow-bg-gradient flow-bg-1 pointer-events-none" aria-hidden="true" />
-      <div className="flow-bg-gradient flow-bg-2 pointer-events-none" aria-hidden="true" />
-      <div className="flow-bg-gradient flow-bg-3 pointer-events-none" aria-hidden="true" />
+      <FlowBackground />
 
       <section id="faq" className="bg-transparent py-14 md:py-24 lg:py-32 relative overflow-hidden">
         <div className="container relative z-[1]">

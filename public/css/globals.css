@@ -4,6 +4,7 @@
   --color-midnight: #162047;
   --color-midnight-lighter: #1c2a55;
   --color-midnight-lightest: #243365;
+  --color-midnight-blue: #162047;
   --color-teal: #00e8d9;
   --color-sky-teal: #00e8d9;
   --color-white: #ffffff;
@@ -19,6 +20,9 @@
 
   --animate-breathe-teal: breathe-teal 20s ease-in-out infinite;
   --animate-breathe-white: breathe-white 20s ease-in-out 10s infinite;
+  --animate-orbit-teal: orbit-teal 15s infinite ease-in-out;
+  --animate-orbit-purple: orbit-purple 19s infinite ease-in-out;
+  --animate-orbit-orange: orbit-orange 23s infinite ease-in-out;
 
   @keyframes breathe-teal {
     0%,
@@ -29,6 +33,7 @@
       transform: scale(1.07);
     }
   }
+
   @keyframes breathe-white {
     0%,
     100% {
@@ -36,6 +41,42 @@
     }
     50% {
       transform: scale(0.93);
+    }
+  }
+
+  @keyframes orbit-teal {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(55vw, 25vh) scale(1.15);
+    }
+    66% {
+      transform: translate(15vw, 50vh) scale(0.9);
+    }
+  }
+
+  @keyframes orbit-purple {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(-55vw, -25vh) scale(0.9);
+    }
+    66% {
+      transform: translate(-30vw, 25vh) scale(1.15);
+    }
+  }
+
+  @keyframes orbit-orange {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(60vw, -30vh) scale(1.08);
     }
   }
 }
@@ -81,49 +122,8 @@
   font-style: normal;
 }
 
-/* Design System Variables */
+/* Unified Frame Layout System */
 :root {
-  /* Primary Brand Colors */
-  --color-midnight-blue: #162047;
-  --color-midnight-blue-lighter: #1c2a55;
-  --color-midnight-blue-lightest: #243365;
-  --color-sky-teal: #00e8d9;
-  --color-white: #ffffff;
-
-  /* Approved Secondary Colors */
-  --color-secondary-teal: #bcf6f2;
-  --color-secondary-purple: #d2c7ff;
-  --color-secondary-yellow: #ffffca;
-  --color-secondary-peach: #ffdac8;
-  --color-secondary-grey: #ededee;
-  
-
-  /* Derived / utility */
-  --color-orange-40-d: rgba(245, 166, 35, 0.4);
-
-  /* Spacing Grid (8px base) */
-  --spacing-1: 8px;
-  --spacing-2: 16px;
-  --spacing-3: 24px;
-  --spacing-4: 32px;
-  --spacing-5: 40px;
-  --spacing-6: 48px;
-  --spacing-8: 64px;
-  --spacing-10: 80px;
-  --spacing-12: 96px;
-  --spacing-15: 120px;
-  --spacing-20: 160px;
-
-  /* Typography — matches live site: ulmGrotesk primary, Geist fallback */
-  --font-heading: "ulmGrotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "ulmGrotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
-
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Unified Frame Layout System */
   --frame: 2200px;
   --gutter: max(24px, 5.29vw);
   --frame-box: calc(var(--frame) + (2 * var(--gutter)));
@@ -156,11 +156,21 @@ body {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
-  background-color: var(--color-midnight-blue);
+  background-color: var(--color-midnight);
   color: var(--color-white);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  animation: page-fade-in 0.4s ease;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 #main-content {
@@ -169,8 +179,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-sky-teal);
-  color: var(--color-midnight-blue);
+  background-color: var(--color-teal);
+  color: var(--color-midnight);
 }
 
 a {
@@ -202,7 +212,8 @@ svg {
   }
 }
 
-.container {
+/* Frame Container Utility */
+@utility container {
   max-width: var(--frame-box);
   padding-left: var(--gutter);
   padding-right: var(--gutter);
@@ -211,28 +222,25 @@ svg {
   box-sizing: border-box;
 }
 
-
-
-
-
-
-
-/* Section Header Typography */
-
-.section-title {
-  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+/* Design System Typography Utilities */
+@utility section-title {
+  font-size: clamp(1.2rem, 0.5rem + 2.2vw, 2.4rem);
   font-weight: 500;
-  margin-bottom: var(--spacing-3);
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  margin-bottom: 24px;
 }
 
-.section-description {
-  font-size: 1.1rem;
+@utility section-description {
+  font-size: clamp(0.9rem, 1.2vw, 1.18rem);
   opacity: 0.85;
-  margin-bottom: var(--spacing-4);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
 }
 
-/* Subtle dot grid pattern */
-.infra-grid-bg {
+/* Texture & Particle Utilities */
+@utility infra-grid-bg {
   position: absolute;
   inset: 0;
   background-image: radial-gradient(rgba(0, 232, 217, 0.06) 1px, transparent 1px);
@@ -241,8 +249,7 @@ svg {
   pointer-events: none;
 }
 
-/* Floating particles container */
-.infra-particles {
+@utility infra-particles {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -250,10 +257,7 @@ svg {
   overflow: hidden;
 }
 
-
-
-
-/* Scroll Reveal Animations */
+/* Scroll Reveal Animations (Synchronized with useAnimations.ts) */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -330,96 +334,49 @@ svg {
   transition-delay: 0.3s;
 }
 
-
-/* Page Load Fade-In */
-body {
-  animation: page-fade-in 0.4s ease;
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-
-
+/* Light Theme Section Boundary Styles */
 .section-light {
-  color: var(--color-midnight-blue);
+  color: var(--color-midnight);
 }
 
 .section-light .section-title,
-.section-light h2 {
-  color: #162047 !important;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+.section-light h2,
+.section-light h3,
+.section-light h4,
+.section-light p {
+  color: var(--color-midnight);
 }
 
 .section-light .section-description {
   color: rgba(22, 32, 71, 0.85);
-  font-size: 1.05rem;
-  line-height: 1.75;
 }
 
-.section-light h3,
-.section-light h4 {
-  color: #162047;
-}
-
-.section-light p {
-  color: #162047;
-}
-
-/* Section Spacing & Separation */
-
-/* Hairline divider between adjacent light sections */
 .section-light + .section-light {
   border-top: 1px solid rgba(22, 32, 71, 0.06);
 }
 
-/* Ambient Noise Reduction */
-
-/* Grid pattern — barely visible on light */
 .section-light .infra-grid-bg {
   background-image: radial-gradient(rgba(22, 32, 71, 0.04) 1px, transparent 1px);
   opacity: 0.12;
 }
 
-/* Particles — hidden on light */
 .section-light .infra-particles {
   display: none !important;
 }
 
-/* Journey Timeline */
-#journey {
-  background: #ffffff !important;
-}
-
-/* Mobile Typography & Layout (max-width: 600px) */
-@media (max-width: 600px) {
-  /* Section Heading (1.2rem) */
-  .section-title,
-  .section-header h2,
-  #about h2,
-  #faq h2 {
-    font-size: 1.2rem !important;
-    line-height: 1.4 !important;
-    letter-spacing: 0.1em !important;
-  }
-
-  /* Section Description */
-  .section-description {
-    font-size: 0.9rem !important;
-    line-height: 1.65 !important;
-    letter-spacing: 0.02em !important;
+/* Strapi RichText Mobile Typography */
+@utility strapi-richtext-body {
+  @media (max-width: 768px) {
+    &,
+    & p,
+    & li,
+    & span {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      letter-spacing: 0.02em;
+    }
   }
 }
-
-
 
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
@@ -432,98 +389,3 @@ body {
     scroll-behavior: auto !important;
   }
 }
-
-
-
-@media (max-width: 768px) {
-  .strapi-richtext-body,
-  .strapi-richtext-body p,
-  .strapi-richtext-body li,
-  .strapi-richtext-body span {
-    font-size: 0.9rem !important;
-    line-height: 1.65 !important;
-    letter-spacing: 0.02em !important;
-  }
-}
-
-/* Shared Storyteller Ambient Flow Background */
-.flow-bg-gradient {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.65;
-  pointer-events: none;
-}
-
-.flow-bg-1 {
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(0, 232, 217, 0.2) 0%, transparent 70%);
-  top: 5%;
-  left: -15%;
-  animation: orbitTeal 15s infinite ease-in-out;
-  will-change: transform;
-}
-
-.flow-bg-2 {
-  width: 780px;
-  height: 780px;
-  background: radial-gradient(circle, rgba(124, 92, 191, 0.44) 0%, transparent 70%);
-  top: 45%;
-  left: 70%;
-  animation: orbitPurple 19s infinite ease-in-out;
-  will-change: transform;
-}
-
-.flow-bg-3 {
-  width: 720px;
-  height: 720px;
-  background: radial-gradient(circle, rgba(212, 136, 46, 0.36) 0%, transparent 70%);
-  top: 75%;
-  left: -10%;
-  animation: orbitOrange 23s infinite ease-in-out;
-  will-change: transform;
-}
-
-@keyframes orbitTeal {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(55vw, 25vh) scale(1.15);
-  }
-  66% {
-    transform: translate(15vw, 50vh) scale(0.9);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-}
-
-@keyframes orbitPurple {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(-55vw, -25vh) scale(0.9);
-  }
-  66% {
-    transform: translate(-30vw, 25vh) scale(1.15);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-}
-
-@keyframes orbitOrange {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(60vw, -30vh) scale(1.08);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-}
-
