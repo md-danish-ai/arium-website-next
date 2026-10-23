@@ -204,7 +204,7 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
       </div>
 
       {/* Two-column layout: heading left, pillars right */}
-      <div className="container mx-auto px-4 sm:px-6 relative z-[2]">
+      <div className="container relative z-[2]">
         <div className="ind-two-col grid grid-cols-1 lg:grid-cols-[1.3fr_0.9fr] gap-8 lg:gap-16 items-start">
           {/* LEFT: Section heading & description */}
           <div className="ind-col-left reveal w-full lg:max-w-[540px] lg:sticky lg:top-36">

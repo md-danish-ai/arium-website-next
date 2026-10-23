@@ -38,7 +38,7 @@ export default function BenefitsSection({
             className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
             aria-hidden="true"
           />
-          <div className="container mx-auto px-6 relative z-[1]">
+          <div className="container relative z-[1]">
             <div className="shared-benefits-header text-center mb-8 md:mb-12">
               {heading && (
                 <Typography
@@ -107,7 +107,7 @@ export default function BenefitsSection({
           id="eeo-statement"
           style={{ background: "#ededee" }}
         >
-          <div className="container mx-auto px-6 relative z-[1]">
+          <div className="container relative z-[1]">
             <div className="reveal shared-eeo-container text-center">
               <Typography
                 variant="b4"

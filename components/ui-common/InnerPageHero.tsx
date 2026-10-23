@@ -79,7 +79,7 @@ export default function InnerPageHero({
           (pathname.includes("/leadership") || pathname.includes("/board-of-directors")
             ? "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 50%, #DDD5FF 100%)"
             : "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)"),
-        padding: `200px 24px ${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "180px" : "80px"}`,
+        padding: `200px var(--gutter) ${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "180px" : "80px"}`,
       }}
     >
       <div className="absolute w-[600px] h-[600px] rounded-full [background:radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
@@ -87,7 +87,7 @@ export default function InnerPageHero({
 
       {parentLabel && (
         <nav
-          className="reveal absolute top-[140px] inset-x-0 z-[2] px-[clamp(24px,4vw,64px)] min-[1080px]:px-[var(--frame-edge)]"
+          className="reveal absolute top-[140px] inset-x-0 z-[2] px-[var(--gutter)] min-[1080px]:px-[var(--frame-edge)]"
           aria-label="Breadcrumb"
         >
           <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-[0.78rem] tracking-[0.04em]">

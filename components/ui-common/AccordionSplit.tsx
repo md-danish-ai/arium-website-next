@@ -244,7 +244,7 @@ export default function AccordionSplit({
       )}
 
       {/* Content */}
-      <div className="container sas-container mx-auto px-4 sm:px-6 relative z-[2]">
+      <div className="container relative z-[2]">
         <div
           className="sas-two-col grid grid-cols-1 lg:[grid-template-columns:var(--sas-cols)] gap-8 lg:gap-16 items-start"
           style={{ "--sas-cols": gridColumns } as React.CSSProperties}

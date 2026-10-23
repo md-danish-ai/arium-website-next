@@ -75,7 +75,7 @@ export default function AboutCommitments({
       className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden z-[2]"
       id="shared-commitments"
     >
-      <div className="container mx-auto px-5 sm:px-6 relative z-[2]">
+      <div className="container relative z-[2]">
         {/* Panoramic Hero Banner */}
         <div className="reveal w-full rounded-2xl md:rounded-3xl overflow-hidden mb-8 sm:mb-10 md:mb-14 border border-white/[0.06] shadow-xl relative min-h-[240px] xs:min-h-[260px] sm:min-h-[320px] md:h-[480px] lg:h-[500px] flex items-end md:items-center">
           <Image

@@ -34,7 +34,7 @@ export default function GlobeCTA({
         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-[1] max-md:w-full">
+      <div className="container relative z-[1] max-md:w-full">
         <div className="sol-split reveal flex items-center">
           <div className="sol-split-text max-w-[580px]">
             {description ? (

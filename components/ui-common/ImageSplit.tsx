@@ -62,7 +62,7 @@ export default function ImageSplit({ data }: ImageSplitProps) {
       className="shared-image-split relative overflow-hidden py-24 flex items-center"
       style={bgStyle}
     >
-      <div className="container mx-auto px-6 relative z-[1]">
+      <div className="container relative z-[1]">
         <div
           className={`image-split-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isMediaLeft ? "image-split-reverse" : ""}`}
         >

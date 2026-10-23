@@ -198,7 +198,7 @@ export default function PeopleGlobalSection({ cards, data }: PeopleGlobalSection
   return (
     <>
       <section className="people-global-section relative bg-gradient-to-b from-[#EDE9FF] via-[#F3F0FF] to-[#F8F7FF] pt-[60px] pb-24">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container">
           <div className="people-grid-wrapper max-w-[1200px] mx-auto -mt-20 sm:-mt-24 md:-mt-28 lg:-mt-44 relative z-[2]">
             <div className="people-grid flex flex-wrap justify-center gap-6">
               {membersList.map((leader, index) => (

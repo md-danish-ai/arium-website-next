@@ -81,7 +81,7 @@ export default function ContactForm() {
           className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
           aria-hidden="true"
         />
-        <div className="container mx-auto px-6 relative z-[2]">
+        <div className="container relative z-[2]">
           <div className="max-w-[680px] mx-auto relative reveal stagger-1">
             {status === "success" ? (
               <div className="text-center py-[60px] px-5">

@@ -70,7 +70,7 @@ export default function AboutJourney({ Heading, Description, TimeCards, data }: 
       id="shared-journey"
       className="bg-white py-16 md:py-20 lg:py-28 relative overflow-hidden z-[2]"
     >
-      <div className="container mx-auto px-6 relative z-[2]">
+      <div className="container relative z-[2]">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <Typography

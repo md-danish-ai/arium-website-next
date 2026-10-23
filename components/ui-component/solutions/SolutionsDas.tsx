@@ -25,8 +25,8 @@ export default function SolutionsDas({ data }: SolutionsDasProps) {
   const imgUrl = data?.media?.[0]?.url || "/assets/images/live_das-illustration.svg";
 
   return (
-    <section className="bg-transparent py-[50px] px-6 relative overflow-hidden">
-      <div className="container mx-auto max-w-[1200px]">
+    <section className="bg-transparent py-[50px] relative overflow-hidden">
+      <div className="container max-w-[1200px]">
         <div className="sol-split sol-split-reverse grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           <div className="sol-split-text order-1 md:order-2">
             {/* Mobile Top-Right Floated Illustration (< md) */}

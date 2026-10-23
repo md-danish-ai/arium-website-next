@@ -90,7 +90,7 @@ export default function IllustrationSplit({
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-[1]">
+      <div className="container relative z-[1]">
         <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           {/* Text Content Area */}
           <div className={`sol-split-text order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>

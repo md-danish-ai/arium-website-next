@@ -40,7 +40,7 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
       />
 
       <section id="faq" className="bg-transparent py-14 md:py-24 lg:py-28 relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-[1]">
+        <div className="container relative z-[1]">
           <div className="section-header text-center mb-16">
             {Heading && (
               <Typography

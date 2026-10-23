@@ -10,7 +10,7 @@ import { FooterCopyright } from "./FooterCopyright";
 export default function Footer({ layoutData }: FooterProps) {
   return (
     <footer className="relative z-10 bg-midnight text-white py-10 md:py-14 overflow-hidden">
-      <div className="container relative z-[2] w-full mx-auto px-4 sm:px-6">
+      <div className="container relative z-[2] w-full">
         <div className="flex flex-col min-[601px]:flex-row items-center min-[601px]:items-start justify-between gap-8 min-[601px]:gap-12 md:gap-16">
           <FooterBrand layoutData={layoutData} />
 

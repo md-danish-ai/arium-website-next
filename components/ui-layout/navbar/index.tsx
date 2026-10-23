@@ -137,7 +137,7 @@ export default function Navbar({ layoutData }: NavbarProps) {
 
   return (
     <header className={navClasses} id="main-nav" ref={navRef}>
-      <div className="flex items-center justify-between w-full px-5 min-[768px]:px-8 min-[1080px]:px-[138px] py-3.5 min-[1080px]:py-3.5 min-[1280px]:py-4 xl:py-5 min-[1080px]:max-h-[800px]:py-2.5 box-border">
+      <div className="flex items-center justify-between w-full px-[var(--gutter)] min-[1080px]:px-[var(--frame-edge)] py-3.5 min-[1080px]:py-3.5 min-[1280px]:py-4 xl:py-5 min-[1080px]:max-h-[800px]:py-2.5 box-border">
         {/* Brand Logo */}
         <Link
           href="/"

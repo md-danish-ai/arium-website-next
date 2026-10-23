@@ -46,7 +46,7 @@ export default function HighlightList({
         aria-hidden="true"
       />
 
-      <div className="container mx-auto px-6 relative z-[2]">
+      <div className="container relative z-[2]">
         {/* Centered Header */}
         <div className="shared-hl-header text-center mb-14">
           <Typography

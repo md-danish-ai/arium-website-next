@@ -124,18 +124,10 @@
 
 /* Unified Frame Layout System */
 :root {
-  --frame: 2200px;
-  --gutter: max(24px, 5.29vw);
+  --frame: 1440px;
+  --gutter: clamp(1.25rem, 3.5vw, 3.5rem);
   --frame-box: calc(var(--frame) + (2 * var(--gutter)));
   --frame-edge: max(var(--gutter), calc((100% - var(--frame)) / 2));
-}
-
-@media (min-width: 1440px) {
-  :root {
-    --gutter: 7.2vw;
-    --frame-box: calc(var(--frame) + (2 * var(--gutter)));
-    --frame-edge: max(var(--gutter), calc((100% - var(--frame)) / 2));
-  }
 }
 
 /* Global Reset & Base Styles */

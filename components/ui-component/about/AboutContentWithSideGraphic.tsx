@@ -111,7 +111,7 @@ export default function AboutContentWithSideGraphic({
         </div>
       )}
 
-      <div className="container mx-auto px-6 relative z-[1]">
+      <div className="container relative z-[1]">
         <div className="max-w-[760px] text-left">
           <Typography
             as="h2"

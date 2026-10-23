@@ -21,7 +21,7 @@ export default function RightOfWayHero({ data }: RightOfWayHeroProps) {
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       <nav
-        className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-6 md:px-16 min-[1080px]:px-[var(--frame-edge)]"
+        className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-[var(--gutter)] min-[1080px]:px-[var(--frame-edge)]"
         aria-label="Breadcrumb"
       >
         <Typography

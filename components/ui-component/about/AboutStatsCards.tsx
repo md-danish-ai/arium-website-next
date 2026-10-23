@@ -65,7 +65,7 @@ export default function AboutStatsCards({
 
   return (
     <section className="bg-white py-14 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden z-[2]">
-      <div className="container mx-auto px-4 sm:px-6 relative z-[2]">
+      <div className="container relative z-[2]">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <Typography

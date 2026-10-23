@@ -54,7 +54,7 @@ export default function ProcessSection({
           className="infra-particles pointer-events-none absolute inset-0"
           id="process-particles"
         />
-        <div className="container mx-auto px-4 sm:px-6 relative z-[2] max-w-[1440px]">
+        <div className="container relative z-[2]">
           <div className="section-header text-center mb-14">
             <Typography
               as="h2"
