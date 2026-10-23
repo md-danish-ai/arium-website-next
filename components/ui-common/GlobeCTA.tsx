@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
 
@@ -22,9 +23,12 @@ export default function GlobeCTA({
         className="cta-bg-illustration absolute -right-[8%] top-1/2 -translate-y-1/2 -rotate-[25deg] w-[720px] h-[130%] pointer-events-none"
         aria-hidden="true"
       >
-        <img
+        <Image
           src="/assets/images/connection-globe-blue.svg"
           alt=""
+          width={993}
+          height={958}
+          unoptimized
           className="w-full h-full opacity-55 block"
         />
         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />

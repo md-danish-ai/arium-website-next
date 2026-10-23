@@ -78,7 +78,7 @@ export default function SharedHero({
           <Typography
             variant="h1"
             uppercase
-            className="shared-img-hero-heading text-white max-w-[1400px] mx-auto mb-[18px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
+            className="shared-img-hero-heading text-white max-w-[1400px] mx-auto m-0 mb-[18px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
             dangerouslySetInnerHTML={typeof heading === "string" ? { __html: heading } : undefined}
             style={
               maxWidthTitle
@@ -97,7 +97,7 @@ export default function SharedHero({
         {intro && (
           <Typography
             variant="b1"
-            className="shared-img-hero-intro text-white/85 max-w-[920px] mx-auto [text-wrap:balance] [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
+            className="shared-img-hero-intro text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
             dangerouslySetInnerHTML={typeof intro === "string" ? { __html: intro } : undefined}
             style={
               maxWidthDescription
@@ -120,14 +120,14 @@ export default function SharedHero({
                 href={ctaLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shared-img-hero-cta inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-teal text-midnight border-2 border-teal font-heading text-[0.85rem] font-semibold tracking-[0.08em] uppercase no-underline transition-all duration-300 mt-8 md:mt-10 hover:bg-transparent hover:border-white hover:text-white hover:-translate-y-0.5"
+                className="shared-img-hero-cta inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-teal text-midnight border-2 border-teal font-heading text-[0.85rem] font-semibold tracking-[0.08em] uppercase whitespace-nowrap no-underline transition-all duration-300 mt-8 md:mt-10 hover:bg-transparent hover:border-white hover:text-white hover:-translate-y-0.5"
               >
                 {ctaText}
               </a>
             ) : (
               <Link
                 href={ctaLink}
-                className="shared-img-hero-cta inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-teal text-midnight border-2 border-teal font-heading text-[0.85rem] font-semibold tracking-[0.08em] uppercase no-underline transition-all duration-300 mt-8 md:mt-10 hover:bg-transparent hover:border-white hover:text-white hover:-translate-y-0.5"
+                className="shared-img-hero-cta inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-teal text-midnight border-2 border-teal font-heading text-[0.85rem] font-semibold tracking-[0.08em] uppercase whitespace-nowrap no-underline transition-all duration-300 mt-8 md:mt-10 hover:bg-transparent hover:border-white hover:text-white hover:-translate-y-0.5"
               >
                 {ctaText}
               </Link>

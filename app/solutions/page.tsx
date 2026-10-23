@@ -2,7 +2,9 @@ import React from "react";
 import SharedHero from "@ui-common/SharedHero";
 import SolutionsSmallCells from "@ui-component/solutions/SolutionsSmallCells";
 import SolutionsDas from "@ui-component/solutions/SolutionsDas";
-import SolutionsIndustries from "@ui-component/solutions/SolutionsIndustries";
+import SolutionsIndustries, {
+  type IndustryCard,
+} from "@ui-component/solutions/SolutionsIndustries";
 import GlobeCTA from "@ui-common/GlobeCTA";
 import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
@@ -10,6 +12,57 @@ import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
 export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
+
+interface StrapiMedia {
+  url: string;
+  alternativeText?: string;
+  mime?: string;
+}
+
+interface StrapiCta {
+  label: string;
+  url: string;
+}
+
+interface StrapiSection {
+  key?: string;
+  title?: string;
+  body?: string;
+  stats?: Array<{ value: string; label: string }>;
+  cta?: StrapiCta[];
+  media?: StrapiMedia[];
+  cards?: IndustryCard[];
+}
+
+interface StrapiPageData {
+  heroTitle?: string;
+  heroDescription?: string;
+  heroMedia?: StrapiMedia[];
+  heroCtas?: StrapiCta[];
+  sections?: StrapiSection[];
+  SeoFields?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogType?: string;
+    ogSiteName?: string;
+    preventIndexing?: boolean;
+    ogImage?: { url: string };
+  };
+}
+
+interface StrapiWidgetSection {
+  __component?: string;
+  [key: string]: unknown;
+}
+
+interface StrapiWidget {
+  id: number | string;
+  PositionNumber?: number;
+  Sections?: StrapiWidgetSection[];
+  CustomCssClass?: string;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
@@ -27,7 +80,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         seo?.ogDescription ||
         "Learn how our small cell and DAS networks are increasing capacity and enhancing connectivity in high-demand areas.",
-      type: (seo?.ogType as any) || "website",
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -51,25 +104,25 @@ export default async function SolutionsPage() {
     ),
     fetchPageWidgets("solutions"),
   ]);
-  const solutionsContent = pageData?.data?.[0];
-  const globalWidgets: any[] = widgetData?.data?.[0]?.widgets || [];
+  const solutionsContent: StrapiPageData | undefined = pageData?.data?.[0];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
   const smallCellsData = solutionsContent?.sections?.find(
-    (section: any) => section.key === "Small Cells"
+    (section) => section.key === "Small Cells"
   );
   const dasData = solutionsContent?.sections?.find(
-    (section: any) => section.key === "Distributed Antenna Systems"
+    (section) => section.key === "Distributed Antenna Systems"
   );
   const industriesData = solutionsContent?.sections?.find(
-    (section: any) => section.key === "Industries"
+    (section) => section.key === "Industries"
   );
   const approachData = solutionsContent?.sections?.find(
-    (section: any) => section.key === "Our Approach"
+    (section) => section.key === "Our Approach"
   );
 
   const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
 
   // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
+  globalWidgets.forEach((widget) => {
     sectionMap.push({
       pos: widget.PositionNumber ?? 999,
       key: `widget-${widget.id}`,
@@ -79,7 +132,7 @@ export default async function SolutionsPage() {
 
   // 2. Add fallbacks for missing positions/widgets
   const hasHeroWidget = globalWidgets.some(
-    (w: any) => w.PositionNumber === 0 && (w.Sections || []).length > 0
+    (w) => w.PositionNumber === 0 && (w.Sections || []).length > 0
   );
   if (!hasHeroWidget) {
     sectionMap.push({
@@ -108,9 +161,9 @@ export default async function SolutionsPage() {
     });
   }
 
-  const hasIllustrationWidgets = globalWidgets.some((w: any) =>
+  const hasIllustrationWidgets = globalWidgets.some((w) =>
     w.Sections?.some(
-      (s: any) =>
+      (s) =>
         s.__component?.includes("illustration-split") || s.__component?.includes("media-text-split")
     )
   );
@@ -127,7 +180,7 @@ export default async function SolutionsPage() {
     });
   }
 
-  const hasIndustriesWidget = globalWidgets.some((w: any) => w.PositionNumber === 3);
+  const hasIndustriesWidget = globalWidgets.some((w) => w.PositionNumber === 3);
   if (!hasIndustriesWidget) {
     sectionMap.push({
       pos: 3,
@@ -136,8 +189,8 @@ export default async function SolutionsPage() {
     });
   }
 
-  const hasCtaWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes("cta"))
+  const hasCtaWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component?.includes("cta"))
   );
   if (!hasCtaWidget) {
     sectionMap.push({
