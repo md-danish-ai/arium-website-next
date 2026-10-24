@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import { Typography, StatCard } from "@ui-element";
+import { useCounterAnimation } from "@hooks/useCounterAnimation";
 import { StatsWithImageProps, StatItem } from "./type";
 
 export default function StatsWithImage({
@@ -11,52 +12,7 @@ export default function StatsWithImage({
   mapImageSrc,
   headingColor,
 }: StatsWithImageProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const counters = entry.target.querySelectorAll(".counter");
-            counters.forEach((counter) => {
-              const el = counter as HTMLElement;
-              const target = +el.getAttribute("data-target")!;
-              const suffix = el.getAttribute("data-suffix") || "";
-              const duration = 2000;
-
-              const startTime = performance.now();
-              const updateCounter = (currentTime: number) => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-
-                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-                const current = Math.floor(easeOutQuart * target);
-
-                el.innerText = current + suffix;
-
-                if (progress < 1) {
-                  requestAnimationFrame(updateCounter);
-                } else {
-                  el.innerText = target + suffix;
-                }
-              };
-
-              requestAnimationFrame(updateCounter);
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useCounterAnimation();
 
   return (
     <section

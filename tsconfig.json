@@ -33,6 +33,7 @@
       "@ui-animations/*": ["./components/ui-animations/*"],
       "@lib": ["./lib"],
       "@lib/*": ["./lib/*"],
+      "@hooks": ["./hooks"],
       "@hooks/*": ["./hooks/*"],
       "@public/*": ["./public/*"],
       "@types": ["./types"],
