@@ -1,37 +1,47 @@
 import React from "react";
-import SharedHero from "../../components/sections/shared/SharedHero";
-import AboutStory from "../../components/sections/about/AboutStory";
-import AboutJourney from "../../components/sections/about/AboutJourney";
-import AboutTrust from "../../components/sections/about/AboutTrust";
-import AboutCommitments from "../../components/sections/about/AboutCommitments";
-import AboutCulture from "../../components/sections/about/AboutCulture";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI } from "../../lib/api";
+import type { Metadata } from "next";
+import HeroBanner from "@ui-common/HeroBanner";
+import {
+  AboutContentWithSideGraphic,
+  AboutJourney,
+  AboutStatsCards,
+  AboutCommitments,
+  AboutCulture,
+} from "@ui-component/about";
+import FlowBackground from "@ui-animations/FlowBackground";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import {
+  mapAboutHero,
+  mapAboutStory,
+  mapAboutJourney,
+  mapAboutStatsCards,
+  mapAboutCommitments,
+  mapAboutCulture,
+} from "@services/mappers/about.mapper";
+import { ABOUT_SEO_FALLBACK } from "@data/about.data";
 
 export const dynamic = "force-dynamic";
 
-
-import type { Metadata } from "next";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI("/api/pages?filters[slug][$eq]=about&populate[SeoFields][populate]=*");
+  const pageData = await fetchAPI(
+    "/api/pages?filters[slug][$eq]=about&populate[SeoFields][populate]=*"
+  );
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "About Us | A story rooted in connection",
-    description: seo?.metaDescription || "Arium Networks builds the small cell and DAS networks that power your most important connections.",
+    title: seo?.metaTitle || ABOUT_SEO_FALLBACK.title,
+    description: seo?.metaDescription || ABOUT_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "About Us | A story rooted in connection",
-      description: seo?.ogDescription || "Arium Networks builds the small cell and DAS networks that power your most important connections.",
-      type: (seo?.ogType as any) || "website",
+      title: seo?.ogTitle || ABOUT_SEO_FALLBACK.title,
+      description: seo?.ogDescription || ABOUT_SEO_FALLBACK.description,
+      type: seo?.ogType === "article" ? "article" : "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http")
-              ? seo.ogImage.url
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),
@@ -45,111 +55,82 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const [pageData, widgetData] = await Promise.all([
-    fetchAPI("/api/pages?filters[slug][$eq]=about&populate[heroMedia][populate]=*&populate[heroCtas][populate]=*&populate[sections][populate]=*"),
-    fetchAPI("/api/pages?filters[slug][$eq]=about&populate[widgets][populate][Sections][populate]=*"),
+    fetchAPI(
+      "/api/pages?filters[slug][$eq]=about&populate[heroMedia][populate]=*&populate[heroCtas][populate]=*&populate[sections][populate]=*"
+    ),
+    fetchPageWidgets("about"),
   ]);
-  const aboutContent = pageData?.data?.[0];
-  const globalWidgets: any[] = (widgetData?.data?.[0]?.widgets) || [];
-  const storyData = aboutContent?.sections?.find((section: any) => section.key === "Story");
-  const journeyData = aboutContent?.sections?.find((section: any) => section.key === "Journey");
-  const trustData = aboutContent?.sections?.find((section: any) => section.key === "Why our infrastructure");
-  const valuesData = aboutContent?.sections?.find((section: any) => section.key === "Values");
-  const cultureData = aboutContent?.sections?.find((section: any) => section.key === "We're Hiring");
 
-  const sectionMap: { pos: number, key: string, el: React.ReactElement }[] = [];
+  const aboutContent: StrapiPageData | undefined = pageData?.data?.[0];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
-    sectionMap.push({
-      pos: widget.PositionNumber ?? 999,
-      key: `widget-${widget.id}`,
-      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />
-    });
-  });
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    aboutContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  // 2. Add fallbacks for missing positions/widgets
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
-  if (!hasHeroWidget) {
-    sectionMap.push({
+  const heroProps = mapAboutHero(aboutContent);
+  const storyProps = mapAboutStory(getSection("Story"));
+  const journeyProps = mapAboutJourney(getSection("Journey"));
+  const trustProps = mapAboutStatsCards(getSection("Why our infrastructure"));
+  const valuesProps = mapAboutCommitments(getSection("Values"));
+  const cultureProps = mapAboutCulture(getSection("We're Hiring"));
+
+  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
+
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 0,
-      key: 'hero-fallback',
-      el: (
-        <SharedHero
-          key="hero-fallback"
-          id="about-hero"
-          imageSrc={aboutContent?.heroMedia?.[0]?.url || "/assets/images/hero-about.png"}
-          imageAlt={aboutContent?.heroMedia?.[0]?.alternativeText || "Chicago skyline"}
-          heading={aboutContent?.heroTitle || "Building a more connected future"}
-          intro={aboutContent?.heroDescription || "We're working across the country to build the infrastructure that powers your most important connections."}
-        />
-      )
-    });
-  }
-
-  const hasStoryWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('content-with-side-graphic') || s.__component?.includes('contentwithsidegraphic'))
-  );
-  if (!hasStoryWidget) {
-    sectionMap.push({
+      key: "hero-fallback",
+      skip: hasHeroWidget,
+      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+    },
+    {
       pos: 1,
-      key: 'story-fallback',
-      el: <AboutStory key="story-fallback" data={storyData} />
-    });
-  }
-
-  const hasStorytellerWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) =>
-      s.__component?.includes('journey') ||
-      s.__component?.includes('timeline') ||
-      s.__component?.includes('stats-card') ||
-      s.__component?.includes('statscards') ||
-      s.__component?.includes('commitments') ||
-      s.__component?.includes('commitment')
-    )
-  );
-  if (!hasStorytellerWidget) {
-    sectionMap.push({
+      key: "story-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "content-with-side-graphic",
+        "contentwithsidegraphic",
+      ]),
+      el: <AboutContentWithSideGraphic key="story-fallback" {...storyProps} />,
+    },
+    {
       pos: 2,
-      key: 'flow-fallback',
+      key: "flow-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "journey",
+        "timeline",
+        "stats-card",
+        "statscards",
+        "commitments",
+        "commitment",
+      ]),
       el: (
-        <div key="flow-fallback" className="about-storyteller-flow" style={{ marginTop: "-1px", border: "none" }}>
-          <div className="flow-bg-gradient flow-bg-1" aria-hidden="true"></div>
-          <div className="flow-bg-gradient flow-bg-2" aria-hidden="true"></div>
-          <div className="flow-bg-gradient flow-bg-3" aria-hidden="true"></div>
-          <AboutJourney data={journeyData} />
-          <AboutTrust data={trustData} />
-          <AboutCommitments data={valuesData} />
+        <div
+          key="flow-fallback"
+          className="about-storyteller-flow relative overflow-hidden -mt-px border-none"
+        >
+          <FlowBackground />
+          <AboutJourney {...journeyProps} />
+          <AboutStatsCards {...trustProps} />
+          <AboutCommitments {...valuesProps} />
         </div>
-      )
-    });
-  }
-
-  const hasCultureWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) =>
-      s.__component?.includes('culture') ||
-      s.__component?.includes('people-global-section') ||
-      s.__component?.includes('value-proposition') ||
-      s.__component?.includes('pillar-highlights') ||
-      s.__component?.includes('core-values') ||
-      s.__component?.includes('feature-showcase')
-    )
-  );
-  if (!hasCultureWidget) {
-    sectionMap.push({
+      ),
+    },
+    {
       pos: 3,
-      key: 'culture-fallback',
-      el: <AboutCulture key="culture-fallback" data={cultureData} />
-    });
-  }
+      key: "culture-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "culture",
+        "people-global-section",
+        "value-proposition",
+        "pillar-highlights",
+        "core-values",
+        "feature-showcase",
+      ]),
+      el: <AboutCulture key="culture-fallback" {...cultureProps} />,
+    },
+  ];
 
-  // 3. Sort by pos and extract elements
-  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{renderedSections}</>;
 }
-

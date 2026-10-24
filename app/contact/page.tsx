@@ -1,33 +1,36 @@
 import React from "react";
-import PageAnimations from "../../components/animations/PageAnimations";
-import ContactHero from "../../components/sections/contact/ContactHero";
-import ContactForm from "../../components/sections/contact/ContactForm";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-import { fetchAPI } from "../../lib/api";
+import type { Metadata } from "next";
+import ContactHero from "@ui-component/contact/ContactHero";
+import ContactForm from "@ui-component/contact/ContactForm";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry } from "@types";
+import {
+  CONTACT_TOPIC_OPTIONS,
+  CONTACT_HERO_FALLBACK,
+  CONTACT_SEO_FALLBACK,
+} from "@data/contact.data";
 
 export const dynamic = "force-dynamic";
 
-
-import type { Metadata } from "next";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI("/api/pages?filters[slug][$eq]=contact&populate[SeoFields][populate]=*");
+  const pageData = await fetchAPI(
+    "/api/pages?filters[slug][$eq]=contact&populate[SeoFields][populate]=*"
+  );
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Contact Us | Arium Networks",
-    description: seo?.metaDescription || "Build with clarity—connect with confidence",
+    title: seo?.metaTitle || CONTACT_SEO_FALLBACK.title,
+    description: seo?.metaDescription || CONTACT_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Contact Us | Arium Networks",
-      description: seo?.ogDescription || "Build with clarity—connect with confidence",
-      type: (seo?.ogType as any) || "website",
+      title: seo?.ogTitle || CONTACT_SEO_FALLBACK.title,
+      description: seo?.ogDescription || CONTACT_SEO_FALLBACK.description,
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http")
-              ? seo.ogImage.url
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),
@@ -39,45 +42,40 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Contact() {
+export default async function ContactPage() {
   const [pageData, widgetData] = await Promise.all([
     fetchAPI("/api/pages?filters[slug][$eq]=contact&populate=*"),
-    fetchAPI("/api/pages?filters[slug][$eq]=contact&populate[widgets][populate][Sections][populate]=*&populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*"),
+    fetchPageWidgets("contact"),
   ]);
-  const contactContent = pageData?.data?.[0];
-  const globalWidgets: any[] = (widgetData?.data?.[0]?.widgets) || [];
 
-  const hasInnerHeroWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component === 'shared.inner-page-hero')
+  const contactContent: StrapiPageData | undefined = pageData?.data?.[0];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
+
+  const hasInnerHeroWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
   );
 
-  const sectionObjects: { pos: number; element: React.ReactElement }[] = [];
-
-  globalWidgets.forEach((widget: any) => {
-    const pos = widget.PositionNumber ?? 999;
-    sectionObjects.push({
-      pos,
-      element: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />
-    });
-  });
-
-  if (!hasInnerHeroWidget) {
-    sectionObjects.push({
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 1,
-      element: <ContactHero key="hero" heading={contactContent?.heroTitle} intro={contactContent?.heroDescription} />
-    });
-  }
+      key: "hero-fallback",
+      skip: hasInnerHeroWidget,
+      el: (
+        <ContactHero
+          key="hero-fallback"
+          heading={contactContent?.heroTitle || CONTACT_HERO_FALLBACK.heading}
+          intro={contactContent?.heroDescription || CONTACT_HERO_FALLBACK.intro}
+        />
+      ),
+    },
+    {
+      pos: 2,
+      key: "form-fallback",
+      el: <ContactForm key="form-fallback" topicOptions={CONTACT_TOPIC_OPTIONS} />,
+    },
+  ];
 
-  // Ensure contact form always renders
-  sectionObjects.push({ pos: 2, element: <ContactForm key="form" /> });
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  sectionObjects.sort((a, b) => a.pos - b.pos);
-  const sections = sectionObjects.map(obj => obj.element);
-
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{renderedSections}</>;
 }

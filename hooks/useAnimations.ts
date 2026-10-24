@@ -3,42 +3,85 @@
 import { useEffect } from "react";
 
 // Scroll Reveal
-export function useScrollReveal() {
+export function useScrollReveal(pathname?: string) {
   useEffect(() => {
-    const reveals = document.querySelectorAll(
-      ".reveal, .reveal-left, .reveal-right, .reveal-scale"
-    );
-    if (!reveals.length) return;
+    let observer: IntersectionObserver | null = null;
 
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+    const activateElement = (el: Element) => {
+      el.classList.add("active");
+    };
 
-    reveals.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+    const setupObserver = () => {
+      const reveals = document.querySelectorAll(
+        ".reveal, .reveal-left, .reveal-right, .reveal-scale"
+      );
+      if (!reveals.length) return;
+
+      if (!observer) {
+        observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                activateElement(entry.target);
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+      }
+
+      reveals.forEach((el) => {
+        if (el.classList.contains("active")) return;
+
+        const rect = el.getBoundingClientRect();
+        // If element is already within the viewport, activate it immediately
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          activateElement(el);
+        } else {
+          observer!.observe(el);
+        }
+      });
+    };
+
+    // Run immediately and at staggered intervals to catch streaming/client transitions
+    setupObserver();
+    const t1 = setTimeout(setupObserver, 50);
+    const t2 = setTimeout(setupObserver, 150);
+    const t3 = setTimeout(setupObserver, 350);
+
+    // MutationObserver to automatically catch any newly added reveal elements on client-side routing
+    const mutationObserver = new MutationObserver(() => {
+      setupObserver();
+    });
+
+    const mainContent = document.getElementById("main-content") || document.body;
+    if (mainContent) {
+      mutationObserver.observe(mainContent, { childList: true, subtree: true });
+    }
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      mutationObserver.disconnect();
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [pathname]);
 }
 
 // Parallax Background
-export function useParallax() {
+export function useParallax(pathname?: string) {
   useEffect(() => {
-    const parallaxEls = document.querySelectorAll(".parallax-bg");
-    if (!parallaxEls.length) return;
-
+    let parallaxEls: NodeListOf<Element>;
     const SPEED = 0.3;
     const desktopMQ = window.matchMedia("(min-width: 1080px)");
     let ticking = false;
 
     function update() {
-      if (!desktopMQ.matches) return;
+      if (!desktopMQ.matches || !parallaxEls?.length) return;
 
       parallaxEls.forEach((el) => {
         const rect = el.getBoundingClientRect();
@@ -58,74 +101,106 @@ export function useParallax() {
       });
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    update(); // Initial position
+    const init = () => {
+      parallaxEls = document.querySelectorAll(".parallax-bg");
+      if (parallaxEls.length) {
+        update();
+      }
+    };
 
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    init();
+    const t1 = setTimeout(init, 100);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(t1);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
 }
 
 // Scroll Indicator Fade
-export function useScrollIndicator() {
+export function useScrollIndicator(pathname?: string) {
   useEffect(() => {
-    const indicator = document.querySelector(".scroll-indicator");
-    if (!indicator) return;
-
+    let indicator: HTMLElement | null = null;
     let ticking = false;
 
     function onScroll() {
-      if (ticking) return;
+      if (ticking || !indicator) return;
       ticking = true;
 
       requestAnimationFrame(() => {
-        const opacity = 1 - Math.min(window.scrollY / 200, 1);
-        (indicator as HTMLElement).style.opacity = opacity.toString();
+        if (indicator) {
+          const opacity = 1 - Math.min(window.scrollY / 200, 1);
+          indicator.style.opacity = opacity.toString();
+        }
         ticking = false;
       });
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    const init = () => {
+      indicator = document.querySelector(".scroll-indicator");
+      if (indicator) {
+        onScroll();
+      }
+    };
 
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    init();
+    const t1 = setTimeout(init, 100);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(t1);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
 }
 
 // Timeline Horizontal Scroll
-export function useTimeline() {
+export function useTimeline(pathname?: string) {
   useEffect(() => {
-    const track = document.querySelector(".timeline-track");
-    if (!track) return;
-
+    let track: HTMLElement | null = null;
     const desktopMQ = window.matchMedia("(min-width: 1080px)");
 
     function handleWheel(e: Event) {
       const wheelEvent = e as WheelEvent;
-      if (!desktopMQ.matches) return;
+      if (!desktopMQ.matches || !track) return;
 
-      const trackEl = track as HTMLElement;
-      const maxScrollLeft = trackEl.scrollWidth - trackEl.clientWidth;
+      const maxScrollLeft = track.scrollWidth - track.clientWidth;
       if (maxScrollLeft <= 0) return;
 
-      const atStart = trackEl.scrollLeft <= 0 && wheelEvent.deltaY < 0;
-      const atEnd = trackEl.scrollLeft >= maxScrollLeft && wheelEvent.deltaY > 0;
-      
+      const atStart = track.scrollLeft <= 0 && wheelEvent.deltaY < 0;
+      const atEnd = track.scrollLeft >= maxScrollLeft && wheelEvent.deltaY > 0;
+
       if (atStart || atEnd) return;
 
       wheelEvent.preventDefault();
-      trackEl.scrollLeft += wheelEvent.deltaY;
+      track.scrollLeft += wheelEvent.deltaY;
     }
 
-    track.addEventListener("wheel", handleWheel, { passive: false });
-    return () => track.removeEventListener("wheel", handleWheel);
-  }, []);
+    const init = () => {
+      track = document.querySelector(".timeline-track");
+      if (track) {
+        track.addEventListener("wheel", handleWheel, { passive: false });
+      }
+    };
+
+    init();
+    const t1 = setTimeout(init, 100);
+
+    return () => {
+      clearTimeout(t1);
+      if (track) {
+        track.removeEventListener("wheel", handleWheel);
+      }
+    };
+  }, [pathname]);
 }
 
 // Animated Number Counters
-export function useCounters() {
+export function useCounters(pathname?: string) {
   useEffect(() => {
-    const counters = document.querySelectorAll(".counter");
-    if (!counters.length) return;
+    let observer: IntersectionObserver | null = null;
 
     function formatNumber(n: number) {
       return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -138,7 +213,7 @@ export function useCounters() {
     function animateCounter(el: Element) {
       const targetStr = (el as HTMLElement).dataset.target;
       if (!targetStr) return;
-      
+
       const target = parseInt(targetStr, 10);
       if (isNaN(target)) return;
 
@@ -163,19 +238,35 @@ export function useCounters() {
       requestAnimationFrame(step);
     }
 
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+    const initCounters = () => {
+      const counters = document.querySelectorAll(".counter");
+      if (!counters.length) return;
 
-    counters.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+      if (!observer) {
+        observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+      }
+
+      counters.forEach((el) => observer!.observe(el));
+    };
+
+    initCounters();
+    const t1 = setTimeout(initCounters, 100);
+
+    return () => {
+      clearTimeout(t1);
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [pathname]);
 }

@@ -1,8 +1,9 @@
+import { STRAPI_URL, GetStrapiMediaUrl } from "./strapi";
+
+export { STRAPI_URL, GetStrapiMediaUrl };
+
 export function getStrapiURL(path = "") {
-  return `${
-    process.env.NEXT_PUBLIC_STRAPI_URL ||
-    "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com"
-  }${path}`;
+  return `${STRAPI_URL}${path}`;
 }
 
 export async function fetchAPI(path: string, options: RequestInit = {}) {
@@ -16,9 +17,7 @@ export async function fetchAPI(path: string, options: RequestInit = {}) {
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error(
-        `An error occurred please check the API endpoint: ${requestUrl}`,
-      );
+      console.error(`An error occurred please check the API endpoint: ${requestUrl}`);
       console.error(`Strapi Error Details: ${response.status} - ${errText}`);
       return null;
     }
@@ -57,9 +56,9 @@ export const WIDGETS_POPULATE_QUERY =
   "&populate[widgets][populate][Sections][on][shared.benefits][populate][BenefitsCard][populate]=*" +
   "&populate[widgets][populate][Sections][on][shared.background-feature-section][populate]=*" +
   "&populate[widgets][populate][Sections][on][shared.stats-cards][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.process][populate]=*" +
+  "&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate]=*" +
   "&populate[widgets][populate][Sections][on][shared.faq][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.people-global-section][populate]=*" +
+  "&populate[widgets][populate][Sections][on][shared.people-global-section][populate][Peoplecard][populate]=*" +
   "&populate[widgets][populate][Sections][on][shared.image-card-grid][populate][cardgrid][populate][image][populate]=*" +
   "&populate[widgets][populate][Sections][on][shared.gloabl-testimonails][populate]=*" +
   "&populate[widgets][populate][Sections][on][shared.image-split][populate]=*" +
@@ -68,7 +67,5 @@ export const WIDGETS_POPULATE_QUERY =
  * Dedicated widget fetch — always a clean, short URL separate from page-data queries.
  */
 export async function fetchPageWidgets(slug: string) {
-  return fetchAPI(
-    `/api/pages?filters[slug][$eq]=${slug}&${WIDGETS_POPULATE_QUERY}`,
-  );
+  return fetchAPI(`/api/pages?filters[slug][$eq]=${slug}&${WIDGETS_POPULATE_QUERY}`);
 }

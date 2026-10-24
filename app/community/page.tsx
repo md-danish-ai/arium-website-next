@@ -1,38 +1,46 @@
 import React from "react";
-import { fetchAPI, fetchPageWidgets } from "../../lib/api";
+import type { Metadata } from "next";
+import HeroBanner from "@ui-common/HeroBanner";
+import ImageCardGrid from "@ui-common/ImageCardGrid";
+import {
+  CommunitySmallCells,
+  CommunityHowWeWork,
+  CommunityTestimonials,
+  CommunityFAQ,
+} from "@ui-component/community";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import {
+  mapCommunityHero,
+  mapCommunitySmallCells,
+  mapCommunityBenefits,
+  mapCommunityHowWeWork,
+  mapCommunityTestimonials,
+  mapCommunityFaqs,
+} from "@services/mappers/community.mapper";
+import { COMMUNITY_SEO_FALLBACK } from "@data/community.data";
 
 export const dynamic = "force-dynamic";
 
-
-import SharedHero from "../../components/sections/shared/SharedHero";
-import CommunitySmallCells from "../../components/sections/your-community/CommunitySmallCells";
-import SharedImageCardGrid from "../../components/sections/shared/SharedImageCardGrid";
-import CommunityHowWeWork from "../../components/sections/your-community/CommunityHowWeWork";
-import CommunityTestimonials from "../../components/sections/your-community/CommunityTestimonials";
-import CommunityFAQ from "../../components/sections/your-community/CommunityFAQ";
-import PageAnimations from "../../components/animations/PageAnimations";
-import GlobalWidgetRenderer from "../../components/shared/GlobalWidgetRenderer";
-
-import type { Metadata } from "next";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI("/api/pages?filters[slug][$eq]=community&populate[SeoFields][populate]=*");
+  const pageData = await fetchAPI(
+    "/api/pages?filters[slug][$eq]=community&populate[SeoFields][populate]=*"
+  );
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Your Community | Arium Networks",
-    description: seo?.metaDescription || "Arium Networks builds wireless small cell infrastructure in communities across the country, keeping you connected to what matters.",
+    title: seo?.metaTitle || COMMUNITY_SEO_FALLBACK.title,
+    description: seo?.metaDescription || COMMUNITY_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Your Community | Arium Networks",
-      description: seo?.ogDescription || "Arium Networks builds wireless small cell infrastructure in communities across the country, keeping you connected to what matters.",
-      type: (seo?.ogType as any) || "website",
+      title: seo?.ogTitle || COMMUNITY_SEO_FALLBACK.title,
+      description: seo?.ogDescription || COMMUNITY_SEO_FALLBACK.description,
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
           {
-            url: seo.ogImage.url.startsWith("http")
-              ? seo.ogImage.url
-              : `http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com${seo.ogImage.url}`,
+            url: GetStrapiMediaUrl(seo.ogImage.url),
           },
         ],
       }),
@@ -44,118 +52,79 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-
 export default async function YourCommunityPage() {
   const [pageData, widgetData] = await Promise.all([
     fetchAPI("/api/pages?filters[slug][$eq]=community&populate[sections][populate]=*"),
     fetchPageWidgets("community"),
   ]);
-  const communityContent = pageData?.data?.[0];
-  const globalWidgets: any[] = (widgetData?.data?.[0]?.widgets) || [];
-  const smallCellData = communityContent?.sections?.find((section: any) => section.key === "Small cell");
-  const whySmallCellData = communityContent?.sections?.find((section: any) => section.key === "Small cells matter");
-  const howWeWorkData = communityContent?.sections?.find((section: any) => section.key === "How we work");
-  const testimonialsData = communityContent?.sections?.find((section: any) => section.key === "Communities support");
-  const faqData = communityContent?.sections?.find((section: any) => section.key === "FAQ");
 
-  const hasIllustrationWidgets = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('illustration-split') || s.__component?.includes('media-text-split'))
-  );
+  const communityContent: StrapiPageData | undefined = pageData?.data?.[0];
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const hasImageCardGridWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('image-card-grid') || s.__component?.includes('imagecardgrid') || s.__component?.includes('image-card') || s.__component?.includes('cards'))
-  );
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    communityContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  const sectionMap: { pos: number, key: string, el: React.ReactElement }[] = [];
+  const heroProps = mapCommunityHero(communityContent);
+  const smallCellProps = mapCommunitySmallCells(getSection("Small cell"));
+  const benefitsProps = mapCommunityBenefits(getSection("Small cells matter"));
+  const howWeWorkProps = mapCommunityHowWeWork(getSection("How we work"));
+  const testimonialsProps = mapCommunityTestimonials(getSection("Communities support"));
+  const faqProps = mapCommunityFaqs(getSection("FAQ"));
 
-  // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget: any) => {
-    sectionMap.push({
-      pos: widget.PositionNumber ?? 999,
-      key: `widget-${widget.id}`,
-      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />
-    });
-  });
+  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
 
-  // 2. Add fallbacks for missing positions/widgets
-  const hasHeroWidget = globalWidgets.some((w: any) => w.PositionNumber === 0);
-  if (!hasHeroWidget) {
-    sectionMap.push({
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 0,
-      key: 'hero-fallback',
-      el: (
-        <SharedHero
-          key="hero-fallback"
-          id="community-hero"
-          imageSrc="/assets/images/hero-community.png"
-          imageAlt="Community members enjoying a park"
-          heading={communityContent?.heroTitle || "Building the connections your community depends on"}
-          intro={communityContent?.heroDescription || "We work in communities like yours to ensure you stay on the cutting edge."}
-        />
-      )
-    });
-  }
-
-  if (!hasIllustrationWidgets) {
-    sectionMap.push({
+      key: "hero-fallback",
+      skip: hasHeroWidget,
+      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+    },
+    {
       pos: 1,
-      key: 'smallcell-fallback',
-      el: <CommunitySmallCells key="smallcell-fallback" data={smallCellData} />
-    });
-  }
-
-  if (!hasImageCardGridWidget) {
-    sectionMap.push({
+      key: "smallcell-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
+      el: <CommunitySmallCells key="smallcell-fallback" {...smallCellProps} />,
+    },
+    {
       pos: 2,
-      key: 'imagecardgrid-fallback',
-      el: <SharedImageCardGrid key="imagecardgrid-fallback" data={whySmallCellData} />
-    });
-  }
-
-  const hasBackgroundFeatureWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('background-feature-section') || s.__component?.includes('backgroundfeaturesection'))
-  );
-  if (!hasBackgroundFeatureWidget) {
-    sectionMap.push({
+      key: "imagecardgrid-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "image-card-grid",
+        "imagecardgrid",
+        "image-card",
+        "cards",
+      ]),
+      el: <ImageCardGrid key="imagecardgrid-fallback" {...benefitsProps} />,
+    },
+    {
       pos: 3,
-      key: 'howwework-fallback',
-      el: <CommunityHowWeWork key="howwework-fallback" data={{ ...howWeWorkData, cta: howWeWorkData?.ctas?.[0] }} />
-    });
-  }
-
-  const hasTestimonialsWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('testimonial') || s.__component?.includes('testimonail'))
-  );
-  if (!hasTestimonialsWidget) {
-    sectionMap.push({
+      key: "howwework-fallback",
+      skip: hasWidgetComponent(globalWidgets, [
+        "background-feature-section",
+        "backgroundfeaturesection",
+      ]),
+      el: <CommunityHowWeWork key="howwework-fallback" {...howWeWorkProps} />,
+    },
+    {
       pos: 4,
-      key: 'testimonials-fallback',
+      key: "testimonials-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
       el: (
         <div key="testimonials-fallback" className="row-storyteller-flow">
-          <CommunityTestimonials data={testimonialsData} />
+          <CommunityTestimonials {...testimonialsProps} />
         </div>
-      )
-    });
-  }
-
-  const hasFaqWidget = globalWidgets.some((w: any) =>
-    w.Sections?.some((s: any) => s.__component?.includes('faq'))
-  );
-  if (!hasFaqWidget) {
-    sectionMap.push({
+      ),
+    },
+    {
       pos: 5,
-      key: 'faq-fallback',
-      el: <CommunityFAQ key="faq-fallback" data={faqData} />
-    });
-  }
+      key: "faq-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["faq"]),
+      el: <CommunityFAQ key="faq-fallback" {...faqProps} />,
+    },
+  ];
 
-  // 3. Sort by pos and extract elements
-  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map(s => s.el);
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  return (
-    <main id="main-content">
-      <PageAnimations />
-      {sections}
-    </main>
-  );
+  return <>{renderedSections}</>;
 }
