@@ -3,8 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@ui-layout/navbar";
 import Footer from "@ui-layout/footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
+import { fetchAPI } from "@lib/api";
 import { mapNavbarData, mapFooterData } from "@services/mappers";
+import { getPageMetadata } from "@utils";
+import { HOME_SEO_FALLBACK } from "@data";
 import PageAnimations from "@ui-animations/PageAnimations";
 
 import "@public/css/globals.css";
@@ -22,32 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=home&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || "Arium Networks",
-    description: seo?.metaDescription || "",
-    openGraph: {
-      title: seo?.ogTitle || "Arium Networks",
-      description: seo?.ogDescription || "",
-      type: (seo?.ogType || "website") as "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("home", HOME_SEO_FALLBACK);
 }
 
 export default async function RootLayout({

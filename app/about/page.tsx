@@ -10,7 +10,7 @@ import {
 } from "@ui-component/about";
 import FlowBackground from "@ui-animations/FlowBackground";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
-import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import {
   mapAboutHero,
@@ -25,32 +25,7 @@ import { ABOUT_SEO_FALLBACK } from "@data/about.data";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=about&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || ABOUT_SEO_FALLBACK.title,
-    description: seo?.metaDescription || ABOUT_SEO_FALLBACK.description,
-    openGraph: {
-      title: seo?.ogTitle || ABOUT_SEO_FALLBACK.title,
-      description: seo?.ogDescription || ABOUT_SEO_FALLBACK.description,
-      type: seo?.ogType === "article" ? "article" : "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("about", ABOUT_SEO_FALLBACK);
 }
 
 export default async function AboutPage() {

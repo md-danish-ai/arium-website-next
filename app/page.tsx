@@ -8,7 +8,8 @@ import ImageGradientSplit from "@ui-component/home/ImageGradientSplit";
 import CenteredImageCTA from "@ui-common/CenteredImageCTA";
 import CtaWithGraphic from "@ui-common/CtaWithGraphic";
 import Particles from "@ui-animations/Particles";
-import { combinePageSections, hasWidgetComponent } from "@utils";
+import type { Metadata } from "next";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import {
   mapHomeHero,
@@ -19,8 +20,13 @@ import {
   mapCareersCta,
   mapContactCta,
 } from "@services/mappers/home.mapper";
+import { HOME_SEO_FALLBACK } from "@data/home.data";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata("home", HOME_SEO_FALLBACK);
+}
 
 export default async function Home() {
   const [pageData, widgetData] = await Promise.all([

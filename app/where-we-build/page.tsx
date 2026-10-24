@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { fetchAPI } from "@lib/api";
-import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import HeroBanner from "@ui-common/HeroBanner";
 import WhereCommunities from "@ui-component/where-we-build/WhereCommunities";
 import WhereVenues from "@ui-component/where-we-build/WhereVenues";
@@ -16,32 +16,7 @@ import { WHERE_WE_BUILD_SEO_FALLBACK } from "@data/where-we-build.data";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=where-we-build&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || WHERE_WE_BUILD_SEO_FALLBACK.title,
-    description: seo?.metaDescription || WHERE_WE_BUILD_SEO_FALLBACK.description,
-    openGraph: {
-      title: seo?.ogTitle || WHERE_WE_BUILD_SEO_FALLBACK.title,
-      description: seo?.ogDescription || WHERE_WE_BUILD_SEO_FALLBACK.description,
-      type: (seo?.ogType as "website") || "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("where-we-build", WHERE_WE_BUILD_SEO_FALLBACK);
 }
 
 export default async function WhereWeBuildPage() {

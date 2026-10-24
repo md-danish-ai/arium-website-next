@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { InnerPageHero, PeopleGlobalSection, GlobeCTA } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
-import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import { mapInnerHero, mapPeopleMembers, mapPeopleCta } from "@services/mappers/people.mapper";
 import {
@@ -15,32 +15,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=board-of-directors&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || BOARD_SEO_FALLBACK.title,
-    description: seo?.metaDescription || BOARD_SEO_FALLBACK.description,
-    openGraph: {
-      title: seo?.ogTitle || BOARD_SEO_FALLBACK.title,
-      description: seo?.ogDescription || BOARD_SEO_FALLBACK.description,
-      type: (seo?.ogType as "website") || "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("board-of-directors", BOARD_SEO_FALLBACK);
 }
 
 export default async function BoardOfDirectorsPage() {

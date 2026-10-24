@@ -2,8 +2,8 @@ import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { HeroBanner } from "@ui-common";
-import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
-import { combinePageSections, resolveStrapiImage } from "@utils";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { combinePageSections, resolveStrapiImage, getDynamicPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry } from "@types";
 
 export const dynamic = "force-dynamic";
@@ -14,28 +14,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const pageData = await fetchAPI(
-    `/api/pages?filters[$or][0][slug][$eq]=${slug}&filters[$or][1][slug][$eq]=/${slug}&populate[SeoFields][populate]=*`
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || "Arium Networks",
-    description: seo?.metaDescription || "Arium Networks wireless infrastructure.",
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || "Arium Networks",
-      description: seo?.ogDescription || seo?.metaDescription || "",
-      type: (seo?.ogType as "website") || "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [{ url: GetStrapiMediaUrl(seo.ogImage.url) }],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getDynamicPageMetadata(slug, {
+    title: "Arium Networks",
+    description: "Arium Networks wireless infrastructure.",
+  });
 }
 
 export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {

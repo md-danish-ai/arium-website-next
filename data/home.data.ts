@@ -148,3 +148,8 @@ export const CONTACT_FALLBACK = {
   ctaText: "Contact Us",
   ctaLink: "/contact",
 };
+
+export const HOME_SEO_FALLBACK = {
+  title: "Arium Networks",
+  description: "Build with clarity—connect with confidence",
+};

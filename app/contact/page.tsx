@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ContactHero from "@ui-component/contact/ContactHero";
 import ContactForm from "@ui-component/contact/ContactForm";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
-import { GetStrapiMediaUrl, combinePageSections } from "@utils";
+import { combinePageSections, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry } from "@types";
 import {
   CONTACT_TOPIC_OPTIONS,
@@ -14,32 +14,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=contact&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || CONTACT_SEO_FALLBACK.title,
-    description: seo?.metaDescription || CONTACT_SEO_FALLBACK.description,
-    openGraph: {
-      title: seo?.ogTitle || CONTACT_SEO_FALLBACK.title,
-      description: seo?.ogDescription || CONTACT_SEO_FALLBACK.description,
-      type: (seo?.ogType as "website") || "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("contact", CONTACT_SEO_FALLBACK);
 }
 
 export default async function ContactPage() {

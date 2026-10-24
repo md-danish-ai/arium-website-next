@@ -4,7 +4,7 @@ import HeroBanner from "@ui-common/HeroBanner";
 import GlobeCTA from "@ui-common/GlobeCTA";
 import { SolutionsSmallCells, SolutionsDas, SolutionsIndustries } from "@ui-component/solutions";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
-import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import {
   mapSolutionsHero,
@@ -18,32 +18,7 @@ import { SOLUTIONS_SEO_FALLBACK } from "@data/solutions.data";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=solutions&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || SOLUTIONS_SEO_FALLBACK.title,
-    description: seo?.metaDescription || SOLUTIONS_SEO_FALLBACK.description,
-    openGraph: {
-      title: seo?.ogTitle || SOLUTIONS_SEO_FALLBACK.title,
-      description: seo?.ogDescription || SOLUTIONS_SEO_FALLBACK.description,
-      type: (seo?.ogType as "website") || "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("solutions", SOLUTIONS_SEO_FALLBACK);
 }
 
 export default async function SolutionsPage() {

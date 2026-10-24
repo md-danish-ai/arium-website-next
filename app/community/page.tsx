@@ -9,7 +9,7 @@ import {
   CommunityFAQ,
 } from "@ui-component/community";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
-import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import {
   mapCommunityHero,
@@ -24,32 +24,7 @@ import { COMMUNITY_SEO_FALLBACK } from "@data/community.data";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchAPI(
-    "/api/pages?filters[slug][$eq]=community&populate[SeoFields][populate]=*"
-  );
-  const seo = pageData?.data?.[0]?.SeoFields;
-
-  return {
-    title: seo?.metaTitle || COMMUNITY_SEO_FALLBACK.title,
-    description: seo?.metaDescription || COMMUNITY_SEO_FALLBACK.description,
-    openGraph: {
-      title: seo?.ogTitle || COMMUNITY_SEO_FALLBACK.title,
-      description: seo?.ogDescription || COMMUNITY_SEO_FALLBACK.description,
-      type: (seo?.ogType as "website") || "website",
-      siteName: seo?.ogSiteName || "Arium Networks",
-      ...(seo?.ogImage?.url && {
-        images: [
-          {
-            url: GetStrapiMediaUrl(seo.ogImage.url),
-          },
-        ],
-      }),
-    },
-    robots: {
-      index: !seo?.preventIndexing,
-      follow: !seo?.preventIndexing,
-    },
-  };
+  return getPageMetadata("community", COMMUNITY_SEO_FALLBACK);
 }
 
 export default async function YourCommunityPage() {
