@@ -4,24 +4,29 @@ import { FooterLayoutData } from "./footer-data";
 import { FooterDesktopLogoSvg, FooterMobileLogoSvg } from "@ui-svg";
 
 interface FooterBrandProps {
+  logoDesktop?: string;
+  logoMobile?: string;
   layoutData?: FooterLayoutData | null;
 }
 
-export function FooterBrand({ layoutData }: FooterBrandProps) {
+export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrandProps) {
+  const finalDesktopLogo = logoDesktop || layoutData?.FooterLogoDesktop;
+  const finalMobileLogo = logoMobile || layoutData?.FooterLogoMobile;
+
   return (
     <Link
       href="/"
       aria-label="Arium Networks"
       className="inline-block no-underline shrink-0 text-center min-[601px]:text-left mx-auto min-[601px]:mx-0"
     >
-      {layoutData?.FooterLogoDesktop && layoutData?.FooterLogoMobile ? (
+      {finalDesktopLogo && finalMobileLogo ? (
         <>
           <span
-            dangerouslySetInnerHTML={{ __html: layoutData.FooterLogoDesktop }}
+            dangerouslySetInnerHTML={{ __html: finalDesktopLogo }}
             className="footer-logo-desktop hidden min-[601px]:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
           />
           <span
-            dangerouslySetInnerHTML={{ __html: layoutData.FooterLogoMobile }}
+            dangerouslySetInnerHTML={{ __html: finalMobileLogo }}
             className="footer-logo-mobile block min-[601px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
           />
         </>

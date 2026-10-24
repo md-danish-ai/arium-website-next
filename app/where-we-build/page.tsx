@@ -1,34 +1,19 @@
 import React from "react";
+import type { Metadata } from "next";
+import { fetchAPI } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
 import HeroBanner from "@ui-common/HeroBanner";
 import WhereCommunities from "@ui-component/where-we-build/WhereCommunities";
 import WhereVenues from "@ui-component/where-we-build/WhereVenues";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import {
+  mapWhereHero,
+  mapWhereCommunities,
+  mapWhereVenues,
+} from "@services/mappers/where-we-build.mapper";
+import { WHERE_WE_BUILD_SEO_FALLBACK } from "@data/where-we-build.data";
 
 export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
-
-interface StrapiWidgetSection {
-  id?: number | string;
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiWidgetSection[];
-  [key: string]: unknown;
-}
-
-interface WhereSectionItem {
-  key?: string;
-  title?: string;
-  body?: string;
-  cta?: { label: string; url: string };
-  media?: { url: string; alternativeText?: string }[];
-  [key: string]: unknown;
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
@@ -37,15 +22,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Where We Build | Arium Networks",
-    description:
-      seo?.metaDescription ||
-      "Discover how our small cell and DAS networks enable the wireless coverage and capacity needed in the public right of way and in buildings and venues.",
+    title: seo?.metaTitle || WHERE_WE_BUILD_SEO_FALLBACK.title,
+    description: seo?.metaDescription || WHERE_WE_BUILD_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Where We Build | Arium Networks",
-      description:
-        seo?.ogDescription ||
-        "Discover how our small cell and DAS networks enable the wireless coverage and capacity needed in the public right of way and in buildings and venues.",
+      title: seo?.ogTitle || WHERE_WE_BUILD_SEO_FALLBACK.title,
+      description: seo?.ogDescription || WHERE_WE_BUILD_SEO_FALLBACK.description,
       type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
@@ -63,8 +44,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
-
 export default async function WhereWeBuildPage() {
   const [pageData, widgetData] = await Promise.all([
     fetchAPI(
@@ -74,72 +53,45 @@ export default async function WhereWeBuildPage() {
       "/api/pages?filters[slug][$eq]=where-we-build&populate[widgets][populate][Sections][populate]=*"
     ),
   ]);
-  const whereContent = pageData?.data?.[0];
+
+  const whereContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const sectionsMap: Record<number, React.ReactElement[]> = {};
-  globalWidgets.forEach((widget, index: number) => {
-    const pos = widget.PositionNumber ?? index;
-    if (!sectionsMap[pos]) sectionsMap[pos] = [];
-    sectionsMap[pos].push(<GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
-  });
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    whereContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  const sections: React.ReactElement[] = [];
-  Object.keys(sectionsMap)
-    .sort((a, b) => Number(a) - Number(b))
-    .forEach((key) => {
-      sections.push(...sectionsMap[Number(key)]);
-    });
+  const heroProps = mapWhereHero(whereContent);
+  const communitiesProps = mapWhereCommunities(getSection("Communities"));
+  const venuesProps = mapWhereVenues(getSection("Buildings and Venues"));
 
-  const hasImageSplitWidgets = globalWidgets.some((w) =>
-    w.Sections?.some(
-      (s) => s.__component?.includes("image-split") || s.__component?.includes("imagesplit")
-    )
-  );
+  const hasImageSplitWidgets =
+    hasWidgetComponent(globalWidgets, "image-split") ||
+    hasWidgetComponent(globalWidgets, "imagesplit");
 
-  // Fallback check: Did Strapi give us a widget for Position 0?
   const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
 
-  // If no hero widget exists (e.g., Strapi is down), inject the fallback at Position 0!
-  if (!hasHeroWidget) {
-    sections.unshift(
-      <HeroBanner
-        key="hero-fallback"
-        id="where-hero"
-        imageSrc={whereContent?.heroMedia?.[0]?.url || "/assets/images/challenges-bg.png"}
-        imageAlt={whereContent?.heroMedia?.[0]?.alternativeText || "Connected community background"}
-        heading={whereContent?.heroTitle || "Building the wireless networks we rely on"}
-        intro={
-          whereContent?.heroDescription ||
-          "We build wireless infrastructure in two main places: out in communities and inside buildings and venues. Each environment has unique needs, so we design each network to fit the space and people that use them."
-        }
-      />
-    );
-  }
+  const fallbackSections: SectionEntry[] = [
+    {
+      pos: 0,
+      key: "hero",
+      skip: hasHeroWidget,
+      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+    },
+    {
+      pos: 1,
+      key: "communities",
+      skip: hasImageSplitWidgets,
+      el: <WhereCommunities key="communities" {...communitiesProps} />,
+    },
+    {
+      pos: 2,
+      key: "venues",
+      skip: hasImageSplitWidgets,
+      el: <WhereVenues key="venues" {...venuesProps} />,
+    },
+  ];
 
-  // If no Image Split widgets exist, inject the fallback Communities and Venues right after the Hero
-  if (!hasImageSplitWidgets) {
-    sections.splice(
-      1,
-      0,
-      <WhereCommunities
-        key="communities"
-        data={whereContent?.sections?.find(
-          (section: WhereSectionItem) => section.key === "Communities"
-        )}
-      />
-    );
-    sections.splice(
-      2,
-      0,
-      <WhereVenues
-        key="venues"
-        data={whereContent?.sections?.find(
-          (section: WhereSectionItem) => section.key === "Buildings and Venues"
-        )}
-      />
-    );
-  }
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  return <>{sections}</>;
+  return <>{renderedSections}</>;
 }

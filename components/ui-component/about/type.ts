@@ -1,165 +1,26 @@
-import React from "react";
-import type { StrapiMediaLike, StrapiMediaItem } from "../home/type";
+import type {
+  ImageItem,
+  LinkItem,
+  StrapiMediaLike,
+  StrapiMediaItem,
+  StrapiPageData,
+  StrapiWidget,
+  SectionEntry,
+} from "@types";
+import type {
+  AboutTimelineCard,
+  AboutStatPillar,
+  CommitmentPillar,
+  CulturePillarItem,
+} from "@data/about.data";
 
+// Re-exports for backward compatibility
 export type { StrapiMediaLike, StrapiMediaItem };
+export type { AboutTimelineCard, AboutStatPillar, CommitmentPillar, CulturePillarItem };
+export type AboutPageContent = StrapiPageData;
+export type AboutWidget = StrapiWidget;
+export type AboutSectionEntry = SectionEntry;
 
-// AboutContentWithSideGraphic Types
-export interface AboutContentWithSideGraphicProps {
-  Heading?: string;
-  heading?: string;
-  Description?: string;
-  description?: string;
-  Image?: StrapiMediaLike;
-  image?: StrapiMediaLike;
-  media?: StrapiMediaLike;
-  Media?: StrapiMediaLike;
-  Gradient?: string;
-  gradient?: string;
-  HeadingColor?: string;
-  headingColor?: string;
-  DescriptionColor?: string;
-  descriptionColor?: string;
-  data?: {
-    title?: string;
-    Title?: string;
-    heading?: string;
-    Heading?: string;
-    body?: string;
-    Body?: string;
-    description?: string;
-    Description?: string;
-    media?: StrapiMediaLike;
-    Media?: StrapiMediaLike;
-    image?: StrapiMediaLike;
-    Image?: StrapiMediaLike;
-    gradient?: string;
-    Gradient?: string;
-    headingColor?: string;
-    HeadingColor?: string;
-    descriptionColor?: string;
-    DescriptionColor?: string;
-  };
-}
-
-// AboutJourney Types
-export interface AboutJourneyTimelineItem {
-  Title?: string;
-  title?: string;
-  Content?: string;
-  content?: string;
-  description?: string;
-  body?: string;
-  TitleColor?: string;
-  titleColor?: string;
-  BadgeText?: string;
-  badge?: string;
-  badgeText?: string;
-}
-
-export interface AboutJourneyProps {
-  Heading?: string;
-  Description?: string;
-  TimeCards?: AboutJourneyTimelineItem[];
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: AboutJourneyTimelineItem[];
-    cardItem?: AboutJourneyTimelineItem[];
-  };
-}
-
-// AboutStatsCards Types
-export interface StatsCardItem {
-  Title?: string;
-  title?: string;
-  value?: string;
-  Description?: string;
-  description?: string;
-  label?: string;
-  Badge?: string;
-  badge?: string;
-  BgGradient?: string;
-  bgGradient?: string;
-  NumberColor?: string;
-  DescriptionColor?: string;
-}
-
-export interface AboutStatsCardsProps {
-  Heading?: string;
-  Description?: string;
-  CradColorful?: StatsCardItem[];
-  data?: {
-    title?: string;
-    body?: string;
-    stats?: (StatsCardItem | Record<string, unknown>)[];
-    cards?: (StatsCardItem | Record<string, unknown>)[];
-  };
-}
-
-// AboutCommitments Types
-export interface PillarCard {
-  PillarText?: string;
-  title?: string;
-  heading?: string;
-  PillarDescription?: string;
-  description?: string;
-  body?: string;
-  BarColor?: string;
-  barColor?: string;
-  PillarHeadingColor?: string;
-  PillarBgColorHover?: string;
-}
-
-export interface AboutCommitmentsProps {
-  Heading?: string;
-  Description?: string;
-  BgImage?: StrapiMediaLike;
-  BgOverlay?: string;
-  PillarsDescription?: string;
-  PillarCard?: PillarCard[];
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: (PillarCard | Record<string, unknown>)[];
-    media?: StrapiMediaLike;
-  };
-}
-
-// AboutCulture Types
-export interface CulturePillar {
-  Heading?: string;
-  title?: string;
-  Description?: string;
-  description?: string;
-  HeadingColor?: string;
-  DescriptionColor?: string;
-}
-
-export interface CultureCTA {
-  label?: string;
-  url?: string;
-}
-
-export interface AboutCultureProps {
-  Heading?: string;
-  Description?: string;
-  Pillarcard?: CulturePillar[];
-  CtaButton?: string;
-  CTALink?: string;
-  BgImage?: StrapiMediaLike;
-  BgGradient?: string;
-  HeadingColor?: string;
-  DescriptionColor?: string;
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: (CulturePillar | Record<string, unknown>)[];
-    cta?: CultureCTA[];
-    media?: StrapiMediaLike;
-  };
-}
-
-// About Page Data & Widget Types
 export interface AboutSeoFields {
   metaTitle?: string;
   metaDescription?: string;
@@ -181,36 +42,62 @@ export interface AboutSection {
   cards?: Record<string, unknown>[];
   cardItem?: Record<string, unknown>[];
   stats?: Record<string, unknown>[];
-  cta?: CultureCTA[];
+  cta?: { label?: string; url?: string }[];
   __component?: string;
   [key: string]: unknown;
 }
 
-export interface AboutPageContent {
-  id?: number;
-  heroTitle?: string;
-  heroDescription?: string;
-  heroMedia?: StrapiMediaItem[];
-  heroCtas?: CultureCTA[];
-  sections?: AboutSection[];
-  SeoFields?: AboutSeoFields;
+/**
+ * 1. AboutContentWithSideGraphic Props
+ */
+export interface AboutContentWithSideGraphicProps {
+  heading: string;
+  bodyText: string;
+  isHtmlBody?: boolean;
+  sideImageSrc?: string;
+  gradient?: string;
+  headingColor?: string;
+  descriptionColor?: string;
 }
 
-export interface AboutWidgetSection {
-  __component?: string;
-  [key: string]: unknown;
+/**
+ * 2. AboutJourney Props
+ */
+export interface AboutJourneyProps {
+  heading: string;
+  description?: string;
+  timelineItems: AboutTimelineCard[];
 }
 
-export interface AboutWidget {
-  id?: number | string;
-  PositionNumber?: number;
-  CustomCssClass?: string;
-  Sections?: AboutWidgetSection[];
+/**
+ * 3. AboutStatsCards Props
+ */
+export interface AboutStatsCardsProps {
+  heading: string;
+  description?: string;
+  stats: AboutStatPillar[];
 }
 
-export interface AboutSectionEntry {
-  pos: number;
-  key: string;
-  skip?: boolean;
-  el: React.ReactElement;
+/**
+ * 4. AboutCommitments Props
+ */
+export interface AboutCommitmentsProps {
+  heading: string;
+  description?: string;
+  heroBannerImg: ImageItem;
+  pillars: CommitmentPillar[];
+}
+
+/**
+ * 5. AboutCulture Props
+ */
+export interface AboutCultureProps {
+  heading: string;
+  description?: string;
+  pillars: CulturePillarItem[];
+  desktopImgUrl: string;
+  mobileImgUrl: string;
+  cta: LinkItem;
+  headingColor?: string;
+  descriptionColor?: string;
 }

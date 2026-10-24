@@ -8,6 +8,8 @@ import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { DesktopLogoSvg, MobileLogoSvg } from "@ui-svg";
 
+import { NavRoute } from "../nav-routes";
+
 export interface NavbarLayoutData {
   logoDesktop?: string;
   logoMobile?: string;
@@ -16,10 +18,18 @@ export interface NavbarLayoutData {
 }
 
 export interface NavbarProps {
+  routes?: NavRoute[];
+  logoDesktop?: string;
+  logoMobile?: string;
   layoutData?: NavbarLayoutData | null;
 }
 
-export default function Navbar({ layoutData }: NavbarProps) {
+export default function Navbar({
+  routes: propRoutes,
+  logoDesktop: propLogoDesktop,
+  logoMobile: propLogoMobile,
+  layoutData,
+}: NavbarProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -27,8 +37,10 @@ export default function Navbar({ layoutData }: NavbarProps) {
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
-  // Normalize navigation routes (supports Strapi CMS or static fallback)
-  const routes = getNormalizedNavRoutes(layoutData?.navigation);
+  // Normalize navigation routes (supports clean prop, CMS, or static fallback)
+  const routes = propRoutes || getNormalizedNavRoutes(layoutData?.navigation);
+  const logoDesktop = propLogoDesktop || layoutData?.logoDesktop;
+  const logoMobile = propLogoMobile || layoutData?.logoMobile;
 
   // Track window scroll to switch transparent / solid background
   useEffect(() => {
@@ -145,14 +157,14 @@ export default function Navbar({ layoutData }: NavbarProps) {
           aria-label="Arium Networks Home"
           onClick={closeMobileMenu}
         >
-          {layoutData?.logoDesktop && layoutData?.logoMobile ? (
+          {logoDesktop && logoMobile ? (
             <>
               <span
-                dangerouslySetInnerHTML={{ __html: layoutData.logoDesktop }}
+                dangerouslySetInnerHTML={{ __html: logoDesktop }}
                 className="hidden min-[1080px]:block [&>svg]:w-[126px] [&>svg]:min-[1080px]:max-h-[800px]:w-[120px] [&>svg]:min-[1280px]:w-[132px] [&>svg]:xl:w-[162px] [&>svg]:h-auto [&>svg]:text-white"
               />
               <span
-                dangerouslySetInnerHTML={{ __html: layoutData.logoMobile }}
+                dangerouslySetInnerHTML={{ __html: logoMobile }}
                 className="block min-[1080px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
               />
             </>

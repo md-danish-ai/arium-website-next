@@ -1,12 +1,15 @@
 import React from "react";
 import { Typography } from "@ui-element";
 
-interface ContactHeroProps {
+export interface ContactHeroProps {
   heading?: string;
   intro?: string;
 }
 
-export default function ContactHero({ heading, intro }: ContactHeroProps) {
+export default function ContactHero({
+  heading = "Contact us",
+  intro = "Looking for more information? Or ready to discuss your connectivity needs? Fill out the form so we can connect you to the right team.",
+}: ContactHeroProps) {
   return (
     <section
       className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[160px] md:pt-[200px] pb-20 md:pb-28 px-6"

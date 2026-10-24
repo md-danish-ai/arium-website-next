@@ -1,28 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
+import type { SolutionsDasProps } from "./type";
 
-interface StatItem {
-  value?: string;
-  Number?: string;
-  label?: string;
-  Label?: string;
-}
-
-interface SolutionsDasProps {
-  data?: {
-    title?: string;
-    body?: string;
-    stats?: StatItem[];
-    media?: { url: string; alternativeText?: string }[];
-  };
-}
-
-export default function SolutionsDas({ data }: SolutionsDasProps) {
-  const defaultStats: StatItem[] = [{ value: "300+", label: "premier venues across the country" }];
-
-  const stats = data?.stats && data.stats.length > 0 ? data.stats : defaultStats;
-  const imgUrl = data?.media?.[0]?.url || "/assets/images/live_das-illustration.svg";
+export default function SolutionsDas({
+  title,
+  contentHtml,
+  paragraphs = [],
+  stats = [],
+  illustrationSrc,
+  illustrationAlt = "Distributed antenna system illustration",
+}: SolutionsDasProps) {
+  const isSvg = illustrationSrc.toLowerCase().endsWith(".svg");
 
   return (
     <section className="bg-transparent py-[50px] relative overflow-hidden">
@@ -32,14 +21,15 @@ export default function SolutionsDas({ data }: SolutionsDasProps) {
             {/* Mobile Top-Right Floated Illustration (< md) */}
             <div className="md:hidden float-right w-[115px] sm:w-[140px] ml-4 mb-2 pointer-events-none">
               <Image
-                src={imgUrl}
+                src={illustrationSrc}
                 alt=""
                 aria-hidden="true"
                 className={`w-full h-auto opacity-75 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
-                  imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""
+                  isSvg ? "svg-recolor" : ""
                 }`}
                 width={140}
                 height={140}
+                unoptimized={isSvg}
               />
             </div>
 
@@ -50,73 +40,73 @@ export default function SolutionsDas({ data }: SolutionsDasProps) {
               weight="normal"
               className="section-title text-left text-[#162047] m-0 mb-3"
             >
-              {data?.title || "Distributed Antenna Systems"}
+              {title}
             </Typography>
 
-            {data?.body ? (
+            {contentHtml ? (
               <div
                 className="strapi-richtext-body text-[#162047]/80 text-[clamp(0.9rem,1.1vw,1rem)] leading-[1.8] mb-6 flex flex-col gap-4 [&>p]:m-0"
-                dangerouslySetInnerHTML={{ __html: data.body }}
+                dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (
               <div className="text-[#162047]/80 mb-6 flex flex-col gap-4">
-                <Typography variant="b1" as="p" className="text-[#162047]/80 m-0 leading-[1.8]">
-                  Our distributed antenna systems (DAS) deliver the coverage and capacity needed in
-                  complex indoor and venue environments—arenas, stadiums, theme parks, hospitals,
-                  airports, campuses, and more—so visitors, staff, and operations stay connected.
-                </Typography>
-                <Typography variant="b1" as="p" className="text-[#162047]/80 m-0 leading-[1.8]">
-                  We take the lead in building and managing the network, leveraging our longstanding
-                  relationships with wireless carriers, vendors, and government agencies.
-                </Typography>
+                {paragraphs.map((p, idx) => (
+                  <Typography
+                    key={idx}
+                    variant="b1"
+                    as="p"
+                    className="text-[#162047]/80 m-0 leading-[1.8]"
+                  >
+                    {p}
+                  </Typography>
+                ))}
               </div>
             )}
 
-            <div className="clear-both sol-kpis-row flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
-              {stats.map((stat, index) => {
-                const num = stat.value || stat.Number;
-                const lbl = stat.label || stat.Label;
-                return (
+            {stats.length > 0 && (
+              <div className="clear-both sol-kpis-row flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
+                {stats.map((stat, index) => (
                   <div
                     key={index}
                     className="sol-kpi-item flex flex-col gap-1 py-1 cursor-default shrink-0"
                   >
-                    {num && (
+                    {stat.value && (
                       <Typography
                         variant="stat"
                         weight="bold"
                         className="sol-kpi-num text-[#7c5cbf] leading-none tracking-tight"
                       >
-                        {num}
+                        {stat.value}
                       </Typography>
                     )}
-                    {lbl && (
+                    {stat.label && (
                       <Typography
                         variant="b2"
                         as="p"
                         weight="normal"
                         className="sol-kpi-label normal-case tracking-normal text-[#162047]/80 m-0 mt-1.5 whitespace-nowrap"
                       >
-                        {lbl}
+                        {stat.label}
                       </Typography>
                     )}
                   </div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Desktop / Tablet Illustration Column (>= md) */}
           <div className="sol-illustration-wrapper das-illust hidden md:flex items-center justify-center md:justify-start self-center order-2 md:order-1 w-full">
             <div className="relative w-full max-w-[340px] md:max-w-[440px]">
               <Image
-                src={imgUrl}
-                alt={data?.media?.[0]?.alternativeText || "Distributed antenna system illustration"}
+                src={illustrationSrc}
+                alt={illustrationAlt}
                 className={`w-full h-auto opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
-                  imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""
+                  isSvg ? "svg-recolor" : ""
                 }`}
                 width={440}
                 height={440}
+                unoptimized={isSvg}
               />
             </div>
           </div>

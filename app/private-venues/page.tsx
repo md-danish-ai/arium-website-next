@@ -1,86 +1,26 @@
-import PrivateVenuesHero from "@ui-component/where-we-build/PrivateVenuesHero";
-import ProcessSection from "@ui-common/ProcessSection";
-import PrivateVenuesTestimonials from "@ui-component/where-we-build/PrivateVenuesTestimonials";
-import GlobeCTA from "@ui-common/GlobeCTA";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
 import React from "react";
-import { DesignIconSvg, ConstructionIconSvg, OptimizationIconSvg } from "@ui-svg";
+import type { Metadata } from "next";
+import PrivateVenuesHero from "@ui-component/where-we-build/PrivateVenuesHero";
+import PrivateVenuesTestimonials from "@ui-component/where-we-build/PrivateVenuesTestimonials";
+import { ProcessSection, GlobeCTA } from "@ui-common";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import {
+  mapSubpageHero,
+  mapSubpageProcess,
+  mapSubpageTestimonials,
+  mapSubpageCta,
+} from "@services/mappers/subpages.mapper";
+import {
+  PV_HERO_FALLBACK,
+  PV_PROCESS_FALLBACK,
+  PV_TESTIMONIALS_FALLBACK,
+  PV_CTA_FALLBACK,
+  PV_SEO_FALLBACK,
+} from "@data/where-subpages.data";
 
 export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
-import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
-
-interface StrapiMedia {
-  url: string;
-  alternativeText?: string;
-  mime?: string;
-}
-
-interface StrapiCta {
-  label: string;
-  url: string;
-}
-
-interface StrapiInnerCard {
-  heading?: string;
-  description?: string;
-}
-
-interface StrapiProcessCard {
-  title?: string;
-  icon?: string;
-  InnerCard?: StrapiInnerCard[];
-}
-
-interface StrapiSectionCard {
-  title?: string;
-  description?: string;
-  badge?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiSection {
-  key?: string;
-  title?: string;
-  body?: string;
-  cards?: (StrapiProcessCard & StrapiSectionCard)[];
-  cta?: StrapiCta;
-  [key: string]: unknown;
-}
-
-interface StrapiWidgetSection {
-  id?: number | string;
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiWidgetSection[];
-  [key: string]: unknown;
-}
-
-interface StrapiPageData {
-  id?: number | string;
-  heroTag?: string;
-  heroTitle?: string;
-  heroDescription?: string;
-  heroCtas?: StrapiCta;
-  sections?: StrapiSection[];
-  SeoFields?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    ogTitle?: string;
-    ogDescription?: string;
-    ogType?: string;
-    ogSiteName?: string;
-    preventIndexing?: boolean;
-    ogImage?: StrapiMedia;
-  };
-  [key: string]: unknown;
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
@@ -89,15 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Private Venues | Arium Networks",
-    description:
-      seo?.metaDescription ||
-      "Our small cell and DAS in-building solutions enable the wireless coverage and capacity private venues need to support the demands of tenants and guests.",
+    title: seo?.metaTitle || PV_SEO_FALLBACK.title,
+    description: seo?.metaDescription || PV_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Private Venues | Arium Networks",
-      description:
-        seo?.ogDescription ||
-        "Our small cell and DAS in-building solutions enable the wireless coverage and capacity private venues need to support the demands of tenants and guests.",
+      title: seo?.ogTitle || PV_SEO_FALLBACK.title,
+      description: seo?.ogDescription || PV_SEO_FALLBACK.description,
       type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
@@ -115,218 +51,80 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const PV_PROCESS_DATA = {
-  title: "Our proven service delivery process",
-  description:
-    "Whether you operate a large stadium, commercial building, theme park, campus, or other private venue, we can work with you to design a distributed antenna system (DAS) or small cell network (SCN) that meets your unique connectivity needs.",
-  pillars: [
-    {
-      id: "design",
-      title: "Design",
-      iconSvg: (
-        <DesignIconSvg
-          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
-          width="36"
-          height="36"
-          strokeWidth="2.2"
-        />
-      ),
-      themeColor: "#00e8d9",
-      steps: ["Select Partners", "Plan Integration", "Finalize RF Design"],
-      timelineItems: [
-        {
-          label: "Select Partners",
-          desc: "We have local relationships with wireless service providers, vendors, and municipal officials, allowing us to select the architecture, engineering, and construction partners that are best suited to the unique needs of your venue.",
-        },
-        {
-          label: "Plan Integration",
-          desc: "We coordinate with your design teams to carefully integrate the DAS or SCN into the architecture of your space, following all venue safety, training, and construction requirements.",
-        },
-        {
-          label: "Finalize RF Design",
-          desc: "Our radio frequency (RF) engineering team develops the network design in partnership with the original equipment manufacturers (OEMs) and wireless service providers.",
-        },
-      ],
-    },
-    {
-      id: "construction",
-      title: "Construction",
-      iconSvg: (
-        <ConstructionIconSvg
-          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
-          width="36"
-          height="36"
-          strokeWidth="2.2"
-        />
-      ),
-      themeColor: "#FFDAC8",
-      steps: ["Work With Contractors", "Manage Project"],
-      timelineItems: [
-        {
-          label: "Work With Contractors",
-          desc: "We select qualified contractors with DAS experience related to your specific type of venue and coordinate closely with your own general contractor and sub-contractors.",
-        },
-        {
-          label: "Manage Project",
-          desc: "We oversee the construction progress, perform ongoing design reviews, and address challenges to ensure a seamless project experience.",
-        },
-      ],
-    },
-    {
-      id: "optimization",
-      title: "Optimization",
-      iconSvg: (
-        <OptimizationIconSvg
-          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
-          width="36"
-          height="36"
-          strokeWidth="2.2"
-        />
-      ),
-      themeColor: "#D2C7FF",
-      steps: ["Testing", "Fine Tuning"],
-      timelineItems: [
-        {
-          label: "Testing",
-          desc: "We partner with experienced testing firms, with oversight from our RF engineering team, to test the completed DAS or SCN.",
-        },
-        {
-          label: "Fine Tuning",
-          desc: "We adjust and optimize the network as needed and plan for any future updates.",
-        },
-      ],
-    },
-  ],
-};
-
 export default async function PrivateVenuesPage() {
-  const [pageData, widgetData, processWidgetData] = await Promise.all([
+  const [pageData, widgetData] = await Promise.all([
     fetchAPI(
-      "/api/pages?filters[slug][$eq]=private-venues&populate[heroCtas]=*&populate[sections][populate][cards][populate]=InnerCard"
+      "/api/pages?filters[slug][$eq]=private-venues&populate[heroCtas]=*&populate[sections][populate][cards][populate]=InnerCard&populate[sections][populate][cta]=*"
     ),
-    fetchAPI(
-      "/api/pages?filters[slug][$eq]=private-venues&populate[widgets][populate][Sections][populate]=*"
-    ),
-    fetchAPI(
-      "/api/pages?filters[slug][$eq]=private-venues&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate][ProcessCard][populate]=*&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate][StepNameIconimg][populate]=*"
-    ),
+    fetchPageWidgets("private-venues"),
   ]);
+
   const privateVenuesContent: StrapiPageData | undefined = pageData?.data?.[0];
-  // Merge ProcessCard data into the widget Sections from the deep fetch
-  const rawWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
-  const deepWidgets: StrapiWidget[] = processWidgetData?.data?.[0]?.widgets || [];
-  const globalWidgets: StrapiWidget[] = rawWidgets.map((widget: StrapiWidget) => {
-    const deepWidget = deepWidgets.find((dw: StrapiWidget) => dw.id === widget.id);
-    if (!deepWidget) return widget;
-    return {
-      ...widget,
-      Sections: widget.Sections?.map((section: StrapiWidgetSection) => {
-        if (section.__component !== "shared.process") return section;
-        const deepSection = deepWidget.Sections?.find(
-          (ds: StrapiWidgetSection) => ds.id === section.id && ds.__component === "shared.process"
-        );
-        return deepSection ? { ...section, ...deepSection } : section;
-      }),
-    };
-  });
+  const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const processData = privateVenuesContent?.sections?.find(
-    (section: StrapiSection) => section.key === "Service delivery process"
-  );
-  const contactData = privateVenuesContent?.sections?.find(
-    (section: StrapiSection) => section.key === "Contact Us"
-  );
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    privateVenuesContent?.sections?.find(
+      (section) => section.key?.toLowerCase() === key.toLowerCase()
+    );
 
-  const mappedProcessData = {
-    title: processData?.title || PV_PROCESS_DATA.title,
-    description: processData?.body || PV_PROCESS_DATA.description,
-    pillars:
-      processData?.cards && processData.cards.length > 0
-        ? processData.cards.map((card: StrapiProcessCard, idx: number) => ({
-            id: card.title?.toLowerCase() || `pillar-${idx}`,
-            title: card.title || "",
-            iconSvg: card.icon ? (
-              <div dangerouslySetInnerHTML={{ __html: card.icon }} />
-            ) : (
-              PV_PROCESS_DATA.pillars[idx]?.iconSvg
-            ),
-            themeColor: PV_PROCESS_DATA.pillars[idx]?.themeColor || "#00e8d9",
-            steps: card.InnerCard?.map((inner: StrapiInnerCard) => inner.heading || "") || [],
-            timelineItems:
-              card.InnerCard?.map((inner: StrapiInnerCard) => ({
-                label: inner.heading || "",
-                desc: inner.description || "",
-              })) || [],
-          }))
-        : PV_PROCESS_DATA.pillars,
-  };
+  const heroProps = mapSubpageHero(privateVenuesContent, PV_HERO_FALLBACK);
 
-  const hasInnerHeroWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some((s: StrapiWidgetSection) => s.__component === "shared.inner-page-hero")
+  const processSection =
+    getSection("Service delivery process") ||
+    getSection("Structured process") ||
+    getSection("Process");
+  const processProps = mapSubpageProcess(processSection, PV_PROCESS_FALLBACK);
+
+  const testimonialsSection =
+    getSection("Venue operators") || getSection("Feedback") || getSection("Testimonials");
+  const testimonialsProps = mapSubpageTestimonials(testimonialsSection, PV_TESTIMONIALS_FALLBACK);
+
+  const contactSection = getSection("Contact Us") || getSection("CTA");
+  const ctaProps = mapSubpageCta(contactSection, PV_CTA_FALLBACK);
+
+  const hasInnerHeroWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
   );
 
-  const sections: React.ReactElement[] = [];
-  if (!hasInnerHeroWidget) {
-    sections.push(<PrivateVenuesHero key="hero" data={privateVenuesContent} />);
-  }
-
-  [...globalWidgets].reverse().forEach((widget: StrapiWidget) => {
-    const pos = widget.PositionNumber ?? sections.length;
-    sections.splice(pos, 0, <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
-  });
-
-  // Fallback check: Did Strapi give us a widget that contains a CTA?
-  const hasCtaWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some((s: StrapiWidgetSection) => s.__component?.includes("cta"))
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains a Process?
-  const hasProcessWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some((s: StrapiWidgetSection) => s.__component === "shared.process")
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains Testimonials?
-  const hasTestimonialsWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some(
-      (s: StrapiWidgetSection) =>
-        s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
-    )
-  );
-
-  // If no Process widget exists, inject the fallback Process
-  if (!hasProcessWidget) {
-    sections.splice(1, 0, <ProcessSection key="process-fallback" {...mappedProcessData} />);
-  }
-
-  // If no Testimonials widget exists, inject the fallback Testimonials
-  if (!hasTestimonialsWidget) {
-    sections.splice(
-      hasProcessWidget ? 1 : 2,
-      0,
-      <div key="testimonials-fallback" className="row-storyteller-flow">
-        <PrivateVenuesTestimonials
-          data={privateVenuesContent?.sections?.find(
-            (section: StrapiSection) => section.key === "Venue operators"
-          )}
+  const fallbackSections: SectionEntry[] = [
+    {
+      pos: 0,
+      key: "hero-fallback",
+      skip: hasInnerHeroWidget,
+      el: <PrivateVenuesHero key="hero-fallback" {...heroProps} />,
+    },
+    {
+      pos: 1,
+      key: "process-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["process"]),
+      el: <ProcessSection key="process-fallback" {...processProps} />,
+    },
+    {
+      pos: 2,
+      key: "testimonials-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
+      el: (
+        <div key="testimonials-fallback" className="row-storyteller-flow">
+          <PrivateVenuesTestimonials {...testimonialsProps} />
+        </div>
+      ),
+    },
+    {
+      pos: 99,
+      key: "cta-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["cta", "calltoaction", "call-to-action"]),
+      el: (
+        <GlobeCTA
+          key="cta-fallback"
+          title={ctaProps.title}
+          buttonText={ctaProps.buttonText}
+          buttonLink={ctaProps.buttonLink}
         />
-      </div>
-    );
-  }
+      ),
+    },
+  ];
 
-  // If no CTA widget exists, inject the fallback CTA at the very bottom!
-  if (!hasCtaWidget) {
-    sections.push(
-      <GlobeCTA
-        key="cta-fallback"
-        title={
-          contactData?.title ||
-          "To see how we can support your connectivity needs, reach out to our dedicated venues team."
-        }
-        buttonText={contactData?.cta?.label || "Contact Us"}
-        buttonLink={contactData?.cta?.url || "/contact"}
-      />
-    );
-  }
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  return <>{sections}</>;
+  return <>{renderedSections}</>;
 }

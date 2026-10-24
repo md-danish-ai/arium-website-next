@@ -14,4 +14,5 @@ export { default as InnerPageHero } from "./InnerPageHero";
 export { default as PeopleGlobalSection } from "./PeopleGlobalSection";
 export type { PeopleCard, PeopleGlobalSectionProps } from "./PeopleGlobalSection";
 export { default as ProcessSection } from "./ProcessSection";
+export type { PillarData, ProcessSectionProps, TimelineItem } from "./ProcessSection";
 export { default as TestimonialsSection } from "./TestimonialsSection";

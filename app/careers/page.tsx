@@ -1,35 +1,27 @@
 import React from "react";
+import type { Metadata } from "next";
+import HeroBanner from "@ui-common/HeroBanner";
+import {
+  CareersCultureAccordion,
+  CareersTestimonials,
+  CareersJobAreas,
+  CareersBenefits,
+  CareersEEO,
+} from "@ui-component/careers";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import {
+  mapCareersHero,
+  mapCareersCulture,
+  mapCareersTestimonials,
+  mapCareersJobAreas,
+  mapCareersBenefits,
+  mapCareersEEO,
+} from "@services/mappers/careers.mapper";
+import { CAREERS_SEO_FALLBACK } from "@data/careers.data";
 
 export const dynamic = "force-dynamic";
-
-import HeroBanner from "@ui-common/HeroBanner";
-import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
-import CareersCultureAccordion from "@ui-component/careers/CareersCultureAccordion";
-import CareersTestimonials from "@ui-component/careers/CareersTestimonials";
-import CareersJobAreas from "@ui-component/careers/CareersJobAreas";
-import CareersBenefits from "@ui-component/careers/CareersBenefits";
-import CareersEEO from "@ui-component/careers/CareersEEO";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-
-import type { Metadata } from "next";
-
-interface StrapiWidgetSection {
-  id?: number | string;
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiWidgetSection[];
-  [key: string]: unknown;
-}
-
-interface CareersSectionItem {
-  key?: string;
-  [key: string]: unknown;
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
@@ -38,15 +30,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Careers | Arium Networks",
-    description:
-      seo?.metaDescription ||
-      "Explore job opportunities with Arium Networks and help us build the next era of wireless connectivity. Discover more about our company, culture, and benefits.",
+    title: seo?.metaTitle || CAREERS_SEO_FALLBACK.title,
+    description: seo?.metaDescription || CAREERS_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Careers | Arium Networks",
-      description:
-        seo?.ogDescription ||
-        "Explore job opportunities with Arium Networks and help us build the next era of wireless connectivity. Discover more about our company, culture, and benefits.",
+      title: seo?.ogTitle || CAREERS_SEO_FALLBACK.title,
+      description: seo?.ogDescription || CAREERS_SEO_FALLBACK.description,
       type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
@@ -71,140 +59,78 @@ export default async function CareersPage() {
     ),
     fetchPageWidgets("careers"),
   ]);
-  const careersContent = pageData?.data?.[0];
+
+  const careersContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  // Fallback check: Did Strapi give us a widget that contains an Accordion?
-  const hasAccordionWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component?.includes("accordion"))
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    careersContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
+
+  const heroProps = mapCareersHero(careersContent);
+  const cultureProps = mapCareersCulture(
+    careersContent,
+    getSection("Why Join"),
+    getSection("Pillars")
   );
+  const testimonialsProps = mapCareersTestimonials(getSection("Arium Networks Team"));
+  const jobAreasProps = mapCareersJobAreas(getSection("Job Areas"));
+  const benefitsProps = mapCareersBenefits(getSection("Benefits"));
+  const eeoProps = mapCareersEEO(getSection("Message"));
 
-  // Fallback check: Did Strapi give us a widget that contains Benefits?
-  const hasBenefitsWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component?.includes("benefits"))
-  );
-
-  // Fallback check: Did Strapi give us a widget that contains Highlight List?
-  const hasHighlightListWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component?.includes("highlight-list"))
-  );
-
-  const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
-
-  // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget) => {
-    sectionMap.push({
-      pos: widget.PositionNumber ?? 999,
-      key: `widget-${widget.id}`,
-      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />,
-    });
-  });
-
-  // 2. Add fallbacks for missing positions/widgets
   const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
-  if (!hasHeroWidget) {
-    sectionMap.push({
+
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 0,
       key: "hero-fallback",
-      el: (
-        <HeroBanner
-          key="hero-fallback"
-          id="team-hero"
-          imageSrc={careersContent?.heroMedia?.[0]?.url || "/assets/images/hero-careers.png"}
-          imageAlt={
-            careersContent?.heroMedia?.[0]?.alternativeText ||
-            "Arium Networks team working together"
-          }
-          heading={careersContent?.heroTitle || "Join our team"}
-          intro={
-            careersContent?.heroDescription ||
-            "Advance your career and help shape the future of connectivity."
-          }
-          ctaText={careersContent?.heroCtas?.label || "Explore opportunities"}
-          ctaLink={
-            careersContent?.heroCtas?.url || "https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL"
-          }
-          isExternalLink={true}
-        />
-      ),
-    });
-  }
-
-  if (!hasAccordionWidget) {
-    sectionMap.push({
+      skip: hasHeroWidget,
+      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+    },
+    {
       pos: 1,
-      key: "culture",
-      el: <CareersCultureAccordion key="culture" data={careersContent} />,
-    });
-  }
-
-  const hasTestimonialsWidget = globalWidgets.some((w) =>
-    w.Sections?.some(
-      (s) => s.__component?.includes("testimonial") || s.__component?.includes("testimonail")
-    )
-  );
-  if (!hasTestimonialsWidget) {
-    sectionMap.push({
+      key: "culture-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["accordion"]),
+      el: <CareersCultureAccordion key="culture-fallback" {...cultureProps} />,
+    },
+    {
       pos: 2,
       key: "testimonials-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
       el: (
         <div key="testimonials-fallback" className="row-storyteller-flow">
-          <CareersTestimonials
-            data={careersContent?.sections?.find(
-              (section: CareersSectionItem) => section.key === "Arium Networks Team"
-            )}
-          />
+          <CareersTestimonials {...testimonialsProps} />
         </div>
       ),
-    });
-  }
-
-  if (!hasHighlightListWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 3,
-      key: "jobareas",
+      key: "jobareas-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["highlight-list"]),
       el: (
-        <div key="jobareas" className="row-storyteller-flow">
-          <CareersJobAreas
-            data={careersContent?.sections?.find(
-              (section: CareersSectionItem) => section.key === "Job Areas"
-            )}
-          />
+        <div key="jobareas-fallback" className="row-storyteller-flow">
+          <CareersJobAreas {...jobAreasProps} />
         </div>
       ),
-    });
-  }
-
-  if (!hasBenefitsWidget) {
-    sectionMap.push({
+    },
+    {
       pos: 4,
-      key: "benefits",
+      key: "benefits-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["benefits"]),
       el: (
-        <div key="benefits" className="bg-[#ededee]" style={{ background: "#ededee" }}>
-          <CareersBenefits
-            data={careersContent?.sections?.find(
-              (section: CareersSectionItem) => section.key === "Benefits"
-            )}
-          />
+        <div key="benefits-fallback" className="bg-[#ededee]" style={{ background: "#ededee" }}>
+          <CareersBenefits {...benefitsProps} />
         </div>
       ),
-    });
-    sectionMap.push({
+    },
+    {
       pos: 5,
-      key: "eeo",
-      el: (
-        <CareersEEO
-          key="eeo"
-          data={careersContent?.sections?.find(
-            (section: CareersSectionItem) => section.key === "Message"
-          )}
-        />
-      ),
-    });
-  }
+      key: "eeo-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["benefits"]),
+      el: <CareersEEO key="eeo-fallback" {...eeoProps} />,
+    },
+  ];
 
-  // 3. Sort by pos and extract elements
-  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map((s) => s.el);
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  return <>{sections}</>;
+  return <>{renderedSections}</>;
 }

@@ -1,9 +1,10 @@
 import React from "react";
 import { ImageCardGrid } from "@ui-common";
+import { extractMediaUrl } from "@utils/media";
 import { SectionRendererProps } from "./helper";
 
 interface MediaItem {
-  url: string;
+  url?: string;
   alternativeText?: string;
   width?: number;
   height?: number;
@@ -35,16 +36,20 @@ export default function ImageCardGridRenderer({
   const cards = (section.cardgrid || section.cards || []).map((card) => ({
     title: card.title || "",
     description: card.description || "",
-    image: card.image,
-    TitleColor: card.TitleColor || card.titleColor,
-    DescriptionColor: card.DescriptionColor || card.descriptionColor,
+    image: extractMediaUrl(card.image) || "/assets/images/placeholder.png",
+    titleColor: card.TitleColor || card.titleColor,
+    descriptionColor: card.DescriptionColor || card.descriptionColor,
   }));
 
-  const data = {
-    title: section.Heading || section.heading || section.title,
-    cards: cards.length > 0 ? cards : undefined,
-    HeadingColor: section.HeadingColor,
-  };
+  const title = section.Heading || section.heading || section.title || "Why small cells matter";
+  const headingColor = section.HeadingColor;
 
-  return <ImageCardGrid key={`image-card-grid-${index}`} data={data} />;
+  return (
+    <ImageCardGrid
+      key={`image-card-grid-${index}`}
+      title={title}
+      headingColor={headingColor}
+      cards={cards}
+    />
+  );
 }

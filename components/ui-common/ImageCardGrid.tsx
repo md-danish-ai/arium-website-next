@@ -1,53 +1,32 @@
 import Image from "next/image";
 import ParticleBackground from "@ui-animations/ParticleBackground";
-import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 
-interface StrapiMediaShape {
-  url?: string;
-  alternativeText?: string;
-  data?: { attributes?: { url?: string } } | { attributes?: { url?: string } }[];
-}
-
-export interface BenefitCard {
+export interface BenefitCardItem {
   title: string;
   description: string;
-  image?: StrapiMediaShape | string;
-  TitleColor?: string;
-  DescriptionColor?: string;
+  image?: string;
+  titleColor?: string;
+  descriptionColor?: string;
 }
 
-interface ImageCardGridProps {
+export interface ImageCardGridProps {
+  title?: string;
+  headingColor?: string;
+  cards?: BenefitCardItem[];
+  // Backwards-compatible prop wrapper
   data?: {
     title?: string;
-    cards?: BenefitCard[];
+    cards?: BenefitCardItem[];
     HeadingColor?: string;
   };
 }
 
-const FALLBACK_BENEFITS: BenefitCard[] = [
-  {
-    title: "Reliability",
-    description:
-      "More targeted coverage in hard-to-reach areas minimizes dead spots and ensures consistent connectivity across your community.",
-    image: "/assets/images/ov-venue-commercial.png",
-  },
-  {
-    title: "Innovation",
-    description:
-      "Increased speeds and capacity ensure people get the most from the latest wireless devices and technologies.",
-    image: "/assets/images/ov-venue-crowd.png",
-  },
-  {
-    title: "Safety",
-    description:
-      "Stronger coverage keeps first responders connected to critical information and increases 911 call availability.",
-    image: "/assets/images/ov-venue-themepark.png",
-  },
-];
+export default function ImageCardGrid({ title, headingColor, cards, data }: ImageCardGridProps) {
+  const displayTitle = title || data?.title || "Why small cells matter";
+  const displayHeadingColor = headingColor || data?.HeadingColor || "#162047";
+  const displayCards = cards && cards.length > 0 ? cards : data?.cards || [];
 
-export default function ImageCardGrid({ data }: ImageCardGridProps) {
-  const benefits = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
   return (
     <section
       id="benefits"
@@ -66,41 +45,15 @@ export default function ImageCardGrid({ data }: ImageCardGridProps) {
             variant="h2"
             uppercase
             className="section-title cm-section-title reveal stagger-1 tracking-[0.08em] max-w-[880px] mx-auto leading-[1.45] text-[#162047]"
-            style={{ color: data?.HeadingColor || "#162047" }}
+            style={{ color: displayHeadingColor }}
           >
-            {data?.title || "Why small cells matter"}
+            {displayTitle}
           </Typography>
         </div>
 
         <div className="reveal stagger-2 image-card-grid grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full">
-          {benefits.map((benefit, index) => {
-            let extractedUrl = "";
-            if (typeof benefit.image === "string") {
-              extractedUrl = benefit.image;
-            } else if (benefit.image && typeof benefit.image === "object") {
-              if ("url" in benefit.image && benefit.image.url) {
-                extractedUrl = benefit.image.url;
-              } else if (
-                "data" in benefit.image &&
-                Array.isArray(benefit.image.data) &&
-                benefit.image.data[0]?.attributes?.url
-              ) {
-                extractedUrl = benefit.image.data[0].attributes.url;
-              } else if (
-                "data" in benefit.image &&
-                !Array.isArray(benefit.image.data) &&
-                benefit.image.data?.attributes?.url
-              ) {
-                extractedUrl = benefit.image.data.attributes.url;
-              }
-            }
-
-            const fallbackImage =
-              typeof FALLBACK_BENEFITS[index]?.image === "string"
-                ? (FALLBACK_BENEFITS[index].image as string)
-                : "/assets/images/placeholder.png";
-
-            const imageUrl = extractedUrl ? GetStrapiMediaUrl(extractedUrl) : fallbackImage;
+          {displayCards.map((benefit, index) => {
+            const imageUrl = benefit.image || "/assets/images/placeholder.png";
 
             return (
               <div key={index} className="p-0 text-center flex flex-col items-center w-full">
@@ -119,7 +72,7 @@ export default function ImageCardGrid({ data }: ImageCardGridProps) {
                   uppercase
                   weight="bold"
                   className="cm-pillar-title leading-none tracking-[0.08em] mb-3 text-2xl md:text-3xl"
-                  style={{ color: benefit.TitleColor || "#7C5CBF" }}
+                  style={{ color: benefit.titleColor || "#7C5CBF" }}
                 >
                   {benefit.title}
                 </Typography>
@@ -127,7 +80,7 @@ export default function ImageCardGrid({ data }: ImageCardGridProps) {
                   as="p"
                   variant="b2"
                   className="cm-pillar-desc leading-[1.65] mb-7 w-full text-base"
-                  style={{ color: benefit.DescriptionColor || "#162047" }}
+                  style={{ color: benefit.descriptionColor || "#162047" }}
                 >
                   {benefit.description}
                 </Typography>

@@ -1,70 +1,31 @@
 import React from "react";
 import { Typography } from "@ui-element";
-import { AboutJourneyProps, AboutJourneyTimelineItem } from "./type";
+import { AboutJourneyProps } from "./type";
 
-export default function AboutJourney({ Heading, Description, TimeCards, data }: AboutJourneyProps) {
-  const defaultItems: AboutJourneyTimelineItem[] = [
-    {
-      Title: "2010-2011",
-      Content:
-        "Acquisition of NewPath and NextG establishes early leadership in DAS and small cell infrastructure.",
-    },
-    {
-      Title: "2011-2020",
-      Content: "Platform expansion and operational integration across thousands of deployed nodes.",
-    },
-    {
-      Title: "2020-2022",
-      Content: "Long-term carrier commitments add 50,000 small cells over five years.",
-    },
-    {
-      Title: "2026",
-      Content: "Formation of Arium Networks with 100K+ small cells on-air or under contract.",
-      BadgeText: "LIVE",
-    },
-  ];
+const ACCENT_STYLES = [
+  {
+    text: "!text-[#009E94]",
+    hoverText: "group-hover:!text-[#00e8d9]",
+    dotBg: "bg-[#009E94]",
+  },
+  {
+    text: "!text-[#7B6AB8]",
+    hoverText: "group-hover:!text-[#c0b3ff]",
+    dotBg: "bg-[#7B6AB8]",
+  },
+  {
+    text: "!text-[#C48E68]",
+    hoverText: "group-hover:!text-[#ffdac8]",
+    dotBg: "bg-[#C48E68]",
+  },
+  {
+    text: "!text-[#009E94]",
+    hoverText: "group-hover:!text-[#00e8d9]",
+    dotBg: "bg-[#009E94]",
+  },
+];
 
-  const rawCards =
-    (TimeCards && TimeCards.length > 0 ? TimeCards : null) ||
-    (data?.cards && data.cards.length > 0 ? data.cards : null) ||
-    defaultItems;
-
-  const items: AboutJourneyTimelineItem[] = rawCards.map((c) => {
-    const item = c as Record<string, unknown>;
-    return {
-      Title: (item.Title || item.title || "") as string,
-      Content: (item.Content || item.description || item.body || item.content || "") as string,
-      TitleColor: (item.TitleColor || item.titleColor) as string | undefined,
-      BadgeText: (item.BadgeText || item.badge || item.badgeText) as string | undefined,
-    };
-  });
-
-  const accentStyles = [
-    {
-      text: "!text-[#009E94]",
-      hoverText: "group-hover:!text-[#00e8d9]",
-      dotBg: "bg-[#009E94]",
-    },
-    {
-      text: "!text-[#7B6AB8]",
-      hoverText: "group-hover:!text-[#c0b3ff]",
-      dotBg: "bg-[#7B6AB8]",
-    },
-    {
-      text: "!text-[#C48E68]",
-      hoverText: "group-hover:!text-[#ffdac8]",
-      dotBg: "bg-[#C48E68]",
-    },
-    {
-      text: "!text-[#009E94]",
-      hoverText: "group-hover:!text-[#00e8d9]",
-      dotBg: "bg-[#009E94]",
-    },
-  ];
-
-  const headingStr = Heading || data?.title || "A small cell leader from the beginning";
-  const descStr = Description || data?.body;
-
+export default function AboutJourney({ heading, description, timelineItems }: AboutJourneyProps) {
   return (
     <section
       id="shared-journey"
@@ -80,14 +41,14 @@ export default function AboutJourney({ Heading, Description, TimeCards, data }: 
             weight="light"
             className="section-title reveal stagger-1 text-midnight m-0 mb-0 min-[1080px]:text-[clamp(1.9rem,0.5rem+2.2vw,2.4rem)]"
           >
-            {headingStr}
+            {heading}
           </Typography>
 
-          {descStr ? (
-            descStr.includes("<") && descStr.includes(">") ? (
+          {description &&
+            (description.includes("<") && description.includes(">") ? (
               <div
                 className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 leading-relaxed [&>p]:mb-0"
-                dangerouslySetInnerHTML={{ __html: descStr }}
+                dangerouslySetInnerHTML={{ __html: description }}
               />
             ) : (
               <Typography
@@ -95,19 +56,9 @@ export default function AboutJourney({ Heading, Description, TimeCards, data }: 
                 as="p"
                 className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
               >
-                {descStr}
+                {description}
               </Typography>
-            )
-          ) : (
-            <Typography
-              variant="b1"
-              as="p"
-              className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
-            >
-              We&apos;ve been building small cell and DAS networks since the technology&apos;s
-              inception, giving us a deep expertise that is embedded throughout our organization.
-            </Typography>
-          )}
+            ))}
         </div>
 
         {/* Timeline */}
@@ -128,13 +79,13 @@ export default function AboutJourney({ Heading, Description, TimeCards, data }: 
             aria-hidden="true"
           />
 
-          {/* Milestone items: vertical stack with line on mobile (< md), 2-col on tablet (md), 4-col on desktop (lg) */}
+          {/* Milestone items */}
           <div className="flex flex-col gap-9 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-4 xl:gap-6 relative z-[2] lg:[&:hover>div]:opacity-40 lg:[&>div:hover]:!opacity-100">
-            {items.map((item, index) => {
-              const accent = accentStyles[index % accentStyles.length];
-              const itemTitle = item.Title || "";
-              const itemDesc = item.Content || "";
-              const itemBadge = item.BadgeText;
+            {timelineItems.map((item, index) => {
+              const accent = ACCENT_STYLES[index % ACCENT_STYLES.length];
+              const itemTitle = item.title;
+              const itemDesc = item.description;
+              const itemBadge = item.badgeText;
 
               return (
                 <div

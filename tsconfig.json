@@ -34,7 +34,15 @@
       "@lib": ["./lib"],
       "@lib/*": ["./lib/*"],
       "@hooks/*": ["./hooks/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@types": ["./types"],
+      "@types/*": ["./types/*"],
+      "@utils": ["./utils"],
+      "@utils/*": ["./utils/*"],
+      "@data": ["./data"],
+      "@data/*": ["./data/*"],
+      "@services": ["./services"],
+      "@services/*": ["./services/*"]
     }
   },
   "include": [

@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
-
 import {
   IndustryStadiumsSvg,
   IndustryAmusementSvg,
@@ -13,6 +12,7 @@ import {
   IndustryGovernmentSvg,
   IndustryAirportsSvg,
 } from "@ui-svg";
+import type { SolutionsIndustriesProps } from "./type";
 
 const ICON_MAP: Record<string, React.ReactNode> = {
   "stadiums & arenas": <IndustryStadiumsSvg />,
@@ -29,109 +29,14 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   airports: <IndustryAirportsSvg />,
 };
 
-interface IndustryFallback {
-  title: string;
-  description: string;
-  theme: string;
-  bgImage: string;
-  iconNode: React.ReactNode;
-}
-
-const INDUSTRIES: IndustryFallback[] = [
-  {
-    title: "Stadiums & Arenas",
-    description:
-      "We enable reliable wireless service for a better guest experience including enhanced fan engagement, public safety, mobile ticketing, concessions, and event operations.",
-    theme: "teal",
-    bgImage: "/assets/images/industry-stadiums.png",
-    iconNode: <IndustryStadiumsSvg />,
-  },
-  {
-    title: "Amusement Parks, Hospitality & Entertainment",
-    description:
-      "Our solutions provide high-quality wireless coverage for your guests, improving experience satisfaction, operational efficiency, and smart property technologies.",
-    theme: "purple",
-    bgImage: "/assets/images/industry-amusement.png",
-    iconNode: <IndustryAmusementSvg />,
-  },
-  {
-    title: "Higher Education",
-    description:
-      "Our solutions enable digital learning and enhance campus safety by keeping faculty and students connected.",
-    theme: "amber",
-    bgImage: "/assets/images/industry-education.png",
-    iconNode: <IndustryEducationSvg />,
-  },
-  {
-    title: "Commercial Real Estate",
-    description:
-      "We can help you improve connectivity on your property while accommodating the technologies that make your building more functional, efficient, and tenant friendly.",
-    theme: "amber",
-    bgImage: "/assets/images/industry-realestate.png",
-    iconNode: <IndustryRealEstateSvg />,
-  },
-  {
-    title: "Healthcare",
-    description:
-      "Our solutions improve connectivity for staff, patients, and medical professionals.",
-    theme: "blue",
-    bgImage: "/assets/images/industry-healthcare.png",
-    iconNode: <IndustryHealthcareSvg />,
-  },
-  {
-    title: "State & Local Government",
-    description:
-      "Municipalities can improve connectivity for their constituents and help agencies better serve their residents and first responders.",
-    theme: "teal",
-    bgImage: "/assets/images/industry-government.png",
-    iconNode: <IndustryGovernmentSvg />,
-  },
-  {
-    title: "Airports",
-    description:
-      "We enable connectivity that supports the high data demand for travelers, busy staff and back-of-house operations, and mobile ticketing, providing a better guest experience and enhanced safety.",
-    theme: "purple",
-    bgImage: "/assets/images/industry-airports.png",
-    iconNode: <IndustryAirportsSvg />,
-  },
-];
-
-export interface IndustryCard {
-  title: string;
-  description: string;
-  icon?: string;
-  image?: { url: string }[];
-}
-
-interface SolutionsIndustriesProps {
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: IndustryCard[];
-  };
-}
-
-export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) {
+export default function SolutionsIndustries({
+  title,
+  contentHtml,
+  description,
+  industries = [],
+}: SolutionsIndustriesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoDisabled, setIsAutoDisabled] = useState(false);
-
-  // Merge dynamic data from Strapi with fallback themes/images/icons
-  const displayIndustries = data?.cards?.length
-    ? data.cards.map((item, index) => {
-        const fallback =
-          INDUSTRIES.find((ind) => ind.title.toLowerCase() === item.title.toLowerCase()) ||
-          INDUSTRIES[index % INDUSTRIES.length];
-        const iconKey = item.title.toLowerCase().trim();
-        const iconNode = ICON_MAP[iconKey] || fallback.iconNode;
-        return {
-          title: item.title,
-          description: item.description,
-          iconNode,
-          theme: fallback.theme,
-          bgImage: item.image?.[0]?.url || fallback.bgImage,
-        };
-      })
-    : INDUSTRIES;
 
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -144,12 +49,12 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
   }, []);
 
   const startAutoPlay = useCallback(() => {
-    if (isAutoDisabled) return;
+    if (isAutoDisabled || industries.length === 0) return;
     stopAutoPlay();
     autoPlayRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % displayIndustries.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % industries.length);
     }, 5500);
-  }, [isAutoDisabled, displayIndustries.length, stopAutoPlay]);
+  }, [isAutoDisabled, industries.length, stopAutoPlay]);
 
   useEffect(() => {
     if (!isAutoDisabled) {
@@ -187,7 +92,7 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
     >
       {/* Background images wrapper */}
       <div className="ind-bg-wrapper absolute left-0 top-0 w-full h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
-        {displayIndustries.map((industry, index) => (
+        {industries.map((industry, index) => (
           <Image
             key={index}
             className={`ind-bg-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
@@ -215,12 +120,12 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
               weight="normal"
               className="section-title text-left text-white m-0 mb-3 md:mb-6 leading-tight tracking-[0.06em]"
             >
-              {data?.title || "Industries That Require Advanced Connectivity"}
+              {title}
             </Typography>
-            {data?.body ? (
+            {contentHtml ? (
               <div
                 className="section-description strapi-richtext-body text-white/80 leading-relaxed text-left m-0"
-                dangerouslySetInnerHTML={{ __html: data.body }}
+                dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (
               <Typography
@@ -228,10 +133,7 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
                 as="p"
                 className="section-description text-white/80 text-left m-0 leading-relaxed"
               >
-                We partner with industries like yours, designing the right mix of small cells and
-                DAS to meet performance, aesthetic, and operational requirements, all while
-                leveraging our long-standing relationships with MNOs, utilities, public safety
-                agencies, and more.
+                {description}
               </Typography>
             )}
           </div>
@@ -239,9 +141,12 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
           {/* RIGHT: Industry pillars */}
           <div className="ind-col-right w-full flex flex-col justify-center">
             <div className="reveal ind-accordion-container flex flex-col gap-2.5 md:gap-3">
-              {displayIndustries.map((industry, index) => {
+              {industries.map((industry, index) => {
                 const isActive = index === currentIndex;
-                const hasIcon = Boolean(industry.iconNode);
+                const iconKey = (industry.iconKey || industry.title).toLowerCase().trim();
+                const iconNode = ICON_MAP[iconKey] || null;
+                const hasIcon = Boolean(iconNode);
+
                 return (
                   <div
                     key={index}
@@ -262,7 +167,7 @@ export default function SolutionsIndustries({ data }: SolutionsIndustriesProps) 
                               : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
                           }`}
                         >
-                          {industry.iconNode}
+                          {iconNode}
                         </span>
                       )}
                       <Typography

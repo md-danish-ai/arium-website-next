@@ -1,25 +1,17 @@
 import React from "react";
+import type { Metadata } from "next";
 import ContactHero from "@ui-component/contact/ContactHero";
 import ContactForm from "@ui-component/contact/ContactForm";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry } from "@types";
+import {
+  CONTACT_TOPIC_OPTIONS,
+  CONTACT_HERO_FALLBACK,
+  CONTACT_SEO_FALLBACK,
+} from "@data/contact.data";
 
 export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
-
-interface StrapiWidgetSection {
-  id?: number | string;
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiWidgetSection[];
-  [key: string]: unknown;
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
@@ -28,11 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Contact Us | Arium Networks",
-    description: seo?.metaDescription || "Build with clarity—connect with confidence",
+    title: seo?.metaTitle || CONTACT_SEO_FALLBACK.title,
+    description: seo?.metaDescription || CONTACT_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Contact Us | Arium Networks",
-      description: seo?.ogDescription || "Build with clarity—connect with confidence",
+      title: seo?.ogTitle || CONTACT_SEO_FALLBACK.title,
+      description: seo?.ogDescription || CONTACT_SEO_FALLBACK.description,
       type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
@@ -50,48 +42,40 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Contact() {
+export default async function ContactPage() {
   const [pageData, widgetData] = await Promise.all([
     fetchAPI("/api/pages?filters[slug][$eq]=contact&populate=*"),
-    fetchAPI(
-      "/api/pages?filters[slug][$eq]=contact&populate[widgets][populate][Sections][populate]=*&populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*"
-    ),
+    fetchPageWidgets("contact"),
   ]);
-  const contactContent = pageData?.data?.[0];
+
+  const contactContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
   const hasInnerHeroWidget = globalWidgets.some((w) =>
     w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
   );
 
-  const sectionObjects: { pos: number; element: React.ReactElement }[] = [];
-
-  globalWidgets.forEach((widget) => {
-    const pos = widget.PositionNumber ?? 999;
-    sectionObjects.push({
-      pos,
-      element: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />,
-    });
-  });
-
-  if (!hasInnerHeroWidget) {
-    sectionObjects.push({
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 1,
-      element: (
+      key: "hero-fallback",
+      skip: hasInnerHeroWidget,
+      el: (
         <ContactHero
-          key="hero"
-          heading={contactContent?.heroTitle}
-          intro={contactContent?.heroDescription}
+          key="hero-fallback"
+          heading={contactContent?.heroTitle || CONTACT_HERO_FALLBACK.heading}
+          intro={contactContent?.heroDescription || CONTACT_HERO_FALLBACK.intro}
         />
       ),
-    });
-  }
+    },
+    {
+      pos: 2,
+      key: "form-fallback",
+      el: <ContactForm key="form-fallback" topicOptions={CONTACT_TOPIC_OPTIONS} />,
+    },
+  ];
 
-  // Ensure contact form always renders
-  sectionObjects.push({ pos: 2, element: <ContactForm key="form" /> });
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  sectionObjects.sort((a, b) => a.pos - b.pos);
-  const sections = sectionObjects.map((obj) => obj.element);
-
-  return <>{sections}</>;
+  return <>{renderedSections}</>;
 }

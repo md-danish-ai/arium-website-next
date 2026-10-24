@@ -3,8 +3,16 @@
 import { useState } from "react";
 import { Typography } from "@ui-element";
 import { DropdownArrowSvg } from "@ui-svg";
+import type { ContactTopicOption } from "@data/contact.data";
+import { CONTACT_TOPIC_OPTIONS } from "@data/contact.data";
 
-export default function ContactForm() {
+export interface ContactFormProps {
+  topicOptions?: ContactTopicOption[];
+}
+
+export default function ContactForm({
+  topicOptions = CONTACT_TOPIC_OPTIONS,
+}: ContactFormProps = {}) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [company, setCompany] = useState("");
@@ -62,17 +70,7 @@ export default function ContactForm() {
     }
   };
 
-  const interestOptions = [
-    { value: "sales", label: "Sales" },
-    { value: "client_services", label: "Client Services" },
-    { value: "noc", label: "Network Operations Center" },
-    { value: "billing", label: "Billing" },
-    { value: "communities", label: "Communities" },
-    { value: "suppliers", label: "Suppliers" },
-    { value: "media", label: "Media Relations" },
-    { value: "careers", label: "Careers" },
-    { value: "other", label: "Other" },
-  ];
+  const interestOptions = topicOptions;
 
   return (
     <div className="relative overflow-hidden bg-[#ededee] -mt-px border-0">

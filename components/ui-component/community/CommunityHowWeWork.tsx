@@ -2,28 +2,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
+import type { CommunityHowWeWorkProps } from "./type";
 
-interface CommunityHowWeWorkProps {
-  data?: {
-    title?: string;
-    body?: string;
-    media?: {
-      url: string;
-    };
-    cta?: {
-      label: string;
-      url: string;
-    };
-  };
-}
-
-export default function CommunityHowWeWork({ data }: CommunityHowWeWorkProps) {
-  const imageUrl = "/assets/images/how-we-work-community.png";
+export default function CommunityHowWeWork({
+  title,
+  contentHtml,
+  paragraphs = [],
+  bgImageUrl = "/assets/images/how-we-work-community.png",
+  cta,
+}: CommunityHowWeWorkProps) {
   return (
     <section id="how-we-work" className="relative overflow-hidden p-0">
       <div className="absolute inset-0 z-0">
         <Image
-          src={imageUrl}
+          src={bgImageUrl}
           alt=""
           aria-hidden="true"
           fill
@@ -43,41 +35,34 @@ export default function CommunityHowWeWork({ data }: CommunityHowWeWorkProps) {
             uppercase
             className="reveal text-white leading-tight mb-6"
           >
-            {data?.title || "How we work in your community"}
+            {title}
           </Typography>
-          {data?.body ? (
+          {contentHtml ? (
             <div
               className="reveal stagger-1 text-white/85 text-base md:text-lg leading-relaxed mb-9 flex flex-col gap-5"
-              dangerouslySetInnerHTML={{ __html: data.body }}
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (
             <div className="text-white/85 text-base md:text-lg leading-relaxed mb-9 space-y-5">
-              <Typography as="p" variant="b1" className="reveal stagger-1 m-0">
-                We are expanding our small cell network across every major U.S. market. We use a
-                structured, collaborative process that balances the needs of local communities,
-                municipalities, and wireless carriers.
-              </Typography>
-              <Typography as="p" variant="b1" className="reveal stagger-2 m-0">
-                This means building the vital connectivity that meets current needs while being
-                ready for future technologies and growth.
-              </Typography>
+              {paragraphs.map((paragraph, index) => (
+                <Typography
+                  key={index}
+                  as="p"
+                  variant="b1"
+                  className={`reveal stagger-${index + 1} m-0`}
+                >
+                  {paragraph}
+                </Typography>
+              ))}
             </div>
           )}
-          {data?.cta ? (
+          {cta && (
             <Link
-              href={data.cta.url}
-              aria-label={`${data.cta.label} about how we work in your community`}
+              href={cta.url}
+              aria-label={`${cta.label} about how we work in your community`}
               className="reveal stagger-3 inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#00e8d9] text-[#162047] border-2 border-[#00e8d9] rounded-full px-10 py-3.5 hover:bg-transparent hover:text-[#00e8d9] transition-all duration-300 hover:-translate-y-0.5"
             >
-              {data.cta.label}
-            </Link>
-          ) : (
-            <Link
-              href="/right-of-ways"
-              aria-label="Learn more about how we work in your community"
-              className="reveal stagger-3 inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#00e8d9] text-[#162047] border-2 border-[#00e8d9] rounded-full px-10 py-3.5 hover:bg-transparent hover:text-[#00e8d9] transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Learn More
+              {cta.label}
             </Link>
           )}
         </div>

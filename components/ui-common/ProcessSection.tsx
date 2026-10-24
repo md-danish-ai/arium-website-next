@@ -19,7 +19,7 @@ export interface PillarData {
   timelineItems: TimelineItem[];
 }
 
-interface ProcessSectionProps {
+export interface ProcessSectionProps {
   title: string;
   description: string;
   pillars: PillarData[];

@@ -1,54 +1,15 @@
 import Image from "next/image";
-import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
-
-interface BenefitCard {
-  title: string;
-  description: string;
-  TitleColor?: string;
-  image?: string | { url?: string; data?: { attributes?: { url?: string } } } | null;
-}
-
-interface CareersBenefitsProps {
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: BenefitCard[];
-  };
-}
-
-const STATIC_ICONS = [
-  "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Healthcare-Benefit.svg",
-  "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Financial-Security.svg",
-  "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Time-Off.svg",
-  "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Family-Support.svg",
-];
+import type { CareersBenefitsProps, CareersBenefitItem } from "./type";
 
 const BENEFIT_CLASSES = ["cr-teal", "cr-purple", "cr-orange", "cr-teal"];
 
-const FALLBACK_BENEFITS = [
-  {
-    title: "Healthcare",
-    description: "Full medical coverage, including dental and vision plans and telehealth",
-  },
-  {
-    title: "Financial Security",
-    description:
-      "Competitive 401(k), tuition reimbursement, financial counseling and funded healthcare savings accounts",
-  },
-  {
-    title: "Time Off",
-    description:
-      "Flexible paid time off for vacations, holidays, leaves of absence, or personal needs",
-  },
-  {
-    title: "Family Support",
-    description: "Paid maternity and paternity leave, adoption benefits, and milk shipping",
-  },
-];
-
-export default function CareersBenefits({ data }: CareersBenefitsProps) {
-  const benefits = data?.cards?.length ? data.cards : FALLBACK_BENEFITS;
+export default function CareersBenefits({
+  title,
+  contentHtml,
+  description,
+  benefits = [],
+}: CareersBenefitsProps) {
   return (
     <section
       id="benefits"
@@ -67,12 +28,12 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
             as="h2"
             className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
           >
-            {data?.title || "Our Total Benefits Package"}
+            {title}
           </Typography>
-          {data?.body ? (
+          {contentHtml ? (
             <div
               className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 text-base md:text-lg leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: data.body }}
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (
             <Typography
@@ -80,9 +41,7 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
               as="p"
               className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80"
             >
-              We offer competitive compensation and benefits designed to support you at work and in
-              life. Full-time team members are eligible for a comprehensive benefits package that
-              includes:
+              {description}
             </Typography>
           )}
         </div>
@@ -90,28 +49,12 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
 
       {/* Full-width pillar grid */}
       <div className="reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 px-6 md:px-12 max-w-[1600px] mx-auto">
-        {benefits.map((benefit: BenefitCard, index) => {
-          let iconSrc = STATIC_ICONS[index % STATIC_ICONS.length];
-          let customImg: string | null = null;
-          if (typeof benefit.image === "string") {
-            customImg = benefit.image;
-          } else if (benefit.image && typeof benefit.image === "object") {
-            if ("url" in benefit.image && benefit.image.url) {
-              customImg = benefit.image.url;
-            } else if (
-              "data" in benefit.image &&
-              benefit.image.data &&
-              "attributes" in benefit.image.data &&
-              benefit.image.data.attributes?.url
-            ) {
-              customImg = benefit.image.data.attributes.url;
-            }
-          }
-          if (customImg) {
-            iconSrc = customImg.startsWith("/assets/") ? customImg : GetStrapiMediaUrl(customImg);
-          }
-
+        {benefits.map((benefit: CareersBenefitItem, index: number) => {
           const bgClass = BENEFIT_CLASSES[index % BENEFIT_CLASSES.length];
+          const iconSrc =
+            benefit.iconSrc ||
+            "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Healthcare-Benefit.svg";
+
           return (
             <div
               key={index}
@@ -130,7 +73,7 @@ export default function CareersBenefits({ data }: CareersBenefitsProps) {
                 uppercase
                 weight="bold"
                 className="cr-benefit-heading mb-2 tracking-wider"
-                style={{ color: benefit.TitleColor || "#009886" }}
+                style={{ color: benefit.titleColor || "#009886" }}
               >
                 {benefit.title}
               </Typography>

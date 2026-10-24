@@ -2,30 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
+import type { WhereVenuesProps } from "./type";
 
-const venueImages = [
-  { src: "/assets/images/overview-buildings-Venues.png", alt: "Fans at a venue" },
-  { src: "/assets/images/ov-venue-campus.png", alt: "University campus" },
-  { src: "/assets/images/ov-venue-themepark.png", alt: "Theme park visitors" },
-  { src: "/assets/images/ov-venue-commercial.png", alt: "Commercial building" },
-];
-
-interface WhereVenuesProps {
-  data?: {
-    title?: string;
-    body?: string;
-    cta?: { label: string; url: string };
-    media?: { url: string; alternativeText?: string }[];
-  };
-}
-
-export default function WhereVenues({ data }: WhereVenuesProps) {
-  const carouselImages = data?.media?.length
-    ? data.media.map((img) => ({
-        src: img.url,
-        alt: img.alternativeText || "Venue infrastructure image",
-      }))
-    : venueImages;
+export default function WhereVenues({
+  title,
+  description,
+  cta,
+  images,
+  isHtmlDescription,
+}: WhereVenuesProps) {
+  const displayImage = images[0];
 
   return (
     <section
@@ -45,24 +31,23 @@ export default function WhereVenues({ data }: WhereVenuesProps) {
             weight="light"
             className="ov-feature-heading text-[#162047] leading-tight m-0"
           >
-            {data?.title || "Buildings and Venues"}
+            {title}
           </Typography>
-          {data?.body ? (
+
+          {isHtmlDescription ? (
             <div
               className="ov-feature-desc strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
-              dangerouslySetInnerHTML={{ __html: data.body }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
             <Typography variant="b1" as="p" className="ov-feature-desc text-[#162047]/85 m-0">
-              Our distributed antenna systems (DAS) and small cell networks bring advanced
-              connectivity to in-building environments. We partner with large stadiums, commercial
-              buildings, theme parks, campuses, and other private venues, helping customers stay
-              connected in even the most crowded or hard-to-reach areas.
+              {description}
             </Typography>
           )}
+
           <Link
-            href={data?.cta?.url || "/private-venues"}
-            aria-label={`${data?.cta?.label || "Learn more"} about private venues`}
+            href={cta.url}
+            aria-label={`${cta.label} about private venues`}
             className="ov-feature-cta reveal stagger-2 inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-[#162047] bg-[#162047] text-white hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5 self-start mt-2 group"
           >
             <Typography
@@ -71,7 +56,7 @@ export default function WhereVenues({ data }: WhereVenuesProps) {
               weight="semibold"
               className="text-white group-hover:text-[#162047]"
             >
-              {data?.cta?.label || "Learn more"}
+              {cta.label}
             </Typography>
             <ArrowRightSvg className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
@@ -79,13 +64,15 @@ export default function WhereVenues({ data }: WhereVenuesProps) {
 
         <div className="ov-showcase reveal stagger-1 lg:order-1">
           <div className="ov-showcase-stage aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
-            <Image
-              src={carouselImages[0].src}
-              alt={carouselImages[0].alt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
+            {displayImage && (
+              <Image
+                src={displayImage.src}
+                alt={displayImage.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            )}
           </div>
         </div>
       </div>

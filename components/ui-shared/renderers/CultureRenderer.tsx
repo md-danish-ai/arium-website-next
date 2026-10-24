@@ -1,22 +1,9 @@
 import React from "react";
 import { AboutCulture } from "@ui-component";
 import { SectionRendererProps } from "./helper";
+import { mapAboutCulture } from "@services/mappers/about.mapper";
 
 export default function CultureRenderer({ section, index }: SectionRendererProps) {
-  return (
-    <AboutCulture
-      key={`culture-${index}`}
-      Heading={section.Heading || section.heading || section.title}
-      Description={section.Description || section.description || section.body}
-      Pillarcard={section.Pillarcard || section.pillarcard || section.Cards || section.cards}
-      CtaButton={section.CtaButton || section.ctaButton || section.Cta?.[0]?.label}
-      CTALink={section.CTALink || section.ctaLink || section.Cta?.[0]?.url}
-      BgImage={
-        section.BgImage || section.bgImage || section.Media || section.media || section.image
-      }
-      BgGradient={section.BgGradient || section.bgGradient}
-      HeadingColor={section.HeadingColor}
-      DescriptionColor={section.DescriptionColor}
-    />
-  );
+  const props = mapAboutCulture(section);
+  return <AboutCulture key={`culture-${index}`} {...props} />;
 }

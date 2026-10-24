@@ -1,17 +1,10 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import type { SubpageTestimonialItem } from "@data/where-subpages.data";
 
-interface TestimonialCard {
-  title?: string;
-  description?: string;
-  badge?: string;
-}
-
-interface RightOfWayTestimonialsProps {
-  data?: {
-    title?: string;
-    cards?: TestimonialCard[];
-  };
+export interface RightOfWayTestimonialsProps {
+  title: string;
+  testimonials: SubpageTestimonialItem[];
 }
 
 const CARD_STYLES = [
@@ -19,25 +12,10 @@ const CARD_STYLES = [
   { kpi: "#7c5cbf", glow: "124, 92, 191", bg: "var(--color-secondary-purple)" },
 ];
 
-export default function RightOfWayTestimonials({ data }: RightOfWayTestimonialsProps) {
-  const testimonials =
-    data?.cards && data.cards.length > 0
-      ? data.cards
-      : [
-          {
-            description:
-              'Arium Networks has been a great partner. They understand how important it is to be collaborative and get the right inputs, so that we have a great design."',
-            title: "Kurt Woehr",
-            badge: "Director of RAN Engineering, AT&T",
-          },
-          {
-            description:
-              'Arium Networks has the skills and the techniques to work hand-in-hand with the city and implement a project of this scale."',
-            title: "Joe Slowik",
-            badge: "Director of Operations, Verizon",
-          },
-        ];
-
+export default function RightOfWayTestimonials({
+  title = "What community leaders are saying",
+  testimonials,
+}: RightOfWayTestimonialsProps) {
   return (
     <section className="bg-white py-20 relative overflow-hidden" id="testimonials">
       <div
@@ -51,7 +29,7 @@ export default function RightOfWayTestimonials({ data }: RightOfWayTestimonialsP
             as="h2"
             className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
           >
-            {data?.title || "What community leaders are saying"}
+            {title}
           </Typography>
         </div>
         <div className="tm-row grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1040px] mx-auto w-full">
@@ -82,7 +60,7 @@ export default function RightOfWayTestimonials({ data }: RightOfWayTestimonialsP
                   as="blockquote"
                   className="tm-panel-text text-[#162047]/85 flex-1 mb-6"
                 >
-                  {card.description}
+                  {card.quote}
                 </Typography>
                 <div className="tm-panel-footer pt-4 border-t border-black/10">
                   <Typography
@@ -91,14 +69,14 @@ export default function RightOfWayTestimonials({ data }: RightOfWayTestimonialsP
                     weight="bold"
                     className="tm-panel-name text-[#162047] m-0"
                   >
-                    {card.title}
+                    {card.author}
                   </Typography>
                   <Typography
                     variant="b4"
                     as="p"
                     className="tm-panel-role text-[#162047]/60 mt-1 m-0"
                   >
-                    {card.badge}
+                    {card.role}
                   </Typography>
                 </div>
               </div>

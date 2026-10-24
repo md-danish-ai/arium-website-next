@@ -1,31 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
-
-interface JobAreaCard {
-  title: string;
-}
-
-interface CareersJobAreasProps {
-  data?: {
-    title?: string;
-    body?: string;
-    cards?: JobAreaCard[];
-  };
-}
+import type { CareersJobAreasProps } from "./type";
 
 const JOB_AREA_ACCENTS = ["#00e8d9", "#8B6FE6", "#E8935A"];
 
-const FALLBACK_JOB_AREAS = [
-  { title: "Network Engineering & Deployment" },
-  { title: "Construction & Field Operations" },
-  { title: "Technology, Systems & Data" },
-  { title: "Corporate & Shared Services" },
-  { title: "Commercial, Strategy & Project Management" },
-];
-
-export default function CareersJobAreas({ data }: CareersJobAreasProps) {
-  const jobAreas = data?.cards?.length ? data.cards : FALLBACK_JOB_AREAS;
+export default function CareersJobAreas({
+  title,
+  contentHtml,
+  description,
+  jobAreas = [],
+  cta,
+  imageSrc = "/assets/images/team.png",
+  imageAlt = "Arium Networks team collaborating in a modern office",
+}: CareersJobAreasProps) {
   return (
     <section
       id="job-areas"
@@ -44,12 +32,12 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
             as="h2"
             className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
           >
-            {data?.title || "Our Core Job Areas"}
+            {title}
           </Typography>
-          {data?.body ? (
+          {contentHtml ? (
             <div
               className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5"
-              dangerouslySetInnerHTML={{ __html: data.body }}
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (
             <Typography
@@ -57,8 +45,7 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
               as="p"
               className="reveal stagger-1 text-[#162047]/80 max-w-[800px] mx-auto mt-5"
             >
-              Our teams work cross-functionally to design, build, and support wireless
-              infrastructure. These core job types include:
+              {description}
             </Typography>
           )}
         </div>
@@ -89,31 +76,33 @@ export default function CareersJobAreas({ data }: CareersJobAreasProps) {
               })}
             </div>
 
-            <div className="reveal stagger-5 mt-9">
-              <Link
-                href="https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <Typography
-                  variant="button"
-                  uppercase
-                  weight="semibold"
-                  className="text-white group-hover:text-[#162047]"
+            {cta && (
+              <div className="reveal stagger-5 mt-9">
+                <Link
+                  href={cta.url}
+                  target={cta.isExternal ? "_blank" : undefined}
+                  rel={cta.isExternal ? "noopener noreferrer" : undefined}
+                  className="group inline-flex items-center justify-center bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Explore opportunities
-                </Typography>
-              </Link>
-            </div>
+                  <Typography
+                    variant="button"
+                    uppercase
+                    weight="semibold"
+                    className="text-white group-hover:text-[#162047]"
+                  >
+                    {cta.label}
+                  </Typography>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* RIGHT: Image */}
           <div className="cr-jobs-right reveal">
             <div className="cr-jobs-img-box relative rounded-[20px] overflow-hidden shadow-2xl h-[320px] lg:h-full min-h-[320px]">
               <Image
-                src="/assets/images/team.png"
-                alt="Arium Networks team collaborating in a modern office"
+                src={imageSrc}
+                alt={imageAlt}
                 fill
                 className="w-full h-full object-cover block"
               />

@@ -1,14 +1,9 @@
 import React from "react";
 import { AboutStatsCards } from "@ui-component";
 import { SectionRendererProps } from "./helper";
+import { mapAboutStatsCards } from "@services/mappers/about.mapper";
 
 export default function StatsCardsRenderer({ section, index }: SectionRendererProps) {
-  return (
-    <AboutStatsCards
-      key={`stats-cards-${index}`}
-      Heading={section.Heading || section.heading || section.title}
-      Description={section.Description || section.description || section.body || section.Body}
-      CradColorful={section.CradColorful || section.cradColorful || section.cards}
-    />
-  );
+  const props = mapAboutStatsCards(section);
+  return <AboutStatsCards key={`stats-cards-${index}`} {...props} />;
 }

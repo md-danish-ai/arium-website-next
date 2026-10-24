@@ -3,55 +3,10 @@ import { useState } from "react";
 import { Typography } from "@ui-element";
 import { FaqChevronSvg } from "@ui-svg";
 import FlowBackground from "@ui-animations/FlowBackground";
+import type { CommunityFAQProps } from "./type";
 
-interface FAQItem {
-  title: string;
-  description: string;
-}
-
-interface CommunityFAQProps {
-  data?: {
-    title?: string;
-    cards?: FAQItem[];
-  };
-}
-
-const FALLBACK_FAQS = [
-  {
-    title: "Why is Arium Networks building in my neighborhood?",
-    description:
-      "When a road gets too congested, you can't just keep adding cars — you have to add more lanes. Similarly, when there are too many wireless devices in an area, the existing network gets overloaded. Small cells add more capacity and bandwidth to support the growing demand for wireless connectivity in your neighborhood.",
-  },
-  {
-    title: "I have full bars on my mobile phone. Why do we need more infrastructure?",
-    description:
-      "Full bars indicate signal strength, not network capacity. Even with a strong signal, you may experience slow speeds in crowded areas. Small cells provide additional capacity to ensure fast, reliable connectivity for everyone.",
-  },
-  {
-    title: "Why is Arium permitted in the public right of way?",
-    description:
-      "Arium Networks holds CLEC (Competitive Local Exchange Carrier) status in most states, which provides us with the legal right to install telecommunications equipment on existing infrastructure in the public right of way, such as utility poles and streetlights.",
-  },
-  {
-    title: "How does Arium Networks get approval to work in my community?",
-    description:
-      "We follow a structured process that includes working with local government, submitting permit applications, and ensuring compliance with all local, state, and federal regulations. We coordinate closely with municipal officials throughout the entire process.",
-  },
-  {
-    title: "What are the RF emission levels of your equipment?",
-    description:
-      "Our equipment operates well within the safety limits established by the FCC. Small cells emit significantly lower RF energy than traditional cell towers because they cover smaller areas and use less power.",
-  },
-  {
-    title: "Should I be worried about RF emissions?",
-    description:
-      "Small cells comply with all FCC regulations for radio frequency emissions. The FCC's safety standards incorporate significant safety margins and are based on decades of research. Small cells operate at a fraction of the power levels used by traditional cell towers.",
-  },
-];
-
-export default function CommunityFAQ({ data }: CommunityFAQProps) {
+export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const faqs = data?.cards?.length ? data.cards : FALLBACK_FAQS;
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -70,13 +25,15 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
               uppercase
               className="section-title reveal stagger-1 tracking-wide text-[#162047] leading-snug"
             >
-              {data?.title || "Frequently asked questions"}
+              {title}
             </Typography>
           </div>
 
           <div className="cm-faq-grid max-w-[900px] mx-auto flex flex-col gap-3.5">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
+              const question = faq.question || "";
+              const answer = faq.answer || "";
               return (
                 <div key={index} className={`reveal stagger-${(index % 3) + 1}`}>
                   <div
@@ -89,7 +46,7 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
                       aria-controls={`faq-answer-${index}`}
                     >
                       <Typography as="span" variant="h5" weight="medium" className="text-[#162047]">
-                        {faq.title}
+                        {question}
                       </Typography>
                       <FaqChevronSvg
                         isOpen={isOpen}
@@ -105,7 +62,7 @@ export default function CommunityFAQ({ data }: CommunityFAQProps) {
                         variant="b2"
                         className="text-[#162047]/75 leading-relaxed m-0"
                       >
-                        {faq.description}
+                        {answer}
                       </Typography>
                     </div>
                   </div>

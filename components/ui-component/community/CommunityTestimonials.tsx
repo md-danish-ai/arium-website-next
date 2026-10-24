@@ -1,18 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
-
-interface TestimonialCard {
-  title: string;
-  badge: string;
-  description: string;
-}
-
-interface CommunityTestimonialsProps {
-  data?: {
-    title?: string;
-    cards?: TestimonialCard[];
-  };
-}
+import type { CommunityTestimonialsProps } from "./type";
 
 const TESTIMONIAL_STYLES = [
   {
@@ -38,27 +26,10 @@ const TESTIMONIAL_STYLES = [
   } as React.CSSProperties,
 ];
 
-const FALLBACK_TESTIMONIALS = [
-  {
-    title: "Dewitt",
-    badge: "President & CEO, Downtown Austin Alliance",
-    description:
-      "Wireless connectivity is so critically important in today's economy. It's like roadways. It's infrastructure that we have to have.\"",
-  },
-  {
-    title: "Rob",
-    badge: "City Sustainability Director",
-    description: "It's not just the technology and the connectivity, but it's how we work, too.\"",
-  },
-  {
-    title: "Kari",
-    badge: "Real Estate Agent",
-    description: 'I use my phone as my lifeline to get my job done."',
-  },
-];
-
-export default function CommunityTestimonials({ data }: CommunityTestimonialsProps) {
-  const testimonials = data?.cards?.length ? data.cards : FALLBACK_TESTIMONIALS;
+export default function CommunityTestimonials({
+  title,
+  testimonials = [],
+}: CommunityTestimonialsProps) {
   return (
     <section
       className="section-light bg-transparent py-20 relative overflow-hidden"
@@ -76,7 +47,7 @@ export default function CommunityTestimonials({ data }: CommunityTestimonialsPro
             uppercase
             className="section-title reveal stagger-1 tracking-wide leading-relaxed text-[#162047] max-w-[880px] mx-auto"
           >
-            {data?.title || "Communities support advanced connectivity"}
+            {title}
           </Typography>
         </div>
 

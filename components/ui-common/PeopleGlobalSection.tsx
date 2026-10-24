@@ -4,6 +4,10 @@ import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { CloseIconSvg } from "@ui-svg";
+import { extractMediaUrl } from "@utils";
+import type { PeopleMemberItem } from "@data/leadership.data";
+
+export type { PeopleMemberItem };
 
 type StrapiImageField =
   | { data?: { attributes?: { url: string } } }
@@ -24,6 +28,7 @@ export interface PeopleCard {
 }
 
 export interface PeopleGlobalSectionProps {
+  members?: PeopleMemberItem[];
   cards?: PeopleCard[];
   data?: {
     cards?: PeopleCard[];
@@ -47,74 +52,19 @@ const STATIC_FALLBACK_IMAGES: Record<string, string> = {
   "John Townsend": "/assets/images/team/placeholder-male.png",
 };
 
-function extractImageUrl(image?: StrapiImageField): string | null {
-  if (!image) return null;
-
-  if (Array.isArray(image)) {
-    const first = image[0];
-    if (first && typeof first === "object" && "url" in first && typeof first.url === "string") {
-      return first.url;
-    }
-    return null;
-  }
-
-  if (typeof image === "object") {
-    if ("url" in image && typeof image.url === "string") {
-      return image.url;
-    }
-
-    if ("data" in image && image.data && typeof image.data === "object") {
-      const data = image.data;
-      if (Array.isArray(data)) {
-        const first = data[0];
-        if (first && typeof first === "object") {
-          if (
-            "attributes" in first &&
-            first.attributes &&
-            typeof first.attributes === "object" &&
-            "url" in first.attributes &&
-            typeof first.attributes.url === "string"
-          ) {
-            return first.attributes.url;
-          }
-          if ("url" in first && typeof first.url === "string") {
-            return first.url;
-          }
-        }
-      } else {
-        if (
-          "attributes" in data &&
-          data.attributes &&
-          typeof data.attributes === "object" &&
-          "url" in data.attributes &&
-          typeof data.attributes.url === "string"
-        ) {
-          return data.attributes.url;
-        }
-        if ("url" in data && typeof data.url === "string") {
-          return data.url;
-        }
-      }
-    }
-  }
-
-  return null;
-}
-
-export default function PeopleGlobalSection({ cards, data }: PeopleGlobalSectionProps) {
-  const cardsList = cards || data?.cards || [];
-  const membersList = cardsList.map((card) => {
+export default function PeopleGlobalSection({ members, cards, data }: PeopleGlobalSectionProps) {
+  // If clean `members` prop is passed, use it directly!
+  const legacyCards = cards || data?.cards || [];
+  const processedLegacy: PeopleMemberItem[] = legacyCards.map((card) => {
     const name = card.Name || card.title || "";
     const role = card.Designation || card.badge || "";
     const bioText = card.Description || card.description || "";
 
-    // Handle Strapi v4/v5 nested media structure or direct url
     const rawImage = card.Image || card.image;
-    const extractedUrl = extractImageUrl(rawImage);
+    const extractedUrl = extractMediaUrl(rawImage);
     let imageUrl =
-      extractedUrl || STATIC_FALLBACK_IMAGES[name] || "/assets/images/team/placeholder-male.png"; // default fallback
+      extractedUrl || STATIC_FALLBACK_IMAGES[name] || "/assets/images/team/placeholder-male.png";
 
-    // Add Strapi absolute URL prefix if it's a relative path
     if (imageUrl.startsWith("/") && !imageUrl.startsWith("/assets")) {
       imageUrl = GetStrapiMediaUrl(imageUrl);
     }
@@ -129,15 +79,17 @@ export default function PeopleGlobalSection({ cards, data }: PeopleGlobalSection
             .map((p) => `<p>${p}</p>`)
             .join("")
         : "",
-      modalBg: card.ModalUpperSectionBg || "var(--color-midnight-blue)", // default fallback
+      modalBg: card.ModalUpperSectionBg || "#162047",
     };
   });
 
-  const [activeLeader, setActiveLeader] = useState<(typeof membersList)[0] | null>(null);
+  const membersList = members && members.length > 0 ? members : processedLegacy;
+
+  const [activeLeader, setActiveLeader] = useState<PeopleMemberItem | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const openModal = (leader: (typeof membersList)[0], currentTarget: HTMLElement) => {
+  const openModal = (leader: PeopleMemberItem, currentTarget: HTMLElement) => {
     triggerRef.current = currentTarget;
     setActiveLeader(leader);
   };
@@ -276,7 +228,7 @@ export default function PeopleGlobalSection({ cards, data }: PeopleGlobalSection
             <>
               <div
                 className="people-modal-top flex items-center gap-6 md:gap-8 p-6 md:p-10 border-b border-white/10 shrink-0"
-                style={{ backgroundColor: activeLeader.modalBg || "#101830" }}
+                style={{ backgroundColor: activeLeader.modalBg || "#162047" }}
               >
                 <div className="people-modal-photo-wrap shrink-0 relative w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden">
                   <Image

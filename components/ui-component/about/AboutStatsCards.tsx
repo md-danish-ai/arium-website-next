@@ -1,68 +1,26 @@
 import React from "react";
 import { Typography } from "@ui-element";
-import { AboutStatsCardsProps, StatsCardItem } from "./type";
+import { AboutStatsCardsProps } from "./type";
 
-export default function AboutStatsCards({
-  Heading,
-  Description,
-  CradColorful,
-  data,
-}: AboutStatsCardsProps) {
-  const defaultCards: StatsCardItem[] = [
-    {
-      Title: "39B",
-      Description: "Expected number of IoT devices by 2030",
-      Badge: "IoT Analytics, 2025",
-    },
-    {
-      Title: "21GB",
-      Description: "Average monthly mobile data consumption per capita",
-      Badge: "Ericsson, 2025",
-    },
-    {
-      Title: "89%",
-      Description: "Expected share of 5G mobile connections in North America by 2030",
-      Badge: "GSMA, 2025",
-    },
-  ];
+const COLOR_SCHEMES = [
+  {
+    barBg: "bg-[#00e8d9]",
+    glowBg: "bg-[radial-gradient(circle,#00e8d9_0%,transparent_70%)]",
+    cardBg: "bg-gradient-to-br from-[#e6faf8] via-[#d0f5f1] to-[#c2f0eb]",
+  },
+  {
+    barBg: "bg-[#c8b3ff]",
+    glowBg: "bg-[radial-gradient(circle,#c8b3ff_0%,transparent_70%)]",
+    cardBg: "bg-gradient-to-br from-[#eeeafc] via-[#e2dbf8] to-[#d8d0f4]",
+  },
+  {
+    barBg: "bg-[#ffba5c]",
+    glowBg: "bg-[radial-gradient(circle,#ffba5c_0%,transparent_70%)]",
+    cardBg: "bg-gradient-to-br from-[#fef3e8] via-[#fce9d5] to-[#f9e0c8]",
+  },
+];
 
-  const rawCards =
-    (CradColorful && CradColorful.length > 0 ? CradColorful : null) ||
-    (data?.stats && data.stats.length > 0 ? data.stats : null) ||
-    (data?.cards && data.cards.length > 0 ? data.cards : null) ||
-    defaultCards;
-
-  const items: StatsCardItem[] = rawCards.map((c) => {
-    const item = c as Record<string, unknown>;
-    return {
-      Title: (item.Title || item.value || item.title || "") as string,
-      Description: (item.Description || item.label || item.description || "") as string,
-      Badge: (item.Badge || item.badge || "") as string,
-      BgGradient: (item.BgGradient || item.bgGradient) as string | undefined,
-    };
-  });
-
-  const headingStr = Heading || data?.title || "Why our infrastructure matters";
-
-  // Glow and color schemes matching design
-  const colorSchemes = [
-    {
-      barBg: "bg-[#00e8d9]",
-      glowBg: "bg-[radial-gradient(circle,#00e8d9_0%,transparent_70%)]",
-      cardBg: "bg-gradient-to-br from-[#e6faf8] via-[#d0f5f1] to-[#c2f0eb]",
-    },
-    {
-      barBg: "bg-[#c8b3ff]",
-      glowBg: "bg-[radial-gradient(circle,#c8b3ff_0%,transparent_70%)]",
-      cardBg: "bg-gradient-to-br from-[#eeeafc] via-[#e2dbf8] to-[#d8d0f4]",
-    },
-    {
-      barBg: "bg-[#ffba5c]",
-      glowBg: "bg-[radial-gradient(circle,#ffba5c_0%,transparent_70%)]",
-      cardBg: "bg-gradient-to-br from-[#fef3e8] via-[#fce9d5] to-[#f9e0c8]",
-    },
-  ];
-
+export default function AboutStatsCards({ heading, description, stats }: AboutStatsCardsProps) {
   return (
     <section className="bg-white py-14 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden z-[2]">
       <div className="container relative z-[2]">
@@ -75,29 +33,29 @@ export default function AboutStatsCards({
             weight="light"
             className="section-title reveal text-midnight m-0 mb-0"
           >
-            {headingStr}
+            {heading}
           </Typography>
-          {Description && (
+          {description && (
             <Typography
               variant="b1"
               as="p"
               className="section-description reveal stagger-1 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
             >
-              {Description}
+              {description}
             </Typography>
           )}
         </div>
 
         {/* Cards Grid: 1 col on mobile (< 768px), 3 cols on tablet/desktop (>= 768px) */}
         <div className="grid grid-cols-1 w-full max-w-[520px] mx-auto md:max-w-none md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 items-stretch reveal stagger-1">
-          {items.map((item, index) => {
-            const targetStr = item.Title || "0";
+          {stats.map((item, index) => {
+            const targetStr = item.title || "0";
             const targetNum = parseFloat(targetStr) || 0;
             const suffix = targetStr.replace(targetNum.toString(), "").trim();
 
-            let styleIndex = index % colorSchemes.length;
-            if (item.BgGradient) {
-              const bgLower = item.BgGradient.toLowerCase();
+            let styleIndex = index % COLOR_SCHEMES.length;
+            if (item.bgGradient) {
+              const bgLower = item.bgGradient.toLowerCase();
               if (
                 bgLower.includes("green") ||
                 bgLower.includes("mint") ||
@@ -119,7 +77,7 @@ export default function AboutStatsCards({
                 styleIndex = 2;
             }
 
-            const scheme = colorSchemes[styleIndex];
+            const scheme = COLOR_SCHEMES[styleIndex];
 
             return (
               <div
@@ -156,9 +114,9 @@ export default function AboutStatsCards({
                     as="p"
                     className="text-midnight/85 m-0 leading-snug md:leading-relaxed"
                   >
-                    {item.Description}
+                    {item.description}
                   </Typography>
-                  {item.Badge && (
+                  {item.badge && (
                     <div className="md:mt-6">
                       <Typography
                         variant="b4"
@@ -167,7 +125,7 @@ export default function AboutStatsCards({
                         weight="semibold"
                         className="whitespace-nowrap not-italic text-midnight/70 px-3 py-1 rounded-full border border-midnight/10 bg-white/40 inline-block text-[0.68rem] tracking-[0.06em]"
                       >
-                        {item.Badge}
+                        {item.badge}
                       </Typography>
                     </div>
                   )}

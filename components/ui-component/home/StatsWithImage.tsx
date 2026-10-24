@@ -2,42 +2,14 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography, StatCard } from "@ui-element";
 import { StatsWithImageProps, StatItem } from "./type";
 
-const DEFAULT_CARD_BG_COLORS = ["#898cf3", "#bcf6f2", "#ffffff", "#ffffca", "#ffdac8"];
-
-const COLOR_MAP: Record<string, string> = {
-  purple: "#898cf3",
-  teal: "#bcf6f2",
-  white: "#ffffff",
-  yellow: "#ffffca",
-  orange: "#ffdac8",
-};
-
-const resolveBgColor = (color?: string, index: number = 0): string => {
-  if (!color) return DEFAULT_CARD_BG_COLORS[index % DEFAULT_CARD_BG_COLORS.length];
-  const normalized = color.toLowerCase().replace(/[^a-z]/g, "");
-  return COLOR_MAP[normalized] || color;
-};
-
-const DEFAULT_STATS: StatItem[] = [
-  { Number: "100K+", Description: "Small cells on air or under contract", BgColor: "#898cf3" },
-  { Number: "300+", Description: "DAS-connected venues and buildings", BgColor: "#bcf6f2" },
-  { Number: "700+", Description: "Supported municipal networks", BgColor: "#ffffff" },
-  { Number: "15+", Description: "Years of expertise", BgColor: "#ffffca" },
-  { Number: "24/7", Description: "Monitoring via the NOC", BgColor: "#ffdac8" },
-];
-
-const DEFAULT_MAP_IMAGE = "/assets/images/us-dot-map-faint.svg";
-const DEFAULT_HEADING = "Scale and experience to match your ambition";
-
 export default function StatsWithImage({
   heading,
-  statscards,
-  image,
-  HeadingColor,
+  stats,
+  mapImageSrc,
+  headingColor,
 }: StatsWithImageProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -86,35 +58,6 @@ export default function StatsWithImage({
     return () => observer.disconnect();
   }, []);
 
-  const imgObj = image as
-    | {
-        url?: string;
-        alternativeText?: string;
-        data?: {
-          url?: string;
-          alternativeText?: string;
-          attributes?: { url?: string; alternativeText?: string };
-        };
-        attributes?: { url?: string; alternativeText?: string };
-      }
-    | undefined;
-
-  const imageUrl =
-    imgObj?.url ||
-    imgObj?.data?.attributes?.url ||
-    imgObj?.data?.url ||
-    imgObj?.attributes?.url ||
-    DEFAULT_MAP_IMAGE;
-  const absoluteImageUrl = imageUrl.startsWith("/assets/") ? imageUrl : GetStrapiMediaUrl(imageUrl);
-  const altText =
-    imgObj?.alternativeText ||
-    imgObj?.data?.attributes?.alternativeText ||
-    imgObj?.data?.alternativeText ||
-    heading ||
-    "Stats graphic";
-
-  const cardsToRender = statscards && statscards.length > 0 ? statscards : DEFAULT_STATS;
-
   return (
     <section
       className="shared-swi-section relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24 lg:pt-[72px] lg:pb-[120px] bg-midnight"
@@ -128,25 +71,25 @@ export default function StatsWithImage({
             variant="h3"
             uppercase
             className="shared-swi-title text-center text-white max-w-full m-0"
-            style={{ color: HeadingColor || undefined }}
+            style={{ color: headingColor || undefined }}
           >
-            {heading || DEFAULT_HEADING}
+            {heading}
           </Typography>
         </div>
 
         <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
           <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 sm:gap-3.5 md:gap-4 w-full h-full reveal stagger-1">
-            {cardsToRender.map((stat: StatItem, index: number, array: StatItem[]) => {
+            {stats.map((stat: StatItem, index: number, array: StatItem[]) => {
               const isLastSpan2 = index === array.length - 1 && array.length % 2 !== 0;
 
               return (
                 <StatCard
                   key={index}
-                  number={stat.Number || stat.value || "0"}
-                  description={stat.Description || stat.label || ""}
-                  bgColor={resolveBgColor(stat.BgColor, index)}
-                  numberColor={stat.NumberColor}
-                  descriptionColor={stat.DescriptionColor}
+                  number={stat.number}
+                  description={stat.description}
+                  bgColor={stat.bgColor}
+                  numberColor={stat.numberColor}
+                  descriptionColor={stat.descriptionColor}
                   align={isLastSpan2 ? "center" : "left"}
                   className={isLastSpan2 ? "col-span-2" : ""}
                 />
@@ -156,8 +99,8 @@ export default function StatsWithImage({
 
           <div className="shared-swi-map-container flex items-center justify-center h-full w-full reveal stagger-2 mt-4 lg:mt-0">
             <Image
-              src={absoluteImageUrl}
-              alt={altText}
+              src={mapImageSrc}
+              alt={heading || "Coverage Map"}
               width={800}
               height={480}
               unoptimized

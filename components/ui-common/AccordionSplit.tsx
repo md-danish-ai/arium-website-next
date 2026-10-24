@@ -45,47 +45,13 @@ interface AccordionSplitProps {
   Accordian?: AccordionItem[];
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+import { extractMediaUrl } from "@utils";
 
-function extractImageUrl(bgImg: unknown): string {
-  if (!bgImg) return "";
-  if (typeof bgImg === "string") return bgImg;
-  if (Array.isArray(bgImg) && bgImg.length > 0) {
-    const first: unknown = bgImg[0];
-    if (typeof first === "string") return first;
-    if (first && typeof first === "object" && "url" in first) {
-      const urlVal = (first as { url?: unknown }).url;
-      if (typeof urlVal === "string") return urlVal;
-    }
-  }
-  if (typeof bgImg === "object" && bgImg !== null) {
-    const record = bgImg as Record<string, unknown>;
-    if (typeof record.url === "string") return record.url;
-    if (record.data && typeof record.data === "object" && record.data !== null) {
-      const dataObj = record.data as Record<string, unknown>;
-      if (
-        dataObj.attributes &&
-        typeof dataObj.attributes === "object" &&
-        dataObj.attributes !== null
-      ) {
-        const attrs = dataObj.attributes as Record<string, unknown>;
-        if (typeof attrs.url === "string") return attrs.url;
-      }
-    }
-    if (record.formats && typeof record.formats === "object" && record.formats !== null) {
-      const formats = record.formats as Record<string, unknown>;
-      if (formats.large && typeof formats.large === "object" && formats.large !== null) {
-        const large = formats.large as Record<string, unknown>;
-        if (typeof large.url === "string") return large.url;
-      }
-    }
-  }
-  return "";
-}
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function resolveItemImage(item: AccordionItem): string {
   const directUrl =
-    extractImageUrl(item.BgImage) || extractImageUrl(item.bgImage) || extractImageUrl(item.image);
+    extractMediaUrl(item.BgImage) || extractMediaUrl(item.bgImage) || extractMediaUrl(item.image);
   return directUrl ? GetStrapiMediaUrl(directUrl) : "";
 }
 
@@ -99,9 +65,9 @@ function isImageVariant(items: AccordionItem[], bgGradient?: string): boolean {
   if (
     items.some(
       (item) =>
-        extractImageUrl(item.BgImage) ||
-        extractImageUrl(item.bgImage) ||
-        extractImageUrl(item.image)
+        extractMediaUrl(item.BgImage) ||
+        extractMediaUrl(item.bgImage) ||
+        extractMediaUrl(item.image)
     )
   )
     return true;

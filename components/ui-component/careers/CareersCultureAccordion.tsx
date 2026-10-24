@@ -2,88 +2,32 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Typography } from "@ui-element";
+import type { CareersCultureAccordionProps, CareersPillar } from "./type";
 
-interface PillarCard {
-  title: string;
-  description: string;
-  icon?: string;
-}
-
-interface CareersSection {
-  key?: string;
-  title?: string;
-  body?: string;
-  cards?: PillarCard[];
-}
-
-interface CareersPageContent {
-  title?: string;
-  body?: string;
-  cards?: PillarCard[];
-  sections?: CareersSection[];
-}
-
-interface CareersCultureAccordionProps {
-  data?: CareersPageContent;
-}
-
-const FALLBACK_PILLARS = [
-  {
-    title: "Be Part of a Team",
-    description:
-      "We're building more than networks: we're building a team that takes pride and ownership in what we create together. As we grow, every teammate helps shape how we work, collaborate, and succeed. Here, culture isn't handed down—it's shaped by the people who live it every day.",
-  },
-  {
-    title: "Shape the Future",
-    description:
-      "We're at a pivotal moment in the evolution of wireless infrastructure. New technologies are increasing demands on networks, coverage, and capacity. As part of our team, you'll help design and deliver solutions that meet these challenges while influencing how we work, innovate, and grow as an organization.",
-  },
-  {
-    title: "Make an Impact",
-    description:
-      "As a fast-growing, privately held company, we move with purpose and make decisions focused on long-term success. Our teammates are trusted to take ownership, contribute ideas, and turn plans into execution.",
-  },
-  {
-    title: "Advance Your Career",
-    description:
-      "Backed by EQT, a leading private equity firm, we combine the momentum of a growing organization with strong financial support. We invest in our people, systems, and infrastructure to support sustainable growth—creating opportunities for you to develop new skills, assume greater responsibility, and grow your career.",
-  },
-  {
-    title: "Improve Everyday Connections",
-    description:
-      "Our infrastructure supports how people live, work, and stay connected. We take that responsibility seriously. Your expertise and perspective will contribute to the reliability, safety and reach of the networks communities and businesses depend on every day.",
-  },
-];
-
-export default function CareersCultureAccordion({ data }: CareersCultureAccordionProps) {
+export default function CareersCultureAccordion({
+  title,
+  contentHtml,
+  paragraphs = [],
+  pillars = [],
+}: CareersCultureAccordionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const storyData = data?.sections?.find((s) => s.key === "Why Join");
-  const pillarsData = data?.sections?.find((s) => s.key === "Pillars");
-
-  const pillars = pillarsData?.cards?.length
-    ? pillarsData.cards
-    : data?.cards?.length
-      ? data.cards
-      : FALLBACK_PILLARS;
-
-  const title = storyData?.title || data?.title || "Why Join Arium Networks?";
-  const body = storyData?.body || data?.body;
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const startAutoPlay = () => {
-    stopAutoPlay();
-    autoPlayRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % pillars.length);
-    }, 6000);
-  };
 
   const stopAutoPlay = () => {
     if (autoPlayRef.current) {
       clearInterval(autoPlayRef.current);
       autoPlayRef.current = null;
     }
+  };
+
+  const startAutoPlay = () => {
+    if (pillars.length === 0) return;
+    stopAutoPlay();
+    autoPlayRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % pillars.length);
+    }, 6000);
   };
 
   useEffect(() => {
@@ -111,7 +55,7 @@ export default function CareersCultureAccordion({ data }: CareersCultureAccordio
       className="careers-accordion-wrapper relative overflow-hidden py-20 bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] border-y border-black/5"
       onMouseLeave={handleMouseLeave}
     >
-      {/* Decorative background bubbles from old CareersStory */}
+      {/* Decorative background bubbles */}
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
@@ -128,23 +72,18 @@ export default function CareersCultureAccordion({ data }: CareersCultureAccordio
             >
               {title}
             </Typography>
-            {body ? (
+            {contentHtml ? (
               <div
                 className="strapi-richtext-body text-[#162047]/90 text-left text-lg leading-relaxed space-y-4"
-                dangerouslySetInnerHTML={{ __html: body }}
+                dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (
               <div className="text-left space-y-5 text-[#162047]/90 leading-relaxed">
-                <Typography variant="b1" as="p" className="text-[#162047]/90 m-0">
-                  Wireless connectivity is entering a new era, and our infrastructure is at the
-                  center of it. Across communities nationwide, we design, build, and support
-                  networks that wireless carriers rely on every day.
-                </Typography>
-                <Typography variant="b1" as="p" className="text-[#162047]/90 m-0">
-                  When you join our team, you&apos;re joining an organization that cares deeply
-                  about its people and you&apos;ll be contributing to the critical infrastructure
-                  that keeps people connected, informed, and safe.
-                </Typography>
+                {paragraphs.map((p, idx) => (
+                  <Typography key={idx} variant="b1" as="p" className="text-[#162047]/90 m-0">
+                    {p}
+                  </Typography>
+                ))}
               </div>
             )}
           </div>
@@ -152,7 +91,7 @@ export default function CareersCultureAccordion({ data }: CareersCultureAccordio
           {/* RIGHT: Pillars accordion */}
           <div className="wj-col-right w-full">
             <div className="reveal wj-interactive-list flex flex-col gap-3.5">
-              {pillars.map((pillar: PillarCard, index: number) => {
+              {pillars.map((pillar: CareersPillar, index: number) => {
                 const isActive = index === currentIndex;
                 const hasIcon = Boolean(pillar.icon && pillar.icon.trim() !== "");
                 return (

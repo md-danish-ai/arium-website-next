@@ -1,22 +1,23 @@
 import React from "react";
 import { BackgroundFeatureSection } from "@ui-component";
 import { SectionRendererProps } from "./helper";
+import { mapBackgroundFeature } from "@services/mappers/home.mapper";
 
 export default function BackgroundFeatureRenderer({ section, index }: SectionRendererProps) {
+  const props = mapBackgroundFeature(section);
   return (
     <BackgroundFeatureSection
       key={`bg-feature-${index}`}
-      Heading={section.Heading || section.heading}
-      Description={section.Description || section.description}
-      BackgroundImage={section.BackgroundImage || section.backgroundImage}
-      CTALabel={section.CTALabel || section.ctaLabel}
-      CTALink={section.CTALink || section.ctaLink}
-      FeatureCards={section.FeatureCards || section.featureCards || []}
-      FontColorHeading={section.FontColorHeading}
-      FontColorDescription={section.FontColorDescription}
-      MaxWidthText={
-        section.MaxWidthText || section.maxWidthText || section.maxWidth || section.MaxWidth
-      }
+      heading={props.heading}
+      description={props.description}
+      desktopBgUrl={props.desktopBgUrl}
+      mobileBgUrl={props.mobileBgUrl}
+      ctaLabel={props.ctaLabel}
+      ctaLink={props.ctaLink}
+      cards={props.cards}
+      fontColorHeading={props.fontColorHeading}
+      fontColorDescription={props.fontColorDescription}
+      maxWidthText={props.maxWidthText}
     />
   );
 }

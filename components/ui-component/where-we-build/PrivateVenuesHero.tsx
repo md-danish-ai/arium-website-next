@@ -2,16 +2,25 @@ import React from "react";
 import Link from "next/link";
 import { Typography } from "@ui-element";
 
-interface PrivateVenuesHeroProps {
-  data?: {
-    heroTag?: string;
-    heroTitle?: string;
-    heroDescription?: string;
-    heroCtas?: { label: string; url: string };
-  };
+export interface PrivateVenuesHeroProps {
+  tag?: string;
+  title: string;
+  description: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+  breadcrumbParent?: string;
+  breadcrumbParentUrl?: string;
 }
 
-export default function PrivateVenuesHero({ data }: PrivateVenuesHeroProps) {
+export default function PrivateVenuesHero({
+  tag = "Private Venues",
+  title,
+  description,
+  ctaLabel = "Contact Us",
+  ctaUrl = "/contact",
+  breadcrumbParent = "Where We Build",
+  breadcrumbParentUrl = "/where-we-build",
+}: PrivateVenuesHeroProps) {
   return (
     <section
       className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] pt-[180px] md:pt-[200px] pb-24 md:pb-32 px-6"
@@ -31,14 +40,14 @@ export default function PrivateVenuesHero({ data }: PrivateVenuesHeroProps) {
         >
           <li>
             <Link
-              href="/where-we-build"
+              href={breadcrumbParentUrl}
               className="text-[#162047]/50 hover:text-[#162047] no-underline transition-colors duration-300"
             >
-              Where We Build
+              {breadcrumbParent}
             </Link>
           </li>
           <li className="text-[#162047]/30 text-[0.7rem]">/</li>
-          <li className="text-[#162047]/80 font-medium">{data?.heroTag || "Private Venues"}</li>
+          <li className="text-[#162047]/80 font-medium">{tag}</li>
         </Typography>
       </nav>
 
@@ -51,7 +60,7 @@ export default function PrivateVenuesHero({ data }: PrivateVenuesHeroProps) {
             uppercase
             className="reveal stagger-1 text-[#162047]/70 mb-4 tracking-widest"
           >
-            {data?.heroTag || "Private Venues"}
+            {tag}
           </Typography>
           <div className="reveal stagger-1 w-12 h-[2px] bg-[#162047] mx-auto mb-5" />
           <Typography
@@ -61,31 +70,32 @@ export default function PrivateVenuesHero({ data }: PrivateVenuesHeroProps) {
             weight="light"
             className="subpage-title reveal stagger-2 text-[#162047] leading-tight mb-5"
           >
-            {data?.heroTitle || "Bringing advanced connectivity to your property"}
+            {title}
           </Typography>
           <Typography
             variant="b1"
             as="p"
             className="subpage-intro reveal stagger-3 text-[#162047]/80 max-w-2xl mx-auto"
           >
-            {data?.heroDescription ||
-              "Our in-building solutions help private venues keep up with advances and technology, while supporting the connectivity demands of tenants and guests."}
+            {description}
           </Typography>
-          <div className="reveal stagger-4 mt-7">
-            <Link
-              href={data?.heroCtas?.url || "/contact"}
-              className="pv-hero-cta group inline-flex items-center justify-center bg-[#162047] text-white border-2 border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
-            >
-              <Typography
-                variant="button"
-                uppercase
-                weight="semibold"
-                className="text-white group-hover:text-[#162047]"
+          {ctaLabel && (
+            <div className="reveal stagger-4 mt-7">
+              <Link
+                href={ctaUrl}
+                className="pv-hero-cta group inline-flex items-center justify-center bg-[#162047] text-white border-2 border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
               >
-                {data?.heroCtas?.label || "Contact Us"}
-              </Typography>
-            </Link>
-          </div>
+                <Typography
+                  variant="button"
+                  uppercase
+                  weight="semibold"
+                  className="text-white group-hover:text-[#162047]"
+                >
+                  {ctaLabel}
+                </Typography>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -1,64 +1,32 @@
 import React from "react";
-import { InnerPageHero, PeopleGlobalSection, GlobeCTA, PeopleCard } from "@ui-common";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
 import type { Metadata } from "next";
+import { InnerPageHero, PeopleGlobalSection, GlobeCTA } from "@ui-common";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import { mapInnerHero, mapPeopleMembers, mapPeopleCta } from "@services/mappers/people.mapper";
+import {
+  BOARD_HERO_FALLBACK,
+  BOARD_MEMBERS_FALLBACK,
+  BOARD_CTA_FALLBACK,
+  BOARD_SEO_FALLBACK,
+} from "@data/board-of-directors.data";
 
 export const dynamic = "force-dynamic";
-
-interface StrapiSectionItem {
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiSectionItem[];
-  [key: string]: unknown;
-}
-
-interface PageSection {
-  key?: string;
-  title?: string;
-  cards?: PeopleCard[];
-  cta?: Array<{ label?: string; url?: string }>;
-  [key: string]: unknown;
-}
-
-interface BoardPageContent {
-  heroTitle?: string;
-  heroDescription?: string;
-  sections?: PageSection[];
-  SeoFields?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    ogTitle?: string;
-    ogDescription?: string;
-    ogType?: "website" | "article" | "book" | "profile";
-    ogSiteName?: string;
-    preventIndexing?: boolean;
-    ogImage?: { url?: string };
-  };
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
     "/api/pages?filters[slug][$eq]=board-of-directors&populate[SeoFields][populate]=*"
   );
-  const seo = pageData?.data?.[0]?.SeoFields as BoardPageContent["SeoFields"];
+  const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Board of Directors | Arium Networks",
-    description:
-      seo?.metaDescription ||
-      "Meet the Arium Networks Board of Directors — experienced leaders guiding strategy across telecommunications, infrastructure, and investment.",
+    title: seo?.metaTitle || BOARD_SEO_FALLBACK.title,
+    description: seo?.metaDescription || BOARD_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Board of Directors | Arium Networks",
-      description:
-        seo?.ogDescription ||
-        "Meet the Arium Networks Board of Directors — experienced leaders guiding strategy across telecommunications, infrastructure, and investment.",
-      type: seo?.ogType || "website",
+      title: seo?.ogTitle || BOARD_SEO_FALLBACK.title,
+      description: seo?.ogDescription || BOARD_SEO_FALLBACK.description,
+      type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
         images: [
@@ -80,77 +48,53 @@ export default async function BoardOfDirectorsPage() {
     fetchAPI(
       "/api/pages?filters[slug][$eq]=board-of-directors&populate[heroCtas]=*&populate[sections][populate][cards][populate][InnerCard][populate]=*&populate[sections][populate][cards][populate][image][populate]=*&populate[sections][populate][cta]=*"
     ),
-    fetchAPI(
-      "/api/pages?filters[slug][$eq]=board-of-directors&populate[widgets][populate][Sections][populate]=*&populate[widgets][populate][Sections][on][shared.people-global-section][populate][Peoplecard][populate]=*&populate[widgets][populate][Sections][on][shared.global-cta][populate]=*&populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*"
-    ),
+    fetchPageWidgets("board-of-directors"),
   ]);
-  const boardContent = pageData?.data?.[0] as BoardPageContent | undefined;
+
+  const boardContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const ctaSection = boardContent?.sections?.find(
-    (section: PageSection) => section.key === "Leadership Meet"
-  );
-  const cta = ctaSection?.cta?.[0];
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    boardContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  const hasInnerHeroWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some((s: StrapiSectionItem) => s.__component === "shared.inner-page-hero")
-  );
+  const heroProps = mapInnerHero(boardContent, BOARD_HERO_FALLBACK);
 
-  const sections: React.ReactElement[] = [];
-  if (!hasInnerHeroWidget) {
-    sections.push(
-      <InnerPageHero
-        key="hero"
-        heroTitle={boardContent?.heroTitle || "Board of Directors"}
-        heroDescription={
-          boardContent?.heroDescription ||
-          "Experienced leaders guiding strategy across telecommunications, infrastructure, and investment."
-        }
-      />
-    );
-  }
+  const directorsSection =
+    getSection("Directors") ||
+    getSection("Board of Directors") ||
+    getSection("Board Members") ||
+    getSection("Board");
+  const members = mapPeopleMembers(directorsSection, BOARD_MEMBERS_FALLBACK);
 
-  // Fallback check: Did Strapi give us a widget that contains people grid?
-  const hasPeopleWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some(
-      (s: StrapiSectionItem) =>
-        s.__component?.includes("people-global-section") || s.__component?.includes("people")
-    )
-  );
-  if (!hasPeopleWidget) {
-    const boardSection = boardContent?.sections?.find(
-      (section: PageSection) =>
-        section.key === "Board of Directors" ||
-        section.key === "Board Members" ||
-        section.key === "Board"
-    );
-    sections.push(<PeopleGlobalSection key="board-members" data={boardSection} />);
-  }
+  const ctaSection = getSection("Leadership Meet") || getSection("CTA") || getSection("Leadership");
+  const ctaProps = mapPeopleCta(ctaSection, BOARD_CTA_FALLBACK);
 
-  [...globalWidgets].reverse().forEach((widget: StrapiWidget) => {
-    const pos = widget.PositionNumber ?? sections.length;
-    sections.splice(pos, 0, <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
-  });
-
-  // Fallback check: Did Strapi give us a widget that contains a CTA?
-  const hasCtaWidget = globalWidgets.some((w: StrapiWidget) =>
-    w.Sections?.some((s: StrapiSectionItem) => s.__component?.includes("cta"))
+  const hasInnerHeroWidget = globalWidgets.some((w) =>
+    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
   );
 
-  // If no CTA widget exists, inject the fallback CTA at the very bottom!
-  if (!hasCtaWidget) {
-    sections.push(
-      <GlobeCTA
-        key="cta-fallback"
-        title={
-          ctaSection?.title ||
-          "Learn more about the leadership team driving Arium Networks' mission forward."
-        }
-        buttonText={cta?.label || "Meet Our Leadership"}
-        buttonLink={cta?.url || "/leadership"}
-      />
-    );
-  }
+  const fallbackSections: SectionEntry[] = [
+    {
+      pos: 0,
+      key: "hero-fallback",
+      skip: hasInnerHeroWidget,
+      el: <InnerPageHero key="hero-fallback" {...heroProps} />,
+    },
+    {
+      pos: 1,
+      key: "team-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["people-global-section", "people"]),
+      el: <PeopleGlobalSection key="team-fallback" members={members} />,
+    },
+    {
+      pos: 99,
+      key: "cta-fallback",
+      skip: hasWidgetComponent(globalWidgets, ["cta", "calltoaction", "call-to-action"]),
+      el: <GlobeCTA key="cta-fallback" {...ctaProps} />,
+    },
+  ];
 
-  return <>{sections}</>;
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
+
+  return <>{renderedSections}</>;
 }

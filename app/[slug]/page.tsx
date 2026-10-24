@@ -1,28 +1,13 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { HeroBanner } from "@ui-common";
 import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import HeroBanner from "@ui-common/HeroBanner";
+import { combinePageSections, resolveStrapiImage } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry } from "@types";
 
 export const dynamic = "force-dynamic";
 
-interface StrapiWidgetSection {
-  id?: number | string;
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiWidgetSection[];
-  [key: string]: unknown;
-}
-
-// ─────────────────────────────────────────────────────────────
-// SEO Metadata — resolved dynamically from Strapi
-// ─────────────────────────────────────────────────────────────
 export async function generateMetadata({
   params,
 }: {
@@ -53,9 +38,6 @@ export async function generateMetadata({
   };
 }
 
-// ─────────────────────────────────────────────────────────────
-// Dynamic Page Component
-// ─────────────────────────────────────────────────────────────
 export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
@@ -66,49 +48,38 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     fetchPageWidgets(`${slug}`),
   ]);
 
-  console.log("DEBUG STRAPI FETCH FOR SLUG:", slug, "RESULT:", JSON.stringify(pageData, null, 2));
-
-  // If Strapi returns nothing for this slug → 404
   if (!pageData?.data?.[0]) {
     notFound();
   }
 
-  const pageContent = pageData.data[0];
+  const pageContent: StrapiPageData = pageData.data[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  // ── Sort widgets into position map ──────────────────────────
-  const sectionsMap: Record<number, React.ReactElement[]> = {};
-  globalWidgets.forEach((widget, index: number) => {
-    const pos = widget.PositionNumber ?? index;
-    if (!sectionsMap[pos]) sectionsMap[pos] = [];
-    sectionsMap[pos].push(<GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />);
-  });
+  const hasHeroWidget = globalWidgets.some(
+    (w) => w.PositionNumber === 0 || w.Sections?.some((s) => s.__component?.includes("hero"))
+  );
 
-  const sections: React.ReactElement[] = [];
-  Object.keys(sectionsMap)
-    .sort((a, b) => Number(a) - Number(b))
-    .forEach((key) => sections.push(...sectionsMap[Number(key)]));
+  const heroImgUrl = resolveStrapiImage(pageContent?.heroMedia, "/assets/images/challenges-bg.png");
 
-  // ── Hero fallback ────────────────────────────────────────────
-  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
+  const fallbackSections: SectionEntry[] = [
+    {
+      pos: 0,
+      key: "hero-fallback",
+      skip: hasHeroWidget,
+      el: (
+        <HeroBanner
+          key="hero-fallback"
+          id={`${slug}-hero`}
+          imageSrc={heroImgUrl}
+          imageAlt={pageContent?.heroTitle || slug}
+          heading={pageContent?.heroTitle || ""}
+          intro={pageContent?.heroDescription || ""}
+        />
+      ),
+    },
+  ];
 
-  if (!hasHeroWidget) {
-    const heroMedia = pageContent?.heroMedia?.[0];
-    const heroImgUrl = heroMedia?.url
-      ? GetStrapiMediaUrl(heroMedia.url)
-      : "/assets/images/challenges-bg.png";
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-    sections.unshift(
-      <HeroBanner
-        key="hero-fallback"
-        id={`${slug}-hero`}
-        imageSrc={heroImgUrl}
-        imageAlt={heroMedia?.alternativeText || pageContent?.heroTitle || slug}
-        heading={pageContent?.heroTitle || ""}
-        intro={pageContent?.heroDescription || ""}
-      />
-    );
-  }
-
-  return <>{sections}</>;
+  return <>{renderedSections}</>;
 }

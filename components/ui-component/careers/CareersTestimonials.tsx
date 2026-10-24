@@ -1,18 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
-
-interface TestimonialCard {
-  title: string;
-  badge: string;
-  description: string;
-}
-
-interface CareersTestimonialsProps {
-  data?: {
-    title?: string;
-    cards?: TestimonialCard[];
-  };
-}
+import type { CareersTestimonialsProps } from "./type";
 
 const TESTIMONIAL_STYLES = [
   {
@@ -38,35 +26,10 @@ const TESTIMONIAL_STYLES = [
   } as React.CSSProperties, // Peach
 ];
 
-const FALLBACK_TESTIMONIALS = [
-  {
-    title: "Gabe Villalobos",
-    badge: "Project Manager",
-    description:
-      "At Arium Networks, you're surrounded by individuals who are experts in their respective fields that push you to want to grow and excel. You are heard and your opinions hold value.\"",
-  },
-  {
-    title: "Emily Cates",
-    badge: "Permitting Specialist",
-    description:
-      "Working here, I've been able to learn, grow, and feel truly valued. It has been incredibly rewarding—and thanks to the benefits, it even helped make starting my family possible.\"",
-  },
-  {
-    title: "Anthony Price",
-    badge: "Client Services Manager",
-    description:
-      'Working at Arium Networks is energizing because of the strong sense of ownership and accountability across the team. I get to move fast, solve challenges, and deliver outcomes that truly matter."',
-  },
-  {
-    title: "Jessica Fernandez",
-    badge: "Senior External Affairs Manager",
-    description:
-      'The best part of my role is being surrounded by accomplished people across the organization, working toward the same shared goal of building better connectivity. That makes the work especially rewarding."',
-  },
-];
-
-export default function CareersTestimonials({ data }: CareersTestimonialsProps) {
-  const testimonials = data?.cards?.length ? data.cards : FALLBACK_TESTIMONIALS;
+export default function CareersTestimonials({
+  title,
+  testimonials = [],
+}: CareersTestimonialsProps) {
   return (
     <section
       className="section-light bg-transparent py-20 relative overflow-hidden"
@@ -83,7 +46,7 @@ export default function CareersTestimonials({ data }: CareersTestimonialsProps) 
             as="h2"
             className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
           >
-            {data?.title || "Meet the Arium Networks Team"}
+            {title}
           </Typography>
         </div>
         <div className="tm-row careers-tm-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1440px] mx-auto">

@@ -1,17 +1,10 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import type { SubpageTestimonialItem } from "@data/where-subpages.data";
 
-interface TestimonialCard {
-  title?: string;
-  description?: string;
-  badge?: string;
-}
-
-interface PrivateVenuesTestimonialsProps {
-  data?: {
-    title?: string;
-    cards?: TestimonialCard[];
-  };
+export interface PrivateVenuesTestimonialsProps {
+  title: string;
+  testimonials: SubpageTestimonialItem[];
 }
 
 const CARD_STYLES = [
@@ -19,25 +12,10 @@ const CARD_STYLES = [
   { kpi: "#e8935a", glow: "232, 147, 90", bg: "var(--color-secondary-peach)" },
 ];
 
-export default function PrivateVenuesTestimonials({ data }: PrivateVenuesTestimonialsProps) {
-  const testimonials =
-    data?.cards && data.cards.length > 0
-      ? data.cards
-      : [
-          {
-            description:
-              "Fans today want to share their experiences in real-time. Without reliable in-building connectivity, it doesn't matter how great the event is; they feel disconnected. Adding a dedicated small cell network transformed our venue.\"",
-            title: "David L.",
-            badge: "Director of Operations, Major Sports Arena",
-          },
-          {
-            description:
-              'Our property is a mixed-use development, and tenants expect seamless cellular coverage from the parking garage to the top floor. Custom wireless solutions proved to be the key differentiator for leasing."',
-            title: "Maria C.",
-            badge: "Commercial Real Estate Developer",
-          },
-        ];
-
+export default function PrivateVenuesTestimonials({
+  title = "What venue operators are saying",
+  testimonials,
+}: PrivateVenuesTestimonialsProps) {
   return (
     <section
       className="section-light bg-transparent py-20 relative overflow-hidden"
@@ -54,7 +32,7 @@ export default function PrivateVenuesTestimonials({ data }: PrivateVenuesTestimo
             as="h2"
             className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
           >
-            {data?.title || "What venue operators are saying"}
+            {title}
           </Typography>
         </div>
         <div className="tm-row grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1040px] mx-auto w-full">
@@ -85,7 +63,7 @@ export default function PrivateVenuesTestimonials({ data }: PrivateVenuesTestimo
                   as="blockquote"
                   className="tm-panel-text text-[#162047]/85 flex-1 mb-6"
                 >
-                  {card.description}
+                  {card.quote}
                 </Typography>
                 <div className="tm-panel-footer pt-4 border-t border-black/10">
                   <Typography
@@ -94,14 +72,14 @@ export default function PrivateVenuesTestimonials({ data }: PrivateVenuesTestimo
                     weight="bold"
                     className="tm-panel-name text-[#162047] m-0"
                   >
-                    {card.title}
+                    {card.author}
                   </Typography>
                   <Typography
                     variant="b4"
                     as="p"
                     className="tm-panel-role text-[#162047]/60 mt-1 m-0"
                   >
-                    {card.badge}
+                    {card.role}
                   </Typography>
                 </div>
               </div>

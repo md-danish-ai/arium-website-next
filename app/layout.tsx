@@ -4,6 +4,7 @@ import Navbar from "@ui-layout/navbar";
 import Footer from "@ui-layout/footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { fetchAPI, GetStrapiMediaUrl } from "@lib/api";
+import { mapNavbarData, mapFooterData } from "@services/mappers";
 import PageAnimations from "@ui-animations/PageAnimations";
 
 import "@public/css/globals.css";
@@ -59,6 +60,9 @@ export default async function RootLayout({
   );
   const layout = globalData?.data;
 
+  const navbarProps = mapNavbarData(layout);
+  const footerProps = mapFooterData(layout);
+
   return (
     <html
       lang="en"
@@ -72,12 +76,12 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
-        <Navbar layoutData={layout} />
+        <Navbar {...navbarProps} />
         <main id="main-content">
           <PageAnimations />
           {children}
         </main>
-        <Footer layoutData={layout} />
+        <Footer {...footerProps} />
         <GoogleAnalytics gaId="G-8Y4WZT9FKT" />
       </body>
     </html>

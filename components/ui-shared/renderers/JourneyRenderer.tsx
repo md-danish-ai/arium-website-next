@@ -1,14 +1,9 @@
 import React from "react";
 import { AboutJourney } from "@ui-component";
 import { SectionRendererProps } from "./helper";
+import { mapAboutJourney } from "@services/mappers/about.mapper";
 
 export default function JourneyRenderer({ section, index }: SectionRendererProps) {
-  return (
-    <AboutJourney
-      key={`journey-${index}`}
-      Heading={section.Heading || section.heading || section.title}
-      Description={section.Description || section.description || section.body || section.Body}
-      TimeCards={section.TimeCards || section.timeCards || section.Cards}
-    />
-  );
+  const props = mapAboutJourney(section);
+  return <AboutJourney key={`journey-${index}`} {...props} />;
 }

@@ -1,15 +1,17 @@
 import React from "react";
 import { DetailedCardGrid } from "@ui-component";
 import { SectionRendererProps } from "./helper";
+import { mapInfrastructure } from "@services/mappers/home.mapper";
 
 export default function DetailedCardGridRenderer({ section, index }: SectionRendererProps) {
+  const props = mapInfrastructure(section);
   return (
     <DetailedCardGrid
       key={`detailed-card-grid-${index}`}
-      heading={section.Headings || section.Heading || section.heading}
-      description={section.Description || section.description}
-      bgColor={section.BgColor || section.bgColor}
-      panelsCards={section.PanelsCards || section.panelsCards}
+      heading={props.heading}
+      description={props.description}
+      bgColor={props.bgColor}
+      cards={props.cards}
     />
   );
 }

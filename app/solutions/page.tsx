@@ -1,68 +1,21 @@
 import React from "react";
+import type { Metadata } from "next";
 import HeroBanner from "@ui-common/HeroBanner";
-import SolutionsSmallCells from "@ui-component/solutions/SolutionsSmallCells";
-import SolutionsDas from "@ui-component/solutions/SolutionsDas";
-import SolutionsIndustries, {
-  type IndustryCard,
-} from "@ui-component/solutions/SolutionsIndustries";
 import GlobeCTA from "@ui-common/GlobeCTA";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
-import { fetchAPI, fetchPageWidgets, GetStrapiMediaUrl } from "@lib/api";
+import { SolutionsSmallCells, SolutionsDas, SolutionsIndustries } from "@ui-component/solutions";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
+import { GetStrapiMediaUrl, combinePageSections, hasWidgetComponent } from "@utils";
+import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
+import {
+  mapSolutionsHero,
+  mapSolutionsSmallCells,
+  mapSolutionsDas,
+  mapSolutionsIndustries,
+  mapSolutionsApproach,
+} from "@services/mappers/solutions.mapper";
+import { SOLUTIONS_SEO_FALLBACK } from "@data/solutions.data";
 
 export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
-
-interface StrapiMedia {
-  url: string;
-  alternativeText?: string;
-  mime?: string;
-}
-
-interface StrapiCta {
-  label: string;
-  url: string;
-}
-
-interface StrapiSection {
-  key?: string;
-  title?: string;
-  body?: string;
-  stats?: Array<{ value: string; label: string }>;
-  cta?: StrapiCta[];
-  media?: StrapiMedia[];
-  cards?: IndustryCard[];
-}
-
-interface StrapiPageData {
-  heroTitle?: string;
-  heroDescription?: string;
-  heroMedia?: StrapiMedia[];
-  heroCtas?: StrapiCta[];
-  sections?: StrapiSection[];
-  SeoFields?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    ogTitle?: string;
-    ogDescription?: string;
-    ogType?: string;
-    ogSiteName?: string;
-    preventIndexing?: boolean;
-    ogImage?: { url: string };
-  };
-}
-
-interface StrapiWidgetSection {
-  __component?: string;
-  [key: string]: unknown;
-}
-
-interface StrapiWidget {
-  id: number | string;
-  PositionNumber?: number;
-  Sections?: StrapiWidgetSection[];
-  CustomCssClass?: string;
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await fetchAPI(
@@ -71,15 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = pageData?.data?.[0]?.SeoFields;
 
   return {
-    title: seo?.metaTitle || "Our Solutions | Arium Networks",
-    description:
-      seo?.metaDescription ||
-      "Learn how our small cell and DAS networks are increasing capacity and enhancing connectivity in high-demand areas.",
+    title: seo?.metaTitle || SOLUTIONS_SEO_FALLBACK.title,
+    description: seo?.metaDescription || SOLUTIONS_SEO_FALLBACK.description,
     openGraph: {
-      title: seo?.ogTitle || "Our Solutions | Arium Networks",
-      description:
-        seo?.ogDescription ||
-        "Learn how our small cell and DAS networks are increasing capacity and enhancing connectivity in high-demand areas.",
+      title: seo?.ogTitle || SOLUTIONS_SEO_FALLBACK.title,
+      description: seo?.ogDescription || SOLUTIONS_SEO_FALLBACK.description,
       type: (seo?.ogType as "website") || "website",
       siteName: seo?.ogSiteName || "Arium Networks",
       ...(seo?.ogImage?.url && {
@@ -104,115 +53,59 @@ export default async function SolutionsPage() {
     ),
     fetchPageWidgets("solutions"),
   ]);
+
   const solutionsContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
-  const smallCellsData = solutionsContent?.sections?.find(
-    (section) => section.key === "Small Cells"
-  );
-  const dasData = solutionsContent?.sections?.find(
-    (section) => section.key === "Distributed Antenna Systems"
-  );
-  const industriesData = solutionsContent?.sections?.find(
-    (section) => section.key === "Industries"
-  );
-  const approachData = solutionsContent?.sections?.find(
-    (section) => section.key === "Our Approach"
-  );
 
-  const sectionMap: { pos: number; key: string; el: React.ReactElement }[] = [];
+  const getSection = (key: string): StrapiSectionItem | undefined =>
+    solutionsContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  // 1. Add all dynamic global widgets at their precise positions
-  globalWidgets.forEach((widget) => {
-    sectionMap.push({
-      pos: widget.PositionNumber ?? 999,
-      key: `widget-${widget.id}`,
-      el: <GlobalWidgetRenderer key={`widget-${widget.id}`} widget={widget} />,
-    });
-  });
+  const heroProps = mapSolutionsHero(solutionsContent);
+  const smallCellsProps = mapSolutionsSmallCells(getSection("Small Cells"));
+  const dasProps = mapSolutionsDas(getSection("Distributed Antenna Systems"));
+  const industriesProps = mapSolutionsIndustries(getSection("Industries"));
+  const approachProps = mapSolutionsApproach(getSection("Our Approach"));
 
-  // 2. Add fallbacks for missing positions/widgets
   const hasHeroWidget = globalWidgets.some(
     (w) => w.PositionNumber === 0 && (w.Sections || []).length > 0
   );
-  if (!hasHeroWidget) {
-    sectionMap.push({
+
+  const fallbackSections: SectionEntry[] = [
+    {
       pos: 0,
       key: "hero-fallback",
-      el: (
-        <HeroBanner
-          key="hero-fallback"
-          id="solutions-hero"
-          imageSrc={solutionsContent?.heroMedia?.[0]?.url || "/assets/images/hero-solutions.png"}
-          imageAlt={
-            solutionsContent?.heroMedia?.[0]?.alternativeText ||
-            "People gathered in an outdoor plaza"
-          }
-          heading={
-            solutionsContent?.heroTitle || "Infrastructure for tomorrow's wireless data demands"
-          }
-          intro={
-            solutionsContent?.heroDescription ||
-            "As new technologies emerge, we're building and scaling wireless networks that will support evolving demand—today and what comes next."
-          }
-          ctaText={solutionsContent?.heroCtas?.[0]?.label || "Contact Us"}
-          ctaLink={solutionsContent?.heroCtas?.[0]?.url || "/contact"}
-        />
-      ),
-    });
-  }
-
-  const hasIllustrationWidgets = globalWidgets.some((w) =>
-    w.Sections?.some(
-      (s) =>
-        s.__component?.includes("illustration-split") || s.__component?.includes("media-text-split")
-    )
-  );
-  if (!hasIllustrationWidgets) {
-    sectionMap.push({
+      skip: hasHeroWidget,
+      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+    },
+    {
       pos: 1,
       key: "small-cells-fallback",
-      el: <SolutionsSmallCells key="small-cells" data={smallCellsData} />,
-    });
-    sectionMap.push({
+      skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
+      el: <SolutionsSmallCells key="small-cells-fallback" {...smallCellsProps} />,
+    },
+    {
       pos: 2,
       key: "das-fallback",
-      el: <SolutionsDas key="das" data={dasData} />,
-    });
-  }
-
-  const hasIndustriesWidget = globalWidgets.some((w) => w.PositionNumber === 3);
-  if (!hasIndustriesWidget) {
-    sectionMap.push({
+      skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
+      el: <SolutionsDas key="das-fallback" {...dasProps} />,
+    },
+    {
       pos: 3,
       key: "industries-fallback",
-      el: <SolutionsIndustries key="industries" data={industriesData} />,
-    });
-  }
-
-  const hasCtaWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component?.includes("cta"))
-  );
-  if (!hasCtaWidget) {
-    sectionMap.push({
+      skip:
+        globalWidgets.some((w) => w.PositionNumber === 3) ||
+        hasWidgetComponent(globalWidgets, ["industry", "industries"]),
+      el: <SolutionsIndustries key="industries-fallback" {...industriesProps} />,
+    },
+    {
       pos: 99,
       key: "cta-fallback",
-      el: (
-        <GlobeCTA
-          key="cta-fallback"
-          heading={approachData?.title || "A Balanced Approach"}
-          description={
-            approachData?.body ||
-            "We work closely with you to find the solution that meets your connectivity needs, while considering your priorities like the surrounding physical aesthetics."
-          }
-          buttonText={approachData?.cta?.[0]?.label || "Learn more"}
-          buttonLink={approachData?.cta?.[0]?.url || "/where-we-build"}
-        />
-      ),
-    });
-  }
+      skip: hasWidgetComponent(globalWidgets, ["cta"]),
+      el: <GlobeCTA key="cta-fallback" {...approachProps} />,
+    },
+  ];
 
-  // 3. Sort by pos and extract elements
-  const sections = sectionMap.sort((a, b) => a.pos - b.pos).map((s) => s.el);
+  const renderedSections = combinePageSections(fallbackSections, globalWidgets);
 
-  return <>{sections}</>;
+  return <>{renderedSections}</>;
 }

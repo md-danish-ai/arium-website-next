@@ -2,30 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
+import type { WhereCommunitiesProps } from "./type";
 
-const communityImages = [
-  { src: "/assets/images/overview-communities.png", alt: "Community neighborhood" },
-  { src: "/assets/images/ov-community-park.png", alt: "Families in a park" },
-  { src: "/assets/images/ov-community-street.png", alt: "People on a street" },
-  { src: "/assets/images/ov-community-family.png", alt: "Connected family" },
-];
-
-interface WhereCommunitiesProps {
-  data?: {
-    title?: string;
-    body?: string;
-    cta?: { label: string; url: string };
-    media?: { url: string; alternativeText?: string }[];
-  };
-}
-
-export default function WhereCommunities({ data }: WhereCommunitiesProps) {
-  const carouselImages = data?.media?.length
-    ? data.media.map((img) => ({
-        src: img.url,
-        alt: img.alternativeText || "Community infrastructure image",
-      }))
-    : communityImages;
+export default function WhereCommunities({
+  title,
+  description,
+  cta,
+  images,
+  isHtmlDescription,
+}: WhereCommunitiesProps) {
+  const displayImage = images[0];
 
   return (
     <section
@@ -45,24 +31,23 @@ export default function WhereCommunities({ data }: WhereCommunitiesProps) {
             weight="light"
             className="ov-feature-heading text-[#162047] leading-tight m-0"
           >
-            {data?.title || "Communities"}
+            {title}
           </Typography>
-          {data?.body ? (
+
+          {isHtmlDescription ? (
             <div
               className="ov-feature-desc strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
-              dangerouslySetInnerHTML={{ __html: data.body }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
             <Typography variant="b1" as="p" className="ov-feature-desc text-[#162047]/85 m-0">
-              We&apos;re installing small cells along roadways, sidewalks, and the public right of
-              way to expand wireless coverage and capacity. As technology advances and connectivity
-              needs grow, our solutions help communities by improving service in busy neighborhoods,
-              increasing data speeds, and supporting the latest tech residents rely on.
+              {description}
             </Typography>
           )}
+
           <Link
-            href={data?.cta?.url || "/community"}
-            aria-label={`${data?.cta?.label || "Learn More"} about our work in communities`}
+            href={cta.url}
+            aria-label={`${cta.label} about our work in communities`}
             className="ov-feature-cta reveal stagger-2 inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-[#162047] bg-[#162047] text-white hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5 self-start mt-2 group"
           >
             <Typography
@@ -71,7 +56,7 @@ export default function WhereCommunities({ data }: WhereCommunitiesProps) {
               weight="semibold"
               className="text-white group-hover:text-[#162047]"
             >
-              {data?.cta?.label || "Learn More"}
+              {cta.label}
             </Typography>
             <ArrowRightSvg className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
@@ -79,13 +64,15 @@ export default function WhereCommunities({ data }: WhereCommunitiesProps) {
 
         <div className="ov-showcase reveal stagger-1">
           <div className="ov-showcase-stage aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
-            <Image
-              src={carouselImages[0].src}
-              alt={carouselImages[0].alt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-top"
-            />
+            {displayImage && (
+              <Image
+                src={displayImage.src}
+                alt={displayImage.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-top"
+              />
+            )}
           </div>
         </div>
       </div>
