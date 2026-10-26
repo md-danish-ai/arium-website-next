@@ -215,47 +215,51 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
           onClick={closeModal}
         />
         <div
-          className={`people-modal-content relative z-[1] w-[92vw] max-w-[1080px] max-h-[88vh] bg-[#101830] rounded-[20px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-400 ${activeLeader ? "scale-100 translate-y-0 opacity-100" : "scale-95 translate-y-4 opacity-0"}`}
+          className={`people-modal-content relative z-[1] w-[90vw] max-w-[480px] min-[769px]:w-[92vw] min-[769px]:max-w-[1080px] max-h-[85vh] sm:max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-400 ${activeLeader ? "scale-100 translate-y-0 opacity-100" : "scale-95 translate-y-4 opacity-0"}`}
         >
           <button
-            className="people-modal-close absolute top-4 right-4 md:top-5 md:right-5 z-[5] bg-transparent border-none p-2 text-white/60 hover:text-white cursor-pointer transition-colors"
+            className="people-modal-close absolute top-4 right-4 sm:top-5 sm:right-5 z-[5] bg-transparent border-none p-2 text-white/70 hover:text-white cursor-pointer transition-colors"
             onClick={closeModal}
             aria-label="Close"
           >
-            <CloseIconSvg />
+            <CloseIconSvg className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           {activeLeader && (
             <>
               <div
-                className="people-modal-top flex items-center gap-6 md:gap-8 p-6 md:p-10 border-b border-white/10 shrink-0"
+                className="people-modal-top flex flex-col items-center text-center p-6 pt-8 pb-6 min-[769px]:flex-row min-[769px]:items-center min-[769px]:text-left min-[769px]:p-10 min-[769px]:gap-8 border-b border-white/10 shrink-0 relative"
                 style={{ backgroundColor: activeLeader.modalBg || "#162047" }}
               >
-                <div className="people-modal-photo-wrap shrink-0 relative w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden">
+                <div className="people-modal-photo-wrap shrink-0 relative w-24 h-24 sm:w-28 sm:h-28 min-[769px]:w-32 min-[769px]:h-32 rounded-full min-[769px]:rounded-2xl overflow-hidden mb-3.5 min-[769px]:mb-0">
                   <Image
                     className="people-modal-photo object-cover object-[center_15%]"
                     src={activeLeader.image}
                     alt={activeLeader.name}
                     fill
-                    sizes="(max-width: 768px) 96px, 128px"
+                    sizes="(max-width: 768px) 112px, 128px"
                   />
                 </div>
-                <div className="people-modal-identity flex-1">
+                <div className="people-modal-identity w-full min-[769px]:w-auto min-[769px]:flex-1">
                   <Typography
                     as="h2"
                     variant="h3"
                     uppercase
-                    className="people-modal-name text-white m-0 mb-1.5"
+                    className="people-modal-name text-white m-0 mb-1 text-center min-[769px]:text-left text-xl sm:text-2xl tracking-wide font-normal"
                   >
                     {activeLeader.name}
                   </Typography>
-                  <Typography as="p" variant="b3" className="people-modal-role text-[#00e8d9] m-0">
+                  <Typography
+                    as="p"
+                    variant="b3"
+                    className="people-modal-role text-[#00e8d9] m-0 text-center min-[769px]:text-left font-medium text-sm sm:text-base"
+                  >
                     {activeLeader.role}
                   </Typography>
                 </div>
               </div>
               <div
-                className="people-modal-bottom p-6 md:p-10 lg:p-12 overflow-y-auto flex-1 columns-1 md:columns-2 gap-10 bg-white rounded-b-[20px] text-[#0d1224]/80 text-sm md:text-base leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:[break-inside:avoid]"
+                className="people-modal-bottom p-6 sm:p-8 min-[769px]:p-10 lg:p-12 overflow-y-auto flex-1 columns-1 min-[769px]:columns-2 gap-8 lg:gap-10 bg-white rounded-b-[24px] text-[#0d1224]/80 text-sm sm:text-base leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:[break-inside:avoid]"
                 dangerouslySetInnerHTML={{ __html: activeLeader.bio }}
               />
             </>
