@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Typography, Button } from "@ui-element";
+import { Typography, Button, Breadcrumbs } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface InnerPageHeroProps {
@@ -87,26 +86,14 @@ export default function InnerPageHero({
       <div className="absolute w-[400px] h-[400px] rounded-full [background:radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       {parentLabel && (
-        <nav className="reveal absolute top-[140px] inset-x-0 z-[2]" aria-label="Breadcrumb">
+        <div className="reveal absolute top-[140px] inset-x-0 z-[2]">
           <Container>
-            <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-[0.78rem] tracking-[0.04em]">
-              <li>
-                <Link
-                  href={parentUrl}
-                  className="text-midnight/50 no-underline hover:text-midnight/80 transition-opacity"
-                >
-                  {parentLabel}
-                </Link>
-              </li>
-              <li className="text-midnight/30 text-[0.7rem]">/</li>
-              <li>
-                <Typography variant="b4" uppercase className="text-midnight/80 font-medium">
-                  {cleanTitle}
-                </Typography>
-              </li>
-            </ol>
+            <Breadcrumbs
+              items={[{ label: parentLabel, href: parentUrl }, { label: cleanTitle }]}
+              uppercase
+            />
           </Container>
-        </nav>
+        </div>
       )}
 
       <Container className="relative z-[1] flex flex-col items-center text-center">
