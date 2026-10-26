@@ -36,46 +36,36 @@ export default function DetailedCard({
 
   return (
     <div
-      className={`infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-2xl md:rounded-3xl pb-6 md:pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)] before:content-[''] before:absolute before:top-0 before:inset-x-0 before:h-[2px] before:bg-linear-to-r before:from-transparent before:via-teal/60 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 [&_.infra-panel-svg]:drop-shadow-[0_0_16px_rgba(0,232,217,0.12)] hover:[&_.infra-panel-svg]:drop-shadow-[0_0_28px_rgba(0,232,217,0.22)] hover:[&_.infra-panel-svg]:scale-105 [&_.infra-panel-svg]:transition-all [&_.infra-panel-svg]:duration-500 ${className}`}
+      className={`infra-panel-card w-full h-full bg-white/[0.04] border border-teal/15 hover:border-teal/35 rounded-2xl md:rounded-3xl pb-6 md:pb-8 relative overflow-hidden flex flex-col items-center transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35),0_0_40px_rgba(0,232,217,0.1)] before:content-[''] before:absolute before:top-0 before:inset-x-0 before:h-[2px] before:bg-linear-to-r before:from-transparent before:via-teal/60 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 [&_.infra-panel-svg]:drop-shadow-[0_0_16px_rgba(0,232,217,0.12)] hover:[&_.infra-panel-svg]:drop-shadow-[0_0_28px_rgba(0,232,217,0.22)] hover:[&_.infra-panel-svg]:scale-105 [&_.infra-panel-svg]:transition-all [&_.infra-panel-svg]:duration-500 [&_.infra-panel-svg]:w-[45%] [&_.infra-panel-svg]:max-w-[210px] [&_.infra-panel-svg]:min-w-[140px] [&_.infra-panel-svg]:h-auto [&_.infra-panel-svg]:block [&_.infra-panel-svg]:mx-auto ${className}`}
     >
       {imageUrl ? (
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: "32px",
-            position: "relative",
-            height: "180px",
-          }}
-        >
+        <div className="w-full flex items-center justify-center pt-8 md:pt-10 pb-2 relative h-[180px] md:h-[210px]">
           <Image
             src={imageUrl}
             alt={title}
-            width={240}
-            height={180}
+            width={220}
+            height={200}
             unoptimized
-            style={{ objectFit: "contain", height: "100%", width: "auto" }}
+            style={{ objectFit: "contain", maxHeight: "100%", width: "auto" }}
           />
         </div>
       ) : svgComponent ? (
-        <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <div className="w-full flex items-center justify-center pt-8 md:pt-10 pb-2">
           {svgComponent}
         </div>
       ) : cleanSvg ? (
         <div
           dangerouslySetInnerHTML={{ __html: cleanSvg }}
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-          className="[&>svg]:infra-panel-svg [&>svg]:draw-svg"
+          className="w-full flex items-center justify-center pt-8 md:pt-10 pb-2 [&>svg]:infra-panel-svg [&>svg]:draw-svg"
         />
       ) : null}
 
-      <div className="infra-panel-text px-6 md:px-8 pt-6 text-center w-full flex-1 flex flex-col items-center">
+      <div className="infra-panel-text px-6 md:px-8 pt-4 md:pt-6 text-center w-full flex-1 flex flex-col items-center">
         <Typography
           variant="h4"
           uppercase
           weight="normal"
-          className="infra-panel-heading m-0 mb-2 md:mb-2.5 text-white"
+          className="infra-panel-heading !text-[22px] !leading-[1.35] tracking-[0.06em] m-0 mb-3 md:mb-3.5 text-white"
         >
           {title}
         </Typography>
@@ -84,7 +74,7 @@ export default function DetailedCard({
           <Typography
             variant="b2"
             weight="normal"
-            className="infra-panel-desc text-white/80 max-w-[480px] mx-auto m-0 flex-1"
+            className="infra-panel-desc text-white/80 !text-[16px] !leading-[1.65] mx-auto m-0 flex-1"
           >
             {description}
           </Typography>
@@ -94,7 +84,7 @@ export default function DetailedCard({
           <Link
             href={ctaLink}
             aria-label={`${ctaText} about ${title}`}
-            className="group inline-flex items-center gap-2 no-underline mt-4"
+            className="group inline-flex items-center gap-2 no-underline mt-4 md:mt-5"
           >
             <span className="inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-all duration-300 group-hover:text-teal group-hover:scale-105 whitespace-nowrap">
               {ctaText}
