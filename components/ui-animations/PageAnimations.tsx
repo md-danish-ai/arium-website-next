@@ -2,13 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import {
-  useScrollReveal,
-  useParallax,
-  useScrollIndicator,
-  useCounters,
-  useTimeline,
-} from "@hooks/useAnimations";
+import { useScrollReveal, useParallax, useScrollIndicator, useCounters, useTimeline } from "@hooks";
 
 export default function PageAnimations() {
   const pathname = usePathname();
