@@ -29,7 +29,7 @@ export default function AboutContentWithSideGraphic({
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       <Container className="relative z-[1]">
-        <div className="max-w-[760px] text-left">
+        <div className="lg:max-w-[760px] text-left">
           <Typography
             as="h2"
             variant="h2"
