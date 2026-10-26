@@ -106,6 +106,8 @@ export const ABOUT_COMMITMENTS_FALLBACK: {
   pillars: CommitmentPillar[];
 } = {
   heading: "Our Commitments to Our Customers",
+  description:
+    "As part of EQT's Active Core Infrastructure fund, we have the support and financial capacity to invest with conviction. As opposed to many other private equity backed companies, we do not have any timeframe for liquidity, so we can invest and operate for the long term.",
   heroBannerImg: {
     src: "/assets/images/live_about_commitments_panoramic.png",
     alt: "New York City skyline at sunset",

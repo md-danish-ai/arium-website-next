@@ -21,7 +21,7 @@ export default function AboutContentWithSideGraphic({
 
   return (
     <section
-      className={`story-section-root py-20 lg:py-24 relative overflow-hidden border-none ${gradientClass}`}
+      className={`story-section-root pt-16 sm:pt-20 pb-0 lg:py-24 relative overflow-hidden border-none ${gradientClass}`}
       style={backgroundStyle}
     >
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
@@ -62,8 +62,8 @@ export default function AboutContentWithSideGraphic({
       </Container>
 
       {/* Single Image: Bottom on mobile/tablet (<1024px), Side on desktop (>=1024px) */}
-      <div className="relative z-[1] w-full mt-10 sm:mt-12 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:-right-8 lg:top-1/2 lg:h-[190%] lg:translate-x-1/2 lg:-translate-y-1/2 lg:-scale-x-100 pointer-events-none">
-        {sideImageSrc ? (
+      <div className="relative z-[1] w-full mt-6 sm:mt-8 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:-right-8 lg:top-1/2 lg:h-[100%] lg:translate-x-1/2 lg:-translate-y-1/2 lg:-scale-x-100 pointer-events-none">
+        {sideImageSrc && (
           <Image
             src={sideImageSrc}
             alt=""
@@ -71,12 +71,8 @@ export default function AboutContentWithSideGraphic({
             width={800}
             height={800}
             unoptimized={sideImageSrc.endsWith(".svg")}
-            className="w-[85%] max-w-[500px] h-auto mx-auto block opacity-[0.18] [filter:brightness(0)_saturate(0)] lg:w-auto lg:max-w-none lg:h-full"
+            className="w-auto h-auto max-w-[85%] max-h-[300px] sm:max-h-[360px] md:max-h-[400px] mx-auto block opacity-[0.18] [filter:brightness(0)_saturate(0)] lg:w-auto lg:max-w-none lg:max-h-none lg:h-full"
           />
-        ) : (
-          <div className="w-[85%] max-w-[500px] h-auto mx-auto block opacity-[0.18] [filter:brightness(0)_saturate(0)] lg:w-auto lg:max-w-none lg:h-full">
-            <ConnectionIllustrationSvg className="w-full h-auto lg:h-full" />
-          </div>
         )}
       </div>
     </section>

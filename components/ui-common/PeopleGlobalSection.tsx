@@ -76,9 +76,9 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
       image: imageUrl,
       bio: bioText
         ? bioText
-          .split("\n\n")
-          .map((p) => `<p>${p}</p>`)
-          .join("")
+            .split("\n\n")
+            .map((p) => `<p>${p}</p>`)
+            .join("")
         : "",
       modalBg: card.ModalUpperSectionBg || "#162047",
     };
