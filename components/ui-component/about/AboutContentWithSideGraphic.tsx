@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { ConnectionIllustrationSvg } from "@ui-svg";
@@ -26,22 +27,6 @@ export default function AboutContentWithSideGraphic({
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
-
-      {sideImageSrc ? (
-        <Image
-          src={sideImageSrc}
-          alt=""
-          aria-hidden="true"
-          width={800}
-          height={800}
-          unoptimized={sideImageSrc.endsWith(".svg")}
-          className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none"
-        />
-      ) : (
-        <div className="story-globe-right hidden lg:block absolute -right-8 top-1/2 h-[190%] w-auto translate-x-1/2 -translate-y-1/2 -scale-x-100 opacity-[0.18] [filter:brightness(0)_saturate(0)] pointer-events-none">
-          <ConnectionIllustrationSvg className="w-full h-full" />
-        </div>
-      )}
 
       <Container className="relative z-[1]">
         <div className="max-w-[760px] text-left">
@@ -76,19 +61,21 @@ export default function AboutContentWithSideGraphic({
         </div>
       </Container>
 
-      <div className="story-globe-full lg:hidden relative z-[1] overflow-hidden -mt-[15%] -mb-[30%]">
+      {/* Single Image: Bottom on mobile/tablet (<1024px), Side on desktop (>=1024px) */}
+      <div className="relative z-[1] w-full mt-10 sm:mt-12 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:-right-8 lg:top-1/2 lg:h-[190%] lg:translate-x-1/2 lg:-translate-y-1/2 lg:-scale-x-100 pointer-events-none">
         {sideImageSrc ? (
           <Image
             src={sideImageSrc}
-            alt="Connection illustration"
-            width={600}
-            height={600}
+            alt=""
+            aria-hidden="true"
+            width={800}
+            height={800}
             unoptimized={sideImageSrc.endsWith(".svg")}
-            className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]"
+            className="w-[85%] max-w-[500px] h-auto mx-auto block opacity-[0.18] [filter:brightness(0)_saturate(0)] lg:w-auto lg:max-w-none lg:h-full"
           />
         ) : (
-          <div className="w-[90%] max-w-[90%] h-auto opacity-[0.18] [filter:brightness(0)_saturate(0)] block mx-auto -translate-x-[2%]">
-            <ConnectionIllustrationSvg className="w-full h-auto" />
+          <div className="w-[85%] max-w-[500px] h-auto mx-auto block opacity-[0.18] [filter:brightness(0)_saturate(0)] lg:w-auto lg:max-w-none lg:h-full">
+            <ConnectionIllustrationSvg className="w-full h-auto lg:h-full" />
           </div>
         )}
       </div>
