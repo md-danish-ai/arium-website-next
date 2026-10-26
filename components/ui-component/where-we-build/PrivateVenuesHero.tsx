@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 export interface PrivateVenuesHeroProps {
@@ -84,19 +84,9 @@ export default function PrivateVenuesHero({
           </Typography>
           {ctaLabel && (
             <div className="reveal stagger-4 mt-7">
-              <Link
-                href={ctaUrl}
-                className="pv-hero-cta group inline-flex items-center justify-center bg-[#162047] text-white border-2 border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <Typography
-                  variant="button"
-                  uppercase
-                  weight="semibold"
-                  className="text-white group-hover:text-[#162047]"
-                >
-                  {ctaLabel}
-                </Typography>
-              </Link>
+              <Button href={ctaUrl} color="primary">
+                {ctaLabel}
+              </Button>
             </div>
           )}
         </div>

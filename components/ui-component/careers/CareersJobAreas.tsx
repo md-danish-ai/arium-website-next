@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import type { CareersJobAreasProps } from "./type";
 
@@ -79,21 +78,9 @@ export default function CareersJobAreas({
 
             {cta && (
               <div className="reveal stagger-5 mt-9">
-                <Link
-                  href={cta.url}
-                  target={cta.isExternal ? "_blank" : undefined}
-                  rel={cta.isExternal ? "noopener noreferrer" : undefined}
-                  className="group inline-flex items-center justify-center bg-[#162047] text-white border border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5"
-                >
-                  <Typography
-                    variant="button"
-                    uppercase
-                    weight="semibold"
-                    className="text-white group-hover:text-[#162047]"
-                  >
-                    {cta.label}
-                  </Typography>
-                </Link>
+                <Button href={cta.url} isExternal={cta.isExternal}>
+                  {cta.label}
+                </Button>
               </div>
             )}
           </div>

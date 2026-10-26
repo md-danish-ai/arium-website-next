@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import { BackgroundFeatureSectionProps } from "./type";
 
@@ -80,12 +79,9 @@ export default function BackgroundFeatureSection({
 
           {ctaLabel && ctaLink && (
             <div className="reveal stagger-2 mt-6 md:mt-8 lg:mt-10">
-              <Link
-                href={ctaLink}
-                className="inline-flex items-center justify-center px-8 md:px-10 py-3 md:py-3.5 rounded-full bg-teal text-midnight font-heading text-[0.85rem] md:text-[0.9rem] font-semibold tracking-[0.08em] uppercase no-underline transition-all duration-300 border-2 border-teal hover:bg-transparent hover:text-teal whitespace-nowrap"
-              >
+              <Button href={ctaLink} color="secondary">
                 {ctaLabel}
-              </Link>
+              </Button>
             </div>
           )}
         </div>

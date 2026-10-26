@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface InnerPageHeroProps {
@@ -160,18 +160,9 @@ export default function InnerPageHero({
 
           {heroCtasLabel && heroCtasUrl && (
             <div className="reveal stagger-4 mt-7">
-              <Link
-                href={heroCtasUrl}
-                className="group inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#162047] !text-white border-2 border-[#162047] rounded-full px-9 py-3.5 hover:bg-transparent hover:!text-[#162047] transition-all duration-300 hover:-translate-y-0.5 no-underline shadow-sm cursor-pointer"
-                style={{ color: "#ffffff" }}
-              >
-                <span
-                  className="!text-white group-hover:!text-[#162047] transition-colors duration-300"
-                  style={{ color: "#ffffff" }}
-                >
-                  {heroCtasLabel}
-                </span>
-              </Link>
+              <Button href={heroCtasUrl} color="primary">
+                {heroCtasLabel}
+              </Button>
             </div>
           )}
         </div>

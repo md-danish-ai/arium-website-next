@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 
@@ -92,13 +91,14 @@ export default function ImageSplit({ data }: ImageSplitProps) {
             )}
 
             {CTAText && CTAUrl && (
-              <Link
+              <Button
                 href={CTAUrl}
-                className="image-split-cta inline-flex items-center gap-3 px-8 py-3.5 bg-midnight text-white font-heading text-[0.85rem] font-semibold uppercase tracking-[0.1em] rounded-full border-2 border-midnight hover:bg-transparent hover:text-midnight transition-all duration-300 self-start no-underline"
+                color="primary"
+                rightIcon={<ArrowRightSvg />}
+                className="self-start"
               >
                 {CTAText}
-                <ArrowRightSvg />
-              </Link>
+              </Button>
             )}
           </div>
 

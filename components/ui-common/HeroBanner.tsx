@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface HeroBannerProps {
@@ -116,23 +115,9 @@ export default function HeroBanner({
 
         {ctaText && ctaLink && (
           <div className="reveal stagger-3">
-            {isExternal ? (
-              <a
-                href={ctaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shared-img-hero-cta inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-teal text-midnight border-2 border-teal font-heading text-[0.85rem] font-semibold tracking-[0.08em] uppercase whitespace-nowrap no-underline transition-all duration-300 mt-8 md:mt-10 hover:bg-transparent hover:border-white hover:text-white hover:-translate-y-0.5"
-              >
-                {ctaText}
-              </a>
-            ) : (
-              <Link
-                href={ctaLink}
-                className="shared-img-hero-cta inline-flex items-center justify-center px-10 py-3.5 rounded-full bg-teal text-midnight border-2 border-teal font-heading text-[0.85rem] font-semibold tracking-[0.08em] uppercase whitespace-nowrap no-underline transition-all duration-300 mt-8 md:mt-10 hover:bg-transparent hover:border-white hover:text-white hover:-translate-y-0.5"
-              >
-                {ctaText}
-              </Link>
-            )}
+            <Button href={ctaLink} isExternal={isExternal} className="mt-8 md:mt-10">
+              {ctaText}
+            </Button>
           </div>
         )}
       </Container>

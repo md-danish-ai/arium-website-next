@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface GlobeCTAProps {
@@ -64,12 +63,9 @@ export default function GlobeCTA({
                 {title || heading}
               </Typography>
             )}
-            <Link
-              href={buttonLink}
-              className="inline-block px-7 sm:px-10 py-2.5 sm:py-3.5 rounded-full bg-midnight text-white font-heading text-[0.8rem] sm:text-[0.9rem] font-medium tracking-[0.06em] uppercase no-underline transition-all duration-350 ease-[cubic-bezier(0.2,1,0.2,1)] border-2 border-transparent hover:bg-transparent hover:text-midnight hover:border-midnight hover:-translate-y-0.5 mt-4 sm:mt-0"
-            >
+            <Button href={buttonLink} color="primary" className="mt-4 sm:mt-0">
               {buttonText}
-            </Link>
+            </Button>
           </div>
           <div />
         </div>

@@ -91,11 +91,7 @@ export default async function CareersPage() {
       pos: 4,
       key: "benefits-fallback",
       skip: hasWidgetComponent(globalWidgets, ["benefits"]),
-      el: (
-        <div key="benefits-fallback" className="bg-[#ededee]" style={{ background: "#ededee" }}>
-          <CareersBenefits {...benefitsProps} />
-        </div>
-      ),
+      el: <CareersBenefits key="benefits-fallback" {...benefitsProps} />,
     },
     {
       pos: 5,

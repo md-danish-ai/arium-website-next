@@ -55,16 +55,16 @@ const variantStyles: Record<ButtonColor, Record<ButtonVariant, string>> = {
   // Primary: #162047 (Midnight)
   primary: {
     filled:
-      "bg-midnight text-white border-2 border-midnight hover:bg-transparent hover:text-midnight focus-visible:outline-midnight",
+      "bg-[#162047] text-white !text-white border-2 border-[#162047] hover:bg-transparent hover:!text-[#162047] hover:border-[#162047] focus-visible:outline-[#162047]",
     outlined:
-      "bg-transparent text-midnight border-2 border-midnight hover:bg-midnight hover:text-white focus-visible:outline-midnight",
+      "bg-transparent text-[#162047] !text-[#162047] border-2 border-[#162047] hover:bg-[#162047] hover:!text-white hover:border-[#162047] focus-visible:outline-[#162047]",
   },
   // Secondary: #00e8d9 (Teal)
   secondary: {
     filled:
-      "bg-teal text-midnight border-2 border-teal hover:bg-transparent hover:text-teal focus-visible:outline-teal",
+      "bg-[#00e8d9] text-[#162047] !text-[#162047] border-2 border-[#00e8d9] hover:bg-transparent hover:!text-[#00e8d9] hover:border-[#00e8d9] focus-visible:outline-[#00e8d9]",
     outlined:
-      "bg-transparent text-teal border-2 border-teal hover:bg-teal hover:text-midnight focus-visible:outline-teal",
+      "bg-transparent text-[#00e8d9] !text-[#00e8d9] border-2 border-[#00e8d9] hover:bg-[#00e8d9] hover:!text-[#162047] hover:border-[#00e8d9] focus-visible:outline-[#00e8d9]",
   },
 };
 
@@ -103,7 +103,7 @@ export default function Button({
   const content = (
     <>
       {leftIcon && <span className="inline-flex shrink-0 items-center">{leftIcon}</span>}
-      {children && <span>{children}</span>}
+      {children && <span className="text-inherit">{children}</span>}
       {rightIcon && <span className="inline-flex shrink-0 items-center">{rightIcon}</span>}
     </>
   );

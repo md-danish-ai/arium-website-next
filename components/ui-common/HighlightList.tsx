@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { ChevronsRightSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 
@@ -92,14 +91,7 @@ export default function HighlightList({
 
             {ctaLabel && ctaUrl && (
               <div className="reveal stagger-5 shared-hl-cta mt-9">
-                <Link
-                  href={ctaUrl}
-                  target={ctaUrl.startsWith("http") ? "_blank" : undefined}
-                  rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="inline-block px-10 py-3.5 rounded-full bg-midnight text-white font-heading text-sm font-semibold tracking-wider uppercase no-underline border border-midnight transition-all duration-300 hover:bg-transparent hover:text-midnight hover:-translate-y-0.5"
-                >
-                  {ctaLabel}
-                </Link>
+                <Button href={ctaUrl}>{ctaLabel}</Button>
               </div>
             )}
           </div>

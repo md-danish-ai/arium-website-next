@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface CenteredImageCTAProps {
@@ -80,14 +79,9 @@ export default function CenteredImageCTA({
             </Typography>
             {ctaLabel && ctaUrl && (
               <div className="reveal stagger-3 mt-8">
-                <Link
-                  href={ctaUrl}
-                  target={ctaUrl.startsWith("http") ? "_blank" : undefined}
-                  rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="inline-block px-10 py-3.5 rounded-full bg-teal text-midnight font-heading text-sm font-semibold tracking-wider uppercase no-underline transition-all duration-300 hover:bg-white hover:text-midnight hover:-translate-y-0.5 shadow-lg"
-                >
+                <Button href={ctaUrl} color="secondary" size="md">
                   {ctaLabel}
-                </Link>
+                </Button>
               </div>
             )}
           </div>

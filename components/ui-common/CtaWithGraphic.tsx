@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 export interface StrapiMedia {
@@ -83,22 +82,9 @@ export default function CtaWithGraphic({
 
           {ctaText && ctaLink && (
             <div className="reveal stagger-3 flex justify-start">
-              <Link
-                href={ctaLink}
-                target={ctaLink.startsWith("http") ? "_blank" : undefined}
-                rel={ctaLink.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group inline-flex items-center justify-center whitespace-nowrap px-8 py-3.5 bg-midnight text-white border border-midnight rounded-full transition-all duration-300 hover:bg-transparent hover:border-midnight hover:text-midnight hover:-translate-y-0.5 no-underline shadow-sm"
-              >
-                <Typography
-                  as="span"
-                  variant="button"
-                  weight="semibold"
-                  uppercase
-                  className="whitespace-nowrap tracking-wider text-white group-hover:text-midnight transition-colors duration-300"
-                >
-                  {ctaText}
-                </Typography>
-              </Link>
+              <Button href={ctaLink} color="primary">
+                {ctaText}
+              </Button>
             </div>
           )}
         </div>

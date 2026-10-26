@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import type { CommunityHowWeWorkProps } from "./type";
 
@@ -58,13 +57,15 @@ export default function CommunityHowWeWork({
             </div>
           )}
           {cta && (
-            <Link
-              href={cta.url}
-              aria-label={`${cta.label} about how we work in your community`}
-              className="reveal stagger-3 inline-flex items-center justify-center font-heading text-xs uppercase tracking-widest font-semibold bg-[#00e8d9] text-[#162047] border-2 border-[#00e8d9] rounded-full px-10 py-3.5 hover:bg-transparent hover:text-[#00e8d9] transition-all duration-300 hover:-translate-y-0.5"
-            >
-              {cta.label}
-            </Link>
+            <div className="reveal stagger-3">
+              <Button
+                href={cta.url}
+                color="secondary"
+                aria-label={`${cta.label} about how we work in your community`}
+              >
+                {cta.label}
+              </Button>
+            </div>
           )}
         </div>
       </Container>

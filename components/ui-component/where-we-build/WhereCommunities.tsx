@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 import type { WhereCommunitiesProps } from "./type";
@@ -46,21 +45,17 @@ export default function WhereCommunities({
             </Typography>
           )}
 
-          <Link
+          <Button
             href={cta.url}
+            color="primary"
+            rightIcon={
+              <ArrowRightSvg className="transition-transform duration-300 group-hover:translate-x-1" />
+            }
             aria-label={`${cta.label} about our work in communities`}
-            className="ov-feature-cta reveal stagger-2 inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-[#162047] bg-[#162047] text-white hover:bg-transparent hover:text-[#162047] transition-all duration-300 hover:-translate-y-0.5 self-start mt-2 group"
+            className="reveal stagger-2 self-start mt-2"
           >
-            <Typography
-              variant="button"
-              uppercase
-              weight="semibold"
-              className="text-white group-hover:text-[#162047]"
-            >
-              {cta.label}
-            </Typography>
-            <ArrowRightSvg className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+            {cta.label}
+          </Button>
         </div>
 
         <div className="ov-showcase reveal stagger-1">

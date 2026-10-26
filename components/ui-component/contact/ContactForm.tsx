@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Typography } from "@ui-element";
+import { Typography, Button } from "@ui-element";
 import { DropdownArrowSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 import type { ContactTopicOption } from "@data/contact.data";
@@ -402,22 +402,15 @@ export default function ContactForm({
                 </div>
 
                 <div className="text-center pt-3 pb-10">
-                  <button
+                  <Button
                     type="submit"
-                    className={`inline-block border-2 border-[#00e8d9] bg-[#00e8d9] rounded-full px-12 py-3.5 cursor-pointer transition-all duration-300 ease-out hover:bg-transparent hover:border-[#162047] hover:text-[#162047] hover:-translate-y-0.5 active:translate-y-0 shadow-sm ${
-                      status === "loading" ? "opacity-70 cursor-not-allowed" : "opacity-100"
-                    }`}
+                    color="secondary"
+                    size="lg"
                     disabled={status === "loading"}
+                    className="min-w-[180px] shadow-sm"
                   >
-                    <Typography
-                      variant="button"
-                      uppercase
-                      weight="semibold"
-                      className="text-[#162047]"
-                    >
-                      {status === "loading" ? "Sending..." : "SUBMIT"}
-                    </Typography>
-                  </button>
+                    {status === "loading" ? "Sending..." : "SUBMIT"}
+                  </Button>
                 </div>
               </form>
             )}
