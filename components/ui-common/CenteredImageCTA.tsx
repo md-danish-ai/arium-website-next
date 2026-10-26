@@ -36,7 +36,7 @@ export default function CenteredImageCTA({
     typeof bgImage === "string" ? bgImage : bgImage?.url || bgImage?.data?.attributes?.url;
   const absoluteBgImageUrl = bgImageUrl
     ? GetStrapiMediaUrl(bgImageUrl)
-    : "/assets/images/backgrounds/careers.jpg";
+    : "/images/backgrounds/careers.jpg";
 
   const altText =
     typeof bgImage === "object" && bgImage !== null

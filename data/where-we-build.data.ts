@@ -11,7 +11,7 @@ export const WHERE_HERO_FALLBACK = {
   heading: "Building the wireless networks we rely on",
   intro:
     "We build wireless infrastructure in two main places: out in communities and inside buildings and venues. Each environment has unique needs, so we design each network to fit the space and people that use them.",
-  imageSrc: "/assets/images/backgrounds/challenges.png",
+  imageSrc: "/images/backgrounds/challenges.png",
   imageAlt: "Connected community background",
 };
 
@@ -24,10 +24,10 @@ export const COMMUNITIES_FALLBACK: WhereFeatureSectionData = {
     url: "/community",
   },
   images: [
-    { src: "/assets/images/gallery/community-hero.png", alt: "Community neighborhood" },
-    { src: "/assets/images/gallery/community-park.png", alt: "Families in a park" },
-    { src: "/assets/images/gallery/community-street.png", alt: "People on a street" },
-    { src: "/assets/images/gallery/community-family.png", alt: "Connected family" },
+    { src: "/images/gallery/community-hero.png", alt: "Community neighborhood" },
+    { src: "/images/gallery/community-park.png", alt: "Families in a park" },
+    { src: "/images/gallery/community-street.png", alt: "People on a street" },
+    { src: "/images/gallery/community-family.png", alt: "Connected family" },
   ],
 };
 
@@ -40,10 +40,10 @@ export const VENUES_FALLBACK: WhereFeatureSectionData = {
     url: "/private-venues",
   },
   images: [
-    { src: "/assets/images/gallery/venue-hero.png", alt: "Fans at a venue" },
-    { src: "/assets/images/gallery/venue-campus.png", alt: "University campus" },
-    { src: "/assets/images/gallery/venue-themepark.png", alt: "Theme park visitors" },
-    { src: "/assets/images/gallery/venue-commercial.png", alt: "Commercial building" },
+    { src: "/images/gallery/venue-hero.png", alt: "Fans at a venue" },
+    { src: "/images/gallery/venue-campus.png", alt: "University campus" },
+    { src: "/images/gallery/venue-themepark.png", alt: "Theme park visitors" },
+    { src: "/images/gallery/venue-commercial.png", alt: "Commercial building" },
   ],
 };
 

@@ -31,7 +31,7 @@ export const ABOUT_HERO_FALLBACK = {
   heading: "Building a more connected future",
   intro:
     "We're working across the country to build the infrastructure that powers your most important connections.",
-  imageSrc: "/assets/images/heroes/about.png",
+  imageSrc: "/images/heroes/about.png",
   imageAlt: "Chicago skyline",
 };
 
@@ -41,7 +41,7 @@ export const ABOUT_STORY_FALLBACK = {
     "Our world depends on fast, reliable connectivity—from the way we interact with loved ones, educate our children, and drive business forward. More than 15 years ago, we began building the small cell and distributed antennae system (DAS) infrastructure that ensures wireless services works effectively, even in the most challenging locations. Across the country, we're building dense networks and increasing capacity, enhancing connectivity in high-demand areas.",
     "We make the process of designing and deploying wireless networks as straightforward and predictable as possible, providing a clear path forward that supports your vision long into the future.",
   ],
-  sideImageSrc: "/assets/svg-images/connection-illustration.svg",
+  sideImageSrc: "/images/svg-images/connection-illustration.svg",
   gradient: "bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]",
 };
 
@@ -109,7 +109,7 @@ export const ABOUT_COMMITMENTS_FALLBACK: {
   description:
     "As part of EQT's Active Core Infrastructure fund, we have the support and financial capacity to invest with conviction. As opposed to many other private equity backed companies, we do not have any timeframe for liquidity, so we can invest and operate for the long term.",
   heroBannerImg: {
-    src: "/assets/images/backgrounds/commitments.png",
+    src: "/images/backgrounds/commitments.png",
     alt: "New York City skyline at sunset",
   },
   pillars: [
@@ -159,10 +159,7 @@ export const ABOUT_CULTURE_FALLBACK: {
         "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation.",
     },
   ],
-  mediaUrls: [
-    "/assets/images/backgrounds/culture-mobile.jpg",
-    "/assets/images/backgrounds/culture.jpg",
-  ],
+  mediaUrls: ["/images/backgrounds/culture-mobile.jpg", "/images/backgrounds/culture.jpg"],
   cta: {
     label: "Explore Careers",
     url: "/careers",

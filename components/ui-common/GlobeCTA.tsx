@@ -24,7 +24,7 @@ export default function GlobeCTA({
         aria-hidden="true"
       >
         <Image
-          src="/assets/svg-images/connection-globe.svg"
+          src="/images/svg-images/connection-globe.svg"
           alt=""
           width={993}
           height={958}

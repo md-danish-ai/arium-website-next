@@ -15,7 +15,7 @@ export interface CommunityBenefitCard {
 export const COMMUNITY_HERO_FALLBACK = {
   heading: "Building the connections your community depends on",
   intro: "We work in communities like yours to ensure you stay on the cutting edge.",
-  imageSrc: "/assets/images/heroes/community.png",
+  imageSrc: "/images/heroes/community.png",
   imageAlt: "Community members enjoying a park",
 };
 
@@ -26,7 +26,7 @@ export const COMMUNITY_SMALL_CELLS_FALLBACK = {
     "Small cells are compact, discreet antennas often mounted on streetlights or utility poles. They boost wireless coverage and capacity in the areas that need it most. Most people don't even notice them.",
     "Think of small cells as adding extra lanes to the wireless highway — reducing congestion and helping everyone stay connected.",
   ],
-  illustrationSrc: "/assets/svg-images/small-cells-illustration.svg",
+  illustrationSrc: "/images/svg-images/small-cells-illustration.svg",
   illustrationAlt: "Small cells illustration",
 };
 
@@ -40,19 +40,19 @@ export const COMMUNITY_WHY_MATTER_FALLBACK: {
       title: "Reliability",
       description:
         "More targeted coverage in hard-to-reach areas minimizes dead spots and ensures consistent connectivity across your community.",
-      image: "/assets/images/gallery/venue-commercial.png",
+      image: "/images/gallery/venue-commercial.png",
     },
     {
       title: "Innovation",
       description:
         "Increased speeds and capacity ensure people get the most from the latest wireless devices and technologies.",
-      image: "/assets/images/gallery/venue-crowd.png",
+      image: "/images/gallery/venue-crowd.png",
     },
     {
       title: "Safety",
       description:
         "Stronger coverage keeps first responders connected to critical information and increases 911 call availability.",
-      image: "/assets/images/gallery/venue-themepark.png",
+      image: "/images/gallery/venue-themepark.png",
     },
   ],
 };
@@ -68,7 +68,7 @@ export const COMMUNITY_HOW_WE_WORK_FALLBACK: {
     "We are expanding our small cell network across every major U.S. market. We use a structured, collaborative process that balances the needs of local communities, municipalities, and wireless carriers.",
     "This means building the vital connectivity that meets current needs while being ready for future technologies and growth.",
   ],
-  bgImageUrl: "/assets/images/backgrounds/how-we-work.png",
+  bgImageUrl: "/images/backgrounds/how-we-work.png",
   cta: {
     label: "Learn More",
     url: "/right-of-ways",

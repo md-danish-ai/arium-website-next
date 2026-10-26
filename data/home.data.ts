@@ -33,8 +33,8 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   heading: "Solve network challenges with a trusted partner",
   description:
     "Whether you're densifying an existing network, improving coverage in high-traffic areas, or preparing for next-generation connectivity, we deliver custom infrastructure solutions engineered for reliability and scale.",
-  desktopBg: "/assets/images/backgrounds/challenges.png",
-  mobileBg: "/assets/images/backgrounds/challenges.png",
+  desktopBg: "/images/backgrounds/challenges.png",
+  mobileBg: "/images/backgrounds/challenges.png",
   cards: [
     {
       heading: "Design",
@@ -88,7 +88,7 @@ export const STATS_FALLBACK: {
   stats: StatItem[];
 } = {
   heading: "Scale and experience to match your ambition",
-  mapImage: "/assets/svg-images/us-dot-map-faint.svg",
+  mapImage: "/images/svg-images/us-dot-map-faint.svg",
   stats: [
     { number: "100K+", description: "Small cells on air or under contract", bgColor: "#898cf3" },
     { number: "300+", description: "DAS-connected venues and buildings", bgColor: "#bcf6f2" },
@@ -110,8 +110,8 @@ export const COMMUNITY_IMPACT_FALLBACK: {
   heading: "Keeping communities safe and connected",
   description:
     "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes.",
-  desktopImg: "/assets/images/backgrounds/arena.jpg",
-  mobileImg: "/assets/images/backgrounds/arena-mobile.jpg",
+  desktopImg: "/images/backgrounds/arena.jpg",
+  mobileImg: "/images/backgrounds/arena-mobile.jpg",
   ctaText: "Learn about our community impact",
   ctaUrl: "/your-community",
   pointers: [
@@ -138,7 +138,7 @@ export const CAREERS_FALLBACK = {
   text: "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",
   ctaLabel: "Join Us",
   ctaUrl: "/careers",
-  bgImage: "/assets/images/backgrounds/careers.jpg",
+  bgImage: "/images/backgrounds/careers.jpg",
 };
 
 export const CONTACT_FALLBACK = {

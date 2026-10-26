@@ -53,7 +53,7 @@ export default function CareersBenefits({
         <div className="reveal stagger-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {benefits.map((benefit: CareersBenefitItem, index: number) => {
             const bgClass = BENEFIT_CLASSES[index % BENEFIT_CLASSES.length];
-            const iconSrc = benefit.iconSrc || "/assets/svg-images/healthcare-benefit.svg";
+            const iconSrc = benefit.iconSrc || "/images/svg-images/healthcare-benefit.svg";
 
             return (
               <div

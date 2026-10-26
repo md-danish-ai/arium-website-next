@@ -43,7 +43,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
 
   const heroImgUrl = resolveStrapiImage(
     pageContent?.heroMedia,
-    "/assets/images/backgrounds/challenges.png"
+    "/images/backgrounds/challenges.png"
   );
 
   const fallbackSections: SectionEntry[] = [

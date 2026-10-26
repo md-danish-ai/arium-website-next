@@ -15,7 +15,7 @@ export const SOLUTIONS_HERO_FALLBACK = {
   heading: "Infrastructure for tomorrow's wireless data demands",
   intro:
     "As new technologies emerge, we're building and scaling wireless networks that will support evolving demand—today and what comes next.",
-  imageSrc: "/assets/images/heroes/solutions.png",
+  imageSrc: "/images/heroes/solutions.png",
   imageAlt: "People gathered in an outdoor plaza",
   ctaText: "Contact Us",
   ctaLink: "/contact",
@@ -31,7 +31,7 @@ export const SOLUTIONS_SMALL_CELLS_FALLBACK = {
     { value: "100K+", label: "small cells on air or under contract" },
     { value: "700+", label: "municipalities served" },
   ],
-  illustrationSrc: "/assets/svg-images/small-cells-illustration.svg",
+  illustrationSrc: "/images/svg-images/small-cells-illustration.svg",
   illustrationAlt: "Small cells network illustration",
 };
 
@@ -42,7 +42,7 @@ export const SOLUTIONS_DAS_FALLBACK = {
     "We take the lead in building and managing the network, leveraging our longstanding relationships with wireless carriers, vendors, and government agencies.",
   ],
   stats: [{ value: "300+", label: "premier venues across the country" }],
-  illustrationSrc: "/assets/svg-images/das-illustration.svg",
+  illustrationSrc: "/images/svg-images/das-illustration.svg",
   illustrationAlt: "Distributed antenna system illustration",
 };
 
@@ -60,7 +60,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "We enable reliable wireless service for a better guest experience including enhanced fan engagement, public safety, mobile ticketing, concessions, and event operations.",
       theme: "teal",
-      bgImage: "/assets/images/industries/stadiums.png",
+      bgImage: "/images/industries/stadiums.png",
       iconKey: "stadiums & arenas",
     },
     {
@@ -68,7 +68,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "Our solutions provide high-quality wireless coverage for your guests, improving experience satisfaction, operational efficiency, and smart property technologies.",
       theme: "purple",
-      bgImage: "/assets/images/industries/amusement.png",
+      bgImage: "/images/industries/amusement.png",
       iconKey: "amusement parks, hospitality & entertainment",
     },
     {
@@ -76,7 +76,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "Our solutions enable digital learning and enhance campus safety by keeping faculty and students connected.",
       theme: "amber",
-      bgImage: "/assets/images/industries/education.png",
+      bgImage: "/images/industries/education.png",
       iconKey: "higher education",
     },
     {
@@ -84,7 +84,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "We can help you improve connectivity on your property while accommodating the technologies that make your building more functional, efficient, and tenant friendly.",
       theme: "amber",
-      bgImage: "/assets/images/industries/real-estate.png",
+      bgImage: "/images/industries/real-estate.png",
       iconKey: "commercial real estate",
     },
     {
@@ -92,7 +92,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "Our solutions improve connectivity for staff, patients, and medical professionals.",
       theme: "blue",
-      bgImage: "/assets/images/industries/healthcare.png",
+      bgImage: "/images/industries/healthcare.png",
       iconKey: "healthcare",
     },
     {
@@ -100,7 +100,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "Municipalities can improve connectivity for their constituents and help agencies better serve their residents and first responders.",
       theme: "teal",
-      bgImage: "/assets/images/industries/government.png",
+      bgImage: "/images/industries/government.png",
       iconKey: "state & local government",
     },
     {
@@ -108,7 +108,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       description:
         "We enable connectivity that supports the high data demand for travelers, busy staff and back-of-house operations, and mobile ticketing, providing a better guest experience and enhanced safety.",
       theme: "purple",
-      bgImage: "/assets/images/industries/airports.png",
+      bgImage: "/images/industries/airports.png",
       iconKey: "airports",
     },
   ],

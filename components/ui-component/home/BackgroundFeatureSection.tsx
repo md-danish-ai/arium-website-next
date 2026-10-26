@@ -7,7 +7,7 @@ import { BackgroundFeatureSectionProps } from "./type";
 export default function BackgroundFeatureSection({
   heading,
   description,
-  desktopBgUrl = "/assets/images/backgrounds/challenges.png",
+  desktopBgUrl = "/images/backgrounds/challenges.png",
   mobileBgUrl = desktopBgUrl,
   ctaLabel,
   ctaLink,

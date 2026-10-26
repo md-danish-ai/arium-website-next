@@ -99,7 +99,7 @@ export default function SolutionsIndustries({
             className={`ind-bg-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               index === currentIndex ? "opacity-100 z-0" : "opacity-0"
             }`}
-            src={industry.bgImage || "/assets/images/industries/stadiums.png"}
+            src={industry.bgImage || "/images/industries/stadiums.png"}
             alt={industry.title}
             fill
             sizes="(max-width: 1024px) 100vw, 75vw"

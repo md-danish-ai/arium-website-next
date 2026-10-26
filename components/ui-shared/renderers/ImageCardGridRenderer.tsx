@@ -36,7 +36,7 @@ export default function ImageCardGridRenderer({
   const cards = (section.cardgrid || section.cards || []).map((card) => ({
     title: card.title || "",
     description: card.description || "",
-    image: extractMediaUrl(card.image) || "/assets/images/placeholder.png",
+    image: extractMediaUrl(card.image) || "/images/placeholder.png",
     titleColor: card.TitleColor || card.titleColor,
     descriptionColor: card.DescriptionColor || card.descriptionColor,
   }));

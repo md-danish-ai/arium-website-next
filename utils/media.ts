@@ -1,6 +1,6 @@
 export const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.co";
+  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
 
 /**
  * Converts a relative Strapi media URL (e.g. /uploads/image.png)

@@ -37,7 +37,7 @@ export default function ImageSplit({ data }: ImageSplitProps) {
   } = data;
 
   const rawImgUrl = mediaObj?.url || mediaObj?.data?.attributes?.url;
-  const imgUrl = rawImgUrl ? GetStrapiMediaUrl(rawImgUrl) : "/assets/images/placeholder.png";
+  const imgUrl = rawImgUrl ? GetStrapiMediaUrl(rawImgUrl) : "/images/placeholder.png";
 
   const isMediaLeft = ImageAlignment === "Left" || ImageAlignment === "Media Left";
 

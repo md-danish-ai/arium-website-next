@@ -26,7 +26,7 @@ export interface CareersBenefitItem {
 export const CAREERS_HERO_FALLBACK = {
   heading: "Join our team",
   intro: "Advance your career and help shape the future of connectivity.",
-  imageSrc: "/assets/images/heroes/careers.png",
+  imageSrc: "/images/heroes/careers.png",
   imageAlt: "Arium Networks team working together",
   ctaText: "Explore opportunities",
   ctaLink: "https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL",
@@ -128,7 +128,7 @@ export const CAREERS_JOB_AREAS_FALLBACK: {
     url: "https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL",
     isExternal: true,
   },
-  imageSrc: "/assets/images/team/team.png",
+  imageSrc: "/images/team/team.png",
   imageAlt: "Arium Networks team collaborating in a modern office",
 };
 
@@ -145,27 +145,27 @@ export const CAREERS_BENEFITS_FALLBACK: {
       title: "Healthcare",
       description: "Full medical coverage, including dental and vision plans and telehealth",
       titleColor: "#009886",
-      iconSrc: "/assets/svg-images/healthcare-benefit.svg",
+      iconSrc: "/images/svg-images/healthcare-benefit.svg",
     },
     {
       title: "Financial Security",
       description:
         "Competitive 401(k), tuition reimbursement, financial counseling and funded healthcare savings accounts",
       titleColor: "#7c5cbf",
-      iconSrc: "/assets/svg-images/financial-security.svg",
+      iconSrc: "/images/svg-images/financial-security.svg",
     },
     {
       title: "Time Off",
       description:
         "Flexible paid time off for vacations, holidays, leaves of absence, or personal needs",
       titleColor: "#e8935a",
-      iconSrc: "/assets/svg-images/time-off.svg",
+      iconSrc: "/images/svg-images/time-off.svg",
     },
     {
       title: "Family Support",
       description: "Paid maternity and paternity leave, adoption benefits, and milk shipping",
       titleColor: "#009886",
-      iconSrc: "/assets/svg-images/family-support.svg",
+      iconSrc: "/images/svg-images/family-support.svg",
     },
   ],
 };

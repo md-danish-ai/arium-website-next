@@ -150,7 +150,7 @@ export function mapCommunityBenefits(
       return {
         title: (c.title || c.Title || c.heading || "") as string,
         description: (c.description || c.Description || c.body || "") as string,
-        image: resolveStrapiImage(c.image, fallbackCard?.image || "/assets/images/placeholder.png"),
+        image: resolveStrapiImage(c.image, fallbackCard?.image || "/images/placeholder.png"),
         titleColor: (c.TitleColor || c.titleColor) as string | undefined,
         descriptionColor: (c.DescriptionColor || c.descriptionColor) as string | undefined,
       };

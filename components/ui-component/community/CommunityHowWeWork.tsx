@@ -8,7 +8,7 @@ export default function CommunityHowWeWork({
   title,
   contentHtml,
   paragraphs = [],
-  bgImageUrl = "/assets/images/backgrounds/how-we-work.png",
+  bgImageUrl = "/images/backgrounds/how-we-work.png",
   cta,
 }: CommunityHowWeWorkProps) {
   return (

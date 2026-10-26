@@ -91,8 +91,8 @@ export function mapPeopleMembers(
     const fallbackImg =
       matchedFallback?.image ||
       (role.toLowerCase().includes("female")
-        ? "/assets/images/team/placeholder-female.png"
-        : "/assets/images/team/placeholder-male.png");
+        ? "/images/team/placeholder-female.png"
+        : "/images/team/placeholder-male.png");
 
     const rawImg = (card.Image || card.image) as unknown;
     const image = resolveStrapiImage(rawImg, fallbackImg);

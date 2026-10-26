@@ -38,19 +38,19 @@ export interface PeopleGlobalSectionProps {
 
 const STATIC_FALLBACK_IMAGES: Record<string, string> = {
   // Board of Directors
-  "Marni M. Walden": "/assets/images/team/placeholder-female.png",
-  "Gerard Ainsztein": "/assets/images/team/placeholder-male.png",
-  "Tim Biltz": "/assets/images/team/placeholder-male.png",
-  "Tim Cohen": "/assets/images/team/placeholder-male.png",
-  "Bill Hogg": "/assets/images/team/placeholder-male.png",
-  "Nirav Shah": "/assets/images/team/placeholder-male.png",
+  "Marni M. Walden": "/images/team/placeholder-female.png",
+  "Gerard Ainsztein": "/images/team/placeholder-male.png",
+  "Tim Biltz": "/images/team/placeholder-male.png",
+  "Tim Cohen": "/images/team/placeholder-male.png",
+  "Bill Hogg": "/images/team/placeholder-male.png",
+  "Nirav Shah": "/images/team/placeholder-male.png",
   // Leadership Team
-  'Laurent "LT" Therivel': "/assets/images/team/placeholder-male.png",
-  "Jerry Karnick": "/assets/images/team/placeholder-male.png",
-  "Karen Rohrkemper": "/assets/images/team/placeholder-female.png",
-  "Jeffery Schott": "/assets/images/team/placeholder-male.png",
-  "Manjula Sriram": "/assets/images/team/placeholder-female.png",
-  "John Townsend": "/assets/images/team/placeholder-male.png",
+  'Laurent "LT" Therivel': "/images/team/placeholder-male.png",
+  "Jerry Karnick": "/images/team/placeholder-male.png",
+  "Karen Rohrkemper": "/images/team/placeholder-female.png",
+  "Jeffery Schott": "/images/team/placeholder-male.png",
+  "Manjula Sriram": "/images/team/placeholder-female.png",
+  "John Townsend": "/images/team/placeholder-male.png",
 };
 
 export default function PeopleGlobalSection({ members, cards, data }: PeopleGlobalSectionProps) {
@@ -64,9 +64,9 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
     const rawImage = card.Image || card.image;
     const extractedUrl = extractMediaUrl(rawImage);
     let imageUrl =
-      extractedUrl || STATIC_FALLBACK_IMAGES[name] || "/assets/images/team/placeholder-male.png";
+      extractedUrl || STATIC_FALLBACK_IMAGES[name] || "/images/team/placeholder-male.png";
 
-    if (imageUrl.startsWith("/") && !imageUrl.startsWith("/assets")) {
+    if (imageUrl.startsWith("/") && !imageUrl.startsWith("/images")) {
       imageUrl = GetStrapiMediaUrl(imageUrl);
     }
 

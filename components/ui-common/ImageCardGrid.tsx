@@ -54,7 +54,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
 
         <div className="reveal stagger-2 image-card-grid grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full">
           {displayCards.map((benefit, index) => {
-            const imageUrl = benefit.image || "/assets/images/placeholder.png";
+            const imageUrl = benefit.image || "/images/placeholder.png";
 
             return (
               <div key={index} className="p-0 text-center flex flex-col items-center w-full">

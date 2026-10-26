@@ -64,7 +64,7 @@ export default function NotFound() {
                 }}
               >
                 <Image
-                  src="/assets/svg-images/shape-teal.svg"
+                  src="/images/svg-images/shape-teal.svg"
                   alt=""
                   fill
                   style={{ objectFit: "contain" }}
@@ -99,7 +99,7 @@ export default function NotFound() {
                 }}
               >
                 <Image
-                  src="/assets/svg-images/shape-white.svg"
+                  src="/images/svg-images/shape-white.svg"
                   alt=""
                   fill
                   style={{ objectFit: "contain" }}

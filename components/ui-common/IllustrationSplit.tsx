@@ -57,7 +57,7 @@ export default function IllustrationSplit({
   }
   const imgUrl = rawImgUrl
     ? GetStrapiMediaUrl(rawImgUrl)
-    : "/assets/svg-images/small-cells-illustration.svg";
+    : "/images/svg-images/small-cells-illustration.svg";
 
   const isMediaLeft = mediaAlignment === "Media Left" || mediaAlignment === "Left";
 
