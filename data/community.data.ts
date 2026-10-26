@@ -15,7 +15,7 @@ export interface CommunityBenefitCard {
 export const COMMUNITY_HERO_FALLBACK = {
   heading: "Building the connections your community depends on",
   intro: "We work in communities like yours to ensure you stay on the cutting edge.",
-  imageSrc: "/assets/images/hero-community.png",
+  imageSrc: "/assets/images/heroes/community.png",
   imageAlt: "Community members enjoying a park",
 };
 
@@ -40,19 +40,19 @@ export const COMMUNITY_WHY_MATTER_FALLBACK: {
       title: "Reliability",
       description:
         "More targeted coverage in hard-to-reach areas minimizes dead spots and ensures consistent connectivity across your community.",
-      image: "/assets/images/ov-venue-commercial.png",
+      image: "/assets/images/gallery/venue-commercial.png",
     },
     {
       title: "Innovation",
       description:
         "Increased speeds and capacity ensure people get the most from the latest wireless devices and technologies.",
-      image: "/assets/images/ov-venue-crowd.png",
+      image: "/assets/images/gallery/venue-crowd.png",
     },
     {
       title: "Safety",
       description:
         "Stronger coverage keeps first responders connected to critical information and increases 911 call availability.",
-      image: "/assets/images/ov-venue-themepark.png",
+      image: "/assets/images/gallery/venue-themepark.png",
     },
   ],
 };
@@ -68,7 +68,7 @@ export const COMMUNITY_HOW_WE_WORK_FALLBACK: {
     "We are expanding our small cell network across every major U.S. market. We use a structured, collaborative process that balances the needs of local communities, municipalities, and wireless carriers.",
     "This means building the vital connectivity that meets current needs while being ready for future technologies and growth.",
   ],
-  bgImageUrl: "/assets/images/how-we-work-community.png",
+  bgImageUrl: "/assets/images/backgrounds/how-we-work.png",
   cta: {
     label: "Learn More",
     url: "/right-of-ways",

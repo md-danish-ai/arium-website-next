@@ -26,7 +26,7 @@ export interface CareersBenefitItem {
 export const CAREERS_HERO_FALLBACK = {
   heading: "Join our team",
   intro: "Advance your career and help shape the future of connectivity.",
-  imageSrc: "/assets/images/hero-careers.png",
+  imageSrc: "/assets/images/heroes/careers.png",
   imageAlt: "Arium Networks team working together",
   ctaText: "Explore opportunities",
   ctaLink: "https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL",
@@ -128,7 +128,7 @@ export const CAREERS_JOB_AREAS_FALLBACK: {
     url: "https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL",
     isExternal: true,
   },
-  imageSrc: "/assets/images/team.png",
+  imageSrc: "/assets/images/team/team.png",
   imageAlt: "Arium Networks team collaborating in a modern office",
 };
 

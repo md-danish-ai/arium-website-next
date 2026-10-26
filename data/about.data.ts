@@ -31,7 +31,7 @@ export const ABOUT_HERO_FALLBACK = {
   heading: "Building a more connected future",
   intro:
     "We're working across the country to build the infrastructure that powers your most important connections.",
-  imageSrc: "/assets/images/hero-about.png",
+  imageSrc: "/assets/images/heroes/about.png",
   imageAlt: "Chicago skyline",
 };
 
@@ -109,7 +109,7 @@ export const ABOUT_COMMITMENTS_FALLBACK: {
   description:
     "As part of EQT's Active Core Infrastructure fund, we have the support and financial capacity to invest with conviction. As opposed to many other private equity backed companies, we do not have any timeframe for liquidity, so we can invest and operate for the long term.",
   heroBannerImg: {
-    src: "/assets/images/live_about_commitments_panoramic.png",
+    src: "/assets/images/backgrounds/commitments.png",
     alt: "New York City skyline at sunset",
   },
   pillars: [
@@ -159,7 +159,10 @@ export const ABOUT_CULTURE_FALLBACK: {
         "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation.",
     },
   ],
-  mediaUrls: ["/assets/images/culture-bg-mobile.jpg", "/assets/images/culture-bg.jpg"],
+  mediaUrls: [
+    "/assets/images/backgrounds/culture-mobile.jpg",
+    "/assets/images/backgrounds/culture.jpg",
+  ],
   cta: {
     label: "Explore Careers",
     url: "/careers",

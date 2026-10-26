@@ -41,7 +41,10 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
     (w) => w.PositionNumber === 0 || w.Sections?.some((s) => s.__component?.includes("hero"))
   );
 
-  const heroImgUrl = resolveStrapiImage(pageContent?.heroMedia, "/assets/images/challenges-bg.png");
+  const heroImgUrl = resolveStrapiImage(
+    pageContent?.heroMedia,
+    "/assets/images/backgrounds/challenges.png"
+  );
 
   const fallbackSections: SectionEntry[] = [
     {

@@ -11,7 +11,7 @@ export default function CareersJobAreas({
   description,
   jobAreas = [],
   cta,
-  imageSrc = "/assets/images/team.png",
+  imageSrc = "/assets/images/team/team.png",
   imageAlt = "Arium Networks team collaborating in a modern office",
 }: CareersJobAreasProps) {
   return (
