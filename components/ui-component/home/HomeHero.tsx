@@ -64,7 +64,7 @@ export default function HomeHero({
                 className="shared-mh-shape-inner relative h-full w-full animate-breathe-teal"
               >
                 <Image
-                  src="/assets/shape-teal.svg"
+                  src="/assets/svg-images/shape-teal.svg"
                   alt=""
                   fill
                   className="object-contain"
@@ -84,7 +84,7 @@ export default function HomeHero({
                 className="shared-mh-shape-inner relative h-full w-full animate-breathe-white"
               >
                 <Image
-                  src="/assets/shape-white.svg"
+                  src="/assets/svg-images/shape-white.svg"
                   alt=""
                   fill
                   className="object-contain"

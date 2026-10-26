@@ -44,7 +44,7 @@ export default function CtaWithGraphic({
     typeof graphic === "string" ? graphic : graphic?.url || graphic?.data?.attributes?.url;
   const absoluteGraphicUrl = graphicUrl
     ? GetStrapiMediaUrl(graphicUrl)
-    : "/assets/images/connection-cta.svg";
+    : "/assets/svg-images/connection-cta.svg";
   const altText =
     (typeof graphic === "object" && graphic?.alternativeText) ||
     (typeof graphic === "object" && graphic?.data?.attributes?.alternativeText) ||

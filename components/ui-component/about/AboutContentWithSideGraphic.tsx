@@ -61,7 +61,7 @@ export default function AboutContentWithSideGraphic({
       </Container>
 
       {/* Single Image: Bottom on mobile/tablet (<1024px), Side on desktop (>=1024px) */}
-      <div className="relative z-[1] w-full mt-6 sm:mt-8 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:-right-8 lg:top-1/2 lg:h-[100%] lg:translate-x-1/2 lg:-translate-y-1/2 lg:-scale-x-100 pointer-events-none">
+      <div className="relative z-[1] w-full mt-6 sm:mt-8 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:right-2 xl:right-10 lg:top-1/2 lg:h-[88%] lg:-translate-y-1/2 pointer-events-none">
         {sideImageSrc && (
           <Image
             src={sideImageSrc}

@@ -26,7 +26,7 @@ export const COMMUNITY_SMALL_CELLS_FALLBACK = {
     "Small cells are compact, discreet antennas often mounted on streetlights or utility poles. They boost wireless coverage and capacity in the areas that need it most. Most people don't even notice them.",
     "Think of small cells as adding extra lanes to the wireless highway — reducing congestion and helping everyone stay connected.",
   ],
-  illustrationSrc: "/assets/images/live_small-cells-illustration.svg",
+  illustrationSrc: "/assets/svg-images/small-cells-illustration.svg",
   illustrationAlt: "Small cells illustration",
 };
 

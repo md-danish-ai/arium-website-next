@@ -88,7 +88,7 @@ export const STATS_FALLBACK: {
   stats: StatItem[];
 } = {
   heading: "Scale and experience to match your ambition",
-  mapImage: "/assets/images/us-dot-map-faint.svg",
+  mapImage: "/assets/svg-images/us-dot-map-faint.svg",
   stats: [
     { number: "100K+", description: "Small cells on air or under contract", bgColor: "#898cf3" },
     { number: "300+", description: "DAS-connected venues and buildings", bgColor: "#bcf6f2" },

@@ -41,7 +41,7 @@ export const ABOUT_STORY_FALLBACK = {
     "Our world depends on fast, reliable connectivity—from the way we interact with loved ones, educate our children, and drive business forward. More than 15 years ago, we began building the small cell and distributed antennae system (DAS) infrastructure that ensures wireless services works effectively, even in the most challenging locations. Across the country, we're building dense networks and increasing capacity, enhancing connectivity in high-demand areas.",
     "We make the process of designing and deploying wireless networks as straightforward and predictable as possible, providing a clear path forward that supports your vision long into the future.",
   ],
-  sideImageSrc: "/assets/images/live_connection-illustration.svg",
+  sideImageSrc: "/assets/svg-images/connection-illustration.svg",
   gradient: "bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF]",
 };
 

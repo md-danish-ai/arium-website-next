@@ -31,7 +31,7 @@ export const SOLUTIONS_SMALL_CELLS_FALLBACK = {
     { value: "100K+", label: "small cells on air or under contract" },
     { value: "700+", label: "municipalities served" },
   ],
-  illustrationSrc: "/assets/images/live_small-cells-illustration.svg",
+  illustrationSrc: "/assets/svg-images/small-cells-illustration.svg",
   illustrationAlt: "Small cells network illustration",
 };
 
@@ -42,7 +42,7 @@ export const SOLUTIONS_DAS_FALLBACK = {
     "We take the lead in building and managing the network, leveraging our longstanding relationships with wireless carriers, vendors, and government agencies.",
   ],
   stats: [{ value: "300+", label: "premier venues across the country" }],
-  illustrationSrc: "/assets/images/live_das-illustration.svg",
+  illustrationSrc: "/assets/svg-images/das-illustration.svg",
   illustrationAlt: "Distributed antenna system illustration",
 };
 

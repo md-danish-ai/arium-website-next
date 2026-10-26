@@ -145,27 +145,27 @@ export const CAREERS_BENEFITS_FALLBACK: {
       title: "Healthcare",
       description: "Full medical coverage, including dental and vision plans and telehealth",
       titleColor: "#009886",
-      iconSrc: "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Healthcare-Benefit.svg",
+      iconSrc: "/assets/svg-images/healthcare-benefit.svg",
     },
     {
       title: "Financial Security",
       description:
         "Competitive 401(k), tuition reimbursement, financial counseling and funded healthcare savings accounts",
       titleColor: "#7c5cbf",
-      iconSrc: "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Financial-Security.svg",
+      iconSrc: "/assets/svg-images/financial-security.svg",
     },
     {
       title: "Time Off",
       description:
         "Flexible paid time off for vacations, holidays, leaves of absence, or personal needs",
       titleColor: "#e8935a",
-      iconSrc: "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Time-Off.svg",
+      iconSrc: "/assets/svg-images/time-off.svg",
     },
     {
       title: "Family Support",
       description: "Paid maternity and paternity leave, adoption benefits, and milk shipping",
       titleColor: "#009886",
-      iconSrc: "/assets/images/live_careers_Arium-Master-Icons-NoBorder_Family-Support.svg",
+      iconSrc: "/assets/svg-images/family-support.svg",
     },
   ],
 };
