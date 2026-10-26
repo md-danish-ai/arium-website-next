@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import { AboutJourneyProps } from "./type";
 
 const ACCENT_STYLES = [
@@ -31,7 +32,7 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
       id="shared-journey"
       className="bg-white py-16 md:py-20 lg:py-28 relative overflow-hidden z-[2]"
     >
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <Typography
@@ -62,7 +63,7 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
         </div>
 
         {/* Timeline */}
-        <div className="relative w-full max-w-[520px] md:max-w-[1200px] xl:max-w-[1420px] mx-auto reveal stagger-3">
+        <div className="relative w-full max-w-[520px] md:max-w-none mx-auto reveal stagger-3">
           {/* Mobile vertical timeline line (< md) */}
           <div
             className="md:hidden absolute left-[5px] top-2 bottom-3 w-[2px] z-[1]"
@@ -134,7 +135,7 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
             })}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { DoubleDownArrowSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 import { useSpringShapes } from "@hooks/useSpringShapes";
 import { HomeHeroProps } from "./type";
 
@@ -96,7 +97,7 @@ export default function HomeHero({
       </div>
 
       {/* Content */}
-      <div className="shared-mh-content relative z-[5] px-10 max-[768px]:px-6 pt-[150px] pb-[100px] text-center w-full">
+      <Container className="shared-mh-content relative z-[5] pt-[150px] pb-[100px] text-center w-full">
         <Typography
           variant="h1"
           uppercase
@@ -112,7 +113,7 @@ export default function HomeHero({
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
-      </div>
+      </Container>
 
       {/* Scroll indicator */}
       <div

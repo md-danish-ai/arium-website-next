@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CareersJobAreasProps } from "./type";
 
 const JOB_AREA_ACCENTS = ["#00e8d9", "#8B6FE6", "#E8935A"];
@@ -24,7 +25,7 @@ export default function CareersJobAreas({
         aria-hidden="true"
       />
 
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         {/* Centered Header */}
         <div className="section-header text-center mb-14">
           <Typography
@@ -110,7 +111,7 @@ export default function CareersJobAreas({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

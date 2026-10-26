@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { SubpageTestimonialItem } from "@data/where-subpages.data";
 
 export interface RightOfWayTestimonialsProps {
@@ -22,7 +23,7 @@ export default function RightOfWayTestimonials({
         className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
         aria-hidden="true"
       />
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="section-header text-center mb-16 md:mb-18">
           <Typography
             variant="h3"
@@ -83,7 +84,7 @@ export default function RightOfWayTestimonials({
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

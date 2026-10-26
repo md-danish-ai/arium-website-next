@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface ImageSplitProps {
   data: {
@@ -62,7 +63,7 @@ export default function ImageSplit({ data }: ImageSplitProps) {
       className="shared-image-split relative overflow-hidden py-24 flex items-center"
       style={bgStyle}
     >
-      <div className="container relative z-[1]">
+      <Container className="relative z-[1]">
         <div
           className={`image-split-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isMediaLeft ? "image-split-reverse" : ""}`}
         >
@@ -113,7 +114,7 @@ export default function ImageSplit({ data }: ImageSplitProps) {
             />
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

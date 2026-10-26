@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface TestimonialCard {
   personName: string;
@@ -41,7 +42,7 @@ export default function TestimonialsSection({
           className="infra-grid-bg absolute inset-0 opacity-[0.08] pointer-events-none"
           aria-hidden="true"
         />
-        <div className="container relative z-[2]">
+        <Container className="relative z-[2]">
           {(heading || description) && (
             <div className="section-header text-center mb-12 md:mb-16 max-[600px]:mb-8">
               {heading && (
@@ -111,7 +112,7 @@ export default function TestimonialsSection({
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

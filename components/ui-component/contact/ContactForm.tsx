@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Typography } from "@ui-element";
 import { DropdownArrowSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 import type { ContactTopicOption } from "@data/contact.data";
 import { CONTACT_TOPIC_OPTIONS } from "@data/contact.data";
 
@@ -79,7 +80,7 @@ export default function ContactForm({
           className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
           aria-hidden="true"
         />
-        <div className="container relative z-[2]">
+        <Container className="relative z-[2]">
           <div className="max-w-[680px] mx-auto relative reveal stagger-1">
             {status === "success" ? (
               <div className="text-center py-[60px] px-5">
@@ -421,7 +422,7 @@ export default function ContactForm({
               </form>
             )}
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

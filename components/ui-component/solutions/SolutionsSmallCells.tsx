@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { SolutionsSmallCellsProps } from "./type";
 
 export default function SolutionsSmallCells({
@@ -15,7 +16,7 @@ export default function SolutionsSmallCells({
 
   return (
     <section className="bg-transparent py-[50px] relative overflow-hidden">
-      <div className="container max-w-[1200px]">
+      <Container>
         <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           <div className="sol-split-text order-1">
             {/* Mobile Top-Right Floated Illustration (< md) */}
@@ -111,7 +112,7 @@ export default function SolutionsSmallCells({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

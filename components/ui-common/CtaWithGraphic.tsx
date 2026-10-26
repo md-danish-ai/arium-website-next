@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 export interface StrapiMedia {
   url?: string;
@@ -58,7 +59,7 @@ export default function CtaWithGraphic({
       className="shared-cta-graphic-section relative overflow-hidden bg-[#D2C7FF]"
       style={bgColor ? { background: bgColor } : undefined}
     >
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="w-full max-w-full md:max-w-[550px] lg:max-w-[650px] py-12 sm:py-16 md:py-20 lg:py-24 text-left">
           <Typography
             as="h2"
@@ -101,7 +102,7 @@ export default function CtaWithGraphic({
             </div>
           )}
         </div>
-      </div>
+      </Container>
 
       <div
         className="shared-cta-graphic-illustration-wrap absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden opacity-25 sm:opacity-40 md:opacity-100 transition-opacity duration-300"

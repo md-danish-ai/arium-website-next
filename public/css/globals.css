@@ -122,13 +122,6 @@
   font-style: normal;
 }
 
-/* Unified Frame Layout System */
-:root {
-  --frame: 1440px;
-  --gutter: clamp(1.25rem, 3.5vw, 3.5rem);
-  --frame-box: calc(var(--frame) + (2 * var(--gutter)));
-  --frame-edge: max(var(--gutter), calc((100% - var(--frame)) / 2));
-}
 
 /* Global Reset & Base Styles */
 *,
@@ -202,16 +195,6 @@ svg {
   p {
     margin: 0;
   }
-}
-
-/* Frame Container Utility */
-@utility container {
-  max-width: var(--frame-box);
-  padding-left: var(--gutter);
-  padding-right: var(--gutter);
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
 }
 
 /* Design System Typography Utilities */

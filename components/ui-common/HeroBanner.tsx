@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface HeroBannerProps {
   id?: string;
@@ -73,7 +74,7 @@ export default function HeroBanner({
         ) : null}
       </div>
       <div className="shared-img-hero-overlay absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(13,18,36,0.85)_0%,rgba(13,18,36,0.5)_12%,rgba(13,18,36,0.2)_22%,transparent_35%),radial-gradient(ellipse_120%_70%_at_50%_55%,rgba(13,18,36,0.65)_0%,rgba(13,18,36,0.35)_40%,transparent_70%)]" />
-      <div className="container shared-img-hero-content relative z-[3] pt-[130px] md:pt-[150px] pb-[80px] md:pb-[100px] text-center w-full">
+      <Container className="shared-img-hero-content relative z-[3] pt-[130px] md:pt-[150px] pb-[80px] md:pb-[100px] text-center w-full">
         {heading && (
           <Typography
             variant="h1"
@@ -134,7 +135,7 @@ export default function HeroBanner({
             )}
           </div>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

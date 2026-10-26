@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface GlobeCTAProps {
   title?: string;
@@ -34,7 +35,7 @@ export default function GlobeCTA({
         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
       </div>
 
-      <div className="container relative z-[1] max-md:w-full">
+      <Container className="relative z-[1]">
         <div className="sol-split reveal flex items-center">
           <div className="sol-split-text max-w-[580px]">
             {description ? (
@@ -72,7 +73,7 @@ export default function GlobeCTA({
           </div>
           <div />
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

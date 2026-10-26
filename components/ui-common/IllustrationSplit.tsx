@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface Statistic {
   Number?: string;
@@ -90,7 +91,7 @@ export default function IllustrationSplit({
         />
       </div>
 
-      <div className="container relative z-[1]">
+      <Container className="relative z-[1]">
         <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           {/* Text Content Area */}
           <div className={`sol-split-text order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
@@ -183,7 +184,7 @@ export default function IllustrationSplit({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

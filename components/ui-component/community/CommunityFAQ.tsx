@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Typography } from "@ui-element";
 import { FaqChevronSvg } from "@ui-svg";
 import FlowBackground from "@ui-animations/FlowBackground";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CommunityFAQProps } from "./type";
 
 export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
@@ -17,7 +18,7 @@ export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
       <FlowBackground />
 
       <section id="faq" className="bg-transparent py-14 md:py-24 lg:py-32 relative overflow-hidden">
-        <div className="container relative z-[1]">
+        <Container className="relative z-[1]">
           <div className="section-header text-center mb-16">
             <Typography
               as="h2"
@@ -70,7 +71,7 @@ export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

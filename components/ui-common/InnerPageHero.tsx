@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface InnerPageHeroProps {
   id?: string;
@@ -79,37 +80,36 @@ export default function InnerPageHero({
           (pathname.includes("/leadership") || pathname.includes("/board-of-directors")
             ? "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 50%, #DDD5FF 100%)"
             : "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)"),
-        padding: `200px var(--gutter) ${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "180px" : "80px"}`,
+        padding: `${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "200px 0 180px" : "200px 0 80px"}`,
       }}
     >
       <div className="absolute w-[600px] h-[600px] rounded-full [background:radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full [background:radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       {parentLabel && (
-        <nav
-          className="reveal absolute top-[140px] inset-x-0 z-[2] px-[var(--gutter)] min-[1080px]:px-[var(--frame-edge)]"
-          aria-label="Breadcrumb"
-        >
-          <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-[0.78rem] tracking-[0.04em]">
-            <li>
-              <Link
-                href={parentUrl}
-                className="text-midnight/50 no-underline hover:text-midnight/80 transition-opacity"
-              >
-                {parentLabel}
-              </Link>
-            </li>
-            <li className="text-midnight/30 text-[0.7rem]">/</li>
-            <li>
-              <Typography variant="b4" uppercase className="text-midnight/80 font-medium">
-                {cleanTitle}
-              </Typography>
-            </li>
-          </ol>
+        <nav className="reveal absolute top-[140px] inset-x-0 z-[2]" aria-label="Breadcrumb">
+          <Container>
+            <ol className="list-none p-0 m-0 flex items-center gap-2 font-body text-[0.78rem] tracking-[0.04em]">
+              <li>
+                <Link
+                  href={parentUrl}
+                  className="text-midnight/50 no-underline hover:text-midnight/80 transition-opacity"
+                >
+                  {parentLabel}
+                </Link>
+              </li>
+              <li className="text-midnight/30 text-[0.7rem]">/</li>
+              <li>
+                <Typography variant="b4" uppercase className="text-midnight/80 font-medium">
+                  {cleanTitle}
+                </Typography>
+              </li>
+            </ol>
+          </Container>
         </nav>
       )}
 
-      <div className="relative z-[1] flex flex-col items-center text-center">
+      <Container className="relative z-[1] flex flex-col items-center text-center">
         <div
           className="flex flex-col items-center text-center w-full mx-auto"
           style={{ maxWidth: contentMaxWidth || "960px" }}
@@ -175,7 +175,7 @@ export default function InnerPageHero({
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

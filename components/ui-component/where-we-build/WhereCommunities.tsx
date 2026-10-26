@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 import type { WhereCommunitiesProps } from "./type";
 
 export default function WhereCommunities({
@@ -22,7 +23,7 @@ export default function WhereCommunities({
       <div className="absolute w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.35)_0%,transparent_65%)] -bottom-[200px] -left-[120px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(210,199,255,0.1)_0%,transparent_70%)] top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-      <div className="container ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
+      <Container className="ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
         <div className="ov-feature-text reveal flex flex-col gap-5">
           <Typography
             variant="h2"
@@ -75,7 +76,7 @@ export default function WhereCommunities({
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

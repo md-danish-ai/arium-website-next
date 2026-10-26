@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CommunitySmallCellsProps } from "./type";
 
 export default function CommunitySmallCells({
@@ -20,7 +21,7 @@ export default function CommunitySmallCells({
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      <div className="container relative z-[1]">
+      <Container className="relative z-[1]">
         <div className="sol-split reveal grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="sol-split-text flex flex-col">
             <Typography as="h2" variant="h2" uppercase className="text-left text-[#162047] mb-6">
@@ -58,7 +59,7 @@ export default function CommunitySmallCells({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CareersTestimonialsProps } from "./type";
 
 const TESTIMONIAL_STYLES = [
@@ -39,7 +40,7 @@ export default function CareersTestimonials({
         className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
         aria-hidden="true"
       />
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="section-header text-center mb-16 md:mb-18">
           <Typography
             variant="h3"
@@ -49,7 +50,7 @@ export default function CareersTestimonials({
             {title}
           </Typography>
         </div>
-        <div className="tm-row careers-tm-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1440px] mx-auto">
+        <div className="tm-row careers-tm-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
           {testimonials.map((testimonial, index) => {
             const style = TESTIMONIAL_STYLES[index % TESTIMONIAL_STYLES.length];
             return (
@@ -89,7 +90,7 @@ export default function CareersTestimonials({
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

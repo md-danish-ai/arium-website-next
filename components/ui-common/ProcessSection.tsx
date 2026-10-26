@@ -3,6 +3,7 @@ import { useState } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 export interface TimelineItem {
   label: string;
@@ -54,7 +55,7 @@ export default function ProcessSection({
           className="infra-particles pointer-events-none absolute inset-0"
           id="process-particles"
         />
-        <div className="container relative z-[2]">
+        <Container className="relative z-[2]">
           <div className="section-header text-center mb-14">
             <Typography
               as="h2"
@@ -227,7 +228,7 @@ export default function ProcessSection({
               })}
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

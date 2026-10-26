@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CommunityHowWeWorkProps } from "./type";
 
 export default function CommunityHowWeWork({
@@ -27,7 +28,7 @@ export default function CommunityHowWeWork({
       <div className="absolute left-0 right-0 bottom-0 h-[200px] z-[1] bg-gradient-to-t from-[#0d1224]/50 to-transparent" />
       <div className="absolute left-0 right-0 top-0 h-[150px] z-[1] bg-gradient-to-b from-[#0d1224]/40 to-transparent" />
 
-      <div className="container relative z-[2] py-20 md:py-32 lg:py-40">
+      <Container className="relative z-[2] py-20 md:py-32 lg:py-40">
         <div className="max-w-[560px]">
           <Typography
             as="h2"
@@ -66,7 +67,7 @@ export default function CommunityHowWeWork({
             </Link>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

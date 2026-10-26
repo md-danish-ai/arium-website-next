@@ -1,6 +1,7 @@
 "use client";
 
 import { Typography, DetailedCard } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import { DetailedCardGridProps } from "./type";
 import { SmallCellsSvg, DasSvg } from "@ui-svg";
 import { useSvgDraw } from "@hooks/useSvgDraw";
@@ -26,7 +27,7 @@ export default function DetailedCardGrid({
 
       <div className="infra-particles" id="infra-particles"></div>
 
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="section-header text-center mb-8 md:mb-12 lg:mb-16">
           <Typography
             variant="h3"
@@ -69,7 +70,7 @@ export default function DetailedCardGrid({
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

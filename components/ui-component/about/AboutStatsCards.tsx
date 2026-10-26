@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import { AboutStatsCardsProps } from "./type";
 
 const COLOR_SCHEMES = [
@@ -23,7 +24,7 @@ const COLOR_SCHEMES = [
 export default function AboutStatsCards({ heading, description, stats }: AboutStatsCardsProps) {
   return (
     <section className="bg-white py-14 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden z-[2]">
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <Typography
@@ -134,7 +135,7 @@ export default function AboutStatsCards({ heading, description, stats }: AboutSt
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

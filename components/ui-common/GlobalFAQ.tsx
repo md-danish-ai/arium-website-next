@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Typography } from "@ui-element";
 import { FaqChevronSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface FAQItem {
   Question: string;
@@ -40,7 +41,7 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
       />
 
       <section id="faq" className="bg-transparent py-14 md:py-24 lg:py-28 relative overflow-hidden">
-        <div className="container relative z-[1]">
+        <Container className="relative z-[1]">
           <div className="section-header text-center mb-16">
             {Heading && (
               <Typography
@@ -108,7 +109,7 @@ export default function GlobalFAQ({ Heading, HeadingColor, Description, FaqData 
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

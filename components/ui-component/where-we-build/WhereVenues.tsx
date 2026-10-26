@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 import type { WhereVenuesProps } from "./type";
 
 export default function WhereVenues({
@@ -22,7 +23,7 @@ export default function WhereVenues({
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_65%)] -bottom-[180px] -right-[120px] pointer-events-none" />
       <div className="absolute w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(210,199,255,0.08)_0%,transparent_70%)] top-[30%] right-[20%] pointer-events-none" />
 
-      <div className="container ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
+      <Container className="ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
         <div className="ov-feature-text reveal flex flex-col gap-5 lg:order-2">
           <Typography
             variant="h2"
@@ -75,7 +76,7 @@ export default function WhereVenues({
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

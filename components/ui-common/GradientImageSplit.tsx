@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Typography } from "@ui-element";
 import { DoubleRightArrowSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 
 export interface GradientSplitPointer {
   heading: string;
@@ -64,7 +65,7 @@ export default function GradientImageSplit({
       <div className="community-veil absolute inset-0 z-[1] bg-[#0a1628]/80 lg:bg-transparent lg:bg-gradient-to-t lg:from-[#0a1628]/50 lg:via-transparent lg:to-transparent pointer-events-none" />
 
       {/* Content */}
-      <div className="container relative z-[2] py-12 md:py-16 lg:py-[100px]">
+      <Container className="relative z-[2] py-12 md:py-16 lg:py-[100px]">
         <div className="community-content-inner max-w-[620px]">
           <Typography
             as="h2"
@@ -145,7 +146,7 @@ export default function GradientImageSplit({
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

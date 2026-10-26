@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Typography, StatCard } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import { useCounterAnimation } from "@hooks/useCounterAnimation";
 import { StatsWithImageProps, StatItem } from "./type";
 
@@ -21,7 +22,7 @@ export default function StatsWithImage({
     >
       <div className="shared-swi-bg-gradient absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
 
-      <div className="container relative z-[1]">
+      <Container className="relative z-[1]">
         <div className="shared-swi-header mb-8 md:mb-12 lg:mb-16 text-center reveal">
           <Typography
             variant="h3"
@@ -64,7 +65,7 @@ export default function StatsWithImage({
             />
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

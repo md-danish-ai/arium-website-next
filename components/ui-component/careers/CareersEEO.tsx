@@ -1,4 +1,5 @@
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CareersEEOProps } from "./type";
 
 export default function CareersEEO({ contentHtml, statementText }: CareersEEOProps) {
@@ -7,8 +8,8 @@ export default function CareersEEO({ contentHtml, statementText }: CareersEEOPro
       className="reveal relative overflow-hidden py-10 bg-gradient-to-b from-white via-[#f6f8fa] to-[#efeaf7]"
       id="eeo-statement"
     >
-      <div className="container relative z-[1]">
-        <div className="reveal max-w-5xl mt-24 mb-0 mx-auto px-6 text-center">
+      <Container className="relative z-[1]">
+        <div className="reveal max-w-5xl mt-24 mb-0 mx-auto text-center">
           {contentHtml ? (
             <div
               className="font-body text-xs md:text-sm leading-relaxed text-[#162047]/80 mx-auto font-normal tracking-wide text-center"
@@ -24,7 +25,7 @@ export default function CareersEEO({ contentHtml, statementText }: CareersEEOPro
             </Typography>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

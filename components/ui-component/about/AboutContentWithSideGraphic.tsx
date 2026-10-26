@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Typography } from "@ui-element";
 import { ConnectionIllustrationSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 import { AboutContentWithSideGraphicProps } from "./type";
 
 export default function AboutContentWithSideGraphic({
@@ -42,7 +43,7 @@ export default function AboutContentWithSideGraphic({
         </div>
       )}
 
-      <div className="container relative z-[1]">
+      <Container className="relative z-[1]">
         <div className="max-w-[760px] text-left">
           <Typography
             as="h2"
@@ -73,7 +74,7 @@ export default function AboutContentWithSideGraphic({
             </div>
           )}
         </div>
-      </div>
+      </Container>
 
       <div className="story-globe-full lg:hidden relative z-[1] overflow-hidden -mt-[15%] -mb-[30%]">
         {sideImageSrc ? (

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ParticleBackground from "@ui-animations/ParticleBackground";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 export interface BenefitCardItem {
   title: string;
@@ -38,7 +39,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
       <div className="absolute -top-[100px] -left-[80px] w-[500px] h-[500px] [background:radial-gradient(circle,rgba(0,232,217,0.04)_0%,transparent_70%)] rounded-full pointer-events-none" />
       <div className="absolute -bottom-[80px] -right-[80px] w-[400px] h-[400px] [background:radial-gradient(circle,rgba(210,199,255,0.06)_0%,transparent_70%)] rounded-full pointer-events-none" />
 
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="section-header text-center mb-16">
           <Typography
             as="h2"
@@ -88,7 +89,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

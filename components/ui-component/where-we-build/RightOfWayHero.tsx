@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 export interface RightOfWayHeroProps {
   tag?: string;
@@ -23,35 +24,37 @@ export default function RightOfWayHero({
 }: RightOfWayHeroProps) {
   return (
     <section
-      className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[180px] md:pt-[200px] pb-24 md:pb-32 px-6"
+      className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[180px] md:pt-[200px] pb-24 md:pb-32"
       id="row-header"
     >
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       <nav
-        className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2] px-[var(--gutter)] min-[1080px]:px-[var(--frame-edge)]"
+        className="reveal absolute top-[130px] md:top-[140px] left-0 right-0 z-[2]"
         aria-label="Breadcrumb"
       >
-        <Typography
-          variant="b4"
-          as="ol"
-          className="list-none p-0 m-0 flex items-center gap-2 tracking-wider"
-        >
-          <li>
-            <Link
-              href={breadcrumbParentUrl}
-              className="text-[#162047]/50 hover:text-[#162047] no-underline transition-colors duration-300"
-            >
-              {breadcrumbParent}
-            </Link>
-          </li>
-          <li className="text-[#162047]/30 text-[0.7rem]">/</li>
-          <li className="text-[#162047]/80 font-medium">{tag}</li>
-        </Typography>
+        <Container>
+          <Typography
+            variant="b4"
+            as="ol"
+            className="list-none p-0 m-0 flex items-center gap-2 tracking-wider"
+          >
+            <li>
+              <Link
+                href={breadcrumbParentUrl}
+                className="text-[#162047]/50 hover:text-[#162047] no-underline transition-colors duration-300"
+              >
+                {breadcrumbParent}
+              </Link>
+            </li>
+            <li className="text-[#162047]/30 text-[0.7rem]">/</li>
+            <li className="text-[#162047]/80 font-medium">{tag}</li>
+          </Typography>
+        </Container>
       </nav>
 
-      <div className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
+      <Container className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
         <div className="subpage-header-text flex flex-col items-center text-center max-w-[960px]">
           <Typography
             variant="b4"
@@ -99,7 +102,7 @@ export default function RightOfWayHero({
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import {
   IndustryStadiumsSvg,
   IndustryAmusementSvg,
@@ -109,7 +110,7 @@ export default function SolutionsIndustries({
       </div>
 
       {/* Two-column layout: heading left, pillars right */}
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="ind-two-col grid grid-cols-1 lg:grid-cols-[1.3fr_0.9fr] gap-8 lg:gap-16 items-start">
           {/* LEFT: Section heading & description */}
           <div className="ind-col-left reveal w-full lg:max-w-[540px] lg:sticky lg:top-36">
@@ -201,7 +202,7 @@ export default function SolutionsIndustries({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

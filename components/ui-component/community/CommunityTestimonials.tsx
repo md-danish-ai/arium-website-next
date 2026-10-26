@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CommunityTestimonialsProps } from "./type";
 
 const TESTIMONIAL_STYLES = [
@@ -39,7 +40,7 @@ export default function CommunityTestimonials({
         className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
         aria-hidden="true"
       />
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="section-header text-center mb-16 md:mb-18">
           <Typography
             as="h2"
@@ -51,7 +52,7 @@ export default function CommunityTestimonials({
           </Typography>
         </div>
 
-        <div className="tm-row community-tm-row grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
+        <div className="tm-row community-tm-row grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           {testimonials.map((testimonial, index) => {
             const style = TESTIMONIAL_STYLES[index % TESTIMONIAL_STYLES.length];
             return (
@@ -91,7 +92,7 @@ export default function CommunityTestimonials({
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

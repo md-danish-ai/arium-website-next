@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { ChevronsRightSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface HighlightItem {
   id?: number;
@@ -46,7 +47,7 @@ export default function HighlightList({
         aria-hidden="true"
       />
 
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         {/* Centered Header */}
         <div className="shared-hl-header text-center mb-14">
           <Typography
@@ -119,7 +120,7 @@ export default function HighlightList({
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

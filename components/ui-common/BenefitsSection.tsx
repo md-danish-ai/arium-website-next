@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 interface BenefitCard {
   id?: number;
@@ -38,7 +39,7 @@ export default function BenefitsSection({
             className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
             aria-hidden="true"
           />
-          <div className="container relative z-[1]">
+          <Container className="relative z-[1]">
             <div className="shared-benefits-header text-center mb-8 md:mb-12">
               {heading && (
                 <Typography
@@ -58,45 +59,47 @@ export default function BenefitsSection({
                 </Typography>
               )}
             </div>
-          </div>
+          </Container>
 
           {cards && cards.length > 0 && (
-            <div className="shared-benefits-grid reveal stagger-3 relative z-[1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 min-[780px]:max-[1079px]:gap-[50px] lg:gap-16 px-6 lg:px-12 max-w-[1600px] mx-auto">
-              {cards.map((card, index) => {
-                const imgUrl = card.image?.url || card.image?.data?.attributes?.url;
-                const absoluteImgUrl = imgUrl ? GetStrapiMediaUrl(imgUrl) : null;
+            <Container className="relative z-[1]">
+              <div className="shared-benefits-grid reveal stagger-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 min-[780px]:max-[1079px]:gap-[50px] lg:gap-16">
+                {cards.map((card, index) => {
+                  const imgUrl = card.image?.url || card.image?.data?.attributes?.url;
+                  const absoluteImgUrl = imgUrl ? GetStrapiMediaUrl(imgUrl) : null;
 
-                return (
-                  <div key={index} className="shared-benefits-card text-center py-4 md:py-5">
-                    <div className="shared-benefits-icon w-24 h-24 md:w-32 md:h-32 opacity-90 mx-auto mb-3 md:mb-4 relative flex items-center justify-center">
-                      {absoluteImgUrl && (
-                        <Image
-                          src={absoluteImgUrl}
-                          alt={card.title || "Benefit Icon"}
-                          width={128}
-                          height={128}
-                          className="benefit-img w-full h-full object-contain"
-                        />
-                      )}
+                  return (
+                    <div key={index} className="shared-benefits-card text-center py-4 md:py-5">
+                      <div className="shared-benefits-icon w-24 h-24 md:w-32 md:h-32 opacity-90 mx-auto mb-3 md:mb-4 relative flex items-center justify-center">
+                        {absoluteImgUrl && (
+                          <Image
+                            src={absoluteImgUrl}
+                            alt={card.title || "Benefit Icon"}
+                            width={128}
+                            height={128}
+                            className="benefit-img w-full h-full object-contain"
+                          />
+                        )}
+                      </div>
+                      <Typography
+                        variant="h4"
+                        uppercase
+                        className="shared-benefits-title text-[#009886] mb-2"
+                        style={{ color: card.TitleColor || undefined }}
+                      >
+                        {card.title}
+                      </Typography>
+                      <Typography
+                        variant="b2"
+                        className="shared-benefits-desc text-midnight/90 mx-auto max-w-[380px]"
+                      >
+                        {card.description}
+                      </Typography>
                     </div>
-                    <Typography
-                      variant="h4"
-                      uppercase
-                      className="shared-benefits-title text-[#009886] mb-2"
-                      style={{ color: card.TitleColor || undefined }}
-                    >
-                      {card.title}
-                    </Typography>
-                    <Typography
-                      variant="b2"
-                      className="shared-benefits-desc text-midnight/90 mx-auto max-w-[380px]"
-                    >
-                      {card.description}
-                    </Typography>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </Container>
           )}
         </section>
       </div>
@@ -107,7 +110,7 @@ export default function BenefitsSection({
           id="eeo-statement"
           style={{ background: "#ededee" }}
         >
-          <div className="container relative z-[1]">
+          <Container className="relative z-[1]">
             <div className="reveal shared-eeo-container text-center">
               <Typography
                 variant="b4"
@@ -117,7 +120,7 @@ export default function BenefitsSection({
                 {footerText}
               </Typography>
             </div>
-          </div>
+          </Container>
         </section>
       )}
     </>

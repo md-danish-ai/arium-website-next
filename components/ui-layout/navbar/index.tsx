@@ -7,6 +7,7 @@ import { getNormalizedNavRoutes, RawNavigationItem } from "../nav-routes";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { DesktopLogoSvg, MobileLogoSvg } from "@ui-svg";
+import { Container } from "../SectionContainer";
 
 import { NavRoute } from "../nav-routes";
 
@@ -149,7 +150,7 @@ export default function Navbar({
 
   return (
     <header className={navClasses} id="main-nav" ref={navRef}>
-      <div className="flex items-center justify-between w-full px-[var(--gutter)] min-[1080px]:px-[var(--frame-edge)] py-3.5 min-[1080px]:py-3.5 min-[1280px]:py-4 xl:py-5 min-[1080px]:max-h-[800px]:py-2.5 box-border">
+      <Container className="flex items-center justify-between w-full py-3.5 min-[1080px]:py-3.5 min-[1280px]:py-4 xl:py-5 min-[1080px]:max-h-[800px]:py-2.5 box-border">
         {/* Brand Logo */}
         <Link
           href="/"
@@ -199,7 +200,7 @@ export default function Navbar({
           onToggleDropdown={toggleDropdown}
           onCloseDropdown={() => setOpenDropdown(null)}
         />
-      </div>
+      </Container>
     </header>
   );
 }

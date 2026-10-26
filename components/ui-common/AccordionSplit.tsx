@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -210,7 +211,7 @@ export default function AccordionSplit({
       )}
 
       {/* Content */}
-      <div className="container relative z-[2]">
+      <Container className="relative z-[2]">
         <div
           className="sas-two-col grid grid-cols-1 lg:[grid-template-columns:var(--sas-cols)] gap-8 lg:gap-16 items-start"
           style={{ "--sas-cols": gridColumns } as React.CSSProperties}
@@ -323,7 +324,7 @@ export default function AccordionSplit({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
