@@ -76,9 +76,9 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
       image: imageUrl,
       bio: bioText
         ? bioText
-            .split("\n\n")
-            .map((p) => `<p>${p}</p>`)
-            .join("")
+          .split("\n\n")
+          .map((p) => `<p>${p}</p>`)
+          .join("")
         : "",
       modalBg: card.ModalUpperSectionBg || "#162047",
     };
@@ -152,7 +152,7 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
     <>
       <section className="people-global-section relative bg-gradient-to-b from-[#EDE9FF] via-[#F3F0FF] to-[#F8F7FF] pt-[60px] pb-24">
         <Container>
-          <div className="people-grid-wrapper max-w-[1200px] mx-auto -mt-20 sm:-mt-24 md:-mt-28 lg:-mt-44 relative z-[2]">
+          <div className="people-grid-wrapper max-w-[1200px] mx-auto -mt-32 sm:-mt-36 md:-mt-44 lg:-mt-44 relative z-[2]">
             <div className="people-grid flex flex-wrap justify-center gap-6">
               {membersList.map((leader, index) => (
                 <div
