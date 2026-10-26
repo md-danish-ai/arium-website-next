@@ -156,14 +156,14 @@ export default function AccordionSplit({
 
   return (
     <section
-      className={`sas-section relative overflow-hidden py-14 md:py-20 ${imageMode ? "sas-image-mode" : "sas-gradient-mode"} border-none`}
+      className="relative overflow-hidden py-14 md:py-20 border-none"
       style={{ background: sectionBg }}
       onMouseLeave={handleMouseLeave}
     >
       {/* Background images — image mode only */}
       {imageMode && (
         <div
-          className="sas-bg-images absolute inset-0 lg:w-[75%] z-0 pointer-events-none overflow-hidden"
+          className="absolute inset-0 lg:w-[75%] z-0 pointer-events-none overflow-hidden"
           aria-hidden="true"
         >
           {items.map((item, i) => {
@@ -186,7 +186,7 @@ export default function AccordionSplit({
           })}
           {/* Gradient overlay inside wrapper: vertical fade on mobile/tablet, horizontal fade on desktop */}
           <div
-            className="sas-overlay absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-midnight"
+            className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-midnight"
             aria-hidden="true"
           />
         </div>
@@ -196,15 +196,15 @@ export default function AccordionSplit({
       {!imageMode && (
         <>
           <div
-            className="sas-blob sas-blob-1 absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -right-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]"
+            className="absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -right-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]"
             aria-hidden="true"
           />
           <div
-            className="sas-blob sas-blob-2 absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -left-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]"
+            className="absolute w-[600px] h-[600px] rounded-full pointer-events-none -top-[200px] -left-[100px] bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)]"
             aria-hidden="true"
           />
           <div
-            className="sas-blob sas-blob-3 absolute w-[400px] h-[400px] rounded-full pointer-events-none -bottom-[100px] -left-[50px] bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)]"
+            className="absolute w-[400px] h-[400px] rounded-full pointer-events-none -bottom-[100px] -left-[50px] bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)]"
             aria-hidden="true"
           />
         </>
@@ -213,18 +213,18 @@ export default function AccordionSplit({
       {/* Content */}
       <Container className="relative z-[2]">
         <div
-          className="sas-two-col grid grid-cols-1 lg:[grid-template-columns:var(--sas-cols)] gap-8 lg:gap-16 items-start"
+          className="grid grid-cols-1 lg:[grid-template-columns:var(--sas-cols)] gap-8 lg:gap-16 items-start"
           style={{ "--sas-cols": gridColumns } as React.CSSProperties}
         >
           {/* LEFT */}
           <div
-            className={`sas-col-left reveal flex flex-col w-full ${isCareers ? "lg:max-w-[660px]" : "min-[1450px]:max-w-[700px]"}`}
+            className={`reveal flex flex-col w-full ${isCareers ? "lg:max-w-[660px]" : "min-[1450px]:max-w-[700px]"}`}
           >
             {Heading && (
               <Typography
                 variant="h3"
                 uppercase
-                className={`section-title sas-heading mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
+                className={`section-title mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
                   ...(isCareers
@@ -237,7 +237,7 @@ export default function AccordionSplit({
             )}
             {Description && (
               <div
-                className="section-description sas-description text-base leading-relaxed opacity-90 flex flex-col gap-4 [&>p]:mb-0"
+                className="section-description text-base leading-relaxed opacity-90 flex flex-col gap-4 [&>p]:mb-0"
                 style={{ color: descriptionColor }}
                 dangerouslySetInnerHTML={{ __html: Description }}
               />
@@ -245,8 +245,8 @@ export default function AccordionSplit({
           </div>
 
           {/* RIGHT — Accordion */}
-          <div className="sas-col-right w-full">
-            <div className="reveal sas-accordion-list flex flex-col gap-2.5 sm:gap-3">
+          <div className="w-full">
+            <div className="reveal flex flex-col gap-2.5 sm:gap-3">
               {items.map((item, index) => {
                 const isActive = index === currentIndex;
                 const itemBg = item.BgColor
@@ -261,7 +261,7 @@ export default function AccordionSplit({
                 return (
                   <div
                     key={index}
-                    className={`sas-item group flex flex-col justify-start py-[14px] px-[12px] rounded-xl border backdrop-blur-sm transition-all duration-350 cursor-pointer ${
+                    className={`group flex flex-col justify-start py-[14px] px-[12px] rounded-xl border backdrop-blur-sm transition-all duration-350 cursor-pointer ${
                       isActive
                         ? "active border-teal/50 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
                         : "border-white/10 hover:border-teal/30 hover:bg-[#0d1224]/75"
@@ -272,10 +272,10 @@ export default function AccordionSplit({
                     onMouseEnter={() => handleMouseEnter(index)}
                     onClick={() => handleClick(index)}
                   >
-                    <div className="sas-item-header flex items-center gap-3 min-h-[32px]">
+                    <div className="flex items-center gap-3 min-h-[32px]">
                       {hasIcon && (
                         <span
-                          className={`sas-icon w-6 h-6 md:w-7 md:h-7 flex-shrink-0 flex items-center justify-center transition-colors duration-300 [&>svg]:w-full [&>svg]:h-full ${
+                          className={`w-6 h-6 md:w-7 md:h-7 flex-shrink-0 flex items-center justify-center transition-colors duration-300 [&>svg]:w-full [&>svg]:h-full ${
                             isActive
                               ? "text-teal stroke-teal"
                               : "text-white/60 stroke-white/60 group-hover:text-teal group-hover:stroke-teal"
@@ -288,7 +288,7 @@ export default function AccordionSplit({
                         variant="h6"
                         as="h3"
                         uppercase
-                        className={`sas-item-title tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 text-sm sm:text-base ${
+                        className={`tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 text-sm sm:text-base ${
                           isActive ? "text-teal" : "text-white group-hover:text-teal"
                         }`}
                         style={{
@@ -302,11 +302,11 @@ export default function AccordionSplit({
                     </div>
 
                     <div
-                      className={`sas-item-body grid transition-[grid-template-rows] duration-500 ease-out ${
+                      className={`grid transition-[grid-template-rows] duration-500 ease-out ${
                         hasIcon ? "pl-9 md:pl-10" : "pl-0"
                       } ${isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                     >
-                      <div className="sas-item-body-inner min-h-0 overflow-hidden">
+                      <div className="min-h-0 overflow-hidden">
                         <Typography
                           variant="b3"
                           as="span"

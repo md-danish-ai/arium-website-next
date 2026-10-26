@@ -15,32 +15,32 @@ export default function WhereVenues({
 
   return (
     <section
-      className="ov-feature ov-feature--flip ov-feature--teal relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-[#E4FAF8] via-[#BCF6F2] to-[#E8FBF9]"
+      className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-[#E4FAF8] via-[#BCF6F2] to-[#E8FBF9]"
       id="venues-feature"
     >
       <div className="absolute w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.18)_0%,transparent_60%)] -top-[180px] -left-[150px] pointer-events-none" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_65%)] -bottom-[180px] -right-[120px] pointer-events-none" />
       <div className="absolute w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(210,199,255,0.08)_0%,transparent_70%)] top-[30%] right-[20%] pointer-events-none" />
 
-      <Container className="ov-feature-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
-        <div className="ov-feature-text reveal flex flex-col gap-5 lg:order-2">
+      <Container className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
+        <div className="reveal flex flex-col gap-5 lg:order-2">
           <Typography
             variant="h2"
             as="h2"
             uppercase
             weight="light"
-            className="ov-feature-heading text-[#162047] leading-tight m-0"
+            className="text-[#162047] leading-tight m-0"
           >
             {title}
           </Typography>
 
           {isHtmlDescription ? (
             <div
-              className="ov-feature-desc strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
+              className="strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
               dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
-            <Typography variant="b1" as="p" className="ov-feature-desc text-[#162047]/85 m-0">
+            <Typography variant="b1" as="p" className="text-[#162047]/85 m-0">
               {description}
             </Typography>
           )}
@@ -58,8 +58,8 @@ export default function WhereVenues({
           </Button>
         </div>
 
-        <div className="ov-showcase reveal stagger-1 lg:order-1">
-          <div className="ov-showcase-stage aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
+        <div className="reveal stagger-1 lg:order-1">
+          <div className="aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
             {displayImage && (
               <Image
                 src={displayImage.src}

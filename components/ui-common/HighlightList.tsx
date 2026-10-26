@@ -38,7 +38,7 @@ export default function HighlightList({
 
   return (
     <section
-      className="shared-hl-section section-light bg-[radial-gradient(circle,#fff_0%,#f6f8fa_40%,#edf3f2_75%,#efeaf7_100%)] py-28 relative overflow-hidden"
+      className="section-light bg-[radial-gradient(circle,#fff_0%,#f6f8fa_40%,#edf3f2_75%,#efeaf7_100%)] py-28 relative overflow-hidden"
       id="highlight-list"
     >
       <div
@@ -48,7 +48,7 @@ export default function HighlightList({
 
       <Container className="relative z-[2]">
         {/* Centered Header */}
-        <div className="shared-hl-header text-center mb-14">
+        <div className="text-center mb-14">
           <Typography
             as="h2"
             variant="h2"
@@ -59,27 +59,27 @@ export default function HighlightList({
           </Typography>
           {description && (
             <div
-              className="reveal stagger-1 shared-hl-desc text-midnight/80 text-[1.05rem] leading-[1.8] max-w-[800px] mx-auto mt-5 flex flex-col gap-4 [&>p]:mb-0"
+              className="reveal stagger-1 text-midnight/80 text-[1.05rem] leading-[1.8] max-w-[800px] mx-auto mt-5 flex flex-col gap-4 [&>p]:mb-0"
               dangerouslySetInnerHTML={{ __html: description }}
             />
           )}
         </div>
 
-        <div className="shared-hl-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* LEFT: Job list + CTA */}
-          <div className="shared-hl-left flex flex-col justify-between">
-            <div className="shared-hl-list flex flex-col divide-y divide-midnight/10">
+          <div className="flex flex-col justify-between">
+            <div className="flex flex-col divide-y divide-midnight/10">
               {listItems?.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className={`shared-hl-box reveal stagger-${(index % 5) + 1} py-6 flex items-center`}
+                    className={`reveal stagger-${(index % 5) + 1} py-6 flex items-center`}
                   >
                     <Typography
                       as="h3"
                       variant="b2"
                       weight="medium"
-                      className="shared-hl-box-title inline-flex items-center gap-3 text-midnight m-0 text-left"
+                      className="inline-flex items-center gap-3 text-midnight m-0 text-left"
                     >
                       <ChevronsRightSvg className="w-5 h-5 shrink-0 text-[#7C5CBF]" />
                       {item.ListName}
@@ -90,16 +90,16 @@ export default function HighlightList({
             </div>
 
             {ctaLabel && ctaUrl && (
-              <div className="reveal stagger-5 shared-hl-cta mt-9">
+              <div className="reveal stagger-5 mt-9">
                 <Button href={ctaUrl}>{ctaLabel}</Button>
               </div>
             )}
           </div>
 
           {/* RIGHT: Image */}
-          <div className="shared-hl-right reveal h-full">
+          <div className="reveal h-full">
             {absoluteImgUrl && (
-              <div className="shared-hl-img-box relative rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(22,32,71,0.08),0_0_40px_rgba(0,232,217,0.04)] h-full min-h-[360px]">
+              <div className="relative rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(22,32,71,0.08),0_0_40px_rgba(0,232,217,0.04)] h-full min-h-[360px]">
                 <Image
                   src={absoluteImgUrl}
                   alt={image?.alternativeText || heading || "Highlight Image"}
@@ -107,7 +107,7 @@ export default function HighlightList({
                   className="object-cover block"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="shared-hl-img-overlay absolute inset-0 rounded-2xl border border-midnight/10 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl border border-midnight/10 pointer-events-none" />
               </div>
             )}
           </div>

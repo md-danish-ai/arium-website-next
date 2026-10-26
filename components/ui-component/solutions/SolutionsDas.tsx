@@ -17,8 +17,8 @@ export default function SolutionsDas({
   return (
     <section className="bg-transparent py-[50px] relative overflow-hidden">
       <Container>
-        <div className="sol-split sol-split-reverse grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
-          <div className="sol-split-text order-1 md:order-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
+          <div className="order-1 md:order-2">
             {/* Mobile Top-Right Floated Illustration (< md) */}
             <div className="md:hidden float-right w-[115px] sm:w-[140px] ml-4 mb-2 pointer-events-none">
               <Image
@@ -65,17 +65,14 @@ export default function SolutionsDas({
             )}
 
             {stats.length > 0 && (
-              <div className="clear-both sol-kpis-row flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
+              <div className="clear-both flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
                 {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="sol-kpi-item flex flex-col gap-1 py-1 cursor-default shrink-0"
-                  >
+                  <div key={index} className="flex flex-col gap-1 py-1 cursor-default shrink-0">
                     {stat.value && (
                       <Typography
                         variant="stat"
                         weight="bold"
-                        className="sol-kpi-num text-[#7c5cbf] leading-none tracking-tight"
+                        className="text-[#7c5cbf] leading-none tracking-tight"
                       >
                         {stat.value}
                       </Typography>
@@ -85,7 +82,7 @@ export default function SolutionsDas({
                         variant="b2"
                         as="p"
                         weight="normal"
-                        className="sol-kpi-label normal-case tracking-normal text-[#162047]/80 m-0 mt-1.5 whitespace-nowrap"
+                        className="normal-case tracking-normal text-[#162047]/80 m-0 mt-1.5 whitespace-nowrap"
                       >
                         {stat.label}
                       </Typography>
@@ -97,7 +94,7 @@ export default function SolutionsDas({
           </div>
 
           {/* Desktop / Tablet Illustration Column (>= md) */}
-          <div className="sol-illustration-wrapper das-illust hidden md:flex items-center justify-center md:justify-start self-center order-2 md:order-1 w-full">
+          <div className="hidden md:flex items-center justify-center md:justify-start self-center order-2 md:order-1 w-full">
             <div className="relative w-full max-w-[340px] md:max-w-[440px]">
               <Image
                 src={illustrationSrc}

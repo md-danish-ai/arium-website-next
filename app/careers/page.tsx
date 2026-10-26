@@ -72,7 +72,7 @@ export default async function CareersPage() {
       key: "testimonials-fallback",
       skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
       el: (
-        <div key="testimonials-fallback" className="row-storyteller-flow">
+        <div key="testimonials-fallback">
           <CareersTestimonials {...testimonialsProps} />
         </div>
       ),
@@ -82,7 +82,7 @@ export default async function CareersPage() {
       key: "jobareas-fallback",
       skip: hasWidgetComponent(globalWidgets, ["highlight-list"]),
       el: (
-        <div key="jobareas-fallback" className="row-storyteller-flow">
+        <div key="jobareas-fallback">
           <CareersJobAreas {...jobAreasProps} />
         </div>
       ),

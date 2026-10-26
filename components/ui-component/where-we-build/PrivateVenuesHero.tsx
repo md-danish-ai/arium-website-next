@@ -23,7 +23,7 @@ export default function PrivateVenuesHero({
 }: PrivateVenuesHeroProps) {
   return (
     <section
-      className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] pt-[180px] md:pt-[200px] pb-24 md:pb-32"
+      className="relative overflow-hidden bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] pt-[180px] md:pt-[200px] pb-24 md:pb-32"
       id="pv-header"
     >
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
@@ -37,8 +37,8 @@ export default function PrivateVenuesHero({
         </Container>
       </div>
 
-      <Container className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
-        <div className="subpage-header-text flex flex-col items-center text-center max-w-[960px]">
+      <Container className="relative z-[1] flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center max-w-[960px]">
           <Typography
             variant="b4"
             as="p"
@@ -54,14 +54,14 @@ export default function PrivateVenuesHero({
             as="h1"
             uppercase
             weight="light"
-            className="subpage-title reveal stagger-2 text-[#162047] leading-tight mb-5"
+            className="reveal stagger-2 text-[#162047] leading-tight mb-5"
           >
             {title}
           </Typography>
           <Typography
             variant="b1"
             as="p"
-            className="subpage-intro reveal stagger-3 text-[#162047]/80 max-w-2xl mx-auto"
+            className="reveal stagger-3 text-[#162047]/80 max-w-2xl mx-auto"
           >
             {description}
           </Typography>

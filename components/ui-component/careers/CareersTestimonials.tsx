@@ -41,7 +41,7 @@ export default function CareersTestimonials({
         aria-hidden="true"
       />
       <Container className="relative z-[2]">
-        <div className="section-header text-center mb-16 md:mb-18">
+        <div className="text-center mb-16 md:mb-18">
           <Typography
             variant="h3"
             as="h2"
@@ -50,39 +50,30 @@ export default function CareersTestimonials({
             {title}
           </Typography>
         </div>
-        <div className="tm-row careers-tm-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
           {testimonials.map((testimonial, index) => {
             const style = TESTIMONIAL_STYLES[index % TESTIMONIAL_STYLES.length];
             return (
               <div
                 key={index}
-                className={`tm-panel reveal stagger-${(index % 4) + 1} relative rounded-[24px] p-7 md:p-8 flex flex-col justify-between border border-white/60 bg-white/70 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5`}
+                className={`reveal stagger-${(index % 4) + 1} relative rounded-[24px] p-7 md:p-8 flex flex-col justify-between border border-white/60 bg-white/70 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5`}
                 style={style}
               >
-                <span className="tm-quote-symbol text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">
+                <span className="text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">
                   “
                 </span>
                 <Typography
                   variant="quote"
                   as="blockquote"
-                  className="tm-panel-text text-[#162047]/85 flex-1 mb-6"
+                  className="text-[#162047]/85 flex-1 mb-6"
                 >
                   {testimonial.description}
                 </Typography>
-                <div className="tm-panel-footer pt-4 border-t border-black/10">
-                  <Typography
-                    variant="h6"
-                    as="p"
-                    weight="bold"
-                    className="tm-panel-name text-[#162047] m-0"
-                  >
+                <div className="pt-4 border-t border-black/10">
+                  <Typography variant="h6" as="p" weight="bold" className="text-[#162047] m-0">
                     {testimonial.title}
                   </Typography>
-                  <Typography
-                    variant="b4"
-                    as="p"
-                    className="tm-panel-role text-[#162047]/60 mt-1 m-0"
-                  >
+                  <Typography variant="b4" as="p" className="text-[#162047]/60 mt-1 m-0">
                     {testimonial.badge}
                   </Typography>
                 </div>

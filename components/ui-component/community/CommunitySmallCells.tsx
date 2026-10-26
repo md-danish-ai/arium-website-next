@@ -22,14 +22,14 @@ export default function CommunitySmallCells({
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       <Container className="relative z-[1]">
-        <div className="sol-split reveal grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="sol-split-text flex flex-col">
+        <div className="reveal grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="flex flex-col">
             <Typography as="h2" variant="h2" uppercase className="text-left text-[#162047] mb-6">
               {title}
             </Typography>
             {contentHtml ? (
               <div
-                className="subpage-intro strapi-richtext-body text-[#162047] text-left text-base md:text-lg flex flex-col gap-5 leading-relaxed"
+                className="strapi-richtext-body text-[#162047] text-left text-base md:text-lg flex flex-col gap-5 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (
@@ -42,7 +42,7 @@ export default function CommunitySmallCells({
               </div>
             )}
           </div>
-          <div className="sol-illustration-wrapper small-cells-illust flex items-center justify-center lg:justify-end">
+          <div className="flex items-center justify-center lg:justify-end">
             <div className="relative w-[90%] max-w-[440px]">
               <Image
                 src={illustrationSrc}

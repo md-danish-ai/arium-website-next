@@ -35,8 +35,8 @@ export default function GlobeCTA({
       </div>
 
       <Container className="relative z-[1]">
-        <div className="sol-split reveal flex items-center">
-          <div className="sol-split-text max-w-[580px]">
+        <div className="reveal flex items-center">
+          <div className="max-w-[580px]">
             {description ? (
               <>
                 <Typography

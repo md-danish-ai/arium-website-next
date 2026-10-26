@@ -20,7 +20,7 @@ export default function AboutContentWithSideGraphic({
 
   return (
     <section
-      className={`story-section-root pt-16 sm:pt-20 pb-0 lg:py-24 relative overflow-hidden border-none ${gradientClass}`}
+      className={`pt-16 sm:pt-20 pb-0 lg:py-24 relative overflow-hidden border-none ${gradientClass}`}
       style={backgroundStyle}
     >
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />

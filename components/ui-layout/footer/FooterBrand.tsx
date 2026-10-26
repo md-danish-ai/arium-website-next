@@ -23,11 +23,11 @@ export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrand
         <>
           <span
             dangerouslySetInnerHTML={{ __html: finalDesktopLogo }}
-            className="footer-logo-desktop hidden min-[601px]:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
+            className="hidden min-[601px]:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
           />
           <span
             dangerouslySetInnerHTML={{ __html: finalMobileLogo }}
-            className="footer-logo-mobile block min-[601px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
+            className="block min-[601px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
           />
         </>
       ) : (

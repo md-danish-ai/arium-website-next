@@ -19,7 +19,7 @@ export default function DetailedCardGrid({
   return (
     <section
       ref={containerRef}
-      className="infra-section py-10 max-[768px]:py-12 md:py-20 lg:py-24 relative overflow-hidden bg-midnight"
+      className="py-10 max-[768px]:py-12 md:py-20 lg:py-24 relative overflow-hidden bg-midnight"
       id="infrastructure"
       style={backgroundStyle}
     >
@@ -28,7 +28,7 @@ export default function DetailedCardGrid({
       <div className="infra-particles" id="infra-particles"></div>
 
       <Container className="relative z-[2]">
-        <div className="section-header text-center mb-8 md:mb-12 lg:mb-16">
+        <div className="text-center mb-8 md:mb-12 lg:mb-16">
           <Typography
             variant="h3"
             uppercase
@@ -46,10 +46,10 @@ export default function DetailedCardGrid({
           </Typography>
         </div>
 
-        <div className="infra-panels grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-5 lg:gap-8 max-w-[520px] md:max-w-none mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-5 lg:gap-8 max-w-[520px] md:max-w-none mx-auto w-full">
           {cards.map((card, index) => (
             <div
-              className={`infra-panel w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-${index + 3}`}
+              className={`w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-${index + 3}`}
               key={index}
             >
               <DetailedCard

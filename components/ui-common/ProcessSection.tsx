@@ -56,7 +56,7 @@ export default function ProcessSection({
           id="process-particles"
         />
         <Container className="relative z-[2]">
-          <div className="section-header text-center mb-14">
+          <div className="text-center mb-14">
             <Typography
               as="h2"
               variant="h2"

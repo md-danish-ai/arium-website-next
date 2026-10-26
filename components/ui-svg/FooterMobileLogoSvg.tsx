@@ -11,9 +11,7 @@ export default function FooterMobileLogoSvg({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={
-        className || "footer-logo-mobile block min-[601px]:hidden w-[189px] h-auto text-white"
-      }
+      className={className || "block min-[601px]:hidden w-[189px] h-auto text-white"}
       viewBox="0 0 382.282 68.139"
       aria-hidden="true"
       {...props}

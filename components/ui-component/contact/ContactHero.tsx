@@ -12,7 +12,7 @@ export default function ContactHero({
 }: ContactHeroProps) {
   return (
     <section
-      className="subpage-header relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[160px] md:pt-[200px] pb-20 md:pb-28 px-6"
+      className="relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[160px] md:pt-[200px] pb-20 md:pb-28 px-6"
       id="contact-header"
     >
       {/* Ambient glow: top-right teal */}
@@ -20,18 +20,18 @@ export default function ContactHero({
       {/* Ambient glow: bottom-left warm */}
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      <div className="subpage-header-inner relative z-[1] flex flex-col items-center text-center">
-        <div className="subpage-header-text flex flex-col items-center text-center max-w-[960px]">
+      <div className="relative z-[1] flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center max-w-[960px]">
           <Typography
             variant="h2"
             uppercase
-            className="subpage-title reveal stagger-1 text-[#162047] mb-4 text-center"
+            className="reveal stagger-1 text-[#162047] mb-4 text-center"
           >
             {heading || "Contact us"}
           </Typography>
           <Typography
             variant="b1"
-            className="subpage-intro reveal stagger-2 text-[#162047]/80 max-w-2xl mx-auto text-center"
+            className="reveal stagger-2 text-[#162047]/80 max-w-2xl mx-auto text-center"
           >
             {intro ||
               "Looking for more information? Or ready to discuss your connectivity needs? Fill out the form so we can connect you to the right team."}

@@ -55,7 +55,7 @@ export default function CtaWithGraphic({
 
   return (
     <section
-      className="shared-cta-graphic-section relative overflow-hidden bg-[#D2C7FF]"
+      className="relative overflow-hidden bg-[#D2C7FF]"
       style={bgColor ? { background: bgColor } : undefined}
     >
       <Container className="relative z-[2]">
@@ -91,7 +91,7 @@ export default function CtaWithGraphic({
       </Container>
 
       <div
-        className="shared-cta-graphic-illustration-wrap absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden opacity-25 sm:opacity-40 md:opacity-100 transition-opacity duration-300"
+        className="absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden opacity-25 sm:opacity-40 md:opacity-100 transition-opacity duration-300"
         aria-hidden="true"
       >
         <Image
@@ -99,7 +99,7 @@ export default function CtaWithGraphic({
           alt={altText}
           fill
           unoptimized={isSvg}
-          className="shared-cta-graphic-illustration-img w-full h-full block object-contain object-right"
+          className="w-full h-full block object-contain object-right"
         />
       </div>
     </section>

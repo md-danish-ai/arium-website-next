@@ -38,7 +38,7 @@ export default function StatCard({
 
   return (
     <div
-      className={`shared-swi-bento-card w-full rounded-[20px] p-4 sm:p-5 md:p-6 flex flex-col gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl overflow-hidden box-border ${alignContainerClass} ${className}`}
+      className={`w-full rounded-[20px] p-4 sm:p-5 md:p-6 flex flex-col gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl overflow-hidden box-border ${alignContainerClass} ${className}`}
       style={{
         backgroundColor: bgColor || undefined,
         ...style,
@@ -47,7 +47,7 @@ export default function StatCard({
       <div className={`w-full ${textAlignClass}`}>
         <Typography
           variant="stat"
-          className={`shared-swi-number stats-number text-midnight m-0 leading-none ${enableCounter ? "counter" : ""} ${textAlignClass}`}
+          className={`text-midnight m-0 leading-none ${enableCounter ? "counter" : ""} ${textAlignClass}`}
           style={{ color: numberColor || undefined }}
           {...(enableCounter ? { "data-target": target, "data-suffix": suffix } : {})}
         >

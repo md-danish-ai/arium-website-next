@@ -79,10 +79,7 @@ export default async function AboutPage() {
         "commitment",
       ]),
       el: (
-        <div
-          key="flow-fallback"
-          className="about-storyteller-flow relative overflow-hidden -mt-px border-none"
-        >
+        <div key="flow-fallback" className="relative overflow-hidden -mt-px border-none">
           <FlowBackground />
           <AboutJourney {...journeyProps} />
           <AboutStatsCards {...trustProps} />

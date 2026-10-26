@@ -44,7 +44,7 @@ export default function TestimonialsSection({
         />
         <Container className="relative z-[2]">
           {(heading || description) && (
-            <div className="section-header text-center mb-12 md:mb-16 max-[600px]:mb-8">
+            <div className="text-center mb-12 md:mb-16 max-[600px]:mb-8">
               {heading && (
                 <Typography
                   variant="h3"
@@ -66,7 +66,7 @@ export default function TestimonialsSection({
           )}
 
           <div
-            className={`tm-row grid mx-auto w-full ${cols === 1 ? "max-w-xl grid-cols-1" : cols === 2 ? "max-w-[1040px] grid-cols-1 md:grid-cols-2 gap-8" : cols === 3 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"}`}
+            className={`grid mx-auto w-full ${cols === 1 ? "max-w-xl grid-cols-1" : cols === 2 ? "max-w-[1040px] grid-cols-1 md:grid-cols-2 gap-8" : cols === 3 ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"}`}
           >
             {cards.map((card, idx) => {
               const fallback = FOOTER_STYLES[idx % FOOTER_STYLES.length];
@@ -75,35 +75,35 @@ export default function TestimonialsSection({
               return (
                 <div
                   key={idx}
-                  className={`tm-panel reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-6 sm:p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full w-full max-w-[504px] mx-auto`}
+                  className={`reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-6 sm:p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full w-full max-w-[504px] mx-auto`}
                 >
                   <span
-                    className="tm-quote-symbol font-serif text-[5rem] leading-none opacity-50 absolute top-5 left-7 pointer-events-none select-none text-teal"
+                    className="font-serif text-[5rem] leading-none opacity-50 absolute top-5 left-7 pointer-events-none select-none text-teal"
                     style={{ color: footerBg }}
                   >
                     “
                   </span>
                   <Typography
                     variant="quote"
-                    className="tm-panel-text z-[1] grow pt-10 text-white relative m-0 mb-6"
+                    className="z-[1] grow pt-10 text-white relative m-0 mb-6"
                   >
                     {card.personMessage}
                   </Typography>
                   <div
-                    className="tm-panel-footer mx-[-32px] sm:mx-[-40px] mb-[-32px] sm:mb-[-40px] px-8 sm:px-10 py-5 border-t border-white/10 shrink-0"
+                    className="mx-[-32px] sm:mx-[-40px] mb-[-32px] sm:mb-[-40px] px-8 sm:px-10 py-5 border-t border-white/10 shrink-0"
                     style={{ backgroundColor: footerBg }}
                   >
                     <Typography
                       variant="h5"
                       as="p"
                       uppercase
-                      className="tm-panel-name font-bold text-midnight m-0 tracking-[0.02em]"
+                      className="font-bold text-midnight m-0 tracking-[0.02em]"
                     >
                       {card.personName}
                     </Typography>
                     <Typography
                       variant="b4"
-                      className="tm-panel-role text-midnight/80 mt-1 mb-0 font-normal normal-case"
+                      className="text-midnight/80 mt-1 mb-0 font-normal normal-case"
                     >
                       {card.personDesignation}
                     </Typography>

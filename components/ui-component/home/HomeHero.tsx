@@ -39,30 +39,24 @@ export default function HomeHero({
   return (
     <section
       id="hero"
-      className="shared-mh-section relative grid place-items-center h-screen h-[100svh] min-h-[600px] w-full overflow-hidden"
+      className="relative grid place-items-center h-screen h-[100svh] min-h-[600px] w-full overflow-hidden"
     >
       {/* Background with animated shapes */}
       <div
         ref={bgRef}
-        className="shared-mh-bg absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{ backgroundColor: resolvedBg }}
         aria-hidden="true"
       >
-        <div className="shared-mh-shapes-container absolute inset-0 pointer-events-none select-none flex items-center justify-center">
-          <div
-            ref={shapesWrapRef}
-            className="shared-mh-shapes-wrap relative h-full w-full opacity-0"
-          >
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center">
+          <div ref={shapesWrapRef} className="relative h-full w-full opacity-0">
             {/* Teal shape */}
             <div
               ref={tealShapeRef}
-              className="shared-mh-shape shared-mh-shape--teal absolute [width:170vmin] [aspect-ratio:1955/1769] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              className="absolute [width:170vmin] [aspect-ratio:1955/1769] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
               style={{ left: "26%", top: "33%", rotate: "180deg" }}
             >
-              <div
-                ref={tealInnerRef}
-                className="shared-mh-shape-inner relative h-full w-full animate-breathe-teal"
-              >
+              <div ref={tealInnerRef} className="relative h-full w-full animate-breathe-teal">
                 <Image
                   src="/images/svg-images/shape-teal.svg"
                   alt=""
@@ -76,13 +70,10 @@ export default function HomeHero({
             {/* White shape */}
             <div
               ref={whiteShapeRef}
-              className="shared-mh-shape shared-mh-shape--white absolute [width:170vmin] [aspect-ratio:1940/1757] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              className="absolute [width:170vmin] [aspect-ratio:1940/1757] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
               style={{ left: "73%", top: "97%", rotate: "525deg" }}
             >
-              <div
-                ref={whiteInnerRef}
-                className="shared-mh-shape-inner relative h-full w-full animate-breathe-white"
-              >
+              <div ref={whiteInnerRef} className="relative h-full w-full animate-breathe-white">
                 <Image
                   src="/images/svg-images/shape-white.svg"
                   alt=""
@@ -97,19 +88,19 @@ export default function HomeHero({
       </div>
 
       {/* Content */}
-      <Container className="shared-mh-content relative z-[5] pt-[150px] pb-[100px] text-center w-full">
+      <Container className="relative z-[5] pt-[150px] pb-[100px] text-center w-full">
         <Typography
           variant="h1"
           uppercase
           weight="normal"
-          className="hero-title shared-mh-heading m-0 mb-0 mx-auto max-w-[970px] text-[clamp(1.8rem,3.5vw,2.8rem)] max-[768px]:text-[1.6rem] max-[480px]:text-[1.4rem] tracking-[0.12em] leading-[1.4] relative z-[1]"
+          className="m-0 mb-0 mx-auto max-w-[970px] text-[clamp(1.8rem,3.5vw,2.8rem)] max-[768px]:text-[1.6rem] max-[480px]:text-[1.4rem] tracking-[0.12em] leading-[1.4] relative z-[1]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: heading || "" }}
         />
         <Typography
           variant="b1"
           weight="normal"
-          className="hero-desc shared-mh-description mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] text-[clamp(1.05rem,1.8vw,1.25rem)] max-[768px]:text-[0.9rem] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
+          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] text-[clamp(1.05rem,1.8vw,1.25rem)] max-[768px]:text-[0.9rem] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
@@ -117,18 +108,18 @@ export default function HomeHero({
 
       {/* Scroll indicator */}
       <div
-        className={`scroll-indicator shared-mh-scroll-indicator ${isScrolled ? "is-scrolled pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
+        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
         id="scroll-indicator"
       >
         <Typography
           variant="b4"
           uppercase
           weight="normal"
-          className="scroll-indicator-text shared-mh-scroll-text block text-[0.75rem] text-white/60 tracking-[0.15em] font-normal whitespace-nowrap"
+          className="block text-[0.75rem] text-white/60 tracking-[0.15em] font-normal whitespace-nowrap"
         >
           {scrollText || "Scroll to explore"}
         </Typography>
-        <div className="scroll-indicator-arrow shared-mh-scroll-arrow text-teal animate-bounce">
+        <div className="text-teal animate-bounce">
           <DoubleDownArrowSvg width={24} height={24} />
         </div>
       </div>

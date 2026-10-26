@@ -79,7 +79,7 @@ export default async function PrivateVenuesPage() {
       key: "testimonials-fallback",
       skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
       el: (
-        <div key="testimonials-fallback" className="row-storyteller-flow">
+        <div key="testimonials-fallback">
           <PrivateVenuesTestimonials {...testimonialsProps} />
         </div>
       ),

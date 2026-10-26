@@ -58,18 +58,11 @@ export default function ImageSplit({ data }: ImageSplitProps) {
   }
 
   return (
-    <section
-      className="shared-image-split relative overflow-hidden py-24 flex items-center"
-      style={bgStyle}
-    >
+    <section className="relative overflow-hidden py-24 flex items-center" style={bgStyle}>
       <Container className="relative z-[1]">
-        <div
-          className={`image-split-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isMediaLeft ? "image-split-reverse" : ""}`}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content Area */}
-          <div
-            className={`image-split-text flex flex-col ${isMediaLeft ? "lg:order-2" : "lg:order-1"}`}
-          >
+          <div className={`flex flex-col ${isMediaLeft ? "lg:order-2" : "lg:order-1"}`}>
             {Heading && (
               <Typography
                 as="h2"
@@ -104,7 +97,7 @@ export default function ImageSplit({ data }: ImageSplitProps) {
 
           {/* Media Area */}
           <div
-            className={`image-split-media relative w-full h-[360px] sm:h-[440px] md:h-[500px] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(22,32,71,0.08)] ${isMediaLeft ? "lg:order-1" : "lg:order-2"}`}
+            className={`relative w-full h-[360px] sm:h-[440px] md:h-[500px] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(22,32,71,0.08)] ${isMediaLeft ? "lg:order-1" : "lg:order-2"}`}
           >
             <Image
               src={imgUrl}

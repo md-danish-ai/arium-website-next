@@ -71,7 +71,7 @@ export default function InnerPageHero({
 
   return (
     <section
-      className="subpage-header relative overflow-hidden"
+      className="relative overflow-hidden"
       id={id}
       style={{
         background:
@@ -117,7 +117,7 @@ export default function InnerPageHero({
           <Typography
             variant="h2"
             uppercase
-            className="subpage-title reveal stagger-2 text-center text-midnight"
+            className="reveal stagger-2 text-center text-midnight"
             dangerouslySetInnerHTML={{
               __html:
                 heroTitle ||
@@ -134,7 +134,7 @@ export default function InnerPageHero({
             pathname.includes("/board-of-directors")) && (
             <Typography
               variant="b1"
-              className="subpage-intro reveal stagger-3 text-center text-midnight/80 max-w-[800px] mx-auto mt-4"
+              className="reveal stagger-3 text-center text-midnight/80 max-w-[800px] mx-auto mt-4"
               dangerouslySetInnerHTML={{
                 __html:
                   heroDescription ||

@@ -46,7 +46,7 @@ export default function AboutStatCard({
           variant="stat"
           as="span"
           weight="bold"
-          className="shared-stats-kpi-num counter text-midnight tracking-tight m-0 mb-0 leading-none whitespace-nowrap"
+          className="counter text-midnight tracking-tight m-0 mb-0 leading-none whitespace-nowrap"
           data-target={num}
           data-suffix={suf}
         >

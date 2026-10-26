@@ -75,7 +75,7 @@ export default async function RightOfWayPage() {
       key: "testimonials-fallback",
       skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
       el: (
-        <div key="testimonials-fallback" className="row-storyteller-flow">
+        <div key="testimonials-fallback">
           <RightOfWayTestimonials {...testimonialsProps} />
         </div>
       ),

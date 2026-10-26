@@ -14,12 +14,12 @@ export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
   };
 
   return (
-    <div className="sol-storyteller-flow relative overflow-hidden bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)]">
+    <div className="relative overflow-hidden bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)]">
       <FlowBackground />
 
       <section id="faq" className="bg-transparent py-14 md:py-24 lg:py-32 relative overflow-hidden">
         <Container className="relative z-[1]">
-          <div className="section-header text-center mb-16">
+          <div className="text-center mb-16">
             <Typography
               as="h2"
               variant="h2"
@@ -30,7 +30,7 @@ export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
             </Typography>
           </div>
 
-          <div className="cm-faq-grid max-w-[900px] mx-auto flex flex-col gap-3.5">
+          <div className="max-w-[900px] mx-auto flex flex-col gap-3.5">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               const question = faq.question || "";
@@ -38,10 +38,10 @@ export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
               return (
                 <div key={index} className={`reveal stagger-${(index % 3) + 1}`}>
                   <div
-                    className={`cm-faq-item bg-white rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md ${isOpen ? "border-[#162047]/20 shadow-md" : "border-[#162047]/10"}`}
+                    className={`bg-white rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md ${isOpen ? "border-[#162047]/20 shadow-md" : "border-[#162047]/10"}`}
                   >
                     <button
-                      className="cm-faq-question w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left cursor-pointer transition-colors"
+                      className="w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left cursor-pointer transition-colors"
                       onClick={() => toggleFAQ(index)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${index}`}
@@ -49,13 +49,10 @@ export default function CommunityFAQ({ title, faqs = [] }: CommunityFAQProps) {
                       <Typography as="span" variant="h5" weight="medium" className="text-[#162047]">
                         {question}
                       </Typography>
-                      <FaqChevronSvg
-                        isOpen={isOpen}
-                        className="cm-faq-chevron flex-shrink-0 text-[#162047]"
-                      />
+                      <FaqChevronSvg isOpen={isOpen} className="flex-shrink-0 text-[#162047]" />
                     </button>
                     <div
-                      className={`cm-faq-answer px-5 md:px-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-6 opacity-100" : "max-h-0 pb-0 opacity-0"}`}
+                      className={`px-5 md:px-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-6 opacity-100" : "max-h-0 pb-0 opacity-0"}`}
                       id={`faq-answer-${index}`}
                     >
                       <Typography

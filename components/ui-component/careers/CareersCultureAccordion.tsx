@@ -52,7 +52,7 @@ export default function CareersCultureAccordion({
   return (
     <section
       id="careers-culture"
-      className="careers-accordion-wrapper relative overflow-hidden py-20 bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] border-y border-black/5"
+      className="relative overflow-hidden py-20 bg-gradient-to-br from-[#F5F0FF] via-[#EDE5FF] to-[#DDD3FF] border-y border-black/5"
       onMouseLeave={handleMouseLeave}
     >
       {/* Decorative background bubbles */}
@@ -61,9 +61,9 @@ export default function CareersCultureAccordion({
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-6 relative z-[2]">
-        <div className="wj-two-col grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-16 items-start w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-16 items-start w-full">
           {/* LEFT: Section heading & description */}
-          <div className="wj-col-left reveal w-full lg:max-w-[660px]">
+          <div className="reveal w-full lg:max-w-[660px]">
             <Typography
               variant="h3"
               as="h2"
@@ -89,32 +89,29 @@ export default function CareersCultureAccordion({
           </div>
 
           {/* RIGHT: Pillars accordion */}
-          <div className="wj-col-right w-full">
-            <div className="reveal wj-interactive-list flex flex-col gap-3.5">
+          <div className="w-full">
+            <div className="reveal flex flex-col gap-3.5">
               {pillars.map((pillar: CareersPillar, index: number) => {
                 const isActive = index === currentIndex;
                 const hasIcon = Boolean(pillar.icon && pillar.icon.trim() !== "");
                 return (
                   <div
                     key={index}
-                    className={`wj-interactive-item flex flex-col justify-start py-[14px] px-[12px] rounded-lg border transition-all duration-300 cursor-pointer ${
+                    className={`flex flex-col justify-start py-[14px] px-[12px] rounded-lg border transition-all duration-300 cursor-pointer ${
                       isActive
                         ? "border-[#00e8d9]/50 bg-[#162047] shadow-xl"
                         : "border-white/10 bg-[#162047] hover:border-[#00e8d9]/30 shadow-md"
                     }`}
                     onMouseEnter={() => handleMouseEnter(index)}
                   >
-                    <div className="wj-item-header flex items-center gap-3 min-h-[32px]">
+                    <div className="flex items-center gap-3 min-h-[32px]">
                       {hasIcon && (
                         <div
-                          className={`wj-icon-svg w-6 h-6 flex-shrink-0 transition-colors duration-300 ${
+                          className={`w-6 h-6 flex-shrink-0 transition-colors duration-300 ${
                             isActive ? "text-[#00e8d9]" : "text-white/75"
                           }`}
                           dangerouslySetInnerHTML={{
-                            __html: pillar.icon!.replace(
-                              "<svg",
-                              '<svg class="wj-icon-svg w-full h-full"'
-                            ),
+                            __html: pillar.icon!.replace("<svg", '<svg class="w-full h-full"'),
                           }}
                         />
                       )}
@@ -122,7 +119,7 @@ export default function CareersCultureAccordion({
                         variant="h6"
                         as="h3"
                         uppercase
-                        className={`wj-interactive-title m-0 transition-colors duration-300 text-sm sm:text-base ${
+                        className={`m-0 transition-colors duration-300 text-sm sm:text-base ${
                           isActive ? "text-[#00e8d9]" : "text-white"
                         }`}
                       >
@@ -130,11 +127,11 @@ export default function CareersCultureAccordion({
                       </Typography>
                     </div>
                     <div
-                      className={`wj-expand-desc overflow-hidden transition-all duration-300 ${
+                      className={`overflow-hidden transition-all duration-300 ${
                         hasIcon ? "pl-9" : "pl-0"
                       } ${isActive ? "max-h-48 opacity-100 pt-3" : "max-h-0 opacity-0"}`}
                     >
-                      <div className="wj-expand-inner">
+                      <div>
                         <Typography
                           variant="b3"
                           as="span"

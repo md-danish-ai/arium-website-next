@@ -26,7 +26,7 @@ export default function CareersJobAreas({
 
       <Container className="relative z-[2]">
         {/* Centered Header */}
-        <div className="section-header text-center mb-14">
+        <div className="text-center mb-14">
           <Typography
             variant="h3"
             as="h2"
@@ -50,23 +50,23 @@ export default function CareersJobAreas({
           )}
         </div>
 
-        <div className="cr-jobs-grid grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* LEFT: Job list + CTA */}
-          <div className="cr-jobs-left flex flex-col justify-between">
+          <div className="flex flex-col justify-between">
             <div className="flex flex-col flex-1 divide-y divide-[#162047]/15">
               {jobAreas.map((area, index) => {
                 const accentColor = JOB_AREA_ACCENTS[index % JOB_AREA_ACCENTS.length];
                 return (
                   <div
                     key={index}
-                    className={`cr-job-box reveal stagger-${(index % 5) + 1} py-5 flex items-center`}
+                    className={`reveal stagger-${(index % 5) + 1} py-5 flex items-center`}
                     style={{ "--item-accent": accentColor } as React.CSSProperties}
                   >
                     <Typography
                       variant="h5"
                       as="h3"
                       weight="medium"
-                      className="cr-job-box-title inline-flex items-center gap-3 text-[#162047] m-0 text-left"
+                      className="inline-flex items-center gap-3 text-[#162047] m-0 text-left"
                     >
                       <span className="w-2.5 h-2.5 rounded-full bg-[#7C5CBF] flex-shrink-0" />
                       {area.title}
@@ -86,8 +86,8 @@ export default function CareersJobAreas({
           </div>
 
           {/* RIGHT: Image */}
-          <div className="cr-jobs-right reveal">
-            <div className="cr-jobs-img-box relative rounded-[20px] overflow-hidden shadow-2xl h-[320px] lg:h-full min-h-[320px]">
+          <div className="reveal">
+            <div className="relative rounded-[20px] overflow-hidden shadow-2xl h-[320px] lg:h-full min-h-[320px]">
               <Image
                 src={imageSrc}
                 alt={imageAlt}

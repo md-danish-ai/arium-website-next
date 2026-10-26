@@ -7,7 +7,7 @@ export interface AssessmentIconSvgProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export default function AssessmentIconSvg({
-  className = "tab-icon w-9 h-9 lg:w-10 lg:h-10",
+  className = "w-9 h-9 lg:w-10 lg:h-10",
   width = "36",
   height = "36",
   ...props

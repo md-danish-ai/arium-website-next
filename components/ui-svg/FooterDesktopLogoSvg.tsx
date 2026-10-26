@@ -11,9 +11,7 @@ export default function FooterDesktopLogoSvg({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={
-        className || "footer-logo-desktop hidden min-[601px]:block w-[160px] h-auto text-white"
-      }
+      className={className || "hidden min-[601px]:block w-[160px] h-auto text-white"}
       viewBox="0 0 216 94.951"
       aria-hidden="true"
       {...props}

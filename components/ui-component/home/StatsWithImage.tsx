@@ -17,25 +17,25 @@ export default function StatsWithImage({
 
   return (
     <section
-      className="shared-swi-section relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24 lg:pt-[72px] lg:pb-[120px] bg-midnight"
+      className="relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24 lg:pt-[72px] lg:pb-[120px] bg-midnight"
       ref={sectionRef}
     >
-      <div className="shared-swi-bg-gradient absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,232,217,0.03)_0%,transparent_70%)] pointer-events-none z-0" />
 
       <Container className="relative z-[1]">
-        <div className="shared-swi-header mb-8 md:mb-12 lg:mb-16 text-center reveal">
+        <div className="mb-8 md:mb-12 lg:mb-16 text-center reveal">
           <Typography
             variant="h3"
             uppercase
-            className="shared-swi-title text-center text-white max-w-full m-0"
+            className="text-center text-white max-w-full m-0"
             style={{ color: headingColor || undefined }}
           >
             {heading}
           </Typography>
         </div>
 
-        <div className="shared-swi-top-grid grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
-          <div className="shared-swi-bento-grid grid grid-cols-2 gap-3 sm:gap-3.5 md:gap-4 w-full h-full reveal stagger-1">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-2 gap-3 sm:gap-3.5 md:gap-4 w-full h-full reveal stagger-1">
             {stats.map((stat: StatItem, index: number, array: StatItem[]) => {
               const isLastSpan2 = index === array.length - 1 && array.length % 2 !== 0;
 
@@ -54,7 +54,7 @@ export default function StatsWithImage({
             })}
           </div>
 
-          <div className="shared-swi-map-container flex items-center justify-center h-full w-full reveal stagger-2 mt-4 lg:mt-0">
+          <div className="flex items-center justify-center h-full w-full reveal stagger-2 mt-4 lg:mt-0">
             <Image
               src={mapImageSrc}
               alt={heading || "Coverage Map"}

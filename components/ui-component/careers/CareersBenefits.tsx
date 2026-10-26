@@ -3,8 +3,6 @@ import { Typography } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import type { CareersBenefitsProps, CareersBenefitItem } from "./type";
 
-const BENEFIT_CLASSES = ["cr-teal", "cr-purple", "cr-orange", "cr-teal"];
-
 export default function CareersBenefits({
   title,
   contentHtml,
@@ -23,7 +21,7 @@ export default function CareersBenefits({
       />
 
       <Container className="relative z-[1]">
-        <div className="section-header text-center mb-16">
+        <div className="text-center mb-16">
           <Typography
             variant="h3"
             as="h2"
@@ -52,36 +50,28 @@ export default function CareersBenefits({
       <Container className="relative z-[1]">
         <div className="reveal stagger-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {benefits.map((benefit: CareersBenefitItem, index: number) => {
-            const bgClass = BENEFIT_CLASSES[index % BENEFIT_CLASSES.length];
             const iconSrc = benefit.iconSrc || "/images/svg-images/healthcare-benefit.svg";
 
             return (
-              <div
-                key={index}
-                className={`cr-benefit-pillar ${bgClass} py-5 text-center flex flex-col items-center`}
-              >
+              <div key={index} className="py-5 text-center flex flex-col items-center">
                 <Image
                   src={iconSrc}
                   alt={benefit.title}
                   width={128}
                   height={128}
-                  className="cr-benefit-icon w-24 h-24 md:w-32 md:h-32 mb-2 opacity-90 mx-auto"
+                  className="w-24 h-24 md:w-32 md:h-32 mb-2 opacity-90 mx-auto"
                 />
                 <Typography
                   variant="h4"
                   as="h3"
                   uppercase
                   weight="bold"
-                  className="cr-benefit-heading mb-2 tracking-wider"
+                  className="mb-2 tracking-wider"
                   style={{ color: benefit.titleColor || "#009886" }}
                 >
                   {benefit.title}
                 </Typography>
-                <Typography
-                  variant="b2"
-                  as="p"
-                  className="cr-benefit-desc text-[#162047]/75 max-w-[340px] m-0"
-                >
+                <Typography variant="b2" as="p" className="text-[#162047]/75 max-w-[340px] m-0">
                   {benefit.description}
                 </Typography>
               </div>

@@ -21,39 +21,29 @@ type RawRecord = Record<string, unknown>;
 const DEFAULT_PROCESS_ICONS: Record<string, React.ReactNode> = {
   assessment: (
     <AssessmentIconSvg
-      className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+      className="w-9 h-9 lg:w-10 lg:h-10"
       width="36"
       height="36"
       strokeWidth="2.2"
     />
   ),
   planning: (
-    <PlanningIconSvg
-      className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
-      width="36"
-      height="36"
-      strokeWidth="2.2"
-    />
+    <PlanningIconSvg className="w-9 h-9 lg:w-10 lg:h-10" width="36" height="36" strokeWidth="2.2" />
   ),
   construction: (
     <ConstructionIconSvg
-      className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+      className="w-9 h-9 lg:w-10 lg:h-10"
       width="36"
       height="36"
       strokeWidth="2.2"
     />
   ),
   design: (
-    <DesignIconSvg
-      className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
-      width="36"
-      height="36"
-      strokeWidth="2.2"
-    />
+    <DesignIconSvg className="w-9 h-9 lg:w-10 lg:h-10" width="36" height="36" strokeWidth="2.2" />
   ),
   optimization: (
     <OptimizationIconSvg
-      className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+      className="w-9 h-9 lg:w-10 lg:h-10"
       width="36"
       height="36"
       strokeWidth="2.2"
@@ -147,7 +137,7 @@ export function mapSubpageProcess(
       timelineItems: p.timelineItems,
       iconSvg: DEFAULT_PROCESS_ICONS[p.id.toLowerCase()] || (
         <AssessmentIconSvg
-          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          className="w-9 h-9 lg:w-10 lg:h-10"
           width="36"
           height="36"
           strokeWidth="2.2"
@@ -185,7 +175,7 @@ export function mapSubpageProcess(
     let iconSvg: React.ReactNode = DEFAULT_PROCESS_ICONS[pillarId.toLowerCase()] ||
       DEFAULT_PROCESS_ICONS[fallbackPillar?.id.toLowerCase() || ""] || (
         <AssessmentIconSvg
-          className="tab-icon w-9 h-9 lg:w-10 lg:h-10"
+          className="w-9 h-9 lg:w-10 lg:h-10"
           width="36"
           height="36"
           strokeWidth="2.2"

@@ -31,7 +31,7 @@ export default function BenefitsSection({
     <>
       <div className="bg-[#ededee]" style={{ background: "#ededee" }}>
         <section
-          className="shared-benefits-section section-light relative overflow-hidden py-16 md:py-24 lg:py-28 bg-[#ededee]"
+          className="section-light relative overflow-hidden py-16 md:py-24 lg:py-28 bg-[#ededee]"
           id="benefits"
           style={{ background: "#ededee" }}
         >
@@ -40,7 +40,7 @@ export default function BenefitsSection({
             aria-hidden="true"
           />
           <Container className="relative z-[1]">
-            <div className="shared-benefits-header text-center mb-8 md:mb-12">
+            <div className="text-center mb-8 md:mb-12">
               {heading && (
                 <Typography
                   variant="h3"
@@ -63,36 +63,33 @@ export default function BenefitsSection({
 
           {cards && cards.length > 0 && (
             <Container className="relative z-[1]">
-              <div className="shared-benefits-grid reveal stagger-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 min-[780px]:max-[1079px]:gap-[50px] lg:gap-16">
+              <div className="reveal stagger-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 min-[780px]:max-[1079px]:gap-[50px] lg:gap-16">
                 {cards.map((card, index) => {
                   const imgUrl = card.image?.url || card.image?.data?.attributes?.url;
                   const absoluteImgUrl = imgUrl ? GetStrapiMediaUrl(imgUrl) : null;
 
                   return (
-                    <div key={index} className="shared-benefits-card text-center py-4 md:py-5">
-                      <div className="shared-benefits-icon w-24 h-24 md:w-32 md:h-32 opacity-90 mx-auto mb-3 md:mb-4 relative flex items-center justify-center">
+                    <div key={index} className="text-center py-4 md:py-5">
+                      <div className="w-24 h-24 md:w-32 md:h-32 opacity-90 mx-auto mb-3 md:mb-4 relative flex items-center justify-center">
                         {absoluteImgUrl && (
                           <Image
                             src={absoluteImgUrl}
                             alt={card.title || "Benefit Icon"}
                             width={128}
                             height={128}
-                            className="benefit-img w-full h-full object-contain"
+                            className="w-full h-full object-contain"
                           />
                         )}
                       </div>
                       <Typography
                         variant="h4"
                         uppercase
-                        className="shared-benefits-title text-[#009886] mb-2"
+                        className="text-[#009886] mb-2"
                         style={{ color: card.TitleColor || undefined }}
                       >
                         {card.title}
                       </Typography>
-                      <Typography
-                        variant="b2"
-                        className="shared-benefits-desc text-midnight/90 mx-auto max-w-[380px]"
-                      >
+                      <Typography variant="b2" className="text-midnight/90 mx-auto max-w-[380px]">
                         {card.description}
                       </Typography>
                     </div>
@@ -106,16 +103,16 @@ export default function BenefitsSection({
 
       {footerText && (
         <section
-          className="reveal shared-eeo-section pb-10 bg-[#ededee]"
+          className="reveal pb-10 bg-[#ededee]"
           id="eeo-statement"
           style={{ background: "#ededee" }}
         >
           <Container className="relative z-[1]">
-            <div className="reveal shared-eeo-container text-center">
+            <div className="reveal text-center">
               <Typography
                 variant="b4"
                 as="div"
-                className="shared-eeo-text max-w-4xl mx-auto text-midnight/60 normal-case leading-relaxed"
+                className="max-w-4xl mx-auto text-midnight/60 normal-case leading-relaxed"
               >
                 {footerText}
               </Typography>

@@ -92,9 +92,9 @@ export default function IllustrationSplit({
       </div>
 
       <Container className="relative z-[1]">
-        <div className="sol-split grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           {/* Text Content Area */}
-          <div className={`sol-split-text order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
+          <div className={`order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
             {heading && (
               <Typography
                 as="h2"
@@ -110,7 +110,7 @@ export default function IllustrationSplit({
 
             {description && (
               <div
-                className="strapi-richtext-body subpage-intro font-body text-[clamp(0.9rem,1.1vw,1rem)] leading-[1.8] text-midnight/80 mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-3"
+                className="strapi-richtext-body font-body text-[clamp(0.9rem,1.1vw,1rem)] leading-[1.8] text-midnight/80 mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-3"
                 style={{ color: DescriptionColor || undefined }}
                 dangerouslySetInnerHTML={{ __html: description }}
               />
@@ -118,11 +118,11 @@ export default function IllustrationSplit({
 
             {/* Statistics Area */}
             {statistics && statistics.length > 0 && (
-              <div className="sol-kpis-row flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
+              <div className="flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
                 {statistics.map((stat, index) => (
                   <div
                     key={`stat-${index}`}
-                    className="sol-kpi-item flex flex-col gap-1 py-1 cursor-default shrink-0"
+                    className="flex flex-col gap-1 py-1 cursor-default shrink-0"
                   >
                     {stat?.Number ? (
                       <>
@@ -130,7 +130,7 @@ export default function IllustrationSplit({
                           as="span"
                           variant="stat"
                           weight="bold"
-                          className="sol-kpi-num tracking-tight leading-none text-[#7c5cbf]"
+                          className="tracking-tight leading-none text-[#7c5cbf]"
                           style={{ color: stat.NumberColor || "#7c5cbf" }}
                         >
                           {stat?.Number}
@@ -140,14 +140,14 @@ export default function IllustrationSplit({
                             as="p"
                             variant="b2"
                             weight="normal"
-                            className="sol-kpi-label normal-case tracking-normal text-midnight/80 m-0 mt-1.5 whitespace-nowrap"
+                            className="normal-case tracking-normal text-midnight/80 m-0 mt-1.5 whitespace-nowrap"
                           >
                             {stat?.Label}
                           </Typography>
                         )}
                       </>
                     ) : stat?.Label ? (
-                      <p className="sol-kpi-label-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap">
+                      <p className="px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap">
                         {stat?.Label}
                       </p>
                     ) : null}
@@ -164,7 +164,7 @@ export default function IllustrationSplit({
 
           {/* Desktop / Tablet Illustration Column (>= md) */}
           <div
-            className={`sol-illustration-wrapper hidden md:flex items-center self-center w-full ${
+            className={`hidden md:flex items-center self-center w-full ${
               isMediaLeft
                 ? "justify-center md:justify-start md:order-1"
                 : "justify-center md:justify-end md:order-2"

@@ -46,10 +46,10 @@ export default function HeroBanner({
 
   return (
     <section
-      className="shared-img-hero relative min-h-[80vh] max-md:min-h-[60vh] flex items-center overflow-hidden"
+      className="relative min-h-[80vh] max-md:min-h-[60vh] flex items-center overflow-hidden"
       id={id}
     >
-      <div className="shared-img-hero-bg absolute inset-0 z-[1]">
+      <div className="absolute inset-0 z-[1]">
         {videoSrc ? (
           <video
             autoPlay
@@ -72,13 +72,13 @@ export default function HeroBanner({
           />
         ) : null}
       </div>
-      <div className="shared-img-hero-overlay absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(13,18,36,0.85)_0%,rgba(13,18,36,0.5)_12%,rgba(13,18,36,0.2)_22%,transparent_35%),radial-gradient(ellipse_120%_70%_at_50%_55%,rgba(13,18,36,0.65)_0%,rgba(13,18,36,0.35)_40%,transparent_70%)]" />
-      <Container className="shared-img-hero-content relative z-[3] pt-[130px] md:pt-[150px] pb-[80px] md:pb-[100px] text-center w-full">
+      <div className="absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(13,18,36,0.85)_0%,rgba(13,18,36,0.5)_12%,rgba(13,18,36,0.2)_22%,transparent_35%),radial-gradient(ellipse_120%_70%_at_50%_55%,rgba(13,18,36,0.65)_0%,rgba(13,18,36,0.35)_40%,transparent_70%)]" />
+      <Container className="relative z-[3] pt-[130px] md:pt-[150px] pb-[80px] md:pb-[100px] text-center w-full">
         {heading && (
           <Typography
             variant="h1"
             uppercase
-            className="shared-img-hero-heading text-white max-w-[1400px] mx-auto m-0 mb-[18px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
+            className="text-white max-w-[1400px] mx-auto m-0 mb-[18px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
             dangerouslySetInnerHTML={typeof heading === "string" ? { __html: heading } : undefined}
             style={
               maxWidthTitle
@@ -97,7 +97,7 @@ export default function HeroBanner({
         {intro && (
           <Typography
             variant="b1"
-            className="shared-img-hero-intro text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
+            className="text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
             dangerouslySetInnerHTML={typeof intro === "string" ? { __html: intro } : undefined}
             style={
               maxWidthDescription

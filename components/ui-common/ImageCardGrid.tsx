@@ -40,19 +40,19 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
       <div className="absolute -bottom-[80px] -right-[80px] w-[400px] h-[400px] [background:radial-gradient(circle,rgba(210,199,255,0.06)_0%,transparent_70%)] rounded-full pointer-events-none" />
 
       <Container className="relative z-[2]">
-        <div className="section-header text-center mb-16">
+        <div className="text-center mb-16">
           <Typography
             as="h2"
             variant="h2"
             uppercase
-            className="section-title cm-section-title reveal stagger-1 tracking-[0.08em] max-w-[880px] mx-auto leading-[1.45] text-[#162047]"
+            className="section-title reveal stagger-1 tracking-[0.08em] max-w-[880px] mx-auto leading-[1.45] text-[#162047]"
             style={{ color: displayHeadingColor }}
           >
             {displayTitle}
           </Typography>
         </div>
 
-        <div className="reveal stagger-2 image-card-grid grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full">
+        <div className="reveal stagger-2 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full">
           {displayCards.map((benefit, index) => {
             const imageUrl = benefit.image || "/images/placeholder.png";
 
@@ -72,7 +72,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
                   variant="h4"
                   uppercase
                   weight="bold"
-                  className="cm-pillar-title leading-none tracking-[0.08em] mb-3 text-2xl md:text-3xl"
+                  className="leading-none tracking-[0.08em] mb-3 text-2xl md:text-3xl"
                   style={{ color: benefit.titleColor || "#7C5CBF" }}
                 >
                   {benefit.title}
@@ -80,7 +80,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
                 <Typography
                   as="p"
                   variant="b2"
-                  className="cm-pillar-desc leading-[1.65] mb-7 w-full text-base"
+                  className="leading-[1.65] mb-7 w-full text-base"
                   style={{ color: benefit.descriptionColor || "#162047" }}
                 >
                   {benefit.description}

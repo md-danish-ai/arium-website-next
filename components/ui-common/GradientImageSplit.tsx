@@ -45,33 +45,29 @@ export default function GradientImageSplit({
   return (
     <section
       id={id}
-      className={`community-section relative min-h-[560px] overflow-hidden bg-midnight p-0 ${className}`}
+      className={`relative min-h-[560px] overflow-hidden bg-midnight p-0 ${className}`}
       style={style}
     >
       {/* Background image (65% right on desktop, full width on mobile/tablet) */}
-      <div className="community-bg absolute top-0 right-0 bottom-0 w-full lg:w-[65%] z-0 lg:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
+      <div className="absolute top-0 right-0 bottom-0 w-full lg:w-[65%] z-0 lg:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.4)_15%,rgba(0,0,0,0.85)_35%,black_50%)]">
         <picture className="w-full h-full block">
           {mobileImageUrl && <source media="(max-width: 600px)" srcSet={mobileImageUrl} />}
           <source media="(min-width: 601px)" srcSet={desktopImageUrl} />
-          <img
-            src={desktopImageUrl}
-            alt={heading}
-            className="community-bg-img w-full h-full object-cover block"
-          />
+          <img src={desktopImageUrl} alt={heading} className="w-full h-full object-cover block" />
         </picture>
       </div>
 
       {/* Gradient veil (dark backdrop on mobile/tablet for readability, bottom fade on desktop) */}
-      <div className="community-veil absolute inset-0 z-[1] bg-[#0a1628]/80 lg:bg-transparent lg:bg-gradient-to-t lg:from-[#0a1628]/50 lg:via-transparent lg:to-transparent pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-[#0a1628]/80 lg:bg-transparent lg:bg-gradient-to-t lg:from-[#0a1628]/50 lg:via-transparent lg:to-transparent pointer-events-none" />
 
       {/* Content */}
       <Container className="relative z-[2] py-12 md:py-16 lg:py-[100px]">
-        <div className="community-content-inner max-w-[620px]">
+        <div className="max-w-[620px]">
           <Typography
             as="h2"
             variant="h3"
             uppercase
-            className="reveal challenges-heading community-heading text-white mb-6 text-left max-w-[620px] m-0 !leading-[1.35] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+            className="reveal text-white mb-6 text-left max-w-[620px] m-0 !leading-[1.35] [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: headingColor || undefined }}
           >
             {heading}
@@ -80,7 +76,7 @@ export default function GradientImageSplit({
           {description &&
             (description.includes("<") && description.includes(">") ? (
               <div
-                className="reveal stagger-1 challenges-body community-body text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] strapi-richtext-body flex flex-col gap-4 [&>p]:mb-0"
+                className="reveal stagger-1 text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] strapi-richtext-body flex flex-col gap-4 [&>p]:mb-0"
                 style={{ color: descriptionTextColor || undefined }}
                 dangerouslySetInnerHTML={{ __html: description }}
               />
@@ -88,7 +84,7 @@ export default function GradientImageSplit({
               <Typography
                 as="p"
                 variant="b1"
-                className="reveal stagger-1 challenges-body community-body text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
+                className="reveal stagger-1 text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
                 style={{ color: descriptionTextColor || undefined }}
               >
                 {description}
@@ -97,16 +93,16 @@ export default function GradientImageSplit({
 
           {/* Vertically stacked plain text pillars left-aligned */}
           {pointers && pointers.length > 0 && (
-            <div className="reveal stagger-2 community-features-list max-w-[620px] flex flex-col gap-0">
+            <div className="reveal stagger-2 max-w-[620px] flex flex-col gap-0">
               {pointers.map((item, index, array) => (
                 <div key={index} className="flex flex-col">
-                  <div className="community-feature-item pt-[24px] pb-[20px]">
+                  <div className="pt-[24px] pb-[20px]">
                     <Typography
                       as="div"
                       variant="h5"
                       uppercase
                       weight="bold"
-                      className="community-feature-label text-teal mb-2.5 text-left !leading-[1.2] !tracking-[0.06em] m-0"
+                      className="text-teal mb-2.5 text-left !leading-[1.2] !tracking-[0.06em] m-0"
                       style={{ color: item.headingColor || undefined }}
                     >
                       {item.heading}
@@ -114,7 +110,7 @@ export default function GradientImageSplit({
                     <Typography
                       as="p"
                       variant="b2"
-                      className="community-feature-desc text-[#ffffffd1] max-w-[580px] text-left m-0 !text-[clamp(0.875rem,1vw,0.95rem)] !leading-[1.7]"
+                      className="text-[#ffffffd1] max-w-[580px] text-left m-0 !text-[clamp(0.875rem,1vw,0.95rem)] !leading-[1.7]"
                       style={{ color: item.descriptionColor || undefined }}
                     >
                       {item.description}
@@ -130,7 +126,7 @@ export default function GradientImageSplit({
 
           {/* CTA Link below pillars */}
           {ctaText && ctaUrl && (
-            <div className="reveal stagger-3 community-cta-wrap mt-6 md:mt-8 max-w-[620px]">
+            <div className="reveal stagger-3 mt-6 md:mt-8 max-w-[620px]">
               <Link
                 href={ctaUrl}
                 aria-label={`${ctaText}`}
