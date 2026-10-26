@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { Typography } from "@ui-element";
-import { ConnectionIllustrationSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 import { AboutContentWithSideGraphicProps } from "./type";
 
