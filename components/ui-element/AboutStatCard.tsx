@@ -32,7 +32,7 @@ export default function AboutStatCard({
 
   return (
     <div
-      className={`relative p-5 sm:p-6 md:p-8 lg:p-10 rounded-3xl md:rounded-[28px] flex flex-row items-center gap-4 sm:gap-6 md:flex-col md:items-start md:justify-between border border-black/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] md:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden hover:-translate-y-1 hover:shadow-xl ${cardBg} ${className}`}
+      className={`relative px-5 py-5 sm:px-7 sm:py-6 md:p-8 lg:p-10 rounded-3xl md:rounded-[28px] flex flex-row items-center gap-4 sm:gap-6 md:flex-col md:items-start md:justify-between border border-black/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] md:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden hover:-translate-y-1 hover:shadow-xl ${cardBg} ${className}`}
     >
       {/* Radial Glow Decoration */}
       <div
@@ -41,12 +41,12 @@ export default function AboutStatCard({
       />
 
       {/* Left on mobile, Top on desktop */}
-      <div className="shrink-0 flex flex-col items-start relative z-[2]">
+      <div className="shrink-0 flex flex-col justify-center items-start relative z-[2] w-[92px] sm:w-[110px] md:w-auto">
         <Typography
           variant="stat"
           as="span"
           weight="bold"
-          className="shared-stats-kpi-num counter text-midnight tracking-tight m-0 mb-0"
+          className="shared-stats-kpi-num counter text-midnight tracking-tight m-0 mb-0 leading-none whitespace-nowrap"
           data-target={num}
           data-suffix={suf}
         >
@@ -56,7 +56,7 @@ export default function AboutStatCard({
       </div>
 
       {/* Right on mobile, Bottom/Middle on desktop */}
-      <div className="flex flex-col items-start gap-2.5 sm:gap-3 flex-1 min-w-0 md:w-full md:flex-1 md:justify-between relative z-[2]">
+      <div className="flex flex-col justify-center items-start gap-1 sm:gap-1.5 flex-1 min-w-0 md:w-full md:flex-1 md:justify-between md:gap-3 relative z-[2]">
         <Typography
           variant="b2"
           as="p"
@@ -65,13 +65,13 @@ export default function AboutStatCard({
           {description}
         </Typography>
         {badge && (
-          <div className="md:mt-6">
+          <div className="mt-0.5 md:mt-6">
             <Typography
               variant="b4"
               as="span"
               uppercase
-              weight="semibold"
-              className="whitespace-nowrap not-italic text-midnight/70 px-3 py-1 rounded-full border border-midnight/10 bg-white/40 inline-block text-[0.68rem] tracking-[0.06em]"
+              weight="medium"
+              className="whitespace-nowrap not-italic text-midnight/55 text-[0.68rem] sm:text-[0.72rem] tracking-[0.08em] block md:inline-block md:text-midnight/70 md:font-semibold md:px-3 md:py-1 md:rounded-full md:border md:border-midnight/10 md:bg-white/40 md:tracking-[0.06em]"
             >
               {badge}
             </Typography>
