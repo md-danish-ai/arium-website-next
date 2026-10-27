@@ -33,7 +33,7 @@ export default function CommunityTestimonials({
 }: CommunityTestimonialsProps) {
   return (
     <section
-      className="section-light bg-transparent py-20 relative overflow-hidden"
+      className="section-light bg-white py-20 relative overflow-hidden"
       id="testimonials"
     >
       <div
