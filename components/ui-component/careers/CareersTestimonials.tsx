@@ -33,19 +33,16 @@ export default function CareersTestimonials({
 }: CareersTestimonialsProps) {
   return (
     <section
-      className="section-light bg-[#ededee] py-20 relative overflow-hidden"
+      className="section-light bg-white py-20 relative overflow-hidden !border-none"
       id="testimonials"
     >
-      <div
-        className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      />
       <Container className="relative z-[2]">
         <div className="text-center mb-16 md:mb-18">
           <Typography
             variant="h3"
             as="h2"
-            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+            uppercase
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047] tracking-[0.06em]"
           >
             {title}
           </Typography>

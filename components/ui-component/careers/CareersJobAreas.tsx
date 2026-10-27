@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
+import { ChevronsRightSvg } from "@ui-svg";
 import type { CareersJobAreasProps } from "./type";
-
-const JOB_AREA_ACCENTS = ["#00e8d9", "#8B6FE6", "#E8935A"];
 
 export default function CareersJobAreas({
   title,
@@ -17,20 +16,16 @@ export default function CareersJobAreas({
   return (
     <section
       id="job-areas"
-      className="section-light bg-[#ededee] py-24 md:py-32 relative overflow-hidden"
+      className="section-light bg-white py-20 md:py-28 relative overflow-hidden !border-none"
     >
-      <div
-        className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      />
-
       <Container className="relative z-[2]">
         {/* Centered Header */}
         <div className="text-center mb-14">
           <Typography
             variant="h3"
             as="h2"
-            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+            uppercase
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047] tracking-[0.06em]"
           >
             {title}
           </Typography>
@@ -53,22 +48,21 @@ export default function CareersJobAreas({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* LEFT: Job list + CTA */}
           <div className="flex flex-col justify-between">
-            <div className="flex flex-col flex-1 divide-y divide-[#162047]/15">
+            <div className="flex flex-col flex-1 divide-y divide-[#162047]/10">
               {jobAreas.map((area, index) => {
-                const accentColor = JOB_AREA_ACCENTS[index % JOB_AREA_ACCENTS.length];
                 return (
                   <div
                     key={index}
                     className={`reveal stagger-${(index % 5) + 1} py-5 flex items-center`}
-                    style={{ "--item-accent": accentColor } as React.CSSProperties}
                   >
                     <Typography
                       variant="h5"
                       as="h3"
                       weight="medium"
-                      className="inline-flex items-center gap-3 text-[#162047] m-0 text-left"
+                      uppercase
+                      className="inline-flex items-center gap-3 text-[#162047] m-0 text-left tracking-[0.06em] text-[0.95rem] md:text-[1rem]"
                     >
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#7C5CBF] flex-shrink-0" />
+                      <ChevronsRightSvg className="w-5 h-5 shrink-0 text-[#7C5CBF]" />
                       {area.title}
                     </Typography>
                   </div>

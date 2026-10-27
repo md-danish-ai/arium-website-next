@@ -12,20 +12,15 @@ export default function CareersBenefits({
   return (
     <section
       id="benefits"
-      className="section-light py-24 md:py-32 relative overflow-hidden bg-[#ededee]"
-      style={{ background: "#ededee" }}
+      className="section-light bg-white py-20 md:py-28 relative overflow-hidden !border-none"
     >
-      <div
-        className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      />
-
       <Container className="relative z-[1]">
         <div className="text-center mb-16">
           <Typography
             variant="h3"
             as="h2"
-            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
+            uppercase
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047] tracking-[0.06em]"
           >
             {title}
           </Typography>
@@ -59,19 +54,23 @@ export default function CareersBenefits({
                   alt={benefit.title}
                   width={128}
                   height={128}
-                  className="w-24 h-24 md:w-32 md:h-32 mb-2 opacity-90 mx-auto"
+                  className="w-24 h-24 md:w-32 md:h-32 mb-4 opacity-90 mx-auto object-contain"
                 />
                 <Typography
                   variant="h5"
                   as="h4"
                   uppercase
                   weight="bold"
-                  className="mb-2 tracking-wider"
+                  className="mb-2 tracking-wider text-[#009886]"
                   style={{ color: benefit.titleColor || "#009886" }}
                 >
                   {benefit.title}
                 </Typography>
-                <Typography variant="b2" as="p" className="text-[#162047]/75 max-w-[340px] m-0">
+                <Typography
+                  variant="b2"
+                  as="p"
+                  className="text-[#162047]/75 max-w-[340px] m-0 leading-relaxed"
+                >
                   {benefit.description}
                 </Typography>
               </div>

@@ -5,13 +5,11 @@ import { SectionRendererProps } from "./helper";
 import {
   CareersBenefitsRenderer,
   CareersTestimonialsRenderer,
-  CareersCultureRenderer,
   CareersJobAreasRenderer,
 } from "./renderers/careers";
 
 // Community Renderers
 import {
-  CommunitySmallCellsRenderer,
   CommunityBenefitsRenderer,
   CommunityHowWeWorkRenderer,
   CommunityTestimonialsRenderer,

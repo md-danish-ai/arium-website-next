@@ -195,24 +195,34 @@ export function mapCareersJobAreas(
   const contentHtml = isHtml ? rawBody : undefined;
   const description = isHtml ? undefined : rawBody || fallback.description;
 
-  const rawCards = (raw?.cards || raw?.Cards || raw?.jobAreas) as RawRecord[] | undefined;
+  const rawCards = (raw?.Name || raw?.name || raw?.cards || raw?.Cards || raw?.jobAreas) as
+    RawRecord[] | undefined;
 
   let jobAreas: CareersJobAreaItem[] = fallback.jobAreas;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     jobAreas = rawCards.map((c) => ({
-      title: (c.title || c.Title || "") as string,
+      title: (c.ListName || c.listName || c.title || c.Title || "") as string,
     }));
   }
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.Media || raw?.image || raw?.Image) as unknown;
   const imageSrc = rawMedia ? resolveStrapiImage(rawMedia, fallback.imageSrc) : fallback.imageSrc;
+
+  const cta =
+    raw?.ctaLabel && raw?.ctaUrl
+      ? {
+          label: raw.ctaLabel as string,
+          url: raw.ctaUrl as string,
+          isExternal: true,
+        }
+      : fallback.cta;
 
   return {
     title,
     contentHtml,
     description,
     jobAreas,
-    cta: fallback.cta,
+    cta,
     imageSrc,
     imageAlt: fallback.imageAlt,
   };
@@ -257,8 +267,7 @@ export function mapCareersBenefits(
       return {
         title: (c.title || c.Title || fallbackBenefit.title) as string,
         description: (c.description || c.Description || fallbackBenefit.description) as string,
-        titleColor: (c.TitleColor || c.titleColor || fallbackBenefit.titleColor) as
-          string | undefined,
+        titleColor: (c.TitleColor || c.titleColor || "#009886") as string | undefined,
         iconSrc: customImg
           ? resolveStrapiImage(customImg, fallbackBenefit.iconSrc)
           : fallbackBenefit.iconSrc,

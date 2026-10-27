@@ -153,14 +153,14 @@ export const CAREERS_BENEFITS_FALLBACK: {
       title: "Financial Security",
       description:
         "Competitive 401(k), tuition reimbursement, financial counseling and funded healthcare savings accounts",
-      titleColor: "#7c5cbf",
+      titleColor: "#009886",
       iconSrc: "/images/svg-images/financial-security.svg",
     },
     {
       title: "Time Off",
       description:
         "Flexible paid time off for vacations, holidays, leaves of absence, or personal needs",
-      titleColor: "#e8935a",
+      titleColor: "#009886",
       iconSrc: "/images/svg-images/time-off.svg",
     },
     {
