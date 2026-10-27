@@ -115,7 +115,7 @@ export default function AboutCommitments({
                     variant="h5"
                     as="h3"
                     uppercase
-                    weight="semibold"
+                    weight="bold"
                     className="text-midnight m-0 mb-3 text-center w-full"
                   >
                     {pillar.title}

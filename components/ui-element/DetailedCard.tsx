@@ -65,7 +65,7 @@ export default function DetailedCard({
           variant="h4"
           uppercase
           weight="normal"
-          className="!text-[22px] !leading-[1.35] tracking-[0.06em] m-0 mb-3 md:mb-3.5 text-white"
+          className="!leading-[1.35] tracking-[0.06em] m-0 mb-3 md:mb-3.5 text-white"
         >
           {title}
         </Typography>
@@ -74,7 +74,7 @@ export default function DetailedCard({
           <Typography
             variant="b2"
             weight="normal"
-            className="text-white/80 !text-[16px] !leading-[1.65] mx-auto m-0 flex-1"
+            className="text-white/80 !leading-[1.65] mx-auto m-0 flex-1"
           >
             {description}
           </Typography>
@@ -86,9 +86,15 @@ export default function DetailedCard({
             aria-label={`${ctaText} about ${title}`}
             className="group inline-flex items-center gap-2 no-underline mt-4 md:mt-5"
           >
-            <span className="inline-block text-xs uppercase tracking-[0.15em] text-white font-body font-semibold leading-none transition-all duration-300 group-hover:text-teal group-hover:scale-105 whitespace-nowrap">
+            <Typography
+              as="span"
+              variant="button"
+              uppercase
+              weight="bold"
+              className="inline-block tracking-[0.15em] text-white leading-none transition-all duration-300 group-hover:text-teal group-hover:scale-105 whitespace-nowrap"
+            >
               {ctaText}
-            </span>
+            </Typography>
             <DoubleRightArrowSvg className="text-teal inline-block w-4 h-4 min-w-4 min-h-4 max-w-4 max-h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
           </Link>
         )}

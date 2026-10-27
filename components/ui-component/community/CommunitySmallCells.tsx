@@ -29,11 +29,11 @@ export default function CommunitySmallCells({
             </Typography>
             {contentHtml ? (
               <div
-                className="strapi-richtext-body text-[#162047] text-left text-base md:text-lg flex flex-col gap-5 leading-relaxed"
+                className="strapi-richtext-body text-[#162047] text-left flex flex-col gap-5 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (
-              <div className="text-[#162047] text-left text-base md:text-lg leading-relaxed space-y-5">
+              <div className="text-[#162047] text-left leading-relaxed space-y-5">
                 {paragraphs.map((paragraph, index) => (
                   <Typography key={index} as="p" variant="b1" className="m-0">
                     {paragraph}

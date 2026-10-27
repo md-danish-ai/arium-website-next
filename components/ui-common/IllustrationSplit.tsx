@@ -110,7 +110,7 @@ export default function IllustrationSplit({
 
             {description && (
               <div
-                className="strapi-richtext-body font-body text-[clamp(0.9rem,1.1vw,1rem)] leading-[1.8] text-midnight/80 mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-3"
+                className="strapi-richtext-body leading-[1.8] text-midnight/80 mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-3"
                 style={{ color: DescriptionColor || undefined }}
                 dangerouslySetInnerHTML={{ __html: description }}
               />
@@ -147,9 +147,14 @@ export default function IllustrationSplit({
                         )}
                       </>
                     ) : stat?.Label ? (
-                      <p className="px-3.5 py-1.5 rounded-full text-xs font-medium border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap">
+                      <Typography
+                        as="span"
+                        variant="b4"
+                        weight="medium"
+                        className="px-3.5 py-1.5 rounded-full border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap"
+                      >
                         {stat?.Label}
-                      </p>
+                      </Typography>
                     ) : null}
                   </div>
                 ))}

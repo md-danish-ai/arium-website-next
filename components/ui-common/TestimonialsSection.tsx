@@ -49,7 +49,7 @@ export default function TestimonialsSection({
                 <Typography
                   variant="h3"
                   uppercase
-                  className="section-title reveal stagger-1 text-midnight text-center min-[1080px]:text-[clamp(1.9rem,0.5rem+2.2vw,2.4rem)] min-[1080px]:whitespace-nowrap max-[600px]:text-[1.2rem] max-[600px]:leading-[1.4] max-[600px]:tracking-[0.1em] max-[600px]:whitespace-normal"
+                  className="section-title reveal stagger-1 text-midnight text-center min-[1080px]:whitespace-nowrap max-[600px]:leading-[1.4] max-[600px]:tracking-[0.1em] max-[600px]:whitespace-normal"
                 >
                   {heading}
                 </Typography>
@@ -97,13 +97,15 @@ export default function TestimonialsSection({
                       variant="h5"
                       as="p"
                       uppercase
-                      className="font-bold text-midnight m-0 tracking-[0.02em]"
+                      weight="bold"
+                      className="text-midnight m-0 tracking-[0.02em]"
                     >
                       {card.personName}
                     </Typography>
                     <Typography
                       variant="b4"
-                      className="text-midnight/80 mt-1 mb-0 font-normal normal-case"
+                      weight="normal"
+                      className="text-midnight/80 mt-1 mb-0 normal-case"
                     >
                       {card.personDesignation}
                     </Typography>

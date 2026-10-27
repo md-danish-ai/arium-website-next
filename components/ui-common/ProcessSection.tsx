@@ -141,14 +141,20 @@ export default function ProcessSection({
                   >
                     {pillar.iconSvg}
                   </span>
-                  <span className="font-heading text-lg lg:text-xl font-semibold uppercase tracking-[0.08em] text-[#162047] pb-1.5 inline-block relative">
+                  <Typography
+                    as="span"
+                    variant="h5"
+                    uppercase
+                    weight="bold"
+                    className="tracking-[0.08em] text-[#162047] pb-1.5 inline-block relative"
+                  >
                     {pillar.title}
                     <span
                       className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--accent-color)] transition-transform duration-200 origin-center ${
                         isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       }`}
                     />
-                  </span>
+                  </Typography>
                 </button>
               );
             })}
@@ -173,7 +179,12 @@ export default function ProcessSection({
                     }`}
                   >
                     {/* Mobile/Tablet Phase Header (shown only on < 1024px) */}
-                    <div className="flex lg:hidden items-center gap-3.5 mx-4 mb-4 font-heading text-xl md:text-2xl font-bold text-[#162047]">
+                    <Typography
+                      as="div"
+                      variant="h4"
+                      weight="bold"
+                      className="flex lg:hidden items-center gap-3.5 mx-4 mb-4 text-[#162047]"
+                    >
                       <div
                         className="w-[48px] h-[48px] rounded-[14px] flex items-center justify-center text-[#162047] shrink-0 [&_svg]:w-7 [&_svg]:h-7 [&_img]:w-9 [&_img]:h-9 [&_img]:object-contain"
                         style={{
@@ -186,7 +197,7 @@ export default function ProcessSection({
                         {pillar.iconSvg}
                       </div>
                       {pillar.title}
-                    </div>
+                    </Typography>
 
                     {/* Step Cards (Mobile/Tablet swipe track, Desktop grid >= 1024px) */}
                     <div
@@ -210,15 +221,31 @@ export default function ProcessSection({
                               backgroundColor: cardBg,
                             }}
                           >
-                            <span className="self-start inline-flex items-center justify-center py-1.5 px-3.5 rounded-full bg-[#162047] text-white font-heading text-xs font-bold tracking-[0.06em] uppercase mb-4 leading-none select-none w-fit">
+                            <Typography
+                              as="span"
+                              variant="b4"
+                              uppercase
+                              weight="bold"
+                              className="self-start inline-flex items-center justify-center py-1.5 px-3.5 rounded-full bg-[#162047] text-white tracking-[0.06em] mb-4 leading-none select-none w-fit"
+                            >
                               Step {idx + 1}
-                            </span>
-                            <h4 className="font-heading text-lg lg:text-xl font-bold text-[#162047] m-0 mb-2.5 leading-[1.3] normal-case">
+                            </Typography>
+                            <Typography
+                              as="h4"
+                              variant="h5"
+                              weight="bold"
+                              className="text-[#162047] m-0 mb-2.5 leading-[1.3] normal-case"
+                            >
                               {item.label}
-                            </h4>
-                            <p className="text-[15px] lg:text-base leading-[1.58] text-[#162047]/90 font-normal m-0">
+                            </Typography>
+                            <Typography
+                              as="p"
+                              variant="b2"
+                              weight="normal"
+                              className="leading-[1.58] text-[#162047]/90 m-0"
+                            >
                               {item.desc}
-                            </p>
+                            </Typography>
                           </div>
                         );
                       })}

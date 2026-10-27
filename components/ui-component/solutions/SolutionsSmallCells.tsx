@@ -46,7 +46,7 @@ export default function SolutionsSmallCells({
 
             {contentHtml ? (
               <div
-                className="strapi-richtext-body text-[#162047]/80 text-[clamp(0.9rem,1.1vw,1rem)] leading-[1.8] mb-6 flex flex-col gap-4 [&>p]:m-0"
+                className="strapi-richtext-body text-[#162047]/80 leading-[1.8] mb-6 flex flex-col gap-4 [&>p]:m-0"
                 dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (

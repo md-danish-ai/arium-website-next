@@ -36,7 +36,7 @@ export default function CareersJobAreas({
           </Typography>
           {contentHtml ? (
             <div
-              className="reveal stagger-1 text-[#162047]/80 text-base md:text-lg leading-relaxed max-w-[800px] mx-auto mt-5"
+              className="reveal stagger-1 text-[#162047]/80 leading-relaxed max-w-[800px] mx-auto mt-5"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (

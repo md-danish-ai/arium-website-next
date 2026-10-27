@@ -36,7 +36,7 @@ export default function WhereCommunities({
 
           {isHtmlDescription ? (
             <div
-              className="strapi-richtext-body text-[#162047]/85 text-base md:text-lg leading-relaxed m-0"
+              className="strapi-richtext-body text-[#162047]/85 leading-relaxed m-0"
               dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (

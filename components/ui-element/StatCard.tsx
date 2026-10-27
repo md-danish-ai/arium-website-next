@@ -59,7 +59,8 @@ export default function StatCard({
         <Typography
           as="p"
           variant="b3"
-          className={`text-midnight/85 text-[13px] w-full m-0 font-medium normal-case leading-[1.3] tracking-normal break-words whitespace-normal ${textAlignClass}`}
+          weight="medium"
+          className={`text-midnight/85 w-full m-0 normal-case leading-[1.3] tracking-normal break-words whitespace-normal ${textAlignClass}`}
           style={{ color: descriptionColor || undefined }}
         >
           {description}

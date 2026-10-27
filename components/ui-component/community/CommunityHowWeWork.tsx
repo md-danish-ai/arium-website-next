@@ -39,11 +39,11 @@ export default function CommunityHowWeWork({
           </Typography>
           {contentHtml ? (
             <div
-              className="reveal stagger-1 text-white/85 text-base md:text-lg leading-relaxed mb-9 flex flex-col gap-5"
+              className="reveal stagger-1 text-white/85 leading-relaxed mb-9 flex flex-col gap-5"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (
-            <div className="text-white/85 text-base md:text-lg leading-relaxed mb-9 space-y-5">
+            <div className="text-white/85 leading-relaxed mb-9 space-y-5">
               {paragraphs.map((paragraph, index) => (
                 <Typography
                   key={index}

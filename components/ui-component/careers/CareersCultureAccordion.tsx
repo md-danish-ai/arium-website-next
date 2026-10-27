@@ -74,7 +74,7 @@ export default function CareersCultureAccordion({
             </Typography>
             {contentHtml ? (
               <div
-                className="strapi-richtext-body text-[#162047]/90 text-left text-lg leading-relaxed space-y-4"
+                className="strapi-richtext-body text-[#162047]/90 text-left leading-relaxed space-y-4"
                 dangerouslySetInnerHTML={{ __html: contentHtml }}
               />
             ) : (
@@ -119,7 +119,7 @@ export default function CareersCultureAccordion({
                         variant="h6"
                         as="h3"
                         uppercase
-                        className={`m-0 transition-colors duration-300 text-sm sm:text-base ${
+                        className={`m-0 transition-colors duration-300 ${
                           isActive ? "text-[#00e8d9]" : "text-white"
                         }`}
                       >
@@ -132,11 +132,7 @@ export default function CareersCultureAccordion({
                       } ${isActive ? "max-h-48 opacity-100 pt-3" : "max-h-0 opacity-0"}`}
                     >
                       <div>
-                        <Typography
-                          variant="b3"
-                          as="span"
-                          className="text-white/80 block text-xs sm:text-sm"
-                        >
+                        <Typography variant="b3" as="span" className="text-white/80 block">
                           {pillar.description}
                         </Typography>
                       </div>

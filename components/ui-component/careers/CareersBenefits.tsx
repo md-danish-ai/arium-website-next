@@ -31,7 +31,7 @@ export default function CareersBenefits({
           </Typography>
           {contentHtml ? (
             <div
-              className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 text-base md:text-lg leading-relaxed"
+              className="section-description reveal stagger-2 max-w-[900px] mx-auto mt-5 text-[#162047]/80 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (

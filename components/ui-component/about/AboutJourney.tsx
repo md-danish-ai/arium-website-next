@@ -40,7 +40,7 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
             as="h2"
             uppercase
             weight="light"
-            className="section-title reveal stagger-1 text-midnight m-0 mb-0 min-[1080px]:text-[clamp(1.9rem,0.5rem+2.2vw,2.4rem)]"
+            className="section-title reveal stagger-1 text-midnight m-0 mb-0"
           >
             {heading}
           </Typography>
@@ -112,13 +112,19 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
                     </Typography>
 
                     {itemBadge && (
-                      <span className="whitespace-nowrap inline-flex items-center gap-1.5 text-[0.62rem] leading-none bg-[#daf3f2] text-[#009e94] px-2 py-1 rounded-full font-bold tracking-[0.06em] uppercase align-middle lg:group-hover:!bg-[#00e8d9]/25 lg:group-hover:!text-[#00e8d9] transition-all duration-300 -translate-y-0.5">
+                      <Typography
+                        as="span"
+                        variant="b4"
+                        uppercase
+                        weight="bold"
+                        className="whitespace-nowrap inline-flex items-center gap-1.5 leading-none bg-[#daf3f2] text-[#009e94] px-2 py-1 rounded-full tracking-[0.06em] align-middle lg:group-hover:!bg-[#00e8d9]/25 lg:group-hover:!text-[#00e8d9] transition-all duration-300 -translate-y-0.5"
+                      >
                         <span
                           className="w-1.5 h-1.5 rounded-full bg-[#009e94] lg:group-hover:!bg-[#00e8d9] shrink-0 inline-block transition-colors duration-300"
                           aria-hidden="true"
                         />
                         {itemBadge}
-                      </span>
+                      </Typography>
                     )}
                   </div>
 

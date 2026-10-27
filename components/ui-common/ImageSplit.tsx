@@ -77,7 +77,7 @@ export default function ImageSplit({ data }: ImageSplitProps) {
 
             {Description && (
               <div
-                className="strapi-richtext-body text-[1.05rem] leading-[1.8] text-midnight mb-10 opacity-85 flex flex-col gap-4 [&>p]:mb-0"
+                className="strapi-richtext-body leading-[1.8] text-midnight mb-10 opacity-85 flex flex-col gap-4 [&>p]:mb-0"
                 style={{ color: DescriptionColor || undefined }}
                 dangerouslySetInnerHTML={{ __html: Description }}
               />

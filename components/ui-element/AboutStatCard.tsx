@@ -71,7 +71,7 @@ export default function AboutStatCard({
               as="span"
               uppercase
               weight="medium"
-              className="whitespace-nowrap not-italic text-midnight/55 text-[0.68rem] sm:text-[0.72rem] tracking-[0.08em] block md:inline-block md:text-midnight/70 md:font-semibold md:px-3 md:py-1 md:rounded-full md:border md:border-midnight/10 md:bg-white/40 md:tracking-[0.06em]"
+              className="whitespace-nowrap not-italic text-midnight/55 tracking-[0.08em] block md:inline-block md:text-midnight/70 md:px-3 md:py-1 md:rounded-full md:border md:border-midnight/10 md:bg-white/40 md:tracking-[0.06em]"
             >
               {badge}
             </Typography>

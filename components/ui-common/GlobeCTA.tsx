@@ -49,7 +49,7 @@ export default function GlobeCTA({
                   {heading || title}
                 </Typography>
                 <div
-                  className="strapi-richtext-body text-base md:text-[1.05rem] leading-relaxed md:leading-[1.8] text-midnight mb-6 md:mb-9 flex flex-col gap-4 [&>p]:mb-0 font-light"
+                  className="strapi-richtext-body leading-relaxed md:leading-[1.8] text-midnight mb-6 md:mb-9 flex flex-col gap-4 [&>p]:mb-0"
                   dangerouslySetInnerHTML={{ __html: description }}
                 />
               </>
@@ -58,7 +58,7 @@ export default function GlobeCTA({
                 as="p"
                 variant="h3"
                 weight="light"
-                className="!tracking-normal !text-[clamp(1.15rem,2.5vw,1.7rem)] leading-[1.5] text-midnight mb-6 md:mb-9 max-w-[580px] [text-wrap:balance]"
+                className="!tracking-normal leading-[1.5] text-midnight mb-6 md:mb-9 max-w-[580px] [text-wrap:balance]"
               >
                 {title || heading}
               </Typography>

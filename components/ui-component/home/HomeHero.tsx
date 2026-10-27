@@ -93,14 +93,14 @@ export default function HomeHero({
           variant="h1"
           uppercase
           weight="normal"
-          className="m-0 mb-0 mx-auto max-w-[970px] text-[clamp(1.8rem,3.5vw,2.8rem)] max-[768px]:text-[1.6rem] max-[480px]:text-[1.4rem] tracking-[0.12em] leading-[1.4] relative z-[1]"
+          className="m-0 mb-0 mx-auto max-w-[970px] tracking-[0.12em] leading-[1.4] relative z-[1]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: heading || "" }}
         />
         <Typography
           variant="b1"
           weight="normal"
-          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] text-[clamp(1.05rem,1.8vw,1.25rem)] max-[768px]:text-[0.9rem] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
+          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
           style={{ color: resolvedFont }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
@@ -115,7 +115,7 @@ export default function HomeHero({
           variant="b4"
           uppercase
           weight="normal"
-          className="block text-[0.75rem] text-white/60 tracking-[0.15em] font-normal whitespace-nowrap"
+          className="block text-white/60 tracking-[0.15em] whitespace-nowrap"
         >
           {scrollText || "Scroll to explore"}
         </Typography>

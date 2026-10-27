@@ -76,7 +76,7 @@ export default function GradientImageSplit({
           {description &&
             (description.includes("<") && description.includes(">") ? (
               <div
-                className="reveal stagger-1 text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] strapi-richtext-body flex flex-col gap-4 [&>p]:mb-0"
+                className="reveal stagger-1 text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] strapi-richtext-body flex flex-col gap-4 [&>p]:mb-0"
                 style={{ color: descriptionTextColor || undefined }}
                 dangerouslySetInnerHTML={{ __html: description }}
               />
@@ -84,7 +84,7 @@ export default function GradientImageSplit({
               <Typography
                 as="p"
                 variant="b1"
-                className="reveal stagger-1 text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !text-[clamp(0.95rem,1.1vw,1.05rem)] !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
+                className="reveal stagger-1 text-[#ffffffd1] text-left max-w-[620px] m-0 mb-6 md:mb-8 !leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
                 style={{ color: descriptionTextColor || undefined }}
               >
                 {description}
@@ -110,7 +110,7 @@ export default function GradientImageSplit({
                     <Typography
                       as="p"
                       variant="b2"
-                      className="text-[#ffffffd1] max-w-[580px] text-left m-0 !text-[clamp(0.875rem,1vw,0.95rem)] !leading-[1.7]"
+                      className="text-[#ffffffd1] max-w-[580px] text-left m-0 !leading-[1.7]"
                       style={{ color: item.descriptionColor || undefined }}
                     >
                       {item.description}
@@ -134,9 +134,15 @@ export default function GradientImageSplit({
                 target={ctaUrl.startsWith("http") ? "_blank" : undefined}
                 rel={ctaUrl.startsWith("http") ? "noopener noreferrer" : undefined}
               >
-                <span className="inline-block text-xs uppercase tracking-[0.15em] text-white/85 font-body font-medium leading-none transition-all duration-300 group-hover:text-white group-hover:scale-105 whitespace-nowrap">
+                <Typography
+                  as="span"
+                  variant="button"
+                  uppercase
+                  weight="medium"
+                  className="inline-block tracking-[0.15em] text-white/85 leading-none transition-all duration-300 group-hover:text-white group-hover:scale-105 whitespace-nowrap"
+                >
                   {ctaText}
-                </span>
+                </Typography>
                 <DoubleRightArrowSvg className="w-4 h-4 min-w-4 min-h-4 max-w-4 max-h-4 text-teal shrink-0 transition-transform duration-300 group-hover:translate-x-1.5 inline-block" />
               </Link>
             </div>

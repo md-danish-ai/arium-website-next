@@ -41,13 +41,13 @@ export default function AboutContentWithSideGraphic({
 
           {isHtmlBody ? (
             <div
-              className="reveal stagger-1 strapi-richtext-body text-midnight/80 text-left text-lg leading-[1.8] flex flex-col gap-5 [&>p]:mb-0"
+              className="reveal stagger-1 strapi-richtext-body text-midnight/80 text-left leading-[1.8] flex flex-col gap-5 [&>p]:mb-0"
               style={descriptionColor ? { color: descriptionColor } : undefined}
               dangerouslySetInnerHTML={{ __html: bodyText }}
             />
           ) : (
             <div
-              className="reveal stagger-1 flex flex-col gap-5 text-midnight/80 text-left text-lg leading-[1.8]"
+              className="reveal stagger-1 flex flex-col gap-5 text-midnight/80 text-left leading-[1.8]"
               style={descriptionColor ? { color: descriptionColor } : undefined}
             >
               {bodyText.split("\n\n").map((para, i) => (

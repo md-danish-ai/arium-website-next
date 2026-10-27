@@ -3,7 +3,19 @@ import React from "react";
 export type TypographyVariant =
   "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "b1" | "b2" | "b3" | "b4" | "stat" | "button" | "quote";
 
-export type TypographyWeight = "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
+export type TypographyWeight =
+  | "light"
+  | 300
+  | "normal"
+  | 400
+  | "medium"
+  | 500
+  | "semibold"
+  | 600
+  | "bold"
+  | 700
+  | "extrabold"
+  | 800;
 
 export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TypographyVariant;
@@ -31,20 +43,20 @@ const variantTagMap: Record<TypographyVariant, React.ElementType> = {
   quote: "blockquote",
 };
 
-// Default weights per variant (only applied if `weight` prop is not explicitly passed)
+// Default weights per variant (only applied if `weight` prop is not explicitly passed and no font-* weight exists in className)
 const defaultWeightMap: Record<TypographyVariant, TypographyWeight> = {
   h1: "light",
   h2: "light",
   h3: "normal",
   h4: "bold",
-  h5: "semibold",
+  h5: "bold",
   h6: "normal",
   b1: "normal",
   b2: "normal",
   b3: "normal",
   b4: "medium",
   stat: "extrabold",
-  button: "semibold",
+  button: "bold",
   quote: "light",
 };
 
@@ -90,14 +102,25 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   quote: "font-body italic text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.8]",
 };
 
-const weightMap: Record<TypographyWeight, string> = {
-  light: "font-light", // 300
-  normal: "font-normal", // 400
-  medium: "font-medium", // 500
-  semibold: "font-semibold", // 600
-  bold: "font-bold", // 700
-  extrabold: "font-extrabold", // 800
+// Maps named and numeric weights cleanly to Tailwind classes.
+// Note: 600 safely maps to font-bold (700) because ulmGrotesk-600.otf does not exist.
+const weightMap: Record<string | number, string> = {
+  light: "font-light",
+  300: "font-light",
+  normal: "font-normal",
+  400: "font-normal",
+  medium: "font-medium",
+  500: "font-medium",
+  semibold: "font-bold",
+  600: "font-bold",
+  bold: "font-bold",
+  700: "font-bold",
+  extrabold: "font-extrabold",
+  800: "font-extrabold",
 };
+
+// Regex to detect if className already provides an explicit font weight
+const HAS_FONT_WEIGHT_REGEX = /\bfont-(light|normal|medium|semibold|bold|extrabold)\b/;
 
 export default function Typography({
   variant = "b2",
@@ -111,9 +134,17 @@ export default function Typography({
   const Component = as || variantTagMap[variant] || "div";
   const variantStyles = variantStyleMap[variant] || "";
 
-  // Dynamic weight resolution (prop override > variant default)
-  const resolvedWeight = weight || defaultWeightMap[variant] || "normal";
-  const weightClass = weightMap[resolvedWeight] || "";
+  // Dynamic conflict-free weight resolution:
+  // 1. Explicit `weight` prop always takes priority.
+  // 2. If no `weight` prop, but `className` already specifies `font-*`, do NOT inject default weight.
+  // 3. Otherwise, inject the variant's default weight.
+  let weightClass = "";
+  if (weight !== undefined) {
+    weightClass = weightMap[weight] || "";
+  } else if (!HAS_FONT_WEIGHT_REGEX.test(className)) {
+    const defaultWeight = defaultWeightMap[variant] || "normal";
+    weightClass = weightMap[defaultWeight] || "";
+  }
 
   // Uppercase prop
   const uppercaseClass = uppercase ? "uppercase" : "";

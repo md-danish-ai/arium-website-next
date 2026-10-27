@@ -176,7 +176,7 @@ export default function SolutionsIndustries({
                         as="h3"
                         uppercase
                         weight="normal"
-                        className={`m-0 transition-colors duration-350 tracking-[0.12em] md:tracking-[0.15em] text-sm sm:text-base ${
+                        className={`m-0 transition-colors duration-350 tracking-[0.12em] md:tracking-[0.15em] ${
                           isActive ? "text-[#00e8d9]" : "text-white group-hover:text-[#00e8d9]"
                         }`}
                       >
@@ -191,7 +191,7 @@ export default function SolutionsIndustries({
                       <Typography
                         variant="b3"
                         as="span"
-                        className="text-white/70 block leading-relaxed text-xs sm:text-sm"
+                        className="text-white/70 block leading-relaxed"
                       >
                         {industry.description}
                       </Typography>

@@ -183,7 +183,7 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
                       as="h3"
                       variant="b2"
                       uppercase
-                      weight="semibold"
+                      weight="bold"
                       className="text-white m-0 mb-0.5 whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       {leader.name}
@@ -243,14 +243,16 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
                     as="h2"
                     variant="h3"
                     uppercase
-                    className="text-white m-0 mb-1 text-center min-[769px]:text-left text-xl sm:text-2xl tracking-wide font-normal"
+                    weight="normal"
+                    className="text-white m-0 mb-1 text-center min-[769px]:text-left tracking-wide"
                   >
                     {activeLeader.name}
                   </Typography>
                   <Typography
                     as="p"
                     variant="b3"
-                    className="text-[#00e8d9] m-0 text-center min-[769px]:text-left font-medium text-sm sm:text-base"
+                    weight="medium"
+                    className="text-[#00e8d9] m-0 text-center min-[769px]:text-left"
                   >
                     {activeLeader.role}
                   </Typography>

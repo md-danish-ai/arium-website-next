@@ -72,7 +72,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
                   variant="h4"
                   uppercase
                   weight="bold"
-                  className="leading-none tracking-[0.08em] mb-3 text-2xl md:text-3xl"
+                  className="leading-none tracking-[0.08em] mb-3"
                   style={{ color: benefit.titleColor || "#7C5CBF" }}
                 >
                   {benefit.title}
@@ -80,7 +80,7 @@ export default function ImageCardGrid({ title, headingColor, cards, data }: Imag
                 <Typography
                   as="p"
                   variant="b2"
-                  className="leading-[1.65] mb-7 w-full text-base"
+                  className="leading-[1.65] mb-7 w-full"
                   style={{ color: benefit.descriptionColor || "#162047" }}
                 >
                   {benefit.description}

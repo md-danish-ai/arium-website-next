@@ -59,7 +59,7 @@ export default function HighlightList({
           </Typography>
           {description && (
             <div
-              className="reveal stagger-1 text-midnight/80 text-[1.05rem] leading-[1.8] max-w-[800px] mx-auto mt-5 flex flex-col gap-4 [&>p]:mb-0"
+              className="reveal stagger-1 text-midnight/80 leading-[1.8] max-w-[800px] mx-auto mt-5 flex flex-col gap-4 [&>p]:mb-0"
               dangerouslySetInnerHTML={{ __html: description }}
             />
           )}

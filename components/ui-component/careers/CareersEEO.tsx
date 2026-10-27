@@ -12,7 +12,7 @@ export default function CareersEEO({ contentHtml, statementText }: CareersEEOPro
         <div className="reveal max-w-5xl mt-24 mb-0 mx-auto text-center">
           {contentHtml ? (
             <div
-              className="font-body text-xs md:text-sm leading-relaxed text-[#162047]/80 mx-auto font-normal tracking-wide text-center"
+              className="leading-relaxed text-[#162047]/80 mx-auto tracking-wide text-center"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (

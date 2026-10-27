@@ -227,9 +227,7 @@ export default function AccordionSplit({
                 className={`section-title mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
-                  ...(isCareers
-                    ? { fontSize: "clamp(1.75rem, 2.2vw, 2.2rem)", lineHeight: 1.35 }
-                    : {}),
+                  ...(isCareers ? { lineHeight: 1.35 } : {}),
                 }}
               >
                 {Heading}
@@ -237,7 +235,7 @@ export default function AccordionSplit({
             )}
             {Description && (
               <div
-                className="section-description text-base leading-relaxed opacity-90 flex flex-col gap-4 [&>p]:mb-0"
+                className="section-description leading-relaxed opacity-90 flex flex-col gap-4 [&>p]:mb-0"
                 style={{ color: descriptionColor }}
                 dangerouslySetInnerHTML={{ __html: Description }}
               />
@@ -288,7 +286,7 @@ export default function AccordionSplit({
                         variant="h6"
                         as="h3"
                         uppercase
-                        className={`tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 text-sm sm:text-base ${
+                        className={`tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 ${
                           isActive ? "text-teal" : "text-white group-hover:text-teal"
                         }`}
                         style={{
@@ -310,7 +308,7 @@ export default function AccordionSplit({
                         <Typography
                           variant="b3"
                           as="span"
-                          className={`block pt-2 transition-all duration-500 text-white/85 text-xs sm:text-sm ${
+                          className={`block pt-2 transition-all duration-500 text-white/85 ${
                             isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
                           }`}
                           style={{ color: item.DescriptionColor || undefined }}
