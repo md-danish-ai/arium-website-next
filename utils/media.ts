@@ -5,10 +5,39 @@ export const STRAPI_URL =
 /**
  * Converts a relative Strapi media URL (e.g. /uploads/image.png)
  * into a full absolute URL using STRAPI_URL.
+ * If the URL is already absolute, or is a local static asset (e.g. /images/...),
+ * it is returned as-is.
  */
 export function GetStrapiMediaUrl(url?: string | null): string {
   if (!url) return "";
-  return url.startsWith("http") || url.startsWith("//") ? url : `${STRAPI_URL}${url}`;
+
+  // 1. Return already resolved absolute URLs, protocol-relative, or data URIs
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://") ||
+    url.startsWith("//") ||
+    url.startsWith("data:")
+  ) {
+    return url;
+  }
+
+  // 2. Return local static public assets as-is (e.g., /images/..., /assets/..., /icons/...)
+  // Strapi media uploads always reside in /uploads/. Any other root-relative path is a local Next.js asset.
+  if (
+    url.startsWith("/images/") ||
+    url.startsWith("/assets/") ||
+    url.startsWith("/video/") ||
+    url.startsWith("/fonts/") ||
+    url.startsWith("/css/") ||
+    url.startsWith("/icons/") ||
+    url.startsWith("/svg/") ||
+    (url.startsWith("/") && !url.startsWith("/uploads/"))
+  ) {
+    return url;
+  }
+
+  // 3. Strapi media uploads (e.g. /uploads/filename.png or uploads/filename.png)
+  return `${STRAPI_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
 /**

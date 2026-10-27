@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Typography } from "@ui-element";
+import { Container } from "@ui-layout/SectionContainer";
 import type { CareersCultureAccordionProps, CareersPillar } from "./type";
 
 export default function CareersCultureAccordion({
@@ -60,7 +61,7 @@ export default function CareersCultureAccordion({
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -left-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-6 relative z-[2]">
+      <Container className="relative z-[2]">
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-16 items-start w-full">
           {/* LEFT: Section heading & description */}
           <div className="reveal w-full lg:max-w-[660px]">
@@ -143,7 +144,7 @@ export default function CareersCultureAccordion({
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

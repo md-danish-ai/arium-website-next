@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Typography, Button } from "@ui-element";
+import { Typography, Button, type ButtonColor, type ButtonVariant } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface HeroBannerProps {
@@ -16,6 +16,8 @@ interface HeroBannerProps {
   maxWidthTitle?: string | number;
   maxWidthDescription?: string | number;
   objectPosition?: string;
+  ctaColor?: ButtonColor;
+  ctaVariant?: ButtonVariant;
 }
 
 const formatMaxWidth = (val?: string | number) => {
@@ -37,6 +39,8 @@ export default function HeroBanner({
   maxWidthTitle,
   maxWidthDescription,
   objectPosition = "center top",
+  ctaColor,
+  ctaVariant,
 }: HeroBannerProps) {
   const finalObjectPosition = objectPosition || "center top";
   const isExternal =
@@ -115,7 +119,13 @@ export default function HeroBanner({
 
         {ctaText && ctaLink && (
           <div className="reveal stagger-3">
-            <Button href={ctaLink} isExternal={isExternal} className="mt-8 md:mt-10">
+            <Button
+              href={ctaLink}
+              isExternal={isExternal}
+              color={ctaColor}
+              variant={ctaVariant}
+              className="mt-8 md:mt-10"
+            >
               {ctaText}
             </Button>
           </div>

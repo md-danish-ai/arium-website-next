@@ -59,7 +59,14 @@ export default async function CareersPage() {
       pos: 0,
       key: "hero-fallback",
       skip: hasHeroWidget,
-      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+      el: (
+        <HeroBanner
+          key="hero-fallback"
+          {...heroProps}
+          ctaColor="secondary"
+          ctaVariant="outlined"
+        />
+      ),
     },
     {
       pos: 1,

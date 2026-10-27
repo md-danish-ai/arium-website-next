@@ -17,7 +17,7 @@ export default function CareersJobAreas({
   return (
     <section
       id="job-areas"
-      className="section-light bg-transparent py-24 md:py-32 relative overflow-hidden"
+      className="section-light bg-[#ededee] py-24 md:py-32 relative overflow-hidden"
     >
       <div
         className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"

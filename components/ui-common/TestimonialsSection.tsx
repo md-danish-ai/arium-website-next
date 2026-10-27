@@ -75,7 +75,7 @@ export default function TestimonialsSection({
               return (
                 <div
                   key={idx}
-                  className={`reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-6 sm:p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full w-full max-w-[504px] mx-auto`}
+                  className={`reveal stagger-${(idx % 4) + 1} relative bg-midnight rounded-[28px] p-6  shadow-[0_10px_30px_rgba(0,0,0,0.075),0_30px_60px_rgba(0,0,0,0.05)] cursor-default overflow-hidden flex flex-col h-full w-full max-w-[504px] mx-auto`}
                 >
                   <span
                     className="font-serif text-[5rem] leading-none opacity-50 absolute top-5 left-7 pointer-events-none select-none text-teal"

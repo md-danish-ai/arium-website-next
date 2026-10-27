@@ -31,6 +31,8 @@ export interface CareersHeroMappedProps {
   ctaText?: string;
   ctaLink?: string;
   isExternalLink?: boolean;
+  ctaColor?: "primary" | "secondary";
+  ctaVariant?: "filled" | "outlined";
 }
 
 /**
@@ -86,6 +88,8 @@ export function mapCareersHero(
     ctaText,
     ctaLink,
     isExternalLink: fallback.isExternalLink,
+    ctaColor: fallback.ctaColor,
+    ctaVariant: fallback.ctaVariant,
   };
 }
 

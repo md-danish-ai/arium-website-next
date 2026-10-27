@@ -62,8 +62,8 @@ export default function CareersBenefits({
                   className="w-24 h-24 md:w-32 md:h-32 mb-2 opacity-90 mx-auto"
                 />
                 <Typography
-                  variant="h4"
-                  as="h3"
+                  variant="h5"
+                  as="h4"
                   uppercase
                   weight="bold"
                   className="mb-2 tracking-wider"

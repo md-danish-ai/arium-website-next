@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@ui-element";
+import { Typography, TestimonialCard } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import type { CareersTestimonialsProps } from "./type";
 
@@ -33,7 +33,7 @@ export default function CareersTestimonials({
 }: CareersTestimonialsProps) {
   return (
     <section
-      className="section-light bg-transparent py-20 relative overflow-hidden"
+      className="section-light bg-[#ededee] py-20 relative overflow-hidden"
       id="testimonials"
     >
       <div
@@ -54,30 +54,14 @@ export default function CareersTestimonials({
           {testimonials.map((testimonial, index) => {
             const style = TESTIMONIAL_STYLES[index % TESTIMONIAL_STYLES.length];
             return (
-              <div
+              <TestimonialCard
                 key={index}
-                className={`reveal stagger-${(index % 4) + 1} relative rounded-[24px] p-7 md:p-8 flex flex-col justify-between border border-white/60 bg-white/70 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5`}
+                index={index}
+                title={testimonial.title}
+                badge={testimonial.badge}
+                description={testimonial.description}
                 style={style}
-              >
-                <span className="text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">
-                  “
-                </span>
-                <Typography
-                  variant="quote"
-                  as="blockquote"
-                  className="text-[#162047]/85 flex-1 mb-6"
-                >
-                  {testimonial.description}
-                </Typography>
-                <div className="pt-4 border-t border-black/10">
-                  <Typography variant="h6" as="p" weight="bold" className="text-[#162047] m-0">
-                    {testimonial.title}
-                  </Typography>
-                  <Typography variant="b4" as="p" className="text-[#162047]/60 mt-1 m-0">
-                    {testimonial.badge}
-                  </Typography>
-                </div>
-              </div>
+              />
             );
           })}
         </div>
