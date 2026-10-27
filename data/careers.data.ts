@@ -32,7 +32,7 @@ export const CAREERS_HERO_FALLBACK = {
   ctaLink: "https://jobs.dayforcehcm.com/arium/CANDIDATEPORTAL",
   isExternalLink: true,
   ctaColor: "secondary" as const,
-  ctaVariant: "outlined" as const,
+  ctaVariant: "filled" as const,
 };
 
 export const CAREERS_CULTURE_FALLBACK: {

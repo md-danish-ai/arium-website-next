@@ -39,8 +39,8 @@ export default function HeroBanner({
   maxWidthTitle,
   maxWidthDescription,
   objectPosition = "center top",
-  ctaColor,
-  ctaVariant,
+  ctaColor = "secondary",
+  ctaVariant = "filled",
 }: HeroBannerProps) {
   const finalObjectPosition = objectPosition || "center top";
   const isExternal =

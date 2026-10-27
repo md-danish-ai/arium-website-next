@@ -64,7 +64,7 @@ export default async function CareersPage() {
           key="hero-fallback"
           {...heroProps}
           ctaColor="secondary"
-          ctaVariant="outlined"
+          ctaVariant="filled"
         />
       ),
     },
