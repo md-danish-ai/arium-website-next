@@ -72,6 +72,7 @@ export function mapPeopleMembers(
 ): PeopleMemberItem[] {
   const rawCards = (sectionItem?.cards ||
     sectionItem?.Cards ||
+    sectionItem?.PeopleCard ||
     sectionItem?.Peoplecard ||
     sectionItem?.peoplecard) as RawRecord[] | undefined;
 
