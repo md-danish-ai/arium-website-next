@@ -13,6 +13,7 @@ import {
   mapSolutionsIndustries,
   mapSolutionsApproach,
 } from "@services/mappers/solutions.mapper";
+import FlowBackground from "@ui-animations/FlowBackground";
 import { SOLUTIONS_SEO_FALLBACK } from "@data/solutions.data";
 
 export const dynamic = "force-dynamic";
@@ -54,15 +55,18 @@ export default async function SolutionsPage() {
     },
     {
       pos: 1,
-      key: "small-cells-fallback",
+      key: "solutions-flow-fallback",
       skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
-      el: <SolutionsSmallCells key="small-cells-fallback" {...smallCellsProps} />,
-    },
-    {
-      pos: 2,
-      key: "das-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
-      el: <SolutionsDas key="das-fallback" {...dasProps} />,
+      el: (
+        <div
+          key="solutions-flow-fallback"
+          className="bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] relative overflow-hidden -mt-px border-none"
+        >
+          <FlowBackground />
+          <SolutionsSmallCells {...smallCellsProps} />
+          <SolutionsDas {...dasProps} />
+        </div>
+      ),
     },
     {
       pos: 3,

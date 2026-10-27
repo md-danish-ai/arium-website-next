@@ -6,6 +6,7 @@ export interface WhereFeatureProps {
   cta: LinkItem;
   images: ImageItem[];
   isHtmlDescription?: boolean;
+  bgGradient?: string;
 }
 
 export type WhereCommunitiesProps = WhereFeatureProps;

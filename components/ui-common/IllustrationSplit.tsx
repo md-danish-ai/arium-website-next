@@ -55,9 +55,15 @@ export default function IllustrationSplit({
     rawImgUrl = singleMedia.url ?? singleMedia.data?.attributes?.url;
     altText = singleMedia.alternativeText;
   }
-  const imgUrl = rawImgUrl
-    ? GetStrapiMediaUrl(rawImgUrl)
+  const isDas =
+    (heading || "").toLowerCase().includes("antenna") ||
+    (heading || "").toLowerCase().includes("das") ||
+    mediaAlignment === "Media Left" ||
+    mediaAlignment === "Left";
+  const defaultSvg = isDas
+    ? "/images/svg-images/das-illustration.svg"
     : "/images/svg-images/small-cells-illustration.svg";
+  const imgUrl = rawImgUrl ? GetStrapiMediaUrl(rawImgUrl) : defaultSvg;
 
   const isMediaLeft = mediaAlignment === "Media Left" || mediaAlignment === "Left";
 

@@ -37,8 +37,14 @@ export default function ProcessSection({
   const isRightOfWays = pathname?.includes("right-of-way");
   const [activeTab, setActiveTab] = useState(0);
 
+  if (!pillars || pillars.length === 0) {
+    return null;
+  }
+
+  const safeActiveTab = activeTab < pillars.length ? activeTab : 0;
+
   const handleTabClick = (index: number) => {
-    if (activeTab === index) return;
+    if (safeActiveTab === index) return;
     setActiveTab(index);
   };
 
@@ -87,12 +93,12 @@ export default function ProcessSection({
             style={
               isRightOfWays
                 ? {
-                    gridTemplateColumns: `repeat(${pillars.length}, 1fr)`,
+                    gridTemplateColumns: `repeat(${Math.max(pillars.length, 1)}, 1fr)`,
                     maxWidth: "1320px",
                     gap: "24px",
                   }
                 : {
-                    gridTemplateColumns: `repeat(${pillars.length}, 1fr)`,
+                    gridTemplateColumns: `repeat(${Math.max(pillars.length, 1)}, 1fr)`,
                     maxWidth: "1188px",
                     gap: "24px",
                   }
@@ -101,7 +107,7 @@ export default function ProcessSection({
             {pillars.map((pillar, index) => {
               const accentColor =
                 pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5";
-              const isActive = activeTab === index;
+              const isActive = safeActiveTab === index;
               return (
                 <button
                   key={pillar.id}
@@ -113,13 +119,13 @@ export default function ProcessSection({
                   className="group relative flex flex-col items-center justify-center p-3 cursor-pointer outline-none bg-transparent border-none transition-opacity duration-200"
                   onClick={() => handleTabClick(index)}
                   onKeyDown={(e) => {
-                    let newIndex = activeTab;
+                    let newIndex = safeActiveTab;
                     if (e.key === "ArrowRight") {
-                      newIndex = (activeTab + 1) % pillars.length;
+                      newIndex = (safeActiveTab + 1) % pillars.length;
                     } else if (e.key === "ArrowLeft") {
-                      newIndex = (activeTab - 1 + pillars.length) % pillars.length;
+                      newIndex = (safeActiveTab - 1 + pillars.length) % pillars.length;
                     }
-                    if (newIndex !== activeTab) {
+                    if (newIndex !== safeActiveTab) {
                       e.preventDefault();
                       handleTabClick(newIndex);
                       const nextTab = document.getElementById(`tab-${pillars[newIndex].id}`);
@@ -164,7 +170,8 @@ export default function ProcessSection({
           <div className="reveal stagger-4 w-full max-w-[1360px] mx-auto overflow-hidden p-0 lg:py-3 lg:px-5">
             <div className="flex flex-col gap-10 w-full lg:block">
               {pillars.map((pillar, index) => {
-                const isActive = activeTab === index;
+                const isActive = safeActiveTab === index;
+                const isFourCols = isRightOfWays || (pillar.timelineItems?.length || 0) >= 4;
 
                 return (
                   <div
@@ -202,7 +209,7 @@ export default function ProcessSection({
                     {/* Step Cards (Mobile/Tablet swipe track, Desktop grid >= 1024px) */}
                     <div
                       className={`flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-5 px-4 justify-start items-stretch scrollbar-none [webkit-overflow-scrolling:touch] max-w-full ${
-                        isRightOfWays
+                        isFourCols
                           ? "lg:grid lg:grid-cols-4 lg:gap-5 lg:max-w-[1320px] lg:mx-auto lg:p-0 lg:overflow-visible"
                           : "lg:flex lg:justify-center lg:gap-6 lg:max-w-[1188px] lg:mx-auto lg:p-0 lg:overflow-visible"
                       }`}
@@ -213,9 +220,7 @@ export default function ProcessSection({
                           <div
                             key={idx}
                             className={`shrink-0 snap-start w-[280px] sm:w-[320px] min-w-[270px] max-w-[340px] min-h-[260px] p-6 sm:p-7 rounded-[20px] shadow-[0_4px_16px_rgba(22,32,71,0.04)] hover:shadow-[0_16px_36px_rgba(22,32,71,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-start justify-start text-left lg:w-full lg:min-w-0 lg:shrink lg:p-8 lg:min-h-[310px] ${
-                              isRightOfWays
-                                ? "lg:max-w-[303px]"
-                                : "lg:max-w-[380px] lg:aspect-[1.05/1]"
+                              isFourCols ? "lg:max-w-[303px]" : "lg:max-w-[380px]"
                             }`}
                             style={{
                               backgroundColor: cardBg,

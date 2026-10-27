@@ -11,11 +11,12 @@ export default function SolutionsSmallCells({
   stats = [],
   illustrationSrc,
   illustrationAlt = "Small cells network illustration",
+  className = "",
 }: SolutionsSmallCellsProps) {
   const isSvg = illustrationSrc.toLowerCase().endsWith(".svg");
 
   return (
-    <section className="bg-transparent py-[50px] relative overflow-hidden">
+    <section className={`bg-transparent py-[50px] relative overflow-hidden ${className}`}>
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           <div className="order-1">

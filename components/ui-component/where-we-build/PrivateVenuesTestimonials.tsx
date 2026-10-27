@@ -19,7 +19,7 @@ export default function PrivateVenuesTestimonials({
 }: PrivateVenuesTestimonialsProps) {
   return (
     <section
-      className="section-light bg-transparent py-20 relative overflow-hidden"
+      className="section-light bg-[#ededee] py-20 relative overflow-hidden"
       id="testimonials"
     >
       <div

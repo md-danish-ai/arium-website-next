@@ -32,10 +32,7 @@ export default function CommunityTestimonials({
   testimonials = [],
 }: CommunityTestimonialsProps) {
   return (
-    <section
-      className="section-light bg-white py-20 relative overflow-hidden"
-      id="testimonials"
-    >
+    <section className="section-light bg-white py-20 relative overflow-hidden" id="testimonials">
       <div
         className="infra-grid-bg opacity-[0.08] absolute inset-0 pointer-events-none"
         aria-hidden="true"

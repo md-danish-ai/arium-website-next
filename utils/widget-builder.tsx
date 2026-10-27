@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import type { StrapiWidget } from "../types/strapi.types";
 import type { SectionEntry } from "../types/content.types";
-import GlobalWidgetRenderer from "@ui-shared/GlobalWidgetRenderer";
+import GlobalWidgetRenderer from "@ui-widget/GlobalWidgetRenderer";
 
 /**
  * Checks whether any global widget contains a specific Strapi component.

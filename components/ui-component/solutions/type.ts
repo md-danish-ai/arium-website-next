@@ -9,6 +9,7 @@ export interface SolutionsSmallCellsProps {
   stats?: SolutionStatItem[];
   illustrationSrc: string;
   illustrationAlt?: string;
+  className?: string;
 }
 
 export interface SolutionsDasProps {
@@ -18,6 +19,7 @@ export interface SolutionsDasProps {
   stats?: SolutionStatItem[];
   illustrationSrc: string;
   illustrationAlt?: string;
+  className?: string;
 }
 
 export interface SolutionsIndustriesProps {

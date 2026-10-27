@@ -112,7 +112,7 @@ export const COMMUNITY_IMPACT_FALLBACK: {
     "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes.",
   desktopImg: "/images/backgrounds/arena.jpg",
   mobileImg: "/images/backgrounds/arena-mobile.jpg",
-  ctaText: "Learn about our community impact",
+  ctaText: "Learn More",
   ctaUrl: "/your-community",
   pointers: [
     {

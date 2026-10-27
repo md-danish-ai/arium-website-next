@@ -10,6 +10,7 @@ export default function WhereCommunities({
   cta,
   images,
   isHtmlDescription,
+  bgGradient,
 }: WhereCommunitiesProps) {
   const displayImage = images[0];
 
@@ -17,6 +18,7 @@ export default function WhereCommunities({
     <section
       className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-[#FFF5EF] via-[#FFDAC8] to-[#FFF0E8]"
       id="communities-feature"
+      style={bgGradient ? { background: bgGradient } : undefined}
     >
       <div className="absolute w-[750px] h-[750px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.12)_0%,transparent_65%)] -top-[250px] -right-[150px] pointer-events-none" />
       <div className="absolute w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.35)_0%,transparent_65%)] -bottom-[200px] -left-[120px] pointer-events-none" />

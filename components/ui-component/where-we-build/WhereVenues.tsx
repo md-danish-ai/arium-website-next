@@ -10,6 +10,7 @@ export default function WhereVenues({
   cta,
   images,
   isHtmlDescription,
+  bgGradient,
 }: WhereVenuesProps) {
   const displayImage = images[0];
 
@@ -17,6 +18,7 @@ export default function WhereVenues({
     <section
       className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-[#E4FAF8] via-[#BCF6F2] to-[#E8FBF9]"
       id="venues-feature"
+      style={bgGradient ? { background: bgGradient } : undefined}
     >
       <div className="absolute w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.18)_0%,transparent_60%)] -top-[180px] -left-[150px] pointer-events-none" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_65%)] -bottom-[180px] -right-[120px] pointer-events-none" />

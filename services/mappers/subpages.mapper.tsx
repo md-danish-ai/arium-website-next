@@ -1,5 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import type { StrapiPageData, StrapiSectionItem } from "@types";
+import { GetStrapiMediaUrl } from "@lib/api";
 import {
   AssessmentIconSvg,
   PlanningIconSvg,
@@ -7,18 +9,19 @@ import {
   DesignIconSvg,
   OptimizationIconSvg,
 } from "@ui-svg";
-import type { PillarData, ProcessSectionProps } from "@ui-common/ProcessSection";
+import type { PillarData, ProcessSectionProps, TimelineItem } from "@ui-common/ProcessSection";
 import type {
   SubpageHeroData,
   SubpageTestimonialsData,
   ProcessSectionData,
+  ProcessPillarItem,
   SubpageCtaData,
   SubpageTestimonialItem,
 } from "@data/where-subpages.data";
 
 type RawRecord = Record<string, unknown>;
 
-const DEFAULT_PROCESS_ICONS: Record<string, React.ReactNode> = {
+export const DEFAULT_PROCESS_ICONS: Record<string, React.ReactNode> = {
   assessment: (
     <AssessmentIconSvg
       className="w-9 h-9 lg:w-10 lg:h-10"
@@ -50,6 +53,89 @@ const DEFAULT_PROCESS_ICONS: Record<string, React.ReactNode> = {
     />
   ),
 };
+
+export function resolveProcessIcon(
+  step: RawRecord,
+  pillarId: string,
+  pillarTitle: string,
+  fallbackPillar?: ProcessPillarItem
+): React.ReactNode {
+  // 1. Media Image (step_name_icon_img)
+  const iconImg =
+    step.step_name_icon_img ||
+    step.StepNameIconimg ||
+    step.StepNameIconImg ||
+    step.icon_img ||
+    step.iconImg;
+
+  let imgUrl = "";
+  if (iconImg) {
+    if (typeof iconImg === "string") {
+      imgUrl = iconImg;
+    } else if (typeof iconImg === "object" && iconImg !== null) {
+      const imgObj = iconImg as RawRecord;
+      imgUrl =
+        (imgObj.url as string) ||
+        (((imgObj.data as RawRecord)?.attributes as RawRecord)?.url as string) ||
+        "";
+    }
+  }
+
+  if (imgUrl) {
+    const mediaUrl = GetStrapiMediaUrl(imgUrl);
+    const isSvg = mediaUrl.toLowerCase().endsWith(".svg");
+    return (
+      <Image
+        src={mediaUrl}
+        alt={pillarTitle || "Process icon"}
+        width={48}
+        height={48}
+        unoptimized={isSvg}
+        className="w-full h-full object-contain"
+      />
+    );
+  }
+
+  // 2. Inline HTML / SVG string (step_name_icon or card.icon)
+  const iconHtml = step.step_name_icon || step.StepNameIcon || step.icon || step.iconSvg;
+
+  if (iconHtml && typeof iconHtml === "string") {
+    return (
+      <div
+        className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full"
+        dangerouslySetInnerHTML={{ __html: iconHtml }}
+      />
+    );
+  }
+
+  // 3. Fallback to default SVG icons matching normalized pillar id or title
+  const searchKey = `${pillarId} ${pillarTitle}`.toLowerCase();
+  for (const [key, iconNode] of Object.entries(DEFAULT_PROCESS_ICONS)) {
+    if (searchKey.includes(key)) {
+      return iconNode;
+    }
+  }
+
+  // 4. Fallback to fallbackPillar ID match
+  if (fallbackPillar?.id) {
+    const fbKey = fallbackPillar.id.toLowerCase();
+    for (const [key, iconNode] of Object.entries(DEFAULT_PROCESS_ICONS)) {
+      if (fbKey.includes(key)) {
+        return iconNode;
+      }
+    }
+  }
+
+  // 5. Default generic assessment icon
+  return (
+    <AssessmentIconSvg
+      className="w-9 h-9 lg:w-10 lg:h-10"
+      width="36"
+      height="36"
+      strokeWidth="2.2"
+    />
+  );
+}
 
 /**
  * 1. Subpage Hero Mapper (Right of Way, Private Venues)
@@ -105,7 +191,7 @@ export function mapSubpageHero(
 }
 
 /**
- * 2. Subpage Process Section Mapper (Right of Way structured process fallback)
+ * 2. Subpage Process Section Mapper (Right of Way, Private Venues, and shared.process widgets)
  */
 export function mapSubpageProcess(
   section?: StrapiSectionItem | RawRecord | null,
@@ -116,20 +202,38 @@ export function mapSubpageProcess(
   }
 ): ProcessSectionProps {
   const title =
+    (section?.process_section_title as string) ||
+    (section?.ProcessSectionTitle as string) ||
     (section?.title as string) ||
     (section?.Heading as string) ||
     (section?.heading as string) ||
-    fallback.title;
+    fallback.title ||
+    "Our Process";
 
   const description =
+    (section?.process_section_description as string) ||
+    (section?.ProcessSectionDescription as string) ||
     (section?.body as string) ||
     (section?.description as string) ||
     (section?.Description as string) ||
-    fallback.description;
+    fallback.description ||
+    "";
 
-  const rawCards = (section?.cards || section?.Cards) as RawRecord[] | undefined;
-  if (!Array.isArray(rawCards) || rawCards.length === 0) {
-    const defaultPillars: PillarData[] = fallback.pillars.map((p) => ({
+  const maxWidthTitle =
+    (section?.MaxWidthTitle as string) ||
+    (section?.maxWidthTitle as string) ||
+    (section?.max_width_title as string) ||
+    fallback.maxWidthTitle;
+
+  const rawSteps = (section?.ProcessStep ||
+    section?.process_step ||
+    section?.processSteps ||
+    section?.ProcessSteps ||
+    section?.cards ||
+    section?.Cards) as RawRecord[] | undefined;
+
+  if (!Array.isArray(rawSteps) || rawSteps.length === 0) {
+    const defaultPillars: PillarData[] = (fallback.pillars || []).map((p) => ({
       id: p.id,
       title: p.title,
       themeColor: p.themeColor,
@@ -149,52 +253,67 @@ export function mapSubpageProcess(
       title,
       description,
       pillars: defaultPillars,
+      maxWidthTitle,
     };
   }
 
-  const pillars: PillarData[] = rawCards.map((card, idx) => {
-    const fallbackPillar = fallback.pillars[idx];
-    const pillarTitle = (card.title || card.Name || fallbackPillar?.title || "") as string;
-    const innerCards = (card.InnerCard || card.innerCard || card.cards || []) as RawRecord[];
+  const pillars: PillarData[] = rawSteps.map((step, idx) => {
+    const fallbackPillar = fallback.pillars?.[idx];
+    const pillarTitle = (step.step_name ||
+      step.Stepname ||
+      step.stepName ||
+      step.title ||
+      step.Name ||
+      fallbackPillar?.title ||
+      `Step ${idx + 1}`) as string;
+
+    const rawCards = (step.ProcessCard ||
+      step.process_card ||
+      step.processCards ||
+      step.ProcessCards ||
+      step.InnerCard ||
+      step.innerCard ||
+      step.cards) as RawRecord[] | undefined;
+
+    const innerCards = Array.isArray(rawCards) ? rawCards : [];
+
     const pillarId =
-      pillarTitle.toLowerCase().replace(/\s+/g, "-") || fallbackPillar?.id || `pillar-${idx}`;
+      (typeof step.id === "string" ? step.id : null) ||
+      pillarTitle.toLowerCase().replace(/\s+/g, "-") ||
+      fallbackPillar?.id ||
+      `pillar-${idx}`;
 
     const steps =
       innerCards.length > 0
-        ? innerCards.map((inner) => (inner.heading || inner.title || "") as string)
+        ? innerCards.map((c) => (c.name || c.Name || c.heading || c.title || "") as string)
         : fallbackPillar?.steps || [];
 
-    const timelineItems =
+    const timelineItems: TimelineItem[] =
       innerCards.length > 0
-        ? innerCards.map((inner) => ({
-            label: (inner.heading || inner.title || "") as string,
-            desc: (inner.description || inner.desc || "") as string,
+        ? innerCards.map((c) => ({
+            label: (c.name || c.Name || c.heading || c.title || "") as string,
+            desc: (c.description || c.Description || c.desc || c.body || "") as string,
+            backgroundColor: (c.background_color ||
+              c.backgroundColor ||
+              c.BackgroundColor ||
+              c.cardfooterBg) as string | undefined,
           }))
         : fallbackPillar?.timelineItems || [];
 
-    let iconSvg: React.ReactNode = DEFAULT_PROCESS_ICONS[pillarId.toLowerCase()] ||
-      DEFAULT_PROCESS_ICONS[fallbackPillar?.id.toLowerCase() || ""] || (
-        <AssessmentIconSvg
-          className="w-9 h-9 lg:w-10 lg:h-10"
-          width="36"
-          height="36"
-          strokeWidth="2.2"
-        />
-      );
+    const themeColor = (step.theme_color ||
+      step.ThemeColor ||
+      step.themeColor ||
+      step.Theme ||
+      timelineItems[0]?.backgroundColor ||
+      fallbackPillar?.themeColor ||
+      "#FBCBB5") as string;
 
-    if (card.icon && typeof card.icon === "string") {
-      iconSvg = (
-        <div
-          className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full"
-          dangerouslySetInnerHTML={{ __html: card.icon }}
-        />
-      );
-    }
+    const iconSvg = resolveProcessIcon(step, pillarId, pillarTitle, fallbackPillar);
 
     return {
       id: pillarId,
       title: pillarTitle,
-      themeColor: fallbackPillar?.themeColor || "#FBCBB5",
+      themeColor,
       steps,
       timelineItems,
       iconSvg,
@@ -205,6 +324,7 @@ export function mapSubpageProcess(
     title,
     description,
     pillars,
+    maxWidthTitle,
   };
 }
 

@@ -38,6 +38,7 @@ export interface ProcessSectionData {
   title: string;
   description: string;
   pillars: ProcessPillarItem[];
+  maxWidthTitle?: string;
 }
 
 export interface SubpageCtaData {

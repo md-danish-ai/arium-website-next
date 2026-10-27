@@ -83,8 +83,19 @@ export function mapWhereFeatureSection(
 
   const rawCta = raw?.cta as RawRecord | undefined;
   const cta: LinkItem = {
-    label: (rawCta?.label as string) || (rawCta?.text as string) || fallback.cta.label,
-    url: (rawCta?.url as string) || (rawCta?.href as string) || fallback.cta.url,
+    label:
+      (rawCta?.label as string) ||
+      (rawCta?.text as string) ||
+      (raw?.CTAText as string) ||
+      (raw?.ctaText as string) ||
+      (raw?.ctaLabel as string) ||
+      fallback.cta.label,
+    url:
+      (rawCta?.url as string) ||
+      (rawCta?.href as string) ||
+      (raw?.CTAUrl as string) ||
+      (raw?.ctaUrl as string) ||
+      fallback.cta.url,
   };
 
   const rawMedia = (raw?.media || raw?.Media || raw?.image || raw?.Image) as unknown;
@@ -102,12 +113,15 @@ export function mapWhereFeatureSection(
     }
   }
 
+  const bgGradient = (raw?.BgGradient as string) || (raw?.bgGradient as string);
+
   return {
     title,
     description,
     cta,
     images,
-    isHtmlDescription: hasBody,
+    isHtmlDescription: hasBody && description.includes("<") && description.includes(">"),
+    bgGradient,
   };
 }
 

@@ -43,14 +43,8 @@ export default function TestimonialCard({
       className={`${staggerClass} relative rounded-[24px] p-6 flex flex-col justify-between border border-white/60 bg-white/70 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-400 hover:-translate-y-1.5 ${className}`.trim()}
       style={style}
     >
-      <span className="text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">
-        “
-      </span>
-      <Typography
-        variant="quote"
-        as="blockquote"
-        className="text-[#162047]/85 flex-1 mb-6"
-      >
+      <span className="text-4xl font-serif leading-none mb-3 opacity-40 text-[#162047]">“</span>
+      <Typography variant="quote" as="blockquote" className="text-[#162047]/85 flex-1 mb-6">
         {description}
       </Typography>
       <div className="pt-4 border-t border-black/10">

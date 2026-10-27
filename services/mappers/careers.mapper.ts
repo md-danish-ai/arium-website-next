@@ -242,7 +242,11 @@ export function mapCareersBenefits(
   const contentHtml = isHtml ? rawBody : undefined;
   const description = isHtml ? undefined : rawBody || fallback.description;
 
-  const rawCards = (raw?.cards || raw?.Cards || raw?.benefits) as RawRecord[] | undefined;
+  const rawCards = (raw?.cards ||
+    raw?.Cards ||
+    raw?.benefits ||
+    raw?.BenefitsCard ||
+    raw?.benefitsCard) as RawRecord[] | undefined;
 
   let benefits: CareersBenefitItem[] = fallback.benefits;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
@@ -278,6 +282,10 @@ export function mapCareersEEO(
   fallback = CAREERS_EEO_FALLBACK
 ): CareersEEOProps {
   const rawBody =
+    (raw?.BottomMessage as string) ||
+    (raw?.bottomMessage as string) ||
+    (raw?.FooterText as string) ||
+    (raw?.footerText as string) ||
     (raw?.body as string) ||
     (raw?.Body as string) ||
     (raw?.description as string) ||

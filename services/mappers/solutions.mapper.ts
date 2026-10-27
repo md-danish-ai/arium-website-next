@@ -105,7 +105,8 @@ export function mapSolutionsSmallCells(
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawStats = (raw?.stats || raw?.Stats) as RawRecord[] | undefined;
+  const rawStats = (raw?.stats || raw?.Stats || raw?.Statistics || raw?.statistics) as
+    RawRecord[] | undefined;
   let stats: SolutionStatItem[] = fallback.stats;
   if (Array.isArray(rawStats) && rawStats.length > 0) {
     stats = rawStats.map((s) => ({
@@ -160,7 +161,8 @@ export function mapSolutionsDas(
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawStats = (raw?.stats || raw?.Stats) as RawRecord[] | undefined;
+  const rawStats = (raw?.stats || raw?.Stats || raw?.Statistics || raw?.statistics) as
+    RawRecord[] | undefined;
   let stats: SolutionStatItem[] = fallback.stats;
   if (Array.isArray(rawStats) && rawStats.length > 0) {
     stats = rawStats.map((s) => ({
@@ -215,7 +217,12 @@ export function mapSolutionsIndustries(
   const contentHtml = isHtml ? rawBody : undefined;
   const description = isHtml ? undefined : rawBody || fallback.description;
 
-  const rawCards = (raw?.cards || raw?.Cards || raw?.industries) as RawRecord[] | undefined;
+  const rawCards = (raw?.cards ||
+    raw?.Cards ||
+    raw?.industries ||
+    raw?.Accordian ||
+    raw?.accordian ||
+    raw?.Accordion) as RawRecord[] | undefined;
 
   let industries: IndustryItem[] = fallback.industries;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
@@ -225,7 +232,11 @@ export function mapSolutionsIndustries(
         fallback.industries.find((ind) => ind.title.toLowerCase() === itemTitle.toLowerCase()) ||
         fallback.industries[index % fallback.industries.length];
 
-      const rawImg = (item.image || item.Image || item.media) as unknown;
+      const rawImg = (item.image ||
+        item.Image ||
+        item.media ||
+        item.BgImage ||
+        item.bgImage) as unknown;
       let bgImage = matchedFallback.bgImage;
       if (Array.isArray(rawImg) && rawImg.length > 0) {
         bgImage = resolveStrapiImage(rawImg[0], matchedFallback.bgImage || "");
@@ -277,12 +288,14 @@ export function mapSolutionsApproach(
   const rawCtas = (raw?.cta || raw?.CTA || raw?.ctas) as RawRecord[] | undefined;
   const buttonText =
     (rawCtas?.[0]?.label as string) ||
+    (raw?.ctaLabel as string) ||
     (raw?.buttonText as string) ||
     (raw?.CtaButton as string) ||
     fallback.buttonText;
 
   const buttonLink =
     (rawCtas?.[0]?.url as string) ||
+    (raw?.ctaUrl as string) ||
     (raw?.buttonLink as string) ||
     (raw?.CtaLink as string) ||
     fallback.buttonLink;
