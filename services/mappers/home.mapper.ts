@@ -53,26 +53,22 @@ export function mapBackgroundFeature(
   fallback = NETWORK_CHALLENGES_FALLBACK
 ): BackgroundFeatureSectionProps {
   const title = (raw?.title as string) || fallback.title;
-  const title_color =
-    (raw?.title_color as string) || (raw?.font_color_heading as string) || fallback.title_color;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
   const description = (raw?.description as string) || fallback.description;
-  const description_color =
-    (raw?.description_color as string) ||
-    (raw?.font_color_description as string) ||
-    fallback.description_color;
+  const description_color = (raw?.description_color as string) || fallback.description_color;
 
   const background_image_desktop = raw?.background_image_desktop
     ? resolveStrapiImage(raw.background_image_desktop, fallback.background_image_desktop)
     : fallback.background_image_desktop;
 
   const background_image_mobile = raw?.background_image_mobile
-    ? resolveStrapiImage(raw.background_image_mobile, background_image_desktop)
-    : background_image_desktop;
+    ? resolveStrapiImage(raw.background_image_mobile, fallback.background_image_mobile)
+    : fallback.background_image_mobile;
 
-  const CTA_text = (raw?.CTA_text as string) || (raw?.CTA_label as string) || fallback.CTA_text;
-  const CTA_url = (raw?.CTA_url as string) || (raw?.CTA_link as string) || fallback.CTA_url;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const rawCards = (raw?.FeatureCards || raw?.cards) as RawRecord[] | undefined;
+  const rawCards = raw?.FeatureCards as RawRecord[] | undefined;
   const FeatureCards: FeatureCardItem[] =
     Array.isArray(rawCards) && rawCards.length > 0
       ? rawCards.map((c, i) => {
@@ -114,7 +110,7 @@ export function mapInfrastructure(
   const description = (raw?.description as string) || fallback.description;
   const background_color = (raw?.background_color as string) || fallback.background_color;
 
-  const rawCards = (raw?.PanelCards || raw?.PanelsCards) as RawRecord[] | undefined;
+  const rawCards = raw?.PanelCards as RawRecord[] | undefined;
   const PanelCards: InfrastructureCard[] =
     Array.isArray(rawCards) && rawCards.length > 0
       ? rawCards.map((item, idx) => {
@@ -167,7 +163,7 @@ export function mapStatsWithImage(
 
   const image = raw?.image ? resolveStrapiImage(raw.image, fallback.image) : fallback.image;
 
-  const rawStats = (raw?.StatsCard || raw?.stats) as RawRecord[] | undefined;
+  const rawStats = raw?.StatsCard as RawRecord[] | undefined;
   const StatsCard: StatItem[] =
     Array.isArray(rawStats) && rawStats.length > 0
       ? rawStats.map((s, idx) => {
@@ -178,7 +174,7 @@ export function mapStatsWithImage(
             number_color: (s.number_color as string) || fb?.number_color,
             description: (s.description as string) || fb?.description || "",
             description_color: (s.description_color as string) || fb?.description_color,
-            background_color: (s.background_color as string) || fb?.background_color || "#ffffff",
+            background_color: (s.background_color as string) || fb?.background_color,
           };
         })
       : fallback.StatsCard;
@@ -213,10 +209,10 @@ export function mapCommunityImpact(
     : fallback.background_image_desktop;
 
   const background_image_mobile = raw?.background_image_mobile
-    ? resolveStrapiImage(raw.background_image_mobile, background_image_desktop)
-    : background_image_desktop;
+    ? resolveStrapiImage(raw.background_image_mobile, fallback.background_image_mobile)
+    : fallback.background_image_mobile;
 
-  const rawPointers = (raw?.SectionPointers || raw?.sectionPointers) as RawRecord[] | undefined;
+  const rawPointers = raw?.SectionPointers as RawRecord[] | undefined;
   const SectionPointers: SectionPointerItem[] =
     Array.isArray(rawPointers) && rawPointers.length > 0
       ? rawPointers.map((p, i) => {
@@ -297,8 +293,8 @@ export function mapContactCta(
     : fallback.image_desktop;
 
   const image_mobile = raw?.image_mobile
-    ? resolveStrapiImage(raw.image_mobile, image_desktop)
-    : image_desktop;
+    ? resolveStrapiImage(raw.image_mobile, fallback.image_mobile)
+    : fallback.image_mobile;
 
   const background_color = (raw?.background_color as string) || fallback.background_color;
 
