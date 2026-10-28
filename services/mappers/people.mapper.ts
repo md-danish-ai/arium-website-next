@@ -60,9 +60,8 @@ export function mapPeopleMembers(
   sectionItem?: StrapiSectionItem | RawRecord | null,
   fallbackMembers: PeopleMemberItem[] = []
 ): PeopleMemberItem[] {
-  const rawCards = (sectionItem?.cards ||
-    sectionItem?.PeopleCard ||
-    sectionItem?.Peoplecard) as RawRecord[] | undefined;
+  const rawCards = (sectionItem?.cards || sectionItem?.PeopleCard || sectionItem?.Peoplecard) as
+    RawRecord[] | undefined;
 
   if (!Array.isArray(rawCards) || rawCards.length === 0) {
     return fallbackMembers;

@@ -23,5 +23,5 @@ export const CONTACT_HERO_FALLBACK = {
 
 export const CONTACT_SEO_FALLBACK = {
   title: "Contact Us | Arium Networks",
-  description: "Build with clarity—connect with confidence",
+  description: "Build with clarity. connect with confidence",
 };

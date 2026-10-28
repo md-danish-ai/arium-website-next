@@ -4,12 +4,10 @@ import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
-interface CenteredImageCTAProps {
-  heading: string;
-  text: string;
-  ctaLabel?: string;
-  ctaUrl?: string;
-  bgImage?:
+export interface CenteredImageCTAProps {
+  title?: string;
+  description?: string;
+  background_image?:
     | string
     | {
         url?: string;
@@ -17,31 +15,38 @@ interface CenteredImageCTAProps {
         data?: { attributes?: { url?: string; alternativeText?: string } };
       }
     | null;
-  HeadingColor?: string;
-  DescriptionColor?: string;
+  CTA_text?: string;
+  CTA_url?: string;
+  title_color?: string;
+  description_color?: string;
 }
 
 export default function CenteredImageCTA({
-  heading,
-  text,
-  ctaLabel,
-  ctaUrl,
-  bgImage,
-  HeadingColor,
-  DescriptionColor,
+  title,
+  description,
+  background_image,
+  CTA_text,
+  CTA_url,
+  title_color,
+  description_color,
 }: CenteredImageCTAProps) {
-  if (!heading && !text) return null;
+  if (!title && !description) return null;
 
   const bgImageUrl =
-    typeof bgImage === "string" ? bgImage : bgImage?.url || bgImage?.data?.attributes?.url;
-  const absoluteBgImageUrl = bgImageUrl
-    ? GetStrapiMediaUrl(bgImageUrl)
-    : "/images/backgrounds/careers.jpg";
+    typeof background_image === "string"
+      ? background_image
+      : background_image?.url ||
+        background_image?.data?.attributes?.url ||
+        "/images/backgrounds/careers.jpg";
+  const absoluteBgImageUrl = GetStrapiMediaUrl(bgImageUrl);
 
   const altText =
-    typeof bgImage === "object" && bgImage !== null
-      ? bgImage.alternativeText || heading || "Background Image"
-      : heading || "Background Image";
+    typeof background_image === "object" && background_image !== null
+      ? background_image.alternativeText ||
+        background_image?.data?.attributes?.alternativeText ||
+        title ||
+        "Background Image"
+      : title || "Background Image";
 
   return (
     <section
@@ -65,22 +70,22 @@ export default function CenteredImageCTA({
               uppercase
               className="section-title reveal stagger-1 text-white text-center"
               style={{
-                color: HeadingColor || undefined,
+                color: title_color || undefined,
               }}
             >
-              {heading}
+              {title}
             </Typography>
             <Typography
               variant="b1"
               className="section-description reveal stagger-2 text-white/85 max-w-[800px] mx-auto mt-4 text-center"
-              style={{ color: DescriptionColor || undefined }}
+              style={{ color: description_color || undefined }}
             >
-              {text}
+              {description}
             </Typography>
-            {ctaLabel && ctaUrl && (
+            {CTA_text && CTA_url && (
               <div className="reveal stagger-3 mt-8">
-                <Button href={ctaUrl} color="secondary" size="md">
-                  {ctaLabel}
+                <Button href={CTA_url} color="secondary" size="md">
+                  {CTA_text}
                 </Button>
               </div>
             )}

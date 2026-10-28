@@ -87,30 +87,13 @@ export default async function Home() {
       pos: 5,
       key: "careers",
       skip: hasWidget("centered-image-cta"),
-      el: (
-        <CenteredImageCTA
-          key="careers"
-          heading={careersProps.heading}
-          text={careersProps.text}
-          ctaLabel={careersProps.ctaLabel}
-          ctaUrl={careersProps.ctaUrl}
-          bgImage={careersProps.bgImage}
-        />
-      ),
+      el: <CenteredImageCTA key="careers" {...careersProps} />,
     },
     {
       pos: 6,
       key: "finalcta",
       skip: hasWidget("cta-with-graphic"),
-      el: (
-        <CtaWithGraphic
-          key="finalcta"
-          heading={contactProps.heading}
-          description={contactProps.description}
-          ctaText={contactProps.ctaText}
-          ctaLink={contactProps.ctaLink}
-        />
-      ),
+      el: <CtaWithGraphic key="finalcta" {...contactProps} />,
     },
   ];
 

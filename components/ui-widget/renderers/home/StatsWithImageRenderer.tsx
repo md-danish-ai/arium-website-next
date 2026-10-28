@@ -5,13 +5,5 @@ import { mapStatsWithImage } from "@services/mappers/home.mapper";
 
 export default function StatsWithImageRenderer({ section, index }: SectionRendererProps) {
   const props = mapStatsWithImage(section);
-  return (
-    <StatsWithImage
-      key={`stats-with-image-${index}`}
-      heading={props.heading}
-      stats={props.stats}
-      mapImageSrc={props.mapImageSrc}
-      headingColor={props.headingColor}
-    />
-  );
+  return <StatsWithImage key={`stats-with-image-${index}`} {...props} />;
 }

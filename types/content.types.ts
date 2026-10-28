@@ -18,11 +18,12 @@ export interface LinkItem {
 }
 
 export interface StatItem {
+  id?: string | number;
   number: string;
   description: string;
-  bgColor?: string;
-  numberColor?: string;
-  descriptionColor?: string;
+  background_color?: string;
+  number_color?: string;
+  description_color?: string;
 }
 
 export interface TestimonialItem {
@@ -56,10 +57,11 @@ export interface TimelineItem {
 
 export interface FeatureCardItem {
   id?: string | number;
-  heading: string;
+  title: string;
   description: string;
-  headingColor?: string;
-  textColor?: string;
+  title_color?: string;
+  text_color?: string;
+  description_color?: string;
 }
 
 export interface SectionEntry {

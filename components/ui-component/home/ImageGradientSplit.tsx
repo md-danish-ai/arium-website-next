@@ -5,28 +5,28 @@ import { GradientImageSplit } from "@ui-common";
 import { ImageGradientSplitProps } from "./type";
 
 export default function ImageGradientSplit({
-  heading,
+  title,
+  title_color,
   description,
-  pointers,
-  desktopImgUrl,
-  mobileImgUrl,
-  ctaText = "Learn More",
-  ctaUrl = "/community",
-  headingColor,
-  descriptionTextColor,
+  description_color,
+  CTA_text,
+  CTA_url,
+  background_image_desktop,
+  background_image_mobile,
+  SectionPointers = [],
 }: ImageGradientSplitProps) {
   return (
     <GradientImageSplit
       id="community"
-      heading={heading}
+      title={title}
+      title_color={title_color}
       description={description}
-      desktopImageUrl={desktopImgUrl}
-      mobileImageUrl={mobileImgUrl}
-      pointers={pointers}
-      ctaText={ctaText}
-      ctaUrl={ctaUrl}
-      headingColor={headingColor}
-      descriptionTextColor={descriptionTextColor}
+      description_color={description_color}
+      CTA_text={CTA_text}
+      CTA_url={CTA_url}
+      background_image_desktop={background_image_desktop}
+      background_image_mobile={background_image_mobile}
+      SectionPointers={SectionPointers}
     />
   );
 }

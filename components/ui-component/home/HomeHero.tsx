@@ -9,11 +9,11 @@ import { useSpringShapes } from "@hooks/useSpringShapes";
 import { HomeHeroProps } from "./type";
 
 export default function HomeHero({
-  heading = "Build with clarity—connect with confidence",
-  description = "We are the country's largest small cell provider, bringing densification and capacity services to the wireless industry. With a focus on clarity and precision, we design, build, and deploy the essential infrastructure that powers today's most advanced wireless networks.",
-  fontColor,
-  bgColor,
-  scrollText = "Scroll to explore",
+  title,
+  description,
+  font_color,
+  background_color,
+  scroll_text,
 }: HomeHeroProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -33,9 +33,6 @@ export default function HomeHero({
     };
   }, []);
 
-  const resolvedBg = bgColor || "#162047";
-  const resolvedFont = fontColor || "#ffffff";
-
   return (
     <section
       id="hero"
@@ -45,7 +42,7 @@ export default function HomeHero({
       <div
         ref={bgRef}
         className="absolute inset-0 pointer-events-none"
-        style={{ backgroundColor: resolvedBg }}
+        style={{ backgroundColor: background_color }}
         aria-hidden="true"
       >
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center">
@@ -94,14 +91,14 @@ export default function HomeHero({
           uppercase
           weight="normal"
           className="m-0 mb-0 mx-auto max-w-[970px] tracking-[0.12em] leading-[1.4] relative z-[1]"
-          style={{ color: resolvedFont }}
-          dangerouslySetInnerHTML={{ __html: heading || "" }}
+          style={{ color: font_color }}
+          dangerouslySetInnerHTML={{ __html: title || "" }}
         />
         <Typography
           variant="b1"
           weight="normal"
           className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
-          style={{ color: resolvedFont }}
+          style={{ color: font_color }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
       </Container>
@@ -117,7 +114,7 @@ export default function HomeHero({
           weight="normal"
           className="block text-white/60 tracking-[0.15em] whitespace-nowrap"
         >
-          {scrollText || "Scroll to explore"}
+          {scroll_text}
         </Typography>
         <div className="text-teal animate-bounce">
           <DoubleDownArrowSvg width={24} height={24} />

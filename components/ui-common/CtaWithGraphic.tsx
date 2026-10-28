@@ -18,37 +18,42 @@ export interface StrapiMedia {
 export type GraphicType = string | StrapiMedia | null;
 
 export interface CtaWithGraphicProps {
-  heading: string;
-  description: string;
-  ctaText?: string;
-  ctaLink?: string;
-  graphic?: GraphicType;
-  bgColor?: string;
-  HeadingColor?: string;
-  DescriptionColor?: string;
+  title?: string;
+  description?: string;
+  CTA_text?: string;
+  CTA_url?: string;
+  image_desktop?: GraphicType;
+  image_mobile?: GraphicType;
+  background_color?: string;
+  title_color?: string;
+  description_color?: string;
 }
 
 export default function CtaWithGraphic({
-  heading,
+  title,
   description,
-  ctaText,
-  ctaLink,
-  graphic,
-  bgColor,
-  HeadingColor,
-  DescriptionColor,
+  CTA_text,
+  CTA_url,
+  image_desktop,
+  image_mobile,
+  background_color,
+  title_color,
+  description_color,
 }: CtaWithGraphicProps) {
-  if (!heading && !description) return null;
+  if (!title && !description) return null;
 
   const graphicUrl =
-    typeof graphic === "string" ? graphic : graphic?.url || graphic?.data?.attributes?.url;
-  const absoluteGraphicUrl = graphicUrl
-    ? GetStrapiMediaUrl(graphicUrl)
-    : "/images/svg-images/connection-cta.svg";
+    typeof image_desktop === "string"
+      ? image_desktop
+      : image_desktop?.url ||
+        image_desktop?.data?.attributes?.url ||
+        "/images/svg-images/connection-cta.svg";
+  const absoluteGraphicUrl = GetStrapiMediaUrl(graphicUrl);
+
   const altText =
-    (typeof graphic === "object" && graphic?.alternativeText) ||
-    (typeof graphic === "object" && graphic?.data?.attributes?.alternativeText) ||
-    heading ||
+    (typeof image_desktop === "object" && image_desktop?.alternativeText) ||
+    (typeof image_desktop === "object" && image_desktop?.data?.attributes?.alternativeText) ||
+    title ||
     "CTA Graphic";
   const isSvg =
     absoluteGraphicUrl.toLowerCase().endsWith(".svg") || absoluteGraphicUrl.includes(".svg");
@@ -56,7 +61,7 @@ export default function CtaWithGraphic({
   return (
     <section
       className="relative overflow-hidden bg-[#D2C7FF]"
-      style={bgColor ? { background: bgColor } : undefined}
+      style={background_color ? { background: background_color } : undefined}
     >
       <Container className="relative z-[2]">
         <div className="w-full max-w-full md:max-w-[550px] lg:max-w-[650px] py-12 sm:py-16 md:py-20 lg:py-24 text-left">
@@ -66,24 +71,24 @@ export default function CtaWithGraphic({
             uppercase
             weight="bold"
             className="reveal stagger-1 m-0 mb-4 md:mb-6 text-midnight leading-[1.15] tracking-tight"
-            style={{ color: HeadingColor || undefined }}
+            style={{ color: title_color || undefined }}
           >
-            {heading}
+            {title}
           </Typography>
 
           <Typography
             as="p"
             variant="b1"
             className="reveal stagger-2 m-0 mb-6 md:mb-8 text-midnight/85 max-w-[620px] leading-[1.6]"
-            style={{ color: DescriptionColor || undefined }}
+            style={{ color: description_color || undefined }}
           >
             {description}
           </Typography>
 
-          {ctaText && ctaLink && (
+          {CTA_text && CTA_url && (
             <div className="reveal stagger-3 flex justify-start">
-              <Button href={ctaLink} color="primary">
-                {ctaText}
+              <Button href={CTA_url} color="primary">
+                {CTA_text}
               </Button>
             </div>
           )}

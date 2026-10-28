@@ -30,38 +30,10 @@ export async function fetchAPI(path: string, options: RequestInit = {}) {
   }
 }
 
-// The generic populate=* at the start covers all scalar fields and direct media
-// for every component. Only nested components (repeatable components, deep media)
-// need explicit per-component rules. This keeps the URL well within AWS ALB limits.
-export const WIDGETS_POPULATE_QUERY =
-  "populate[widgets][populate][Sections][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.test-banner][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.global-cta][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.illustration-split][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.main-hero][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.image-gradient-split][populate][sectionPointers][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.image-gradient-split][populate][BgImage][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.centered-image-cta][populate][BgImage][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.cta-with-graphic][populate][Graphic][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.highlight-list][populate][Name][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.accordion-split][populate][Accordian][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.timeline][populate][TimeLineCards][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.commitments][populate][PillarCard][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.pillar-highlights][populate][Pillarcard][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.stats-with-image][populate][StatsCard][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.stats-with-image][populate][image][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.detailed-card-grid][populate][PanelsCards][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.benefits][populate][BenefitsCard][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.background-feature-section][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.stats-cards][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.process][populate][ProcessStep][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.faq][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.people-global-section][populate][PeopleCard][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.image-card-grid][populate][cardgrid][populate][image][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.gloabl-testimonails][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.image-split][populate]=*" +
-  "&populate[widgets][populate][Sections][on][shared.content-with-side-graphic][populate]=*";
+// In Strapi v5, populate[widgets][populate][Sections][populate]=* cleanly populates
+// all shared component fields, nested card arrays, and media assets across all widgets,
+// avoiding fragile manual field lists and staying well within AWS ALB URL limits.
+export const WIDGETS_POPULATE_QUERY = "populate[widgets][populate][Sections][populate]=*";
 /**
  * Dedicated widget fetch — always a clean, short URL separate from page-data queries.
  */

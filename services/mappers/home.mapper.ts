@@ -1,5 +1,5 @@
 import type { StrapiSectionItem, FeatureCardItem, StatItem } from "@types";
-import { resolveStrapiImage, extractMediaUrl, GetStrapiMediaUrl } from "@utils";
+import { resolveStrapiImage } from "@utils";
 import {
   HOME_HERO_FALLBACK,
   NETWORK_CHALLENGES_FALLBACK,
@@ -17,430 +17,300 @@ import type {
   DetailedCardGridProps,
   StatsWithImageProps,
   ImageGradientSplitProps,
+  CareersCtaProps,
+  ContactCtaProps,
 } from "@ui-component/home/type";
 
 type RawRecord = Record<string, unknown>;
 
 /**
- * 1. Home Hero Mapper
+ * 1. Home Hero Mapper (shared.main-hero - Position 0)
+ * Canonical keys: title, description, font_color, background_color, scroll_text
  */
 export function mapHomeHero(raw?: RawRecord | null, fallback = HOME_HERO_FALLBACK): HomeHeroProps {
-  const heading =
-    (raw?.heroTitle as string) ||
-    (raw?.title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.heading;
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
+  const font_color = (raw?.font_color as string) || fallback.font_color;
+  const background_color = (raw?.background_color as string) || fallback.background_color;
+  const scroll_text = (raw?.scroll_text as string) || fallback.scroll_text;
 
-  const description =
-    (raw?.heroDescription as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string) ||
-    (raw?.body as string) ||
-    fallback.description;
-
-  const fontColor =
-    (raw?.fontColor as string) ||
-    (raw?.font_color as string) ||
-    (raw?.FontColor as string) ||
-    undefined;
-
-  const bgColor =
-    (raw?.bgColor as string) ||
-    (raw?.background_color as string) ||
-    (raw?.BgColor as string) ||
-    undefined;
-
-  const scrollText =
-    (raw?.scrollText as string) ||
-    (raw?.scroll_text as string) ||
-    (raw?.ScrollText as string) ||
-    fallback.scrollText;
-
-  return { heading, description, fontColor, bgColor, scrollText };
+  return {
+    title,
+    description,
+    font_color,
+    background_color,
+    scroll_text,
+  };
 }
 
 /**
- * 2. Background Feature (Network Challenges) Mapper
+ * 2. Background Feature (Network Challenges) Mapper (shared.background-feature-section - Position 1)
+ * Canonical keys: title, title_color, description, description_color, background_image_desktop,
+ * background_image_mobile, CTA_text, CTA_url, FeatureCards
  */
 export function mapBackgroundFeature(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = NETWORK_CHALLENGES_FALLBACK
 ): BackgroundFeatureSectionProps {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const title = (raw?.title as string) || fallback.title;
+  const title_color =
+    (raw?.title_color as string) || (raw?.font_color_heading as string) || fallback.title_color;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color =
+    (raw?.description_color as string) ||
+    (raw?.font_color_description as string) ||
+    fallback.description_color;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    fallback.description;
+  const background_image_desktop = raw?.background_image_desktop
+    ? resolveStrapiImage(raw.background_image_desktop, fallback.background_image_desktop)
+    : fallback.background_image_desktop;
 
-  // Resolve background images (desktop & mobile)
-  const bgRaw = raw?.BackgroundImage || raw?.media;
-  let desktopBgUrl = fallback.desktopBg;
-  let mobileBgUrl = fallback.mobileBg;
+  const background_image_mobile = raw?.background_image_mobile
+    ? resolveStrapiImage(raw.background_image_mobile, background_image_desktop)
+    : background_image_desktop;
 
-  if (Array.isArray(bgRaw) && bgRaw.length > 0) {
-    desktopBgUrl = resolveStrapiImage(bgRaw[0], fallback.desktopBg);
-    mobileBgUrl = bgRaw.length > 1 ? resolveStrapiImage(bgRaw[1], desktopBgUrl) : desktopBgUrl;
-  } else if (bgRaw) {
-    const resolved = resolveStrapiImage(bgRaw, fallback.desktopBg);
-    desktopBgUrl = resolved;
-    mobileBgUrl = resolved;
-  }
+  const CTA_text = (raw?.CTA_text as string) || (raw?.CTA_label as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || (raw?.CTA_link as string) || fallback.CTA_url;
 
-  // Normalize feature cards
   const rawCards = (raw?.FeatureCards || raw?.cards) as RawRecord[] | undefined;
-
-  let cards: FeatureCardItem[] = fallback.cards;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    cards = rawCards.map((c, i) => ({
-      id: (c.id as string | number) ?? i,
-      heading:
-        (c.Heading as string) ||
-        (c.heading as string) ||
-        (c.title as string) ||
-        fallback.cards[i % fallback.cards.length]?.heading ||
-        "",
-      description:
-        (c.Description as string) ||
-        (c.description as string) ||
-        (c.body as string) ||
-        fallback.cards[i % fallback.cards.length]?.description ||
-        "",
-      headingColor: (c.HeadingColor as string) || (c.headingColor as string) || undefined,
-      textColor: (c.TextColor as string) || (c.textColor as string) || undefined,
-    }));
-  }
-
-  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
-  const ctaLabel =
-    (raw?.CTALabel as string) ||
-    (raw?.ctaLabel as string) ||
-    (rawCta?.label as string) ||
-    undefined;
-
-  const ctaLink =
-    (raw?.CTALink as string) || (raw?.ctaLink as string) || (rawCta?.url as string) || undefined;
-
-  const fontColorHeading =
-    (raw?.FontColorHeading as string) || (raw?.fontColorHeading as string) || undefined;
-
-  const fontColorDescription =
-    (raw?.FontColorDescription as string) || (raw?.fontColorDescription as string) || undefined;
-
-  const maxWidthText = (raw?.MaxWidthText as string) || undefined;
+  const FeatureCards: FeatureCardItem[] =
+    Array.isArray(rawCards) && rawCards.length > 0
+      ? rawCards.map((c, i) => {
+          const fb = fallback.FeatureCards[i % fallback.FeatureCards.length];
+          return {
+            id: (c.id as string | number) ?? i,
+            title: (c.title as string) || fb?.title || "",
+            title_color: (c.title_color as string) || fb?.title_color,
+            description: (c.description as string) || fb?.description || "",
+            description_color: (c.description_color as string) || fb?.description_color,
+            text_color: (c.text_color as string) || fb?.text_color,
+          };
+        })
+      : fallback.FeatureCards;
 
   return {
-    heading,
+    title,
+    title_color,
     description,
-    desktopBgUrl,
-    mobileBgUrl,
-    ctaLabel,
-    ctaLink,
-    cards,
-    fontColorHeading,
-    fontColorDescription,
-    maxWidthText,
+    description_color,
+    background_image_desktop,
+    background_image_mobile,
+    CTA_text,
+    CTA_url,
+    FeatureCards,
   };
 }
 
 /**
- * 3. Infrastructure (Detailed Card Grid) Mapper
+ * 3. Our Infrastructure (Detailed Card Grid) Mapper (shared.detailed-card-grid - Position 2)
+ * Canonical keys: title, description, background_color, PanelCards
+ * Note: PanelCards contains an OR option between interactive svg_code / svgType and image
  */
 export function mapInfrastructure(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = INFRASTRUCTURE_FALLBACK
 ): DetailedCardGridProps {
-  const heading =
-    (raw?.Headings as string) ||
-    (raw?.Heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
+  const background_color = (raw?.background_color as string) || fallback.background_color;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    fallback.description;
+  const rawCards = (raw?.PanelCards || raw?.PanelsCards) as RawRecord[] | undefined;
+  const PanelCards: InfrastructureCard[] =
+    Array.isArray(rawCards) && rawCards.length > 0
+      ? rawCards.map((item, idx) => {
+          const fb = fallback.PanelCards[idx % fallback.PanelCards.length];
+          const cardTitle = (item.title as string) || fb?.title || "";
+          const cardDesc = (item.description as string) || fb?.description || "";
+          const CTA_text = (item.CTA_text as string) || fb?.CTA_text;
+          const CTA_url = (item.CTA_url as string) || fb?.CTA_url;
+          const content_color = (item.content_color as string) || fb?.content_color;
+          const svg_code = (item.svg_code as string) || fb?.svg_code;
+          const image = item.image ? resolveStrapiImage(item.image) : fb?.image;
 
-  const bgColor = (raw?.BgColor as string) || (raw?.bgColor as string) || undefined;
+          let svgType = fb?.svgType;
+          const lowerTitle = cardTitle.toLowerCase();
+          if (lowerTitle.includes("small cell")) svgType = "small-cells";
+          else if (lowerTitle.includes("das") || lowerTitle.includes("antenna")) svgType = "das";
 
-  const rawCards = (raw?.PanelsCards || raw?.cards) as RawRecord[] | undefined;
+          return {
+            id: (item.id as string | number) ?? idx,
+            title: cardTitle,
+            description: cardDesc,
+            CTA_text,
+            CTA_url,
+            content_color,
+            svg_code,
+            image,
+            svgType,
+          };
+        })
+      : fallback.PanelCards;
 
-  let cards: InfrastructureCard[] = fallback.cards;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    cards = rawCards.map((item, idx) => {
-      const fallbackCard = fallback.cards[idx % fallback.cards.length];
-      const title = (item.Title as string) || (item.title as string) || fallbackCard?.title || "";
-      const desc =
-        (item.Description as string) ||
-        (item.description as string) ||
-        fallbackCard?.description ||
-        "";
-      const ctaText =
-        (item.CtaText as string) ||
-        (item.ctaText as string) ||
-        (item.linkText as string) ||
-        fallbackCard?.ctaText ||
-        "Explore more";
-      const ctaLink =
-        (item.CtaLink as string) ||
-        (item.ctaLink as string) ||
-        (item.link as string) ||
-        fallbackCard?.ctaLink ||
-        "/our-solutions";
-
-      const svgCode =
-        (item.IllustatioSvgCode as string) ||
-        (item.svgCode as string) ||
-        (item.icon as string) ||
-        fallbackCard?.svgCode ||
-        undefined;
-
-      const imgMedia = item.image || item.media;
-      const imageUrl = imgMedia ? resolveStrapiImage(imgMedia) : fallbackCard?.imageUrl;
-
-      // Assign svgType for known items
-      let svgType = fallbackCard?.svgType;
-      const lowerTitle = title.toLowerCase();
-      if (lowerTitle.includes("small cell")) svgType = "small-cells";
-      else if (lowerTitle.includes("das") || lowerTitle.includes("antenna")) svgType = "das";
-
-      return {
-        title,
-        description: desc,
-        ctaText,
-        ctaLink,
-        svgType,
-        svgCode,
-        imageUrl,
-      };
-    });
-  }
-
-  return { heading, description, bgColor, cards };
+  return {
+    title,
+    description,
+    background_color,
+    PanelCards,
+  };
 }
 
 /**
- * 4. Stats With Image Mapper
+ * 4. Scale and Experience (Stats With Image) Mapper (shared.stats-with-image - Position 3)
+ * Canonical keys: title, title_color, image, StatsCard
  */
 export function mapStatsWithImage(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = STATS_FALLBACK
 ): StatsWithImageProps {
-  const heading =
-    (raw?.title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.heading;
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
 
-  const rawStats = (raw?.StatsCard || raw?.stats || raw?.Statscard) as RawRecord[] | undefined;
+  const image = raw?.image ? resolveStrapiImage(raw.image, fallback.image) : fallback.image;
 
-  const DEFAULT_COLORS = ["#898cf3", "#bcf6f2", "#ffffff", "#ffffca", "#ffdac8"];
-
-  let stats: StatItem[] = fallback.stats;
-  if (Array.isArray(rawStats) && rawStats.length > 0) {
-    stats = rawStats.map((s, idx) => ({
-      number:
-        (s.number as string) ||
-        (s.value as string) ||
-        fallback.stats[idx % fallback.stats.length]?.number ||
-        "",
-      description:
-        (s.description as string) ||
-        (s.label as string) ||
-        fallback.stats[idx % fallback.stats.length]?.description ||
-        "",
-      bgColor:
-        (s.background_color as string) ||
-        (s.bgColor as string) ||
-        DEFAULT_COLORS[idx % DEFAULT_COLORS.length],
-      numberColor: (s.number_color as string) || (s.numberColor as string) || undefined,
-      descriptionColor:
-        (s.description_color as string) || (s.descriptionColor as string) || undefined,
-    }));
-  }
-
-  const mapMedia = raw?.image || raw?.media;
-  const mapImageSrc = mapMedia
-    ? resolveStrapiImage(mapMedia, fallback.mapImage)
-    : fallback.mapImage;
-
-  const headingColor =
-    (raw?.heading_color as string) ||
-    (raw?.headingColor as string) ||
-    (raw?.HeadingColor as string) ||
-    undefined;
+  const rawStats = (raw?.StatsCard || raw?.stats) as RawRecord[] | undefined;
+  const StatsCard: StatItem[] =
+    Array.isArray(rawStats) && rawStats.length > 0
+      ? rawStats.map((s, idx) => {
+          const fb = fallback.StatsCard[idx % fallback.StatsCard.length];
+          return {
+            id: (s.id as string | number) ?? idx,
+            number: (s.number as string) || fb?.number || "",
+            number_color: (s.number_color as string) || fb?.number_color,
+            description: (s.description as string) || fb?.description || "",
+            description_color: (s.description_color as string) || fb?.description_color,
+            background_color: (s.background_color as string) || fb?.background_color || "#ffffff",
+          };
+        })
+      : fallback.StatsCard;
 
   return {
-    heading,
-    stats,
-    mapImageSrc,
-    headingColor,
+    title,
+    title_color,
+    image,
+    StatsCard,
   };
 }
 
 /**
- * 5. Community Impact (Image Gradient Split) Mapper
+ * 5. Community Impact (Image Gradient Split) Mapper (shared.image-gradient-split - Position 4)
+ * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
+ * background_image_desktop, background_image_mobile, SectionPointers
  */
 export function mapCommunityImpact(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_IMPACT_FALLBACK
 ): ImageGradientSplitProps {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color = (raw?.description_color as string) || fallback.description_color;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    fallback.description;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const rawPointers = (raw?.sectionPointers || raw?.cards) as RawRecord[] | undefined;
+  const background_image_desktop = raw?.background_image_desktop
+    ? resolveStrapiImage(raw.background_image_desktop, fallback.background_image_desktop)
+    : fallback.background_image_desktop;
 
-  let pointers: SectionPointerItem[] = fallback.pointers;
-  if (Array.isArray(rawPointers) && rawPointers.length > 0) {
-    pointers = rawPointers.map((p, i) => ({
-      id: (p.id as string | number) ?? i,
-      heading:
-        (p.Heading as string) ||
-        (p.heading as string) ||
-        (p.title as string) ||
-        fallback.pointers[i % fallback.pointers.length]?.heading ||
-        "",
-      description:
-        (p.Description as string) ||
-        (p.description as string) ||
-        (p.body as string) ||
-        fallback.pointers[i % fallback.pointers.length]?.description ||
-        "",
-    }));
-  }
+  const background_image_mobile = raw?.background_image_mobile
+    ? resolveStrapiImage(raw.background_image_mobile, background_image_desktop)
+    : background_image_desktop;
 
-  // Resolve background images
-  const bgRaw = raw?.BgImage || raw?.media;
-  let desktopImgUrl = fallback.desktopImg;
-  let mobileImgUrl = fallback.mobileImg;
-
-  if (Array.isArray(bgRaw) && bgRaw.length > 0) {
-    desktopImgUrl = resolveStrapiImage(bgRaw[0], fallback.desktopImg);
-    mobileImgUrl = bgRaw.length > 1 ? resolveStrapiImage(bgRaw[1], desktopImgUrl) : desktopImgUrl;
-  } else if (bgRaw) {
-    const resolved = resolveStrapiImage(bgRaw, fallback.desktopImg);
-    desktopImgUrl = resolved;
-    mobileImgUrl = resolved;
-  }
-
-  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
-  const ctaText =
-    (raw?.CtaText as string) ||
-    (raw?.ctaText as string) ||
-    (rawCta?.label as string) ||
-    fallback.ctaText;
-
-  const ctaUrl =
-    (raw?.CtaUrl as string) ||
-    (raw?.ctaUrl as string) ||
-    (rawCta?.url as string) ||
-    fallback.ctaUrl;
-
-  const headingColor = (raw?.HeadingColor as string) || (raw?.headingColor as string) || undefined;
-
-  const descriptionTextColor =
-    (raw?.DescriptionTextColor as string) || (raw?.descriptionTextColor as string) || undefined;
+  const rawPointers = (raw?.SectionPointers || raw?.sectionPointers) as RawRecord[] | undefined;
+  const SectionPointers: SectionPointerItem[] =
+    Array.isArray(rawPointers) && rawPointers.length > 0
+      ? rawPointers.map((p, i) => {
+          const fb = fallback.SectionPointers[i % fallback.SectionPointers.length];
+          return {
+            id: (p.id as string | number) ?? i,
+            title: (p.title as string) || fb?.title || "",
+            title_color: (p.title_color as string) || fb?.title_color,
+            description: (p.description as string) || fb?.description || "",
+            description_color: (p.description_color as string) || fb?.description_color,
+          };
+        })
+      : fallback.SectionPointers;
 
   return {
-    heading,
+    title,
+    title_color,
     description,
-    pointers,
-    desktopImgUrl,
-    mobileImgUrl,
-    ctaText,
-    ctaUrl,
-    headingColor,
-    descriptionTextColor,
+    description_color,
+    CTA_text,
+    CTA_url,
+    background_image_desktop,
+    background_image_mobile,
+    SectionPointers,
   };
 }
 
 /**
- * 6. Careers CTA Mapper
+ * 6. Careers Image CTA Mapper (shared.centered-image-cta - Position 5)
+ * Canonical keys: title, title_color, description, description_color, background_image, CTA_text, CTA_url
  */
 export function mapCareersCta(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_FALLBACK
-) {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+): CareersCtaProps {
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color = (raw?.description_color as string) || fallback.description_color;
 
-  const text =
-    (raw?.Text as string) ||
-    (raw?.text as string) ||
-    (raw?.body as string) ||
-    (raw?.description as string) ||
-    fallback.text;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
-  const ctaLabel =
-    (raw?.ctaLabel as string) ||
-    (raw?.CTALabel as string) ||
-    (rawCta?.label as string) ||
-    fallback.ctaLabel;
+  const background_image = raw?.background_image
+    ? resolveStrapiImage(raw.background_image, fallback.background_image)
+    : fallback.background_image;
 
-  const ctaUrl =
-    (raw?.ctaUrl as string) ||
-    (raw?.CTAUrl as string) ||
-    (rawCta?.url as string) ||
-    fallback.ctaUrl;
-
-  const mediaSource = raw?.BgImage || raw?.media;
-  const mediaUrl = extractMediaUrl(mediaSource);
-  const bgImage = mediaUrl ? GetStrapiMediaUrl(mediaUrl) : fallback.bgImage;
-
-  return { heading, text, ctaLabel, ctaUrl, bgImage };
+  return {
+    title,
+    title_color,
+    description,
+    description_color,
+    background_image,
+    CTA_text,
+    CTA_url,
+  };
 }
 
 /**
- * 7. Contact Final CTA Mapper
+ * 7. Final Contact CTA Mapper (shared.cta-with-graphic - Position 6)
+ * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
+ * image_desktop, image_mobile, background_color
  */
 export function mapContactCta(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CONTACT_FALLBACK
-) {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+): ContactCtaProps {
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color = (raw?.description_color as string) || fallback.description_color;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    fallback.description;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
-  const ctaText =
-    (raw?.CtaText as string) ||
-    (raw?.ctaText as string) ||
-    (rawCta?.label as string) ||
-    fallback.ctaText;
+  const image_desktop = raw?.image_desktop
+    ? resolveStrapiImage(raw.image_desktop, fallback.image_desktop)
+    : fallback.image_desktop;
 
-  const ctaLink =
-    (raw?.CtaLink as string) ||
-    (raw?.ctaLink as string) ||
-    (rawCta?.url as string) ||
-    fallback.ctaLink;
+  const image_mobile = raw?.image_mobile
+    ? resolveStrapiImage(raw.image_mobile, image_desktop)
+    : image_desktop;
 
-  return { heading, description, ctaText, ctaLink };
+  const background_color = (raw?.background_color as string) || fallback.background_color;
+
+  return {
+    title,
+    title_color,
+    description,
+    description_color,
+    CTA_text,
+    CTA_url,
+    image_desktop,
+    image_mobile,
+    background_color,
+  };
 }

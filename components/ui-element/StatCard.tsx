@@ -6,6 +6,9 @@ import Typography from "./Typography";
 export interface StatCardProps {
   number: string;
   description?: string;
+  background_color?: string;
+  number_color?: string;
+  description_color?: string;
   bgColor?: string;
   numberColor?: string;
   descriptionColor?: string;
@@ -18,6 +21,9 @@ export interface StatCardProps {
 export default function StatCard({
   number,
   description,
+  background_color,
+  number_color,
+  description_color,
   bgColor,
   numberColor,
   descriptionColor,
@@ -26,6 +32,9 @@ export default function StatCard({
   style = {},
   enableCounter = true,
 }: StatCardProps) {
+  const resolvedBg = background_color || bgColor;
+  const resolvedNumColor = number_color || numberColor;
+  const resolvedDescColor = description_color || descriptionColor;
   // Extract number and suffix for animated counter support
   const targetMatch = number ? number.match(/[\d.]+/) : null;
   const target = targetMatch ? parseFloat(targetMatch[0]) : 0;
@@ -40,7 +49,7 @@ export default function StatCard({
     <div
       className={`w-full rounded-[20px] p-4 sm:p-5 md:p-6 flex flex-col gap-1.5 cursor-default transition-all duration-300 border border-midnight/5 hover:-translate-y-1 hover:shadow-xl overflow-hidden box-border ${alignContainerClass} ${className}`}
       style={{
-        backgroundColor: bgColor || undefined,
+        backgroundColor: resolvedBg || undefined,
         ...style,
       }}
     >
@@ -48,7 +57,7 @@ export default function StatCard({
         <Typography
           variant="stat"
           className={`text-midnight m-0 leading-none ${enableCounter ? "counter" : ""} ${textAlignClass}`}
-          style={{ color: numberColor || undefined }}
+          style={{ color: resolvedNumColor || undefined }}
           {...(enableCounter ? { "data-target": target, "data-suffix": suffix } : {})}
         >
           {enableCounter ? 0 : number}
@@ -61,7 +70,7 @@ export default function StatCard({
           variant="b3"
           weight="medium"
           className={`text-midnight/85 w-full m-0 normal-case leading-[1.3] tracking-normal break-words whitespace-normal ${textAlignClass}`}
-          style={{ color: descriptionColor || undefined }}
+          style={{ color: resolvedDescColor || undefined }}
         >
           {description}
         </Typography>

@@ -7,14 +7,13 @@ import { SmallCellsSvg, DasSvg } from "@ui-svg";
 import { useSvgDraw } from "@hooks/useSvgDraw";
 
 export default function DetailedCardGrid({
-  heading,
+  title,
   description,
-  bgColor,
-  cards,
+  background_color,
+  PanelCards = [],
 }: DetailedCardGridProps) {
   const containerRef = useSvgDraw();
-
-  const backgroundStyle = bgColor ? { background: bgColor } : undefined;
+  const backgroundStyle = background_color ? { background: background_color } : undefined;
 
   return (
     <section
@@ -35,7 +34,7 @@ export default function DetailedCardGrid({
             weight="normal"
             className="section-title reveal stagger-1 m-0 text-white"
           >
-            {heading}
+            {title}
           </Typography>
           <Typography
             variant="b1"
@@ -47,28 +46,37 @@ export default function DetailedCardGrid({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-5 lg:gap-8 max-w-[520px] md:max-w-none mx-auto w-full">
-          {cards.map((card, index) => (
-            <div
-              className={`w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-${index + 3}`}
-              key={index}
-            >
-              <DetailedCard
-                title={card.title}
-                description={card.description}
-                ctaText={card.ctaText}
-                ctaLink={card.ctaLink}
-                imageUrl={card.imageUrl}
-                svgCode={card.svgCode}
-                svgComponent={
-                  card.svgType === "small-cells" ? (
-                    <SmallCellsSvg />
-                  ) : card.svgType === "das" ? (
-                    <DasSvg />
-                  ) : undefined
-                }
-              />
-            </div>
-          ))}
+          {PanelCards.map((card, index) => {
+            const cardImageUrl =
+              typeof card.image === "string"
+                ? card.image
+                : Array.isArray(card.image)
+                  ? card.image[0]?.url
+                  : (card.image as { url?: string } | undefined)?.url;
+
+            return (
+              <div
+                className={`w-full h-full transition-all duration-300 hover:-translate-y-1.5 reveal stagger-${index + 3}`}
+                key={card.id ?? index}
+              >
+                <DetailedCard
+                  title={card.title}
+                  description={card.description}
+                  ctaText={card.CTA_text}
+                  ctaLink={card.CTA_url}
+                  imageUrl={cardImageUrl}
+                  svgCode={card.svg_code}
+                  svgComponent={
+                    card.svgType === "small-cells" ? (
+                      <SmallCellsSvg />
+                    ) : card.svgType === "das" ? (
+                      <DasSvg />
+                    ) : undefined
+                  }
+                />
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>
