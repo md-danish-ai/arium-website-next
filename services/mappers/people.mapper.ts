@@ -30,18 +30,8 @@ export function mapInnerHero(
       "Seasoned industry leaders driving strategic growth and operational excellence.",
   }
 ): InnerPageHeroMappedProps {
-  const heroTitle =
-    (raw?.heroTitle as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heroTitle;
-
-  const heroDescription =
-    (raw?.heroDescription as string) ||
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    fallback.heroDescription;
+  const heroTitle = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heroTitle;
+  const heroDescription = (raw?.heroDescription as string) || fallback.heroDescription;
 
   const rawCtas = raw?.heroCtas as RawRecord | RawRecord[] | undefined;
   let heroCtasLabel: string | undefined;
@@ -50,7 +40,7 @@ export function mapInnerHero(
   if (Array.isArray(rawCtas) && rawCtas.length > 0) {
     heroCtasLabel = rawCtas[0].label as string;
     heroCtasUrl = rawCtas[0].url as string;
-  } else if (rawCtas && !Array.isArray(rawCtas) && typeof rawCtas === "object") {
+  } else if (rawCtas && typeof rawCtas === "object" && !Array.isArray(rawCtas)) {
     heroCtasLabel = rawCtas.label as string;
     heroCtasUrl = rawCtas.url as string;
   }
@@ -71,19 +61,17 @@ export function mapPeopleMembers(
   fallbackMembers: PeopleMemberItem[] = []
 ): PeopleMemberItem[] {
   const rawCards = (sectionItem?.cards ||
-    sectionItem?.Cards ||
     sectionItem?.PeopleCard ||
-    sectionItem?.Peoplecard ||
-    sectionItem?.peoplecard) as RawRecord[] | undefined;
+    sectionItem?.Peoplecard) as RawRecord[] | undefined;
 
   if (!Array.isArray(rawCards) || rawCards.length === 0) {
     return fallbackMembers;
   }
 
   return rawCards.map((card, index) => {
-    const name = (card.Name || card.name || card.title || "") as string;
-    const role = (card.Designation || card.designation || card.badge || card.role || "") as string;
-    const bioText = (card.Description || card.description || card.bio || "") as string;
+    const name = (card.title || card.name || "") as string;
+    const role = (card.badge || card.designation || card.role || "") as string;
+    const bioText = (card.description || card.bio || "") as string;
 
     const matchedFallback =
       fallbackMembers.find((f) => f.name.toLowerCase() === name.toLowerCase()) ||
@@ -95,8 +83,7 @@ export function mapPeopleMembers(
         ? "/images/team/placeholder-female.png"
         : "/images/team/placeholder-male.png");
 
-    const rawImg = (card.Image || card.image) as unknown;
-    const image = resolveStrapiImage(rawImg, fallbackImg);
+    const image = resolveStrapiImage(card.image, fallbackImg);
 
     const bioHtml = bioText
       ? bioText
@@ -105,11 +92,7 @@ export function mapPeopleMembers(
           .join("")
       : matchedFallback?.bio || "";
 
-    const modalBg = (card.ModalUpperSectionBg ||
-      card.modalUpperSectionBg ||
-      card.modalBg ||
-      matchedFallback?.modalBg ||
-      "#162047") as string;
+    const modalBg = (card.modalBg || matchedFallback?.modalBg || "#162047") as string;
 
     return {
       name: name || matchedFallback?.name || "Team Member",
@@ -133,25 +116,13 @@ export function mapPeopleCta(
     buttonLink: "/careers",
   }
 ): GlobeCtaMappedProps {
-  const heading =
-    (sectionItem?.title as string) ||
-    (sectionItem?.Title as string) ||
-    (sectionItem?.Heading as string) ||
-    (sectionItem?.heading as string) ||
-    fallbackCta.heading;
+  const heading = (sectionItem?.title as string) || fallbackCta.heading;
+  const description = (sectionItem?.body as string) || undefined;
 
-  const description =
-    (sectionItem?.body as string) ||
-    (sectionItem?.Body as string) ||
-    (sectionItem?.description as string) ||
-    (sectionItem?.Description as string) ||
-    undefined;
+  const rawCtas = (sectionItem?.cta || sectionItem?.ctas) as RawRecord | RawRecord[] | undefined;
 
-  const rawCtas = (sectionItem?.cta || sectionItem?.CTA || sectionItem?.ctas) as
-    RawRecord | RawRecord[] | undefined;
-
-  let buttonText = (sectionItem?.buttonText as string) || fallbackCta.buttonText;
-  let buttonLink = (sectionItem?.buttonLink as string) || fallbackCta.buttonLink;
+  let buttonText = fallbackCta.buttonText;
+  let buttonLink = fallbackCta.buttonLink;
 
   if (Array.isArray(rawCtas) && rawCtas.length > 0) {
     if (rawCtas[0].label) buttonText = rawCtas[0].label as string;

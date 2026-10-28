@@ -96,8 +96,8 @@ export function mapNavbarData(rawGlobalLayout?: RawGlobalLayout | null): NavbarP
     });
   }
 
-  const logoDesktop = rawGlobalLayout?.logoDesktop || rawGlobalLayout?.LogoDesktop || undefined;
-  const logoMobile = rawGlobalLayout?.logoMobile || rawGlobalLayout?.LogoMobile || undefined;
+  const logoDesktop = rawGlobalLayout?.logoDesktop || undefined;
+  const logoMobile = rawGlobalLayout?.logoMobile || undefined;
 
   return {
     routes,
@@ -147,9 +147,8 @@ export function mapFooterData(rawGlobalLayout?: RawGlobalLayout | null): FooterP
     rawGlobalLayout?.Copyright || rawGlobalLayout?.copyright || `© ${currentYear} Arium Networks`;
 
   const logoDesktop =
-    rawGlobalLayout?.FooterLogoDesktop || rawGlobalLayout?.footerLogoDesktop || undefined;
-  const logoMobile =
-    rawGlobalLayout?.FooterLogoMobile || rawGlobalLayout?.footerLogoMobile || undefined;
+    rawGlobalLayout?.FooterLogoDesktop || rawGlobalLayout?.logoDesktop || undefined;
+  const logoMobile = rawGlobalLayout?.FooterLogoMobile || rawGlobalLayout?.logoMobile || undefined;
 
   return {
     contactLink,

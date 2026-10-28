@@ -39,8 +39,6 @@ export interface StrapiCTA {
   id?: number | string;
   label?: string;
   url?: string;
-  Title?: string;
-  Link?: string;
   text?: string;
   href?: string;
 }
@@ -62,21 +60,13 @@ export interface StrapiSectionItem {
   id?: number | string;
   key?: string;
   title?: string;
-  Title?: string;
-  Heading?: string;
   heading?: string;
   body?: string;
-  Body?: string;
   description?: string;
-  Description?: string;
   media?: StrapiMediaLike;
-  Media?: StrapiMediaLike;
   image?: StrapiMediaLike;
-  Image?: StrapiMediaLike;
-  cta?: StrapiCTA[];
-  CTA?: StrapiCTA[];
+  cta?: StrapiCTA | StrapiCTA[];
   cards?: unknown[];
-  cardItem?: unknown[];
   stats?: unknown[];
   [key: string]: unknown;
 }

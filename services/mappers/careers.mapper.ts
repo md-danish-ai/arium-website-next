@@ -18,7 +18,7 @@ import type {
   CareersJobAreasProps,
   CareersBenefitsProps,
   CareersEEOProps,
-} from "../../components/ui-component/careers/type";
+} from "@ui-component/careers/type";
 
 type RawRecord = Record<string, unknown>;
 
@@ -42,20 +42,11 @@ export function mapCareersHero(
   raw?: RawRecord | null,
   fallback = CAREERS_HERO_FALLBACK
 ): CareersHeroMappedProps {
-  const heading =
-    (raw?.heroTitle as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
 
-  const intro =
-    (raw?.heroDescription as string) ||
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    fallback.intro;
+  const intro = (raw?.heroDescription as string) || fallback.intro;
 
-  const rawMedia = (raw?.heroMedia || raw?.media || raw?.Media) as unknown;
+  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -74,7 +65,7 @@ export function mapCareersHero(
   if (Array.isArray(rawCtas) && rawCtas.length > 0) {
     ctaText = (rawCtas[0].label as string) || fallback.ctaText;
     ctaLink = (rawCtas[0].url as string) || fallback.ctaLink;
-  } else if (rawCtas && !Array.isArray(rawCtas) && typeof rawCtas === "object") {
+  } else if (rawCtas && typeof rawCtas === "object" && !Array.isArray(rawCtas)) {
     ctaText = (rawCtas.label as string) || fallback.ctaText;
     ctaLink = (rawCtas.url as string) || fallback.ctaLink;
   }
@@ -103,32 +94,22 @@ export function mapCareersCulture(
   fallback = CAREERS_CULTURE_FALLBACK
 ): CareersCultureAccordionProps {
   const title =
-    (whyJoinSection?.title as string) ||
-    (whyJoinSection?.Heading as string) ||
-    (whyJoinSection?.heading as string) ||
-    (careersContent?.title as string) ||
-    fallback.title;
+    (whyJoinSection?.title as string) || (careersContent?.title as string) || fallback.title;
 
-  const rawBody =
-    (whyJoinSection?.body as string) ||
-    (whyJoinSection?.Body as string) ||
-    (whyJoinSection?.description as string) ||
-    (whyJoinSection?.Description as string) ||
-    (careersContent?.body as string);
+  const rawBody = (whyJoinSection?.body as string) || (careersContent?.body as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawPillars = (pillarsSection?.cards || pillarsSection?.Cards || careersContent?.cards) as
-    RawRecord[] | undefined;
+  const rawPillars = (pillarsSection?.cards || careersContent?.cards) as RawRecord[] | undefined;
 
   let pillars: CareersPillar[] = fallback.pillars;
   if (Array.isArray(rawPillars) && rawPillars.length > 0) {
     pillars = rawPillars.map((p) => ({
-      title: (p.title || p.Title || p.heading || "") as string,
-      description: (p.description || p.Description || p.body || "") as string,
-      icon: (p.icon || p.Icon || "") as string | undefined,
+      title: (p.title as string) || "",
+      description: (p.description as string) || (p.body as string) || "",
+      icon: (p.icon as string) || undefined,
     }));
   }
 
@@ -147,21 +128,16 @@ export function mapCareersTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_TESTIMONIALS_FALLBACK
 ): CareersTestimonialsProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
+  const title = (raw?.title as string) || fallback.title;
 
-  const rawCards = (raw?.cards || raw?.Cards || raw?.testimonials) as RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.testimonials) as RawRecord[] | undefined;
 
   let testimonials: CareersEmployeeTestimonial[] = fallback.testimonials;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     testimonials = rawCards.map((c) => ({
-      title: (c.title || c.Title || c.personName || "") as string,
-      badge: (c.badge || c.Badge || c.personDesignation || "") as string,
-      description: (c.description || c.Description || c.personMessage || "") as string,
+      title: (c.title as string) || (c.personName as string) || "",
+      badge: (c.badge as string) || (c.personDesignation as string) || "",
+      description: (c.description as string) || (c.personMessage as string) || "",
     }));
   }
 
@@ -178,44 +154,40 @@ export function mapCareersJobAreas(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_JOB_AREAS_FALLBACK
 ): CareersJobAreasProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const description = isHtml ? undefined : rawBody || fallback.description;
 
-  const rawCards = (raw?.Name || raw?.name || raw?.cards || raw?.Cards || raw?.jobAreas) as
-    RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.Name) as RawRecord[] | undefined;
 
   let jobAreas: CareersJobAreaItem[] = fallback.jobAreas;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     jobAreas = rawCards.map((c) => ({
-      title: (c.ListName || c.listName || c.title || c.Title || "") as string,
+      title: (c.title as string) || (c.ListName as string) || "",
     }));
   }
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image || raw?.Image) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   const imageSrc = rawMedia ? resolveStrapiImage(rawMedia, fallback.imageSrc) : fallback.imageSrc;
 
+  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
   const cta =
-    raw?.ctaLabel && raw?.ctaUrl
+    rawCta?.url && rawCta?.label
       ? {
-          label: raw.ctaLabel as string,
-          url: raw.ctaUrl as string,
+          label: rawCta.label as string,
+          url: rawCta.url as string,
           isExternal: true,
         }
-      : fallback.cta;
+      : raw?.ctaLabel && raw?.ctaUrl
+        ? {
+            label: raw.ctaLabel as string,
+            url: raw.ctaUrl as string,
+            isExternal: true,
+          }
+        : fallback.cta;
 
   return {
     title,
@@ -235,39 +207,25 @@ export function mapCareersBenefits(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_BENEFITS_FALLBACK
 ): CareersBenefitsProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const description = isHtml ? undefined : rawBody || fallback.description;
 
-  const rawCards = (raw?.cards ||
-    raw?.Cards ||
-    raw?.benefits ||
-    raw?.BenefitsCard ||
-    raw?.benefitsCard) as RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.BenefitsCard) as RawRecord[] | undefined;
 
   let benefits: CareersBenefitItem[] = fallback.benefits;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     benefits = rawCards.map((c, index) => {
       const fallbackBenefit = fallback.benefits[index % fallback.benefits.length];
-      const customImg = extractMediaUrl(c.image || c.Image || c.media);
+      const customImg = extractMediaUrl(c.image || c.media);
 
       return {
-        title: (c.title || c.Title || fallbackBenefit.title) as string,
-        description: (c.description || c.Description || fallbackBenefit.description) as string,
-        titleColor: (c.TitleColor || c.titleColor || "#009886") as string | undefined,
+        title: (c.title as string) || fallbackBenefit.title,
+        description: (c.description as string) || fallbackBenefit.description,
+        titleColor: (c.titleColor as string) || "#009886",
         iconSrc: customImg
           ? resolveStrapiImage(customImg, fallbackBenefit.iconSrc)
           : fallbackBenefit.iconSrc,
@@ -291,14 +249,9 @@ export function mapCareersEEO(
   fallback = CAREERS_EEO_FALLBACK
 ): CareersEEOProps {
   const rawBody =
-    (raw?.BottomMessage as string) ||
-    (raw?.bottomMessage as string) ||
-    (raw?.FooterText as string) ||
-    (raw?.footerText as string) ||
     (raw?.body as string) ||
-    (raw?.Body as string) ||
+    (raw?.BottomMessage as string) ||
     (raw?.description as string) ||
-    (raw?.Description as string) ||
     (raw?.statementText as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));

@@ -13,7 +13,7 @@ import type {
   SolutionsSmallCellsProps,
   SolutionsDasProps,
   SolutionsIndustriesProps,
-} from "../../components/ui-component/solutions/type";
+} from "@ui-component/solutions/type";
 
 type RawRecord = Record<string, unknown>;
 
@@ -41,20 +41,11 @@ export function mapSolutionsHero(
   raw?: RawRecord | null,
   fallback = SOLUTIONS_HERO_FALLBACK
 ): SolutionsHeroMappedProps {
-  const heading =
-    (raw?.heroTitle as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
 
-  const intro =
-    (raw?.heroDescription as string) ||
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    fallback.intro;
+  const intro = (raw?.heroDescription as string) || fallback.intro;
 
-  const rawMedia = (raw?.heroMedia || raw?.media || raw?.Media) as unknown;
+  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -66,7 +57,7 @@ export function mapSolutionsHero(
     imageSrc = resolveStrapiImage(rawMedia, fallback.imageSrc);
   }
 
-  const rawCtas = (raw?.heroCtas || raw?.ctas || raw?.cta) as RawRecord[] | undefined;
+  const rawCtas = (raw?.heroCtas || raw?.cta) as RawRecord[] | undefined;
   const ctaText = (rawCtas?.[0]?.label as string) || fallback.ctaText;
   const ctaLink = (rawCtas?.[0]?.url as string) || fallback.ctaLink;
 
@@ -88,34 +79,23 @@ export function mapSolutionsSmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_SMALL_CELLS_FALLBACK
 ): SolutionsSmallCellsProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawStats = (raw?.stats || raw?.Stats || raw?.Statistics || raw?.statistics) as
-    RawRecord[] | undefined;
+  const rawStats = raw?.stats as RawRecord[] | undefined;
   let stats: SolutionStatItem[] = fallback.stats;
   if (Array.isArray(rawStats) && rawStats.length > 0) {
     stats = rawStats.map((s) => ({
-      value: (s.value || s.Number || s.number || "") as string,
-      label: (s.label || s.Label || "") as string,
+      value: (s.value || s.number || "") as string,
+      label: (s.label || "") as string,
     }));
   }
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   let illustrationSrc = fallback.illustrationSrc;
   let illustrationAlt = fallback.illustrationAlt;
 
@@ -144,34 +124,23 @@ export function mapSolutionsDas(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_DAS_FALLBACK
 ): SolutionsDasProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawStats = (raw?.stats || raw?.Stats || raw?.Statistics || raw?.statistics) as
-    RawRecord[] | undefined;
+  const rawStats = raw?.stats as RawRecord[] | undefined;
   let stats: SolutionStatItem[] = fallback.stats;
   if (Array.isArray(rawStats) && rawStats.length > 0) {
     stats = rawStats.map((s) => ({
-      value: (s.value || s.Number || s.number || "") as string,
-      label: (s.label || s.Label || "") as string,
+      value: (s.value || s.number || "") as string,
+      label: (s.label || "") as string,
     }));
   }
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   let illustrationSrc = fallback.illustrationSrc;
   let illustrationAlt = fallback.illustrationAlt;
 
@@ -200,43 +169,24 @@ export function mapSolutionsIndustries(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_INDUSTRIES_FALLBACK
 ): SolutionsIndustriesProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const description = isHtml ? undefined : rawBody || fallback.description;
 
-  const rawCards = (raw?.cards ||
-    raw?.Cards ||
-    raw?.industries ||
-    raw?.Accordian ||
-    raw?.accordian ||
-    raw?.Accordion) as RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.industries) as RawRecord[] | undefined;
 
   let industries: IndustryItem[] = fallback.industries;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     industries = rawCards.map((item, index) => {
-      const itemTitle = (item.title || item.Title || "") as string;
+      const itemTitle = (item.title || "") as string;
       const matchedFallback =
         fallback.industries.find((ind) => ind.title.toLowerCase() === itemTitle.toLowerCase()) ||
         fallback.industries[index % fallback.industries.length];
 
-      const rawImg = (item.image ||
-        item.Image ||
-        item.media ||
-        item.BgImage ||
-        item.bgImage) as unknown;
+      const rawImg = (item.image || item.media) as unknown;
       let bgImage = matchedFallback.bgImage;
       if (Array.isArray(rawImg) && rawImg.length > 0) {
         bgImage = resolveStrapiImage(rawImg[0], matchedFallback.bgImage || "");
@@ -246,9 +196,7 @@ export function mapSolutionsIndustries(
 
       return {
         title: itemTitle || matchedFallback.title,
-        description: (item.description ||
-          item.Description ||
-          matchedFallback.description) as string,
+        description: (item.description || matchedFallback.description) as string,
         theme: matchedFallback.theme,
         bgImage,
         iconKey: matchedFallback.iconKey || itemTitle.toLowerCase().trim(),
@@ -271,33 +219,21 @@ export function mapSolutionsApproach(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_APPROACH_FALLBACK
 ): SolutionsApproachMappedProps {
-  const heading =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.heading;
+  const heading = (raw?.title as string) || fallback.heading;
+  const description = (raw?.body as string) || (raw?.description as string) || fallback.description;
 
-  const description =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string) ||
-    fallback.description;
-
-  const rawCtas = (raw?.cta || raw?.CTA || raw?.ctas) as RawRecord[] | undefined;
+  const rawCtas = (Array.isArray(raw?.cta) ? raw?.cta : [raw?.cta].filter(Boolean)) as
+    RawRecord[] | undefined;
   const buttonText =
     (rawCtas?.[0]?.label as string) ||
     (raw?.ctaLabel as string) ||
     (raw?.buttonText as string) ||
-    (raw?.CtaButton as string) ||
     fallback.buttonText;
 
   const buttonLink =
     (rawCtas?.[0]?.url as string) ||
     (raw?.ctaUrl as string) ||
     (raw?.buttonLink as string) ||
-    (raw?.CtaLink as string) ||
     fallback.buttonLink;
 
   return {

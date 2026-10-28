@@ -6,7 +6,7 @@ import {
   VENUES_FALLBACK,
   WhereFeatureSectionData,
 } from "@data/where-we-build.data";
-import type { WhereFeatureProps } from "../../components/ui-component/where-we-build/type";
+import type { WhereFeatureProps } from "@ui-component/where-we-build/type";
 
 type RawRecord = Record<string, unknown>;
 
@@ -25,20 +25,11 @@ export function mapWhereHero(
   raw?: RawRecord | null,
   fallback = WHERE_HERO_FALLBACK
 ): WhereHeroMappedProps {
-  const heading =
-    (raw?.heroTitle as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
 
-  const intro =
-    (raw?.heroDescription as string) ||
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    fallback.intro;
+  const intro = (raw?.heroDescription as string) || fallback.intro;
 
-  const rawMedia = (raw?.heroMedia || raw?.media || raw?.Media) as unknown;
+  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -66,39 +57,25 @@ export function mapWhereFeatureSection(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback: WhereFeatureSectionData = COMMUNITIES_FALLBACK
 ): WhereFeatureProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
+  const title = (raw?.title as string) || fallback.title;
+  const hasBody = Boolean(raw?.body);
+  const description = (raw?.body as string) || (raw?.description as string) || fallback.description;
 
-  const hasBody = Boolean(raw?.body || raw?.Body);
-  const description =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string) ||
-    fallback.description;
-
-  const rawCta = raw?.cta as RawRecord | undefined;
+  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
   const cta: LinkItem = {
     label:
       (rawCta?.label as string) ||
       (rawCta?.text as string) ||
-      (raw?.CTAText as string) ||
-      (raw?.ctaText as string) ||
       (raw?.ctaLabel as string) ||
       fallback.cta.label,
     url:
       (rawCta?.url as string) ||
       (rawCta?.href as string) ||
-      (raw?.CTAUrl as string) ||
-      (raw?.ctaUrl as string) ||
+      (raw?.ctaLink as string) ||
       fallback.cta.url,
   };
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image || raw?.Image) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   let images: ImageItem[] = fallback.images;
 
   if (Array.isArray(rawMedia) && rawMedia.length > 0) {
@@ -113,7 +90,7 @@ export function mapWhereFeatureSection(
     }
   }
 
-  const bgGradient = (raw?.BgGradient as string) || (raw?.bgGradient as string);
+  const bgGradient = (raw?.bgGradient as string) || undefined;
 
   return {
     title,

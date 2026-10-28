@@ -15,8 +15,8 @@ import type {
   CommunityHowWeWorkProps,
   CommunityTestimonialsProps,
   CommunityFAQProps,
-} from "../../components/ui-component/community/type";
-import type { BenefitCardItem } from "../../components/ui-common/ImageCardGrid";
+} from "@ui-component/community/type";
+import type { BenefitCardItem } from "@ui-common/ImageCardGrid";
 
 type RawRecord = Record<string, unknown>;
 
@@ -41,20 +41,11 @@ export function mapCommunityHero(
   raw?: RawRecord | null,
   fallback = COMMUNITY_HERO_FALLBACK
 ): CommunityHeroMappedProps {
-  const heading =
-    (raw?.heroTitle as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
 
-  const intro =
-    (raw?.heroDescription as string) ||
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    fallback.intro;
+  const intro = (raw?.heroDescription as string) || fallback.intro;
 
-  const rawMedia = (raw?.heroMedia || raw?.media || raw?.Media) as unknown;
+  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -82,24 +73,14 @@ export function mapCommunitySmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_SMALL_CELLS_FALLBACK
 ): CommunitySmallCellsProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   let illustrationSrc = fallback.illustrationSrc;
   let illustrationAlt = fallback.illustrationAlt;
 
@@ -127,16 +108,8 @@ export function mapCommunityBenefits(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_WHY_MATTER_FALLBACK
 ): CommunityBenefitsMappedProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const headingColor = (raw?.HeadingColor as string) || (raw?.headingColor as string) || undefined;
-
-  const rawCards = (raw?.cards || raw?.cardgrid || raw?.Cards) as RawRecord[] | undefined;
+  const title = (raw?.title as string) || fallback.title;
+  const rawCards = (raw?.cards || raw?.cardgrid) as RawRecord[] | undefined;
 
   let cards: BenefitCardItem[] = fallback.cards.map((c: CommunityBenefitCard) => ({
     title: c.title,
@@ -148,18 +121,17 @@ export function mapCommunityBenefits(
     cards = rawCards.map((c, index) => {
       const fallbackCard = fallback.cards[index] || fallback.cards[0];
       return {
-        title: (c.title || c.Title || c.heading || "") as string,
-        description: (c.description || c.Description || c.body || "") as string,
+        title: (c.title as string) || (c.heading as string) || "",
+        description: (c.description as string) || (c.body as string) || "",
         image: resolveStrapiImage(c.image, fallbackCard?.image || "/images/placeholder.png"),
-        titleColor: (c.TitleColor || c.titleColor) as string | undefined,
-        descriptionColor: (c.DescriptionColor || c.descriptionColor) as string | undefined,
+        titleColor: (c.titleColor as string) || undefined,
+        descriptionColor: (c.descriptionColor as string) || undefined,
       };
     });
   }
 
   return {
     title,
-    headingColor,
     cards,
   };
 }
@@ -171,37 +143,22 @@ export function mapCommunityHowWeWork(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_HOW_WE_WORK_FALLBACK
 ): CommunityHowWeWorkProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const title = (raw?.title as string) || fallback.title;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const contentHtml = isHtml ? rawBody : undefined;
   const paragraphs = isHtml ? undefined : fallback.paragraphs;
 
-  const rawMedia = (raw?.media || raw?.Media || raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   const bgImageUrl = rawMedia
     ? resolveStrapiImage(rawMedia, fallback.bgImageUrl)
     : fallback.bgImageUrl;
 
-  const rawCtas = (raw?.ctas || raw?.cta) as RawRecord[] | RawRecord | undefined;
+  const rawCtas = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
   let cta: LinkItem = fallback.cta;
 
-  if (Array.isArray(rawCtas) && rawCtas.length > 0) {
-    cta = {
-      label: (rawCtas[0].label as string) || fallback.cta.label,
-      url: (rawCtas[0].url as string) || fallback.cta.url,
-    };
-  } else if (rawCtas && typeof rawCtas === "object" && !Array.isArray(rawCtas)) {
+  if (rawCtas && typeof rawCtas === "object") {
     cta = {
       label: (rawCtas.label as string) || fallback.cta.label,
       url: (rawCtas.url as string) || fallback.cta.url,
@@ -224,21 +181,16 @@ export function mapCommunityTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_TESTIMONIALS_FALLBACK
 ): CommunityTestimonialsProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
+  const title = (raw?.title as string) || fallback.title;
 
-  const rawCards = (raw?.cards || raw?.Cards || raw?.testimonials) as RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.testimonials) as RawRecord[] | undefined;
 
   let testimonials: CommunityTestimonialItem[] = fallback.testimonials;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     testimonials = rawCards.map((c) => ({
-      title: (c.title || c.Title || c.personName || "") as string,
-      badge: (c.badge || c.Badge || c.personDesignation || "") as string,
-      description: (c.description || c.Description || c.personMessage || "") as string,
+      title: (c.title as string) || (c.personName as string) || "",
+      badge: (c.badge as string) || (c.personDesignation as string) || "",
+      description: (c.description as string) || (c.personMessage as string) || "",
     }));
   }
 
@@ -255,22 +207,16 @@ export function mapCommunityFaqs(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_FAQS_FALLBACK
 ): CommunityFAQProps {
-  const title =
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    fallback.title;
+  const title = (raw?.title as string) || fallback.title;
 
-  const rawCards = (raw?.cards || raw?.Cards || raw?.faqs || raw?.FaqData) as
-    RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.faqs) as RawRecord[] | undefined;
 
   let faqs: FAQItem[] = fallback.faqs;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     faqs = rawCards.map((c, index) => ({
       id: (c.id as number) || index + 1,
-      question: (c.title || c.Title || c.question || "") as string,
-      answer: (c.description || c.Description || c.answer || "") as string,
+      question: (c.title as string) || (c.question as string) || "",
+      answer: (c.description as string) || (c.answer as string) || "",
     }));
   }
 

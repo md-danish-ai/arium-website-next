@@ -168,14 +168,14 @@ body {
   color: var(--color-midnight);
 }
 
-img,
-svg {
-  max-width: 100%;
-  display: block;
-}
-
-/* Base Typography */
+/* Base Elements & Typography */
 @layer base {
+  img,
+  svg {
+    max-width: 100%;
+    display: block;
+  }
+
   a {
     text-decoration: none;
     color: inherit;

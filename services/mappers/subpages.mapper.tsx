@@ -148,24 +148,9 @@ export function mapSubpageHero(
     description: "Subpage Description",
   }
 ): SubpageHeroData {
-  const tag =
-    (pageData?.heroTag as string) ||
-    (pageData?.tag as string) ||
-    (pageData?.Tag as string) ||
-    fallback.tag;
-
-  const title =
-    (pageData?.heroTitle as string) ||
-    (pageData?.title as string) ||
-    (pageData?.Title as string) ||
-    (pageData?.Heading as string) ||
-    fallback.title;
-
-  const description =
-    (pageData?.heroDescription as string) ||
-    (pageData?.description as string) ||
-    (pageData?.Description as string) ||
-    fallback.description;
+  const tag = (pageData?.heroTag as string) || fallback.tag;
+  const title = (pageData?.heroTitle as string) || (pageData?.title as string) || fallback.title;
+  const description = (pageData?.heroDescription as string) || fallback.description;
 
   const rawCtas = pageData?.heroCtas as RawRecord | RawRecord[] | undefined;
   let ctaLabel = fallback.ctaLabel;
@@ -202,35 +187,22 @@ export function mapSubpageProcess(
   }
 ): ProcessSectionProps {
   const title =
-    (section?.process_section_title as string) ||
-    (section?.ProcessSectionTitle as string) ||
     (section?.title as string) ||
-    (section?.Heading as string) ||
-    (section?.heading as string) ||
+    (section?.process_section_title as string) ||
     fallback.title ||
     "Our Process";
 
   const description =
-    (section?.process_section_description as string) ||
-    (section?.ProcessSectionDescription as string) ||
     (section?.body as string) ||
     (section?.description as string) ||
-    (section?.Description as string) ||
+    (section?.process_section_description as string) ||
     fallback.description ||
     "";
 
-  const maxWidthTitle =
-    (section?.MaxWidthTitle as string) ||
-    (section?.maxWidthTitle as string) ||
-    (section?.max_width_title as string) ||
-    fallback.maxWidthTitle;
+  const maxWidthTitle = fallback.maxWidthTitle;
 
-  const rawSteps = (section?.ProcessStep ||
-    section?.process_step ||
-    section?.processSteps ||
-    section?.ProcessSteps ||
-    section?.cards ||
-    section?.Cards) as RawRecord[] | undefined;
+  const rawSteps = (section?.cards || section?.ProcessStep || section?.process_step) as
+    RawRecord[] | undefined;
 
   if (!Array.isArray(rawSteps) || rawSteps.length === 0) {
     const defaultPillars: PillarData[] = (fallback.pillars || []).map((p) => ({
@@ -259,21 +231,13 @@ export function mapSubpageProcess(
 
   const pillars: PillarData[] = rawSteps.map((step, idx) => {
     const fallbackPillar = fallback.pillars?.[idx];
-    const pillarTitle = (step.step_name ||
-      step.Stepname ||
-      step.stepName ||
-      step.title ||
+    const pillarTitle = (step.title ||
+      step.step_name ||
       step.Name ||
       fallbackPillar?.title ||
       `Step ${idx + 1}`) as string;
 
-    const rawCards = (step.ProcessCard ||
-      step.process_card ||
-      step.processCards ||
-      step.ProcessCards ||
-      step.InnerCard ||
-      step.innerCard ||
-      step.cards) as RawRecord[] | undefined;
+    const rawCards = (step.InnerCard || step.ProcessCard || step.cards) as RawRecord[] | undefined;
 
     const innerCards = Array.isArray(rawCards) ? rawCards : [];
 
@@ -285,25 +249,20 @@ export function mapSubpageProcess(
 
     const steps =
       innerCards.length > 0
-        ? innerCards.map((c) => (c.name || c.Name || c.heading || c.title || "") as string)
+        ? innerCards.map((c) => (c.heading || c.title || c.name || "") as string)
         : fallbackPillar?.steps || [];
 
     const timelineItems: TimelineItem[] =
       innerCards.length > 0
         ? innerCards.map((c) => ({
-            label: (c.name || c.Name || c.heading || c.title || "") as string,
-            desc: (c.description || c.Description || c.desc || c.body || "") as string,
-            backgroundColor: (c.background_color ||
-              c.backgroundColor ||
-              c.BackgroundColor ||
-              c.cardfooterBg) as string | undefined,
+            label: (c.heading || c.title || c.name || "") as string,
+            desc: (c.description || c.body || c.desc || "") as string,
+            backgroundColor: (c.backgroundColor || c.background_color) as string | undefined,
           }))
         : fallbackPillar?.timelineItems || [];
 
-    const themeColor = (step.theme_color ||
-      step.ThemeColor ||
-      step.themeColor ||
-      step.Theme ||
+    const themeColor = (step.themeColor ||
+      step.theme_color ||
       timelineItems[0]?.backgroundColor ||
       fallbackPillar?.themeColor ||
       "#FBCBB5") as string;
@@ -338,14 +297,9 @@ export function mapSubpageTestimonials(
     testimonials: [],
   }
 ): SubpageTestimonialsData {
-  const title =
-    (section?.title as string) ||
-    (section?.Heading as string) ||
-    (section?.heading as string) ||
-    fallback.title;
+  const title = (section?.title as string) || fallback.title;
 
-  const rawCards = (section?.cards || section?.Cards || section?.testimonials) as
-    RawRecord[] | undefined;
+  const rawCards = (section?.cards || section?.testimonials) as RawRecord[] | undefined;
 
   if (!Array.isArray(rawCards) || rawCards.length === 0) {
     return {
@@ -358,21 +312,18 @@ export function mapSubpageTestimonials(
     const quote = (card.description ||
       card.quote ||
       card.personMessage ||
-      card.message ||
       fallback.testimonials[idx]?.quote ||
       "") as string;
 
     const author = (card.title ||
       card.author ||
       card.personName ||
-      card.name ||
       fallback.testimonials[idx]?.author ||
       "") as string;
 
     const role = (card.badge ||
       card.role ||
       card.personDesignation ||
-      card.designation ||
       fallback.testimonials[idx]?.role ||
       "") as string;
 
@@ -400,14 +351,10 @@ export function mapSubpageCta(
     buttonLink: "/contact",
   }
 ): SubpageCtaData {
-  const title =
-    (section?.title as string) ||
-    (section?.Heading as string) ||
-    (section?.heading as string) ||
-    fallback.title;
+  const title = (section?.title as string) || fallback.title;
 
-  const rawCtas = (section?.cta || section?.CTA || section?.ctas) as
-    RawRecord | RawRecord[] | undefined;
+  const rawCtas = (Array.isArray(section?.cta) ? section.cta : [section?.cta].filter(Boolean)) as
+    RawRecord[] | undefined;
 
   let buttonText = fallback.buttonText;
   let buttonLink = fallback.buttonLink;
@@ -415,9 +362,6 @@ export function mapSubpageCta(
   if (Array.isArray(rawCtas) && rawCtas.length > 0) {
     if (rawCtas[0].label) buttonText = rawCtas[0].label as string;
     if (rawCtas[0].url) buttonLink = rawCtas[0].url as string;
-  } else if (rawCtas && typeof rawCtas === "object" && !Array.isArray(rawCtas)) {
-    if (rawCtas.label) buttonText = rawCtas.label as string;
-    if (rawCtas.url) buttonLink = rawCtas.url as string;
   }
 
   return {

@@ -18,7 +18,7 @@ import type {
   AboutStatsCardsProps,
   AboutCommitmentsProps,
   AboutCultureProps,
-} from "../../components/ui-component/about/type";
+} from "@ui-component/about/type";
 
 type RawRecord = Record<string, unknown>;
 
@@ -37,20 +37,11 @@ export function mapAboutHero(
   raw?: RawRecord | null,
   fallback = ABOUT_HERO_FALLBACK
 ): AboutHeroMappedProps {
-  const heading =
-    (raw?.heroTitle as string) ||
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    fallback.heading;
+  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
 
-  const intro =
-    (raw?.heroDescription as string) ||
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    fallback.intro;
+  const intro = (raw?.heroDescription as string) || fallback.intro;
 
-  const rawMedia = (raw?.heroMedia || raw?.media || raw?.Media) as unknown;
+  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -78,36 +69,18 @@ export function mapAboutStory(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_STORY_FALLBACK
 ): AboutContentWithSideGraphicProps {
-  const heading =
-    (raw?.heading as string) ||
-    (raw?.Heading as string) ||
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    fallback.heading;
-
-  const rawBody =
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    (raw?.description as string) ||
-    (raw?.Description as string);
+  const heading = (raw?.title as string) || (raw?.heading as string) || fallback.heading;
+  const rawBody = (raw?.body as string) || (raw?.description as string);
 
   const isHtmlBody = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
   const bodyText = rawBody || fallback.paragraphs.join("\n\n");
 
-  const rawMedia = (raw?.media ||
-    raw?.Media ||
-    raw?.image ||
-    raw?.Image ||
-    raw?.Image_right) as unknown;
+  const rawMedia = (raw?.media || raw?.image) as unknown;
   const sideImageSrc = rawMedia
     ? resolveStrapiImage(rawMedia, fallback.sideImageSrc)
     : fallback.sideImageSrc;
 
-  const gradient =
-    (raw?.Gradient as string) ||
-    (raw?.gradient as string) ||
-    (raw?.BgGradient as string) ||
-    fallback.gradient;
+  const gradient = (raw?.gradient as string) || fallback.gradient;
 
   return {
     heading,
@@ -115,8 +88,6 @@ export function mapAboutStory(
     isHtmlBody,
     sideImageSrc,
     gradient,
-    headingColor: (raw?.HeadingColor as string) || (raw?.headingColor as string),
-    descriptionColor: (raw?.DescriptionColor as string) || (raw?.descriptionColor as string),
   };
 }
 
@@ -127,30 +98,18 @@ export function mapAboutJourney(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_JOURNEY_FALLBACK
 ): AboutJourneyProps {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    fallback.heading;
+  const heading = (raw?.title as string) || fallback.heading;
+  const description = (raw?.body as string) || fallback.description;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    fallback.description;
-
-  const rawCards = (raw?.TimeCards || raw?.timeCards || raw?.cards || raw?.cardItem) as
-    RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.TimeCards) as RawRecord[] | undefined;
 
   let timelineItems: AboutTimelineCard[] = fallback.items;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     timelineItems = rawCards.map((c) => ({
-      title: (c.Title || c.title || "") as string,
-      description: (c.Content || c.description || c.body || c.content || "") as string,
-      titleColor: (c.TitleColor || c.titleColor) as string | undefined,
-      badgeText: (c.BadgeText || c.badge || c.badgeText) as string | undefined,
+      title: (c.title as string) || "",
+      description: (c.description as string) || (c.body as string) || "",
+      titleColor: (c.titleColor as string) || undefined,
+      badgeText: (c.badge as string) || (c.badgeText as string) || undefined,
     }));
   }
 
@@ -164,30 +123,18 @@ export function mapAboutStatsCards(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_STATS_FALLBACK
 ): AboutStatsCardsProps {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    fallback.heading;
+  const heading = (raw?.title as string) || fallback.heading;
+  const description = (raw?.body as string) || fallback.description;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    fallback.description;
-
-  const rawCards = (raw?.CradColorful || raw?.cradColorful || raw?.stats || raw?.cards) as
-    RawRecord[] | undefined;
+  const rawCards = (raw?.cards || raw?.stats || raw?.CradColorful) as RawRecord[] | undefined;
 
   let stats: AboutStatPillar[] = fallback.stats;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     stats = rawCards.map((c) => ({
-      title: (c.Title || c.value || c.title || "") as string,
-      description: (c.Description || c.label || c.description || "") as string,
-      badge: (c.Badge || c.badge || "") as string,
-      bgGradient: (c.BgGradient || c.bgGradient) as string | undefined,
+      title: (c.title as string) || (c.value as string) || "",
+      description: (c.description as string) || (c.label as string) || "",
+      badge: (c.badge as string) || "",
+      bgGradient: (c.bgGradient as string) || undefined,
     }));
   }
 
@@ -201,25 +148,10 @@ export function mapAboutCommitments(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_COMMITMENTS_FALLBACK
 ): AboutCommitmentsProps {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    fallback.heading;
+  const heading = (raw?.title as string) || fallback.heading;
+  const description = (raw?.body as string) || fallback.description;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    fallback.description;
-
-  const rawMedia = (raw?.BgImage ||
-    raw?.bgImage ||
-    raw?.media ||
-    raw?.Media ||
-    raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.BgImage) as unknown;
   let heroBannerImg: ImageItem = fallback.heroBannerImg;
 
   if (rawMedia) {
@@ -232,16 +164,17 @@ export function mapAboutCommitments(
     }
   }
 
-  const rawPillars = (raw?.PillarCard || raw?.pillarCard || raw?.cards) as RawRecord[] | undefined;
+  const rawPillars = (raw?.cards || raw?.PillarCard) as RawRecord[] | undefined;
 
   let pillars: CommitmentPillar[] = fallback.pillars;
   if (Array.isArray(rawPillars) && rawPillars.length > 0) {
     pillars = rawPillars.map((p) => ({
-      title: (p.PillarText || p.title || p.heading || "") as string,
-      description: (p.PillarDescription || p.description || p.body || "") as string,
-      barColor: (p.BarColor || p.barColor) as string | undefined,
-      headingColor: p.PillarHeadingColor as string | undefined,
-      bgColorHover: p.PillarBgColorHover as string | undefined,
+      title: (p.title as string) || (p.PillarText as string) || "",
+      description:
+        (p.description as string) || (p.PillarDescription as string) || (p.body as string) || "",
+      barColor: (p.barColor as string) || undefined,
+      headingColor: (p.headingColor as string) || undefined,
+      bgColorHover: (p.bgColorHover as string) || undefined,
     }));
   }
 
@@ -255,38 +188,22 @@ export function mapAboutCulture(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_CULTURE_FALLBACK
 ): AboutCultureProps {
-  const heading =
-    (raw?.Heading as string) ||
-    (raw?.heading as string) ||
-    (raw?.title as string) ||
-    (raw?.Title as string) ||
-    fallback.heading;
+  const heading = (raw?.title as string) || fallback.heading;
+  const description = (raw?.body as string) || fallback.description;
 
-  const description =
-    (raw?.Description as string) ||
-    (raw?.description as string) ||
-    (raw?.body as string) ||
-    (raw?.Body as string) ||
-    "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.";
-
-  const rawPillars = (raw?.Pillarcard || raw?.pillarcard || raw?.Cards || raw?.cards) as
-    RawRecord[] | undefined;
+  const rawPillars = (raw?.cards || raw?.Pillarcard) as RawRecord[] | undefined;
 
   let pillars: CulturePillarItem[] = fallback.pillars;
   if (Array.isArray(rawPillars) && rawPillars.length > 0) {
     pillars = rawPillars.map((p) => ({
-      heading: (p.Heading || p.title || "") as string,
-      description: (p.Description || p.description || "") as string,
-      headingColor: p.HeadingColor as string | undefined,
-      descriptionColor: p.DescriptionColor as string | undefined,
+      heading: (p.title as string) || (p.heading as string) || "",
+      description: (p.description as string) || "",
+      headingColor: (p.headingColor as string) || undefined,
+      descriptionColor: (p.descriptionColor as string) || undefined,
     }));
   }
 
-  const rawMedia = (raw?.BgImage ||
-    raw?.bgImage ||
-    raw?.media ||
-    raw?.Media ||
-    raw?.image) as unknown;
+  const rawMedia = (raw?.media || raw?.BgImage) as unknown;
   let desktopImgUrl = fallback.mediaUrls[1];
   let mobileImgUrl = fallback.mediaUrls[0];
 
@@ -300,18 +217,10 @@ export function mapAboutCulture(
     mobileImgUrl = single;
   }
 
-  const rawCta = (raw?.cta || raw?.CTA) as RawRecord[] | undefined;
+  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
   const cta: LinkItem = {
-    label:
-      (raw?.CtaButton as string) ||
-      (raw?.ctaButton as string) ||
-      (rawCta?.[0]?.label as string) ||
-      fallback.cta.label,
-    url:
-      (raw?.CTALink as string) ||
-      (raw?.ctaLink as string) ||
-      (rawCta?.[0]?.url as string) ||
-      fallback.cta.url,
+    label: (rawCta?.label as string) || (raw?.ctaLabel as string) || fallback.cta.label,
+    url: (rawCta?.url as string) || (raw?.ctaLink as string) || fallback.cta.url,
   };
 
   return {
@@ -321,7 +230,5 @@ export function mapAboutCulture(
     desktopImgUrl,
     mobileImgUrl,
     cta,
-    headingColor: (raw?.HeadingColor as string) || (raw?.headingColor as string),
-    descriptionColor: (raw?.DescriptionColor as string) || (raw?.descriptionColor as string),
   };
 }
