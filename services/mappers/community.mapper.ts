@@ -24,8 +24,8 @@ export interface CommunityHeroMappedProps {
   id: string;
   imageSrc: string;
   imageAlt: string;
-  heading: string;
-  intro: string;
+  title: string;
+  description: string;
 }
 
 export interface CommunityBenefitsMappedProps {
@@ -41,11 +41,11 @@ export function mapCommunityHero(
   raw?: RawRecord | null,
   fallback = COMMUNITY_HERO_FALLBACK
 ): CommunityHeroMappedProps {
-  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
+  const title = (raw?.title as string) || (raw?.heroTitle as string) || fallback.heading;
+  const description =
+    (raw?.description as string) || (raw?.heroDescription as string) || fallback.intro;
 
-  const intro = (raw?.heroDescription as string) || fallback.intro;
-
-  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
+  const rawMedia = (raw?.media || raw?.heroMedia) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -61,8 +61,8 @@ export function mapCommunityHero(
     id: "community-hero",
     imageSrc,
     imageAlt,
-    heading,
-    intro,
+    title,
+    description,
   };
 }
 

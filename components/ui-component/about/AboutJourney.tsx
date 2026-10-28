@@ -3,30 +3,11 @@ import { Typography } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import { AboutJourneyProps } from "./type";
 
-const ACCENT_STYLES = [
-  {
-    text: "!text-[#009E94]",
-    hoverText: "group-hover:!text-[#00e8d9]",
-    dotBg: "bg-[#009E94]",
-  },
-  {
-    text: "!text-[#7B6AB8]",
-    hoverText: "group-hover:!text-[#c0b3ff]",
-    dotBg: "bg-[#7B6AB8]",
-  },
-  {
-    text: "!text-[#C48E68]",
-    hoverText: "group-hover:!text-[#ffdac8]",
-    dotBg: "bg-[#C48E68]",
-  },
-  {
-    text: "!text-[#009E94]",
-    hoverText: "group-hover:!text-[#00e8d9]",
-    dotBg: "bg-[#009E94]",
-  },
-];
-
-export default function AboutJourney({ heading, description, timelineItems }: AboutJourneyProps) {
+export default function AboutJourney({
+  title,
+  description,
+  TimeLineCards = [],
+}: AboutJourneyProps) {
   return (
     <section
       id="shared-journey"
@@ -42,24 +23,18 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
             weight="light"
             className="section-title reveal stagger-1 text-midnight m-0 mb-0"
           >
-            {heading}
+            {title}
           </Typography>
 
-          {description &&
-            (description.includes("<") && description.includes(">") ? (
-              <div
-                className="section-description reveal stagger-2 strapi-richtext-body max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 leading-relaxed [&>p]:mb-0"
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
-            ) : (
-              <Typography
-                variant="b1"
-                as="p"
-                className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
-              >
-                {description}
-              </Typography>
-            ))}
+          {description && (
+            <Typography
+              variant="b1"
+              as="p"
+              className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 md:mt-5 text-midnight/80 m-0"
+            >
+              {description}
+            </Typography>
+          )}
         </div>
 
         {/* Timeline */}
@@ -82,63 +57,58 @@ export default function AboutJourney({ heading, description, timelineItems }: Ab
 
           {/* Milestone items */}
           <div className="flex flex-col gap-9 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-4 xl:gap-6 relative z-[2] lg:[&:hover>div]:opacity-40 lg:[&>div:hover]:!opacity-100">
-            {timelineItems.map((item, index) => {
-              const accent = ACCENT_STYLES[index % ACCENT_STYLES.length];
-              const itemTitle = item.title;
-              const itemDesc = item.description;
-              const itemBadge = item.badgeText;
+            {TimeLineCards.map((item, index) => (
+              <div
+                key={item.id ?? index}
+                className="group relative flex flex-col items-start text-left pl-8 md:pl-6 p-0 md:p-6 lg:p-5 rounded-2xl bg-transparent md:bg-white/70 border-0 md:border md:border-[#162047]/[0.08] shadow-none md:shadow-sm lg:bg-transparent lg:border-transparent lg:shadow-none lg:hover:bg-[#1a254b] lg:hover:bg-gradient-to-br lg:hover:from-[#1e2d5c] lg:hover:to-[#182350] lg:hover:border-white/10 lg:hover:shadow-[0_8px_28px_-6px_rgba(13,18,36,0.35)] transition-all duration-300 cursor-default"
+              >
+                {/* Mobile milestone bullet dot (< md) */}
+                <span
+                  className="md:hidden absolute left-0 top-[6px] w-3 h-3 rounded-full border-2 border-white shadow-[0_0_0_1px_rgba(22,32,71,0.08)] z-10"
+                  style={{ backgroundColor: item.title_color }}
+                  aria-hidden="true"
+                />
 
-              return (
-                <div
-                  key={index}
-                  className="group relative flex flex-col items-start text-left pl-8 md:pl-6 p-0 md:p-6 lg:p-5 rounded-2xl bg-transparent md:bg-white/70 border-0 md:border md:border-[#162047]/[0.08] shadow-none md:shadow-sm lg:bg-transparent lg:border-transparent lg:shadow-none lg:hover:bg-[#1a254b] lg:hover:bg-gradient-to-br lg:hover:from-[#1e2d5c] lg:hover:to-[#182350] lg:hover:border-white/10 lg:hover:shadow-[0_8px_28px_-6px_rgba(13,18,36,0.35)] transition-all duration-300 cursor-default"
-                >
-                  {/* Mobile milestone bullet dot (< md) */}
-                  <span
-                    className={`md:hidden absolute left-0 top-[6px] w-3 h-3 rounded-full border-2 border-white shadow-[0_0_0_1px_rgba(22,32,71,0.08)] z-10 ${accent.dotBg}`}
-                    aria-hidden="true"
-                  />
-
-                  {/* Year & Badge Header */}
-                  <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2">
-                    <Typography
-                      variant="h5"
-                      as="span"
-                      uppercase
-                      weight="extrabold"
-                      className={`tracking-[0.06em] m-0 mb-0 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1 block ${accent.text} ${accent.hoverText}`}
-                    >
-                      {itemTitle}
-                    </Typography>
-
-                    {itemBadge && (
-                      <Typography
-                        as="span"
-                        variant="b4"
-                        uppercase
-                        weight="bold"
-                        className="whitespace-nowrap inline-flex items-center gap-1.5 leading-none bg-[#daf3f2] text-[#009e94] px-2 py-1 rounded-full tracking-[0.06em] align-middle lg:group-hover:!bg-[#00e8d9]/25 lg:group-hover:!text-[#00e8d9] transition-all duration-300 -translate-y-0.5"
-                      >
-                        <span
-                          className="w-1.5 h-1.5 rounded-full bg-[#009e94] lg:group-hover:!bg-[#00e8d9] shrink-0 inline-block transition-colors duration-300"
-                          aria-hidden="true"
-                        />
-                        {itemBadge}
-                      </Typography>
-                    )}
-                  </div>
-
-                  {/* Description */}
+                {/* Year & Badge Header */}
+                <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2">
                   <Typography
-                    variant="b3"
-                    as="p"
-                    className="text-[#162047]/80 lg:group-hover:!text-white transition-all duration-300 lg:pt-5 lg:group-hover:-translate-y-1 m-0 leading-relaxed"
+                    variant="h5"
+                    as="span"
+                    uppercase
+                    weight="extrabold"
+                    style={{ color: item.title_color }}
+                    className="tracking-[0.06em] m-0 mb-0 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1 block"
                   >
-                    {itemDesc}
+                    {item.title}
                   </Typography>
+
+                  {item.badge_text && (
+                    <Typography
+                      as="span"
+                      variant="b4"
+                      uppercase
+                      weight="bold"
+                      className="whitespace-nowrap inline-flex items-center gap-1.5 leading-none bg-[#daf3f2] text-[#009e94] px-2 py-1 rounded-full tracking-[0.06em] align-middle lg:group-hover:!bg-[#00e8d9]/25 lg:group-hover:!text-[#00e8d9] transition-all duration-300 -translate-y-0.5"
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full bg-[#009e94] lg:group-hover:!bg-[#00e8d9] shrink-0 inline-block transition-colors duration-300"
+                        aria-hidden="true"
+                      />
+                      {item.badge_text}
+                    </Typography>
+                  )}
                 </div>
-              );
-            })}
+
+                {/* Description */}
+                <Typography
+                  variant="b3"
+                  as="p"
+                  className="text-[#162047]/80 lg:group-hover:!text-white transition-all duration-300 lg:pt-5 lg:group-hover:-translate-y-1 m-0 leading-relaxed"
+                >
+                  {item.description}
+                </Typography>
+              </div>
+            ))}
           </div>
         </div>
       </Container>

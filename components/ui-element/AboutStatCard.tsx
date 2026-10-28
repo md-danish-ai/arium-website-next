@@ -8,10 +8,12 @@ export interface AboutStatCardProps {
   suffix?: string;
   description: string;
   badge?: string;
+  background_color?: string;
   cardBg?: string;
   glowBg?: string;
   barBg?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function AboutStatCard({
@@ -21,18 +23,25 @@ export default function AboutStatCard({
   suffix,
   description,
   badge,
+  background_color,
   cardBg = "",
   glowBg = "",
   barBg = "",
   className = "",
+  style,
 }: AboutStatCardProps) {
   const displayTitle = targetStr ?? title ?? "0";
   const num = targetNum ?? (parseFloat(displayTitle) || 0);
   const suf = suffix ?? displayTitle.replace(num.toString(), "").trim();
 
+  const backgroundStyle = background_color
+    ? { background: background_color.replace(" !important", ""), ...style }
+    : style;
+
   return (
     <div
       className={`relative px-5 py-5 sm:px-7 sm:py-6 md:p-8 lg:p-10 rounded-3xl md:rounded-[28px] flex flex-row items-center gap-4 sm:gap-6 md:flex-col md:items-start md:justify-between border border-black/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] md:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden hover:-translate-y-1 hover:shadow-xl ${cardBg} ${className}`}
+      style={backgroundStyle}
     >
       {/* Radial Glow Decoration */}
       <div

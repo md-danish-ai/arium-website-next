@@ -1,5 +1,5 @@
-import type { StrapiSectionItem, ImageItem, LinkItem } from "@types";
-import { resolveStrapiImage, extractMediaUrl, GetStrapiMediaUrl } from "@utils";
+import type { StrapiSectionItem } from "@types";
+import { resolveStrapiImage } from "@utils";
 import {
   ABOUT_HERO_FALLBACK,
   ABOUT_STORY_FALLBACK,
@@ -7,12 +7,13 @@ import {
   ABOUT_STATS_FALLBACK,
   ABOUT_COMMITMENTS_FALLBACK,
   ABOUT_CULTURE_FALLBACK,
-  AboutTimelineCard,
-  AboutStatPillar,
-  CommitmentPillar,
-  CulturePillarItem,
+  TimeLineCard,
+  StatCardItem,
+  CommitmentCardItem,
+  PillarCardItem,
 } from "@data/about.data";
 import type {
+  AboutHeroProps,
   AboutContentWithSideGraphicProps,
   AboutJourneyProps,
   AboutStatsCardsProps,
@@ -22,213 +23,223 @@ import type {
 
 type RawRecord = Record<string, unknown>;
 
-export interface AboutHeroMappedProps {
-  id: string;
-  imageSrc: string;
-  imageAlt: string;
-  heading: string;
-  intro: string;
-}
-
 /**
- * 1. About Hero Mapper
+ * 1. About Hero Mapper (shared.test-banner - Position 0)
+ * Canonical keys: title, description, media, CTA_text, CTA_url, max_width_title, max_width_description, object_position, tag
  */
 export function mapAboutHero(
   raw?: RawRecord | null,
   fallback = ABOUT_HERO_FALLBACK
-): AboutHeroMappedProps {
-  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
-
-  const intro = (raw?.heroDescription as string) || fallback.intro;
-
-  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
-  let imageSrc = fallback.imageSrc;
-  let imageAlt = fallback.imageAlt;
-
-  if (Array.isArray(rawMedia) && rawMedia.length > 0) {
-    const first = rawMedia[0] as RawRecord;
-    imageSrc = resolveStrapiImage(first, fallback.imageSrc);
-    imageAlt = (first.alternativeText as string) || fallback.imageAlt;
-  } else if (rawMedia) {
-    imageSrc = resolveStrapiImage(rawMedia, fallback.imageSrc);
-  }
+): AboutHeroProps {
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
+  const media = raw?.media ? resolveStrapiImage(raw.media, fallback.media) : fallback.media;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
+  const max_width_title = (raw?.max_width_title as string) || fallback.max_width_title;
+  const max_width_description =
+    (raw?.max_width_description as string) || fallback.max_width_description;
+  const object_position = (raw?.object_position as string) || fallback.object_position;
+  const tag = (raw?.tag as string) || fallback.tag;
 
   return {
-    id: "about-hero",
-    imageSrc,
-    imageAlt,
-    heading,
-    intro,
+    title,
+    description,
+    media,
+    CTA_text,
+    CTA_url,
+    max_width_title,
+    max_width_description,
+    object_position,
+    tag,
   };
 }
 
 /**
- * 2. About Story (Content With Side Graphic) Mapper
+ * 2. About Story (Content With Side Graphic) Mapper (shared.content-with-side-graphic - Position 1)
+ * Canonical keys: title, title_color, description, description_color, background_color, image
  */
 export function mapAboutStory(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_STORY_FALLBACK
 ): AboutContentWithSideGraphicProps {
-  const heading = (raw?.title as string) || (raw?.heading as string) || fallback.heading;
-  const rawBody = (raw?.body as string) || (raw?.description as string);
-
-  const isHtmlBody = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
-  const bodyText = rawBody || fallback.paragraphs.join("\n\n");
-
-  const rawMedia = (raw?.media || raw?.image) as unknown;
-  const sideImageSrc = rawMedia
-    ? resolveStrapiImage(rawMedia, fallback.sideImageSrc)
-    : fallback.sideImageSrc;
-
-  const gradient = (raw?.gradient as string) || fallback.gradient;
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color = (raw?.description_color as string) || fallback.description_color;
+  const background_color = (raw?.background_color as string) || fallback.background_color;
+  const image = raw?.image ? resolveStrapiImage(raw.image, fallback.image) : fallback.image;
 
   return {
-    heading,
-    bodyText,
-    isHtmlBody,
-    sideImageSrc,
-    gradient,
+    title,
+    title_color,
+    description,
+    description_color,
+    background_color,
+    image,
   };
 }
 
 /**
- * 3. About Journey (Timeline) Mapper
+ * 3. About Journey (Timeline) Mapper (shared.timeline - Position 2, SubSection 0)
+ * Canonical keys: title, description, TimeLineCards
  */
 export function mapAboutJourney(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_JOURNEY_FALLBACK
 ): AboutJourneyProps {
-  const heading = (raw?.title as string) || fallback.heading;
-  const description = (raw?.body as string) || fallback.description;
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
 
-  const rawCards = (raw?.cards || raw?.TimeCards) as RawRecord[] | undefined;
+  const rawCards = raw?.TimeLineCards as RawRecord[] | undefined;
+  const TimeLineCards: TimeLineCard[] =
+    Array.isArray(rawCards) && rawCards.length > 0
+      ? rawCards.map((c, i) => {
+          const fb = fallback.TimeLineCards[i % fallback.TimeLineCards.length];
+          return {
+            id: (c.id as string | number) ?? i,
+            title: (c.title as string) || fb?.title,
+            title_color: (c.title_color as string) || fb?.title_color,
+            badge_text: (c.badge_text as string) || fb?.badge_text,
+            description: (c.description as string) || fb?.description,
+          };
+        })
+      : fallback.TimeLineCards;
 
-  let timelineItems: AboutTimelineCard[] = fallback.items;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    timelineItems = rawCards.map((c) => ({
-      title: (c.title as string) || "",
-      description: (c.description as string) || (c.body as string) || "",
-      titleColor: (c.titleColor as string) || undefined,
-      badgeText: (c.badge as string) || (c.badgeText as string) || undefined,
-    }));
-  }
-
-  return { heading, description, timelineItems };
+  return {
+    title,
+    description,
+    TimeLineCards,
+  };
 }
 
 /**
- * 4. About Stats Cards (Why Our Infrastructure Matters) Mapper
+ * 4. About Stats Cards (Why Our Infrastructure Matters) Mapper (shared.stats-cards - Position 2, SubSection 1)
+ * Canonical keys: title, description, Cards
  */
 export function mapAboutStatsCards(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_STATS_FALLBACK
 ): AboutStatsCardsProps {
-  const heading = (raw?.title as string) || fallback.heading;
-  const description = (raw?.body as string) || fallback.description;
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
 
-  const rawCards = (raw?.cards || raw?.stats || raw?.CradColorful) as RawRecord[] | undefined;
+  const rawCards = raw?.Cards as RawRecord[] | undefined;
+  const Cards: StatCardItem[] =
+    Array.isArray(rawCards) && rawCards.length > 0
+      ? rawCards.map((c, i) => {
+          const fb = fallback.Cards[i % fallback.Cards.length];
+          return {
+            id: (c.id as string | number) ?? i,
+            title: (c.title as string) || fb?.title,
+            description: (c.description as string) || fb?.description,
+            badge: (c.badge as string) || fb?.badge,
+            background_color: (c.background_color as string) || fb?.background_color,
+          };
+        })
+      : fallback.Cards;
 
-  let stats: AboutStatPillar[] = fallback.stats;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    stats = rawCards.map((c) => ({
-      title: (c.title as string) || (c.value as string) || "",
-      description: (c.description as string) || (c.label as string) || "",
-      badge: (c.badge as string) || "",
-      bgGradient: (c.bgGradient as string) || undefined,
-    }));
-  }
-
-  return { heading, description, stats };
+  return {
+    title,
+    description,
+    Cards,
+  };
 }
 
 /**
- * 5. About Commitments Mapper
+ * 5. About Commitments Mapper (shared.commitments - Position 2, SubSection 2)
+ * Canonical keys: title, description, background_overlay, pillars_description, background_image, CommitmentCards
  */
 export function mapAboutCommitments(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_COMMITMENTS_FALLBACK
 ): AboutCommitmentsProps {
-  const heading = (raw?.title as string) || fallback.heading;
-  const description = (raw?.body as string) || fallback.description;
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
+  const background_overlay =
+    (raw?.background_overlay as string) ||
+    (raw?.background_overaly as string) ||
+    fallback.background_overlay;
+  const pillars_description = (raw?.pillars_description as string) || fallback.pillars_description;
 
-  const rawMedia = (raw?.media || raw?.BgImage) as unknown;
-  let heroBannerImg: ImageItem = fallback.heroBannerImg;
+  const background_image = raw?.background_image
+    ? resolveStrapiImage(raw.background_image, fallback.background_image)
+    : fallback.background_image;
 
-  if (rawMedia) {
-    const extracted = extractMediaUrl(rawMedia);
-    if (extracted) {
-      heroBannerImg = {
-        src: GetStrapiMediaUrl(extracted),
-        alt: heading || fallback.heroBannerImg.alt,
-      };
-    }
-  }
+  const rawCards = raw?.CommitmentCards as RawRecord[] | undefined;
+  const CommitmentCards: CommitmentCardItem[] =
+    Array.isArray(rawCards) && rawCards.length > 0
+      ? rawCards.map((c, i) => {
+          const fb = fallback.CommitmentCards[i % fallback.CommitmentCards.length];
+          return {
+            id: (c.id as string | number) ?? i,
+            title: (c.title as string) || fb?.title,
+            description: (c.description as string) || fb?.description,
+            bar_color: (c.bar_color as string) || fb?.bar_color,
+          };
+        })
+      : fallback.CommitmentCards;
 
-  const rawPillars = (raw?.cards || raw?.PillarCard) as RawRecord[] | undefined;
-
-  let pillars: CommitmentPillar[] = fallback.pillars;
-  if (Array.isArray(rawPillars) && rawPillars.length > 0) {
-    pillars = rawPillars.map((p) => ({
-      title: (p.title as string) || (p.PillarText as string) || "",
-      description:
-        (p.description as string) || (p.PillarDescription as string) || (p.body as string) || "",
-      barColor: (p.barColor as string) || undefined,
-      headingColor: (p.headingColor as string) || undefined,
-      bgColorHover: (p.bgColorHover as string) || undefined,
-    }));
-  }
-
-  return { heading, description, heroBannerImg, pillars };
+  return {
+    title,
+    description,
+    background_overlay,
+    pillars_description,
+    background_image,
+    CommitmentCards,
+  };
 }
 
 /**
- * 6. About Culture Mapper
+ * 6. About Culture / Pillars Mapper (shared.pillar-highlights - Position 3)
+ * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
+ * background_color, background_image_desktop, background_image_mobile, PillarCards
  */
 export function mapAboutCulture(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_CULTURE_FALLBACK
 ): AboutCultureProps {
-  const heading = (raw?.title as string) || fallback.heading;
-  const description = (raw?.body as string) || fallback.description;
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = (raw?.title_color as string) || fallback.title_color;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color = (raw?.description_color as string) || fallback.description_color;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
+  const background_color = (raw?.background_color as string) || fallback.background_color;
 
-  const rawPillars = (raw?.cards || raw?.Pillarcard) as RawRecord[] | undefined;
+  const background_image_desktop = raw?.background_image_desktop
+    ? resolveStrapiImage(raw.background_image_desktop, fallback.background_image_desktop)
+    : fallback.background_image_desktop;
 
-  let pillars: CulturePillarItem[] = fallback.pillars;
-  if (Array.isArray(rawPillars) && rawPillars.length > 0) {
-    pillars = rawPillars.map((p) => ({
-      heading: (p.title as string) || (p.heading as string) || "",
-      description: (p.description as string) || "",
-      headingColor: (p.headingColor as string) || undefined,
-      descriptionColor: (p.descriptionColor as string) || undefined,
-    }));
-  }
+  const background_image_mobile = raw?.background_image_mobile
+    ? resolveStrapiImage(raw.background_image_mobile, fallback.background_image_mobile)
+    : fallback.background_image_mobile;
 
-  const rawMedia = (raw?.media || raw?.BgImage) as unknown;
-  let desktopImgUrl = fallback.mediaUrls[1];
-  let mobileImgUrl = fallback.mediaUrls[0];
-
-  if (Array.isArray(rawMedia) && rawMedia.length > 0) {
-    mobileImgUrl = resolveStrapiImage(rawMedia[0], fallback.mediaUrls[0]);
-    desktopImgUrl =
-      rawMedia.length > 1 ? resolveStrapiImage(rawMedia[1], fallback.mediaUrls[1]) : mobileImgUrl;
-  } else if (rawMedia) {
-    const single = resolveStrapiImage(rawMedia, fallback.mediaUrls[1]);
-    desktopImgUrl = single;
-    mobileImgUrl = single;
-  }
-
-  const rawCta = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
-  const cta: LinkItem = {
-    label: (rawCta?.label as string) || (raw?.ctaLabel as string) || fallback.cta.label,
-    url: (rawCta?.url as string) || (raw?.ctaLink as string) || fallback.cta.url,
-  };
+  const rawCards = raw?.PillarCards as RawRecord[] | undefined;
+  const PillarCards: PillarCardItem[] =
+    Array.isArray(rawCards) && rawCards.length > 0
+      ? rawCards.map((p, i) => {
+          const fb = fallback.PillarCards[i % fallback.PillarCards.length];
+          return {
+            id: (p.id as string | number) ?? i,
+            title: (p.title as string) || fb?.title,
+            description: (p.description as string) || fb?.description,
+            title_color: (p.title_color as string) || fb?.title_color,
+            description_color: (p.description_color as string) || fb?.description_color,
+          };
+        })
+      : fallback.PillarCards;
 
   return {
-    heading,
+    title,
+    title_color,
     description,
-    pillars,
-    desktopImgUrl,
-    mobileImgUrl,
-    cta,
+    description_color,
+    CTA_text,
+    CTA_url,
+    background_color,
+    background_image_desktop,
+    background_image_mobile,
+    PillarCards,
   };
 }

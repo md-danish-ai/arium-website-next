@@ -57,8 +57,8 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
           id={`${slug}-hero`}
           imageSrc={heroImgUrl}
           imageAlt={pageContent?.heroTitle || slug}
-          heading={pageContent?.heroTitle || ""}
-          intro={pageContent?.heroDescription || ""}
+          title={pageContent?.heroTitle || ""}
+          description={pageContent?.heroDescription || ""}
         />
       ),
     },

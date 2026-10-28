@@ -1,103 +1,81 @@
 import type {
-  ImageItem,
-  LinkItem,
-  StrapiMediaLike,
-  StrapiMediaItem,
-  StrapiPageData,
-  StrapiWidget,
-  SectionEntry,
-} from "@types";
-import type {
-  AboutTimelineCard,
-  AboutStatPillar,
-  CommitmentPillar,
-  CulturePillarItem,
+  TimeLineCard,
+  StatCardItem,
+  CommitmentCardItem,
+  PillarCardItem,
 } from "@data/about.data";
 
-// Re-exports for backward compatibility
-export type { StrapiMediaLike, StrapiMediaItem };
-export type { AboutTimelineCard, AboutStatPillar, CommitmentPillar, CulturePillarItem };
-export type AboutPageContent = StrapiPageData;
-export type AboutWidget = StrapiWidget;
-export type AboutSectionEntry = SectionEntry;
+export type { TimeLineCard, StatCardItem, CommitmentCardItem, PillarCardItem };
 
-export interface AboutSeoFields {
-  metaTitle?: string;
-  metaDescription?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  ogType?: string;
-  ogSiteName?: string;
-  ogImage?: {
-    url?: string;
-  };
-  preventIndexing?: boolean;
-}
-
-export interface AboutSection {
-  key?: string;
+/**
+ * 1. Hero Banner Props (shared.test-banner - Position 0)
+ */
+export interface AboutHeroProps {
   title?: string;
-  body?: string;
-  media?: StrapiMediaLike;
-  cards?: Record<string, unknown>[];
-  cardItem?: Record<string, unknown>[];
-  stats?: Record<string, unknown>[];
-  cta?: { label?: string; url?: string }[];
-  __component?: string;
-  [key: string]: unknown;
+  description?: string;
+  media?: string;
+  CTA_text?: string | null;
+  CTA_url?: string | null;
+  max_width_title?: string | null;
+  max_width_description?: string | null;
+  object_position?: string | null;
+  tag?: string | null;
 }
 
 /**
- * 1. AboutContentWithSideGraphic Props
+ * 2. AboutContentWithSideGraphic Props (shared.content-with-side-graphic - Position 1)
  */
 export interface AboutContentWithSideGraphicProps {
-  heading: string;
-  bodyText: string;
-  isHtmlBody?: boolean;
-  sideImageSrc?: string;
-  gradient?: string;
-  headingColor?: string;
-  descriptionColor?: string;
+  title: string;
+  title_color?: string;
+  description: string;
+  description_color?: string;
+  background_color?: string;
+  image?: string;
 }
 
 /**
- * 2. AboutJourney Props
+ * 3. AboutJourney Props (shared.timeline - Position 2, SubSection 0)
  */
 export interface AboutJourneyProps {
-  heading: string;
+  title: string;
   description?: string;
-  timelineItems: AboutTimelineCard[];
+  TimeLineCards: TimeLineCard[];
 }
 
 /**
- * 3. AboutStatsCards Props
+ * 4. AboutStatsCards Props (shared.stats-cards - Position 2, SubSection 1)
  */
 export interface AboutStatsCardsProps {
-  heading: string;
+  title: string;
   description?: string;
-  stats: AboutStatPillar[];
+  Cards: StatCardItem[];
 }
 
 /**
- * 4. AboutCommitments Props
+ * 5. AboutCommitments Props (shared.commitments - Position 2, SubSection 2)
  */
 export interface AboutCommitmentsProps {
-  heading: string;
+  title: string;
   description?: string;
-  heroBannerImg: ImageItem;
-  pillars: CommitmentPillar[];
+  background_overlay?: string;
+  pillars_description?: string;
+  background_image?: string;
+  CommitmentCards: CommitmentCardItem[];
 }
 
 /**
- * 5. AboutCulture Props
+ * 6. AboutCulture Props (shared.pillar-highlights - Position 3)
  */
 export interface AboutCultureProps {
-  heading: string;
+  title: string;
+  title_color?: string;
   description?: string;
-  pillars: CulturePillarItem[];
-  desktopImgUrl: string;
-  mobileImgUrl: string;
-  cta: LinkItem;
-  headingColor?: string;
-  descriptionColor?: string;
+  description_color?: string;
+  CTA_text?: string;
+  CTA_url?: string;
+  background_color?: string;
+  background_image_desktop?: string;
+  background_image_mobile?: string;
+  PillarCards: PillarCardItem[];
 }

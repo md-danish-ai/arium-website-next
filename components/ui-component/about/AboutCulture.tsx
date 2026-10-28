@@ -3,34 +3,30 @@ import { GradientImageSplit } from "@ui-common";
 import { AboutCultureProps } from "./type";
 
 export default function AboutCulture({
-  heading,
+  title,
+  title_color,
   description,
-  pillars,
-  desktopImgUrl,
-  mobileImgUrl,
-  cta,
-  headingColor,
-  descriptionColor,
+  description_color,
+  CTA_text,
+  CTA_url,
+  background_color,
+  background_image_desktop,
+  background_image_mobile,
+  PillarCards = [],
 }: AboutCultureProps) {
-  const pointers = pillars.map((p) => ({
-    heading: p.heading,
-    description: p.description,
-    headingColor: p.headingColor,
-    descriptionColor: p.descriptionColor,
-  }));
-
   return (
     <GradientImageSplit
       id="culture"
-      heading={heading}
+      title={title}
+      title_color={title_color}
       description={description}
-      desktopImageUrl={desktopImgUrl}
-      mobileImageUrl={mobileImgUrl}
-      pointers={pointers}
-      ctaText={cta.label}
-      ctaUrl={cta.url}
-      headingColor={headingColor}
-      descriptionTextColor={descriptionColor}
+      description_color={description_color}
+      CTA_text={CTA_text}
+      CTA_url={CTA_url}
+      background_image_desktop={background_image_desktop}
+      background_image_mobile={background_image_mobile}
+      SectionPointers={PillarCards}
+      style={background_color ? { background: background_color } : undefined}
     />
   );
 }

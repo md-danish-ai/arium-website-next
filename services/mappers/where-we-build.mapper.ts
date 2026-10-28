@@ -14,8 +14,8 @@ export interface WhereHeroMappedProps {
   id: string;
   imageSrc: string;
   imageAlt: string;
-  heading: string;
-  intro: string;
+  title: string;
+  description: string;
 }
 
 /**
@@ -25,11 +25,11 @@ export function mapWhereHero(
   raw?: RawRecord | null,
   fallback = WHERE_HERO_FALLBACK
 ): WhereHeroMappedProps {
-  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
+  const title = (raw?.title as string) || (raw?.heroTitle as string) || fallback.heading;
+  const description =
+    (raw?.description as string) || (raw?.heroDescription as string) || fallback.intro;
 
-  const intro = (raw?.heroDescription as string) || fallback.intro;
-
-  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
+  const rawMedia = (raw?.media || raw?.heroMedia) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -45,8 +45,8 @@ export function mapWhereHero(
     id: "where-hero",
     imageSrc,
     imageAlt,
-    heading,
-    intro,
+    title,
+    description,
   };
 }
 

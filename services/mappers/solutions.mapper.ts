@@ -21,8 +21,8 @@ export interface SolutionsHeroMappedProps {
   id: string;
   imageSrc: string;
   imageAlt: string;
-  heading: string;
-  intro: string;
+  title: string;
+  description: string;
   ctaText?: string;
   ctaLink?: string;
 }
@@ -41,11 +41,11 @@ export function mapSolutionsHero(
   raw?: RawRecord | null,
   fallback = SOLUTIONS_HERO_FALLBACK
 ): SolutionsHeroMappedProps {
-  const heading = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heading;
+  const title = (raw?.title as string) || (raw?.heroTitle as string) || fallback.heading;
+  const description =
+    (raw?.description as string) || (raw?.heroDescription as string) || fallback.intro;
 
-  const intro = (raw?.heroDescription as string) || fallback.intro;
-
-  const rawMedia = (raw?.heroMedia || raw?.media) as unknown;
+  const rawMedia = (raw?.media || raw?.heroMedia) as unknown;
   let imageSrc = fallback.imageSrc;
   let imageAlt = fallback.imageAlt;
 
@@ -65,8 +65,8 @@ export function mapSolutionsHero(
     id: "solutions-hero",
     imageSrc,
     imageAlt,
-    heading,
-    intro,
+    title,
+    description,
     ctaText,
     ctaLink,
   };

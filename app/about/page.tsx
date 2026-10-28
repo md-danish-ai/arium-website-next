@@ -56,7 +56,20 @@ export default async function AboutPage() {
       pos: 0,
       key: "hero-fallback",
       skip: hasHeroWidget,
-      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+      el: (
+        <HeroBanner
+          key="hero-fallback"
+          id="about-hero"
+          title={heroProps.title}
+          description={heroProps.description}
+          imageSrc={heroProps.media}
+          ctaText={heroProps.CTA_text || undefined}
+          ctaLink={heroProps.CTA_url || undefined}
+          maxWidthTitle={heroProps.max_width_title || undefined}
+          maxWidthDescription={heroProps.max_width_description || undefined}
+          objectPosition={heroProps.object_position || undefined}
+        />
+      ),
     },
     {
       pos: 1,
