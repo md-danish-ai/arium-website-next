@@ -45,18 +45,18 @@ export default function AboutContentWithSideGraphic({
             style={description_color ? { color: description_color } : undefined}
           >
             {description
-              ? description.split("\n\n").map((para, i) => (
-                  <Typography variant="b1" as="p" className="m-0" key={i}>
-                    {para}
-                  </Typography>
-                ))
+              ? description.split("\n\n").map((paragraph, i) => (
+                <Typography variant="b1" as="p" className="m-0" key={i}>
+                  {paragraph}
+                </Typography>
+              ))
               : null}
           </div>
         </div>
       </Container>
 
       {/* Single Image: Bottom on mobile/tablet (<1024px), Side on desktop (>=1024px) */}
-      <div className="relative z-[1] w-full mt-6 sm:mt-8 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:right-2 xl:right-10 lg:top-1/2 lg:h-[88%] lg:-translate-y-1/2 pointer-events-none">
+      <div className="relative z-[1] w-full mt-6 sm:mt-8 overflow-hidden lg:mt-0 lg:w-auto lg:overflow-visible lg:absolute lg:-right-8 lg:top-1/2 lg:h-[100%] lg:translate-x-1/2 lg:-translate-y-1/2 lg:-scale-x-100 pointer-events-none">
         {image && (
           <Image
             src={image}
