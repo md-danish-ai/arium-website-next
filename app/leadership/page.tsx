@@ -36,11 +36,7 @@ export default async function LeadershipPage() {
 
   const heroProps = mapInnerHero(leadershipContent, LEADERSHIP_HERO_FALLBACK);
 
-  const teamSection =
-    getSection("Leaders") ||
-    getSection("Leadership Team") ||
-    getSection("Executive Team") ||
-    getSection("Leadership");
+  const teamSection = getSection("Leaders");
   const members = mapPeopleMembers(teamSection, LEADERSHIP_MEMBERS_FALLBACK);
 
   const ctaSection = getSection("Explore Careers");

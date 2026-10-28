@@ -34,14 +34,10 @@ export default async function BoardOfDirectorsPage() {
 
   const heroProps = mapInnerHero(boardContent, BOARD_HERO_FALLBACK);
 
-  const directorsSection =
-    getSection("Directors") ||
-    getSection("Board of Directors") ||
-    getSection("Board Members") ||
-    getSection("Board");
+  const directorsSection = getSection("Directors");
   const members = mapPeopleMembers(directorsSection, BOARD_MEMBERS_FALLBACK);
 
-  const ctaSection = getSection("Leadership Meet") || getSection("CTA") || getSection("Leadership");
+  const ctaSection = getSection("Leadership Meet");
   const ctaProps = mapPeopleCta(ctaSection, BOARD_CTA_FALLBACK);
 
   const hasInnerHeroWidget = globalWidgets.some((w) =>

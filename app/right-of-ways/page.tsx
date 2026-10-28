@@ -44,13 +44,13 @@ export default async function RightOfWayPage() {
 
   const heroProps = mapSubpageHero(rightOfWayContent, ROW_HERO_FALLBACK);
 
-  const processSection = getSection("Structured process") || getSection("Process");
+  const processSection = getSection("Structured process");
   const processProps = mapSubpageProcess(processSection, ROW_PROCESS_FALLBACK);
 
-  const feedbackSection = getSection("Feedback") || getSection("Testimonials");
+  const feedbackSection = getSection("Feedback");
   const testimonialsProps = mapSubpageTestimonials(feedbackSection, ROW_TESTIMONIALS_FALLBACK);
 
-  const contactSection = getSection("Contact Us") || getSection("CTA");
+  const contactSection = getSection("Contact Us");
   const ctaProps = mapSubpageCta(contactSection, ROW_CTA_FALLBACK);
 
   const hasInnerHeroWidget = globalWidgets.some((w) =>

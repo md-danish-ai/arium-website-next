@@ -44,17 +44,13 @@ export default async function PrivateVenuesPage() {
 
   const heroProps = mapSubpageHero(privateVenuesContent, PV_HERO_FALLBACK);
 
-  const processSection =
-    getSection("Service delivery process") ||
-    getSection("Structured process") ||
-    getSection("Process");
+  const processSection = getSection("Service delivery process");
   const processProps = mapSubpageProcess(processSection, PV_PROCESS_FALLBACK);
 
-  const testimonialsSection =
-    getSection("Venue operators") || getSection("Feedback") || getSection("Testimonials");
+  const testimonialsSection = getSection("Venue operators");
   const testimonialsProps = mapSubpageTestimonials(testimonialsSection, PV_TESTIMONIALS_FALLBACK);
 
-  const contactSection = getSection("Contact Us") || getSection("CTA");
+  const contactSection = getSection("Contact Us");
   const ctaProps = mapSubpageCta(contactSection, PV_CTA_FALLBACK);
 
   const hasInnerHeroWidget = globalWidgets.some((w) =>
