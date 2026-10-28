@@ -19,23 +19,29 @@ export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrand
       aria-label="Arium Networks"
       className="inline-block no-underline shrink-0 text-center min-[601px]:text-left mx-auto min-[601px]:mx-0"
     >
-      {finalDesktopLogo && finalMobileLogo ? (
-        <>
+      {/* Desktop Logo */}
+      <span className="hidden min-[601px]:block">
+        {finalDesktopLogo ? (
           <span
             dangerouslySetInnerHTML={{ __html: finalDesktopLogo }}
-            className="hidden min-[601px]:block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
+            className="inline-block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
           />
+        ) : (
+          <FooterDesktopLogoSvg />
+        )}
+      </span>
+
+      {/* Mobile Logo */}
+      <span className="block min-[601px]:hidden">
+        {finalMobileLogo ? (
           <span
             dangerouslySetInnerHTML={{ __html: finalMobileLogo }}
-            className="block min-[601px]:hidden [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
+            className="inline-block [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
           />
-        </>
-      ) : (
-        <>
-          <FooterDesktopLogoSvg />
+        ) : (
           <FooterMobileLogoSvg />
-        </>
-      )}
+        )}
+      </span>
     </Link>
   );
 }
