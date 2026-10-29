@@ -1,11 +1,7 @@
-import type {
-  TimeLineCard,
-  StatCardItem,
-  CommitmentCardItem,
-  PillarCardItem,
-} from "@data/about.data";
+import type { TimelineCardItem, StatCardItem, CommitmentCardItem } from "@data/about.data";
+import type { ImageGradientSplitProps } from "@ui-common";
 
-export type { TimeLineCard, StatCardItem, CommitmentCardItem, PillarCardItem };
+export type { TimelineCardItem, StatCardItem, CommitmentCardItem };
 
 /**
  * 1. Hero Banner Props (widget.hero-banner - Position 0)
@@ -13,12 +9,12 @@ export type { TimeLineCard, StatCardItem, CommitmentCardItem, PillarCardItem };
 export interface AboutHeroProps {
   title?: string;
   description?: string;
-  media?: string;
+  background_image?: string;
+  background_image_position?: string | null;
   CTA_text?: string | null;
   CTA_url?: string | null;
   max_width_title?: string | null;
   max_width_description?: string | null;
-  object_position?: string | null;
   tag?: string | null;
 }
 
@@ -40,7 +36,7 @@ export interface AboutContentWithSideGraphicProps {
 export interface AboutJourneyProps {
   title: string;
   description?: string;
-  TimeLineCards: TimeLineCard[];
+  timeline_cards: TimelineCardItem[];
 }
 
 /**
@@ -49,7 +45,7 @@ export interface AboutJourneyProps {
 export interface AboutStatsCardsProps {
   title: string;
   description?: string;
-  Cards: StatCardItem[];
+  cards: StatCardItem[];
 }
 
 /**
@@ -59,10 +55,12 @@ export interface AboutCommitmentsProps {
   title: string;
   description?: string;
   background_overlay?: string;
-  pillars_description?: string;
+  commitment_statement?: string;
   background_image?: string;
-  CommitmentCards: CommitmentCardItem[];
+  commitment_cards: CommitmentCardItem[];
 }
 
-import type { ImageGradientSplitProps } from "@ui-common";
+/**
+ * 6. AboutCulture Props (widget.image-gradient-split - Position 3)
+ */
 export type AboutCultureProps = ImageGradientSplitProps;

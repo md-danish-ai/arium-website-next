@@ -9,9 +9,9 @@ export default function AboutCommitments({
   title,
   description,
   background_overlay,
-  pillars_description,
+  commitment_statement,
   background_image,
-  CommitmentCards = [],
+  commitment_cards = [],
 }: AboutCommitmentsProps) {
   return (
     <section
@@ -93,20 +93,20 @@ export default function AboutCommitments({
 
         {/* Commitment Pillars Section */}
         <div className="reveal stagger-2 w-full">
-          {pillars_description && (
+          {commitment_statement && (
             <Typography
               variant="b1"
               as="p"
               className="text-center text-midnight/80 mb-10 sm:mb-12 md:mb-16 max-w-[960px] mx-auto m-0 leading-relaxed"
             >
-              {pillars_description}
+              {commitment_statement}
             </Typography>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-14 xl:gap-16 max-w-6xl mx-auto">
-            {CommitmentCards.map((pillar, index) => {
+            {commitment_cards.map((pillar, index) => {
               const defaultBarClass = DEFAULT_BAR_BG_CLASSES[index % DEFAULT_BAR_BG_CLASSES.length];
-              const customBarColor = pillar.bar_color;
+              const customBarColor = pillar.top_line_color;
 
               return (
                 <div

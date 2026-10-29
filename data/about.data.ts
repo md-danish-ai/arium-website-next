@@ -1,14 +1,16 @@
-export interface TimeLineCard {
+import type { SectionPointerItem } from "@ui-common";
+
+export interface TimelineCardItem {
   id?: number | string;
-  title: string;
-  title_color?: string;
+  year_range: string;
+  year_range_color?: string;
   badge_text?: string;
   description: string;
 }
 
 export interface StatCardItem {
   id?: number | string;
-  title: string;
+  stats: string;
   description: string;
   badge?: string;
   background_color?: string;
@@ -18,15 +20,7 @@ export interface CommitmentCardItem {
   id?: number | string;
   title: string;
   description: string;
-  bar_color?: string;
-}
-
-export interface PillarCardItem {
-  id?: number | string;
-  title: string;
-  description: string;
-  title_color?: string;
-  description_color?: string;
+  top_line_color?: string;
 }
 
 /**
@@ -36,12 +30,12 @@ export const ABOUT_HERO_FALLBACK = {
   title: "Building a more connected future",
   description:
     "We're working across the country to build the infrastructure that powers your most important connections.",
-  media: "/images/heroes/about.png",
+  background_image: "/images/heroes/about.png",
+  background_image_position: "center top",
   CTA_text: null,
   CTA_url: null,
   max_width_title: "970px",
   max_width_description: null,
-  object_position: "center top",
   tag: null,
 };
 
@@ -65,39 +59,39 @@ export const ABOUT_STORY_FALLBACK = {
 export const ABOUT_JOURNEY_FALLBACK: {
   title: string;
   description?: string;
-  TimeLineCards: TimeLineCard[];
+  timeline_cards: TimelineCardItem[];
 } = {
   title: "A small cell leader from the beginning",
   description:
     "We've been building small cell and DAS networks since the technology's inception, giving us a deep expertise that is embedded throughout our organization.",
-  TimeLineCards: [
+  timeline_cards: [
     {
       id: 1,
-      title: "2010-2011",
-      title_color: "#009E94",
+      year_range: "2010-2011",
+      year_range_color: "#009E94",
       badge_text: undefined,
       description:
         "Acquisition of NewPath and NextG establishes early leadership in DAS and small cell infrastructure.",
     },
     {
       id: 2,
-      title: "2011-2020",
-      title_color: "#7B6AB8",
+      year_range: "2011-2020",
+      year_range_color: "#7B6AB8",
       badge_text: undefined,
       description:
         "Platform expansion and operational integration across thousands of deployed nodes.",
     },
     {
       id: 3,
-      title: "2020-2022",
-      title_color: "#C48E68",
+      year_range: "2020-2022",
+      year_range_color: "#C48E68",
       badge_text: undefined,
       description: "Long-term carrier commitments add 50,000 small cells over five years.",
     },
     {
       id: 4,
-      title: "2026",
-      title_color: "#009E94",
+      year_range: "2026",
+      year_range_color: "#009E94",
       badge_text: "Live",
       description: "Formation of Arium Networks with 100K+ small cells on-air or under contract.",
     },
@@ -110,28 +104,28 @@ export const ABOUT_JOURNEY_FALLBACK: {
 export const ABOUT_STATS_FALLBACK: {
   title: string;
   description?: string;
-  Cards: StatCardItem[];
+  cards: StatCardItem[];
 } = {
   title: "Why our infrastructure matters",
   description: undefined,
-  Cards: [
+  cards: [
     {
       id: 1,
-      title: "39 B",
+      stats: "39 B",
       description: "Expected number of IoT devices by 2030",
       badge: "IoT Analytics, 2025",
       background_color: "linear-gradient(145deg, #e6faf8 0%, #d0f5f1 40%, #c2f0eb 100%) !important",
     },
     {
       id: 2,
-      title: "21 GB",
+      stats: "21 GB",
       description: "Average monthly mobile data consumption per capita",
       badge: "Ericsson, 2025",
       background_color: "linear-gradient(145deg, #eeeafc 0%, #e2dbf8 40%, #d8d0f4 100%) !important",
     },
     {
       id: 3,
-      title: "89 %",
+      stats: "89 %",
       description: "Expected share of 5G mobile connections in North America by 2030",
       badge: "GSMA, 2025",
       background_color: "linear-gradient(145deg, #fef3e8 0%, #fce9d5 40%, #f9e0c8 100%) !important",
@@ -146,44 +140,44 @@ export const ABOUT_COMMITMENTS_FALLBACK: {
   title: string;
   description?: string;
   background_overlay: string;
-  pillars_description: string;
+  commitment_statement: string;
   background_image: string;
-  CommitmentCards: CommitmentCardItem[];
+  commitment_cards: CommitmentCardItem[];
 } = {
   title: "Our Commitments to Our Customers",
   description:
     "As part of EQT's Active Core Infrastructure fund, we have the support and financial capacity to invest with conviction. As opposed to many other private equity backed companies, we do not have any timeframe for liquidity, so we can invest and operate for the long term.",
   background_overlay: "linear-gradient(90deg, #101830eb 0%, #10183099 30%, #1018301a 60%)",
-  pillars_description:
+  commitment_statement:
     "We are guided by a clear set of commitments that shape how we partner and deliver value:\n\n",
   background_image: "/images/backgrounds/commitments.png",
-  CommitmentCards: [
+  commitment_cards: [
     {
       id: 1,
       title: "We are customer-first",
       description:
         "We put customers at the center of every decision, delivering value through innovation, investment, and purpose-build network solutions.",
-      bar_color: "#00b4a0",
+      top_line_color: "#00b4a0",
     },
     {
       id: 2,
       title: "We are nimble and ready to invest",
       description:
         "We operate with speed and flexibility, putting capital to work where it can drive the most impact.",
-      bar_color: "#d4882e",
+      top_line_color: "#d4882e",
     },
     {
       id: 3,
       title: "We are built for the long haul",
       description:
         "We're committed to long-term ownership and lasting partnerships, investing in the infrastructure that will power the future of connectivity.",
-      bar_color: "#7c5cbf",
+      top_line_color: "#7c5cbf",
     },
   ],
 };
 
 /**
- * Widget 3: About Pillars / Culture Fallback (widget.culture - Position 3)
+ * Widget 3: About Pillars / Image Gradient Split Fallback (widget.image-gradient-split - Position 3)
  */
 export const ABOUT_CULTURE_FALLBACK: {
   title: string;
@@ -192,10 +186,9 @@ export const ABOUT_CULTURE_FALLBACK: {
   description_color?: string;
   CTA_text: string;
   CTA_url: string;
-  background_color: string;
   background_image_desktop: string;
   background_image_mobile: string;
-  PillarCards: PillarCardItem[];
+  section_pointers: SectionPointerItem[];
 } = {
   title: "Help Us Shape the Future of Connectivity",
   title_color: "#ffffff",
@@ -204,33 +197,31 @@ export const ABOUT_CULTURE_FALLBACK: {
   description_color: undefined,
   CTA_text: "Explore Careers",
   CTA_url: "/careers",
-  background_color:
-    "linear-gradient(to right, #0a1628eb 0%, #0a1628d9 60%, #0a162899 85%, #0000 100%)",
   background_image_desktop: "/images/backgrounds/culture.jpg",
   background_image_mobile: "/images/backgrounds/culture-mobile.jpg",
-  PillarCards: [
+  section_pointers: [
     {
       id: 1,
       title: "Leadership",
+      title_color: "#00e8d9",
       description:
         "We're trusted leaders in the industry and we value people who want to help us move fast, make a difference, and solve difficult challenges.",
-      title_color: "#00e8d9",
       description_color: undefined,
     },
     {
       id: 2,
       title: "Passion",
+      title_color: "#00e8d9",
       description:
         "Our team cares deeply about the businesses and communities we serve. They understand that what we do makes a true difference in people's lives.",
-      title_color: "#00e8d9",
       description_color: undefined,
     },
     {
       id: 3,
       title: "Optimism",
+      title_color: "#00e8d9",
       description:
         "Our team believes in the transformative power of wireless technology and is excited to play a meaningful role in ushering in a new generation of innovation.",
-      title_color: "#00e8d9",
       description_color: undefined,
     },
   ],

@@ -3,7 +3,7 @@ import { Typography, AboutStatCard } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import { AboutStatsCardsProps } from "./type";
 
-export default function AboutStatsCards({ title, description, Cards = [] }: AboutStatsCardsProps) {
+export default function AboutStatsCards({ title, description, cards = [] }: AboutStatsCardsProps) {
   return (
     <section className="bg-white py-14 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden z-[2]">
       <Container className="relative z-[2]">
@@ -31,10 +31,10 @@ export default function AboutStatsCards({ title, description, Cards = [] }: Abou
 
         {/* Cards Grid: 1 col on mobile (< 768px), 3 cols on tablet/desktop (>= 768px) */}
         <div className="grid grid-cols-1 w-full max-w-[520px] mx-auto md:max-w-none md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 items-stretch reveal stagger-1">
-          {Cards.map((item, index) => (
+          {cards.map((item, index) => (
             <AboutStatCard
               key={item.id ?? index}
-              title={item.title}
+              stats={item.stats}
               description={item.description}
               badge={item.badge}
               background_color={item.background_color}

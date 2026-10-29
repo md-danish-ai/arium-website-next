@@ -63,12 +63,12 @@ export default async function AboutPage() {
           id="about-hero"
           title={heroProps.title}
           description={heroProps.description}
-          imageSrc={heroProps.media}
+          imageSrc={heroProps.background_image}
           ctaText={heroProps.CTA_text || undefined}
           ctaLink={heroProps.CTA_url || undefined}
           maxWidthTitle={heroProps.max_width_title || undefined}
           maxWidthDescription={heroProps.max_width_description || undefined}
-          objectPosition={heroProps.object_position || undefined}
+          objectPosition={heroProps.background_image_position || undefined}
         />
       ),
     },

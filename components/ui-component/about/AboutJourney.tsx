@@ -6,7 +6,7 @@ import { AboutJourneyProps } from "./type";
 export default function AboutJourney({
   title,
   description,
-  TimeLineCards = [],
+  timeline_cards = [],
 }: AboutJourneyProps) {
   return (
     <section
@@ -57,7 +57,7 @@ export default function AboutJourney({
 
           {/* Milestone items */}
           <div className="flex flex-col gap-9 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 lg:gap-4 xl:gap-6 relative z-[2] lg:[&:hover>div]:opacity-40 lg:[&>div:hover]:!opacity-100">
-            {TimeLineCards.map((item, index) => (
+            {timeline_cards.map((item, index) => (
               <div
                 key={item.id ?? index}
                 className="group relative flex flex-col items-start text-left pl-8 md:pl-6 p-0 md:p-6 lg:p-5 rounded-2xl bg-transparent md:bg-white/70 border-0 md:border md:border-[#162047]/[0.08] shadow-none md:shadow-sm lg:bg-transparent lg:border-transparent lg:shadow-none lg:hover:bg-[#1a254b] lg:hover:bg-gradient-to-br lg:hover:from-[#1e2d5c] lg:hover:to-[#182350] lg:hover:border-white/10 lg:hover:shadow-[0_8px_28px_-6px_rgba(13,18,36,0.35)] transition-all duration-300 cursor-default"
@@ -65,7 +65,7 @@ export default function AboutJourney({
                 {/* Mobile milestone bullet dot (< md) */}
                 <span
                   className="md:hidden absolute left-0 top-[6px] w-3 h-3 rounded-full border-2 border-white shadow-[0_0_0_1px_rgba(22,32,71,0.08)] z-10"
-                  style={{ backgroundColor: item.title_color }}
+                  style={{ backgroundColor: item.year_range_color }}
                   aria-hidden="true"
                 />
 
@@ -76,10 +76,10 @@ export default function AboutJourney({
                     as="span"
                     uppercase
                     weight="extrabold"
-                    style={{ color: item.title_color }}
+                    style={{ color: item.year_range_color }}
                     className="tracking-[0.06em] m-0 mb-0 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1 block"
                   >
-                    {item.title}
+                    {item.year_range}
                   </Typography>
 
                   {item.badge_text && (
