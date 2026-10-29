@@ -1,6 +1,7 @@
 export { default as HeroBannerRenderer } from "./HeroBannerRenderer";
 export { default as SubPageHeroRenderer } from "./SubPageHeroRenderer";
-export { default as GlobeCTARenderer } from "./GlobeCTARenderer";
+export { default as SubPageCTARenderer } from "./SubPageCTARenderer";
+
 export { default as CenteredImageCTARenderer } from "./CenteredImageCTARenderer";
 export { default as CtaWithGraphicRenderer } from "./CtaWithGraphicRenderer";
 export { default as ProcessRenderer } from "./ProcessRenderer";

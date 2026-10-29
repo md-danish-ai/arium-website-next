@@ -3,7 +3,7 @@ import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import { resolveStrapiImage } from "@utils";
 
-export interface GlobeCTAProps {
+export interface SubPageCTAProps {
   prompt_to_cta?: string;
   CTA_text?: string;
   CTA_url?: string;
@@ -11,13 +11,13 @@ export interface GlobeCTAProps {
   globe_illustration?: unknown;
 }
 
-export default function GlobeCTA({
+export default function SubPageCTA({
   prompt_to_cta = "",
   CTA_text = "",
   CTA_url = "#",
   background_gradient,
   globe_illustration,
-}: GlobeCTAProps) {
+}: SubPageCTAProps) {
   const displayBg =
     background_gradient ||
     "linear-gradient(135deg, rgb(255, 255, 202) 0%, rgb(255, 248, 225) 40%, rgb(255, 218, 200) 100%)";

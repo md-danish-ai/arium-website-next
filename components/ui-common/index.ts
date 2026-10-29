@@ -1,7 +1,8 @@
 export { default as AccordionSplit } from "./AccordionSplit";
 export { default as CenteredImageCTA } from "./CenteredImageCTA";
 export { default as CtaWithGraphic } from "./CtaWithGraphic";
-export { default as GlobeCTA } from "./GlobeCTA";
+export { default as SubPageCTA } from "./SubPageCTA";
+export type { SubPageCTAProps } from "./SubPageCTA";
 export { default as ImageGradientSplit } from "./ImageGradientSplit";
 export { default as GradientImageSplit } from "./ImageGradientSplit";
 export type {

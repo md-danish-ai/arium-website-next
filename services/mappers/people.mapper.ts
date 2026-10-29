@@ -20,7 +20,7 @@ export interface SubPageHeroMappedProps {
   content_max_width?: string | null;
 }
 
-export interface GlobeCtaMappedProps {
+export interface SubPageCtaMappedProps {
   prompt_to_cta: string;
   CTA_text: string;
   CTA_url: string;
@@ -125,13 +125,14 @@ export function mapPeopleMembers(
 }
 
 /**
- * 3. Globe CTA Mapper (used by Leadership and Board of Directors)
+ * 3. Sub Page CTA Mapper (used by Leadership, Board of Directors, etc.)
  */
-export function mapPeopleCta(
+export function mapSubPageCta(
   source?: StrapiSectionItem | RawRecord | null,
   fallbackCta = LEADERSHIP_CTA_FALLBACK
-): GlobeCtaMappedProps {
-  const prompt_to_cta = (source?.prompt_to_cta as string) || fallbackCta.prompt_to_cta;
+): SubPageCtaMappedProps {
+  const prompt_to_cta =
+    (source?.prompt_to_cta as string) || (source?.title as string) || fallbackCta.prompt_to_cta;
 
   let CTA_text = (source?.CTA_text as string) || null;
   let CTA_url = (source?.CTA_url as string) || null;

@@ -10,9 +10,12 @@ export const BOARD_HERO_FALLBACK = {
   CTA_text: null,
   CTA_url: null,
   background_gradient:
-    "linear-gradient(135deg, rgb(184, 169, 240) 0%, rgb(210, 199, 255) 40%, rgb(196, 181, 247) 70%, rgb(221, 213, 255) 100%)",
+    "linear-gradient(135deg, #F5C4AC 0%, #FFDAC8 40%, #FFD0B8 70%, #FFE5D8 100%)",
   content_max_width: "960px",
 };
+
+export const BOARD_SECTION_BACKGROUND =
+  "linear-gradient(180deg, #FFF0E8 0%, #FFF5EF 50%, #FFFAF7 100%)";
 
 export const BOARD_MEMBERS_FALLBACK: PeopleMemberItem[] = [
   {

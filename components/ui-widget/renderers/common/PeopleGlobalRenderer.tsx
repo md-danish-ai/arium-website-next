@@ -6,5 +6,12 @@ import { SectionRendererProps } from "../../helper";
 
 export default function PeopleGlobalRenderer({ section, index }: SectionRendererProps) {
   const members = mapPeopleMembers(section, LEADERSHIP_MEMBERS_FALLBACK);
-  return <PeopleGlobalSection key={`people-${index}`} members={members} />;
+  const background_gradient = (section?.background_gradient as string) || undefined;
+  return (
+    <PeopleGlobalSection
+      key={`people-${index}`}
+      members={members}
+      background_gradient={background_gradient}
+    />
+  );
 }

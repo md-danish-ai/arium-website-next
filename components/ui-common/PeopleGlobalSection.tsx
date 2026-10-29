@@ -10,9 +10,13 @@ export type { PeopleMemberItem };
 
 export interface PeopleGlobalSectionProps {
   members?: PeopleMemberItem[];
+  background_gradient?: string;
 }
 
-export default function PeopleGlobalSection({ members = [] }: PeopleGlobalSectionProps) {
+export default function PeopleGlobalSection({
+  members = [],
+  background_gradient = "linear-gradient(180deg, #EDE9FF 0%, #F3F0FF 50%, #F8F7FF 100%)",
+}: PeopleGlobalSectionProps) {
   const [activeLeader, setActiveLeader] = useState<PeopleMemberItem | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -78,7 +82,7 @@ export default function PeopleGlobalSection({ members = [] }: PeopleGlobalSectio
 
   return (
     <>
-      <section className="relative bg-gradient-to-b from-[#EDE9FF] via-[#F3F0FF] to-[#F8F7FF] pt-[60px] pb-24">
+      <section className="relative pt-[60px] pb-24" style={{ background: background_gradient }}>
         <Container>
           <div className="max-w-[1200px] mx-auto -mt-32 sm:-mt-36 md:-mt-44 lg:-mt-44 relative z-[2]">
             <div className="flex flex-wrap justify-center gap-6">

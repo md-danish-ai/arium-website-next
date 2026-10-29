@@ -1,15 +1,16 @@
 import React from "react";
 import type { Metadata } from "next";
-import { SubPageHeroBanner, PeopleGlobalSection, GlobeCTA } from "@ui-common";
+import { SubPageHeroBanner, PeopleGlobalSection, SubPageCTA } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
-import { mapSubPageHero, mapPeopleMembers, mapPeopleCta } from "@services/mappers/people.mapper";
+import { mapSubPageHero, mapPeopleMembers, mapSubPageCta } from "@services/mappers/people.mapper";
 import {
   LEADERSHIP_HERO_FALLBACK,
   LEADERSHIP_MEMBERS_FALLBACK,
   LEADERSHIP_CTA_FALLBACK,
   LEADERSHIP_SEO_FALLBACK,
+  LEADERSHIP_SECTION_BACKGROUND,
 } from "@data/leadership.data";
 
 export const dynamic = "force-dynamic";
@@ -40,7 +41,7 @@ export default async function LeadershipPage() {
   const members = mapPeopleMembers(teamSection, LEADERSHIP_MEMBERS_FALLBACK);
 
   const ctaSection = getSection("Explore Careers");
-  const ctaProps = mapPeopleCta(ctaSection, LEADERSHIP_CTA_FALLBACK);
+  const ctaProps = mapSubPageCta(ctaSection, LEADERSHIP_CTA_FALLBACK);
 
   const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 
@@ -55,13 +56,19 @@ export default async function LeadershipPage() {
       pos: 1,
       key: "people-global-section",
       skip: hasWidgetComponent(globalWidgets, "people-global-section"),
-      el: <PeopleGlobalSection key="people-global-section" members={members} />,
+      el: (
+        <PeopleGlobalSection
+          key="people-global-section"
+          members={members}
+          background_gradient={LEADERSHIP_SECTION_BACKGROUND}
+        />
+      ),
     },
     {
       pos: 99,
       key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
-      el: <GlobeCTA key="global-cta" {...ctaProps} />,
+      el: <SubPageCTA key="global-cta" {...ctaProps} />,
     },
   ];
 

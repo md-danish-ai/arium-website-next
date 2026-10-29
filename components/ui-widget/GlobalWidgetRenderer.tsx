@@ -121,7 +121,14 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
 
         if (group.type === "people-group") {
           const members = mapPeopleMembers(group.items.map((i) => i.section));
-          return <PeopleGlobalSection key={`people-group-${groupIndex}`} members={members} />;
+          const bg = (group.items[0]?.section?.background_gradient as string) || undefined;
+          return (
+            <PeopleGlobalSection
+              key={`people-group-${groupIndex}`}
+              members={members}
+              background_gradient={bg}
+            />
+          );
         }
 
         return renderNode(group.section, group.index);

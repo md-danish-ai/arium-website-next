@@ -51,7 +51,7 @@ import {
 import {
   HeroBannerRenderer,
   SubPageHeroRenderer,
-  GlobeCTARenderer,
+  SubPageCTARenderer,
   CenteredImageCTARenderer,
   CtaWithGraphicRenderer,
   ProcessRenderer,
@@ -116,7 +116,8 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   "widget.test-banner": HeroBannerRenderer,
   "widget.sub-page-hero": SubPageHeroRenderer,
   "widget.inner-page-hero": SubPageHeroRenderer,
-  "widget.global-cta": GlobeCTARenderer,
+  "widget.global-cta": SubPageCTARenderer,
+  "widget.sub-page-cta": SubPageCTARenderer,
   "widget.process": ProcessRenderer,
   "widget.people-global-section": PeopleGlobalRenderer,
   "widget.illustration-split": IllustrationSplitRenderer,

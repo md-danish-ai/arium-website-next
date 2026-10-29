@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import RightOfWayHero from "@ui-component/where-we-build/RightOfWayHero";
 import RightOfWayTestimonials from "@ui-component/where-we-build/RightOfWayTestimonials";
-import { ProcessSection, GlobeCTA } from "@ui-common";
+import { ProcessSection, SubPageCTA } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -83,7 +83,7 @@ export default async function RightOfWayPage() {
       key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
       el: (
-        <GlobeCTA
+        <SubPageCTA
           key="global-cta"
           prompt_to_cta={ctaProps.title}
           CTA_text={ctaProps.buttonText}

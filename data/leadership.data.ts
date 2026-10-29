@@ -17,6 +17,9 @@ export const LEADERSHIP_HERO_FALLBACK = {
   content_max_width: "960px",
 };
 
+export const LEADERSHIP_SECTION_BACKGROUND =
+  "linear-gradient(180deg, #EDE9FF 0%, #F3F0FF 50%, #F8F7FF 100%)";
+
 export const LEADERSHIP_MEMBERS_FALLBACK: PeopleMemberItem[] = [
   {
     name: 'Laurent "LT" Therivel',
