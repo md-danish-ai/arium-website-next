@@ -29,9 +29,9 @@ export default function DetailedCard({
 }: DetailedCardProps) {
   const cleanSvg = svgCode
     ? svgCode
-      .replace(/style="[^"]*stroke-dashoffset[^"]*"/gi, "")
-      .replace(/style="[^"]*stroke-dasharray[^"]*"/gi, "")
-      .replace(/data-done="1"/gi, "")
+        .replace(/style="[^"]*stroke-dashoffset[^"]*"/gi, "")
+        .replace(/style="[^"]*stroke-dasharray[^"]*"/gi, "")
+        .replace(/data-done="1"/gi, "")
     : "";
 
   return (

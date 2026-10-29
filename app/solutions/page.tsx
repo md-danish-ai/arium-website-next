@@ -56,7 +56,7 @@ export default async function SolutionsPage() {
     {
       pos: 1,
       key: "solutions-flow-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
+      skip: hasWidgetComponent(globalWidgets, "illustration-split"),
       el: (
         <div
           key="solutions-flow-fallback"
@@ -73,13 +73,13 @@ export default async function SolutionsPage() {
       key: "industries-fallback",
       skip:
         globalWidgets.some((w) => w.PositionNumber === 3) ||
-        hasWidgetComponent(globalWidgets, ["industry", "industries"]),
+        hasWidgetComponent(globalWidgets, "industry"),
       el: <SolutionsIndustries key="industries-fallback" {...industriesProps} />,
     },
     {
       pos: 99,
       key: "cta-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["cta"]),
+      skip: hasWidgetComponent(globalWidgets, "global-cta"),
       el: <GlobeCTA key="cta-fallback" {...approachProps} />,
     },
   ];

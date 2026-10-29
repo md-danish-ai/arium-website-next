@@ -53,9 +53,7 @@ export default async function PrivateVenuesPage() {
   const contactSection = getSection("Contact Us");
   const ctaProps = mapSubpageCta(contactSection, PV_CTA_FALLBACK);
 
-  const hasInnerHeroWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
-  );
+  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
@@ -67,13 +65,13 @@ export default async function PrivateVenuesPage() {
     {
       pos: 1,
       key: "process-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["process"]),
+      skip: hasWidgetComponent(globalWidgets, "process"),
       el: <ProcessSection key="process-fallback" {...processProps} />,
     },
     {
       pos: 2,
       key: "testimonials-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
+      skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
         <div key="testimonials-fallback">
           <PrivateVenuesTestimonials {...testimonialsProps} />
@@ -83,7 +81,7 @@ export default async function PrivateVenuesPage() {
     {
       pos: 99,
       key: "cta-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["cta", "calltoaction", "call-to-action"]),
+      skip: hasWidgetComponent(globalWidgets, "global-cta"),
       el: (
         <GlobeCTA
           key="cta-fallback"

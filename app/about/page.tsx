@@ -74,23 +74,13 @@ export default async function AboutPage() {
     {
       pos: 1,
       key: "story-fallback",
-      skip: hasWidgetComponent(globalWidgets, [
-        "content-with-side-graphic",
-        "contentwithsidegraphic",
-      ]),
+      skip: hasWidgetComponent(globalWidgets, "content-with-side-graphic"),
       el: <AboutContentWithSideGraphic key="story-fallback" {...storyProps} />,
     },
     {
       pos: 2,
       key: "flow-fallback",
-      skip: hasWidgetComponent(globalWidgets, [
-        "journey",
-        "timeline",
-        "stats-card",
-        "statscards",
-        "commitments",
-        "commitment",
-      ]),
+      skip: hasWidgetComponent(globalWidgets, ["timeline", "stats-cards", "commitments"]),
       el: (
         <div key="flow-fallback" className="relative overflow-hidden -mt-px border-none">
           <FlowBackground />
@@ -103,14 +93,7 @@ export default async function AboutPage() {
     {
       pos: 3,
       key: "culture-fallback",
-      skip: hasWidgetComponent(globalWidgets, [
-        "culture",
-        "people-global-section",
-        "value-proposition",
-        "pillar-highlights",
-        "core-values",
-        "feature-showcase",
-      ]),
+      skip: hasWidgetComponent(globalWidgets, ["culture", "image-gradient-split"]),
       el: <AboutCulture key="culture-fallback" {...cultureProps} />,
     },
   ];

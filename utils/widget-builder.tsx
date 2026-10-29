@@ -10,14 +10,14 @@ export function hasWidgetComponent(
   widgets: StrapiWidget[] = [],
   componentName: string | string[]
 ): boolean {
-  const targets = Array.isArray(componentName)
-    ? componentName.map((t) => t.toLowerCase())
-    : [componentName.toLowerCase()];
+  const targets = (Array.isArray(componentName) ? componentName : [componentName]).map((t) =>
+    t.toLowerCase().replace(/^(shared|widget)\./, "")
+  );
 
   return widgets.some((w) =>
     w.Sections?.some((s) => {
-      const comp = s.__component?.toLowerCase() || "";
-      return targets.some((target) => comp.includes(target));
+      const comp = (s.__component?.toLowerCase() || "").replace(/^(shared|widget)\./, "");
+      return targets.some((target) => comp === target || comp.includes(target));
     })
   );
 }

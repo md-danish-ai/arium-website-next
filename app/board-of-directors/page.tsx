@@ -40,9 +40,7 @@ export default async function BoardOfDirectorsPage() {
   const ctaSection = getSection("Leadership Meet");
   const ctaProps = mapPeopleCta(ctaSection, BOARD_CTA_FALLBACK);
 
-  const hasInnerHeroWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
-  );
+  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
@@ -54,13 +52,13 @@ export default async function BoardOfDirectorsPage() {
     {
       pos: 1,
       key: "team-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["people-global-section", "people"]),
+      skip: hasWidgetComponent(globalWidgets, "people-global-section"),
       el: <PeopleGlobalSection key="team-fallback" members={members} />,
     },
     {
       pos: 99,
       key: "cta-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["cta", "calltoaction", "call-to-action"]),
+      skip: hasWidgetComponent(globalWidgets, "global-cta"),
       el: <GlobeCTA key="cta-fallback" {...ctaProps} />,
     },
   ];

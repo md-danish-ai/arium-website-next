@@ -30,17 +30,10 @@ type GroupedSection =
     };
 
 const STORYTELLER_COMPONENTS = new Set([
-  "shared.journey",
-  "shared.timeline",
-  "shared.journey-timeline",
-  "shared.stats-cards",
-  "shared.statscards",
-  "shared.stats-card",
-  "shared.commitments",
-  "shared.commitment",
-  "widget.commitments",
-  "shared.illustration-split",
-  "shared.media-text-split",
+  "timeline",
+  "stats-cards",
+  "commitments",
+  "illustration-split",
 ]);
 
 export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
@@ -49,7 +42,9 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
   }
 
   const renderNode = (section: GlobalWidgetSection, index: number) => {
-    const Component = section?.__component ? WIDGET_REGISTRY[section.__component] : null;
+    const raw = section?.__component || "";
+    const widgetKey = raw.startsWith("widget.") ? raw : `widget.${raw.replace(/^shared\./, "")}`;
+    const Component = WIDGET_REGISTRY[widgetKey] || WIDGET_REGISTRY[raw] || null;
     if (!Component) return null;
     return <Component key={`widget-section-${index}`} section={section} index={index} />;
   };
@@ -59,7 +54,8 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
   let currentFlowGroup: { section: GlobalWidgetSection; index: number }[] = [];
 
   widget.Sections.forEach((section: GlobalWidgetSection, index: number) => {
-    if (section.__component && STORYTELLER_COMPONENTS.has(section.__component)) {
+    const compBase = section.__component?.toLowerCase().replace(/^(shared|widget)\./, "") || "";
+    if (STORYTELLER_COMPONENTS.has(compBase)) {
       currentFlowGroup.push({ section, index });
     } else {
       if (currentFlowGroup.length > 0) {
@@ -78,11 +74,11 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
     <div className={widget.CustomCssClass || undefined}>
       {groupedSections.map((group, groupIndex) => {
         if (group.type === "storyteller-flow") {
-          const hasIllustration = group.items.some(
-            (item) =>
-              item.section.__component === "shared.illustration-split" ||
-              item.section.__component === "shared.media-text-split"
-          );
+          const hasIllustration = group.items.some((item) => {
+            const base =
+              item.section.__component?.toLowerCase().replace(/^(shared|widget)\./, "") || "";
+            return base === "illustration-split";
+          });
 
           return (
             <div

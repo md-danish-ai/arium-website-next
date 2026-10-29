@@ -58,33 +58,25 @@ export default async function YourCommunityPage() {
     {
       pos: 1,
       key: "smallcell-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["illustration-split", "media-text-split"]),
+      skip: hasWidgetComponent(globalWidgets, "illustration-split"),
       el: <CommunitySmallCells key="smallcell-fallback" {...smallCellProps} />,
     },
     {
       pos: 2,
       key: "imagecardgrid-fallback",
-      skip: hasWidgetComponent(globalWidgets, [
-        "image-card-grid",
-        "imagecardgrid",
-        "image-card",
-        "cards",
-      ]),
+      skip: hasWidgetComponent(globalWidgets, "image-card-grid"),
       el: <ImageCardGrid key="imagecardgrid-fallback" {...benefitsProps} />,
     },
     {
       pos: 3,
       key: "howwework-fallback",
-      skip: hasWidgetComponent(globalWidgets, [
-        "background-feature-section",
-        "backgroundfeaturesection",
-      ]),
+      skip: hasWidgetComponent(globalWidgets, "background-feature-section"),
       el: <CommunityHowWeWork key="howwework-fallback" {...howWeWorkProps} />,
     },
     {
       pos: 4,
       key: "testimonials-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
+      skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
         <div key="testimonials-fallback">
           <CommunityTestimonials {...testimonialsProps} />
@@ -94,7 +86,7 @@ export default async function YourCommunityPage() {
     {
       pos: 5,
       key: "faq-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["faq"]),
+      skip: hasWidgetComponent(globalWidgets, "faq"),
       el: <CommunityFAQ key="faq-fallback" {...faqProps} />,
     },
   ];

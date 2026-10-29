@@ -66,13 +66,13 @@ export default async function CareersPage() {
     {
       pos: 1,
       key: "culture-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["accordion"]),
+      skip: hasWidgetComponent(globalWidgets, "accordion-split"),
       el: <CareersCultureAccordion key="culture-fallback" {...cultureProps} />,
     },
     {
       pos: 2,
       key: "testimonials-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["testimonial", "testimonail"]),
+      skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
         <div key="testimonials-fallback">
           <CareersTestimonials {...testimonialsProps} />
@@ -82,7 +82,7 @@ export default async function CareersPage() {
     {
       pos: 3,
       key: "jobareas-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["highlight-list"]),
+      skip: hasWidgetComponent(globalWidgets, "highlight-list"),
       el: (
         <div key="jobareas-fallback">
           <CareersJobAreas {...jobAreasProps} />
@@ -92,13 +92,13 @@ export default async function CareersPage() {
     {
       pos: 4,
       key: "benefits-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["benefits"]),
+      skip: hasWidgetComponent(globalWidgets, "benefits"),
       el: <CareersBenefits key="benefits-fallback" {...benefitsProps} />,
     },
     {
       pos: 5,
       key: "eeo-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["benefits"]),
+      skip: hasWidgetComponent(globalWidgets, "benefits"),
       el: <CareersEEO key="eeo-fallback" {...eeoProps} />,
     },
   ];

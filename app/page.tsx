@@ -62,7 +62,7 @@ export default async function Home() {
     {
       pos: 1,
       key: "challenges",
-      skip: hasWidget("background-feature") || hasWidget("backgroundfeature"),
+      skip: hasWidget("background-feature-section"),
       el: <BackgroundFeatureSection key="challenges-fallback" {...networkChallengesProps} />,
     },
     {

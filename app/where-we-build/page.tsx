@@ -39,9 +39,7 @@ export default async function WhereWeBuildPage() {
   const communitiesProps = mapWhereCommunities(getSection("Communities"));
   const venuesProps = mapWhereVenues(getSection("Buildings and Venues"));
 
-  const hasImageSplitWidgets =
-    hasWidgetComponent(globalWidgets, "image-split") ||
-    hasWidgetComponent(globalWidgets, "imagesplit");
+  const hasImageSplitWidgets = hasWidgetComponent(globalWidgets, "image-split");
 
   const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
 

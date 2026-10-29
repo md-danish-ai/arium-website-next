@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ContactHero from "@ui-component/contact/ContactHero";
 import ContactForm from "@ui-component/contact/ContactForm";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
-import { combinePageSections, getPageMetadata } from "@utils";
+import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry } from "@types";
 import {
   CONTACT_TOPIC_OPTIONS,
@@ -26,9 +26,7 @@ export default async function ContactPage() {
   const contactContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const hasInnerHeroWidget = globalWidgets.some((w) =>
-    w.Sections?.some((s) => s.__component === "shared.inner-page-hero")
-  );
+  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
