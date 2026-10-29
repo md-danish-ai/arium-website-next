@@ -1,7 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import HeroBanner from "@ui-common/HeroBanner";
-import GlobeCTA from "@ui-common/GlobeCTA";
 import { SolutionsSmallCells, SolutionsDas, SolutionsIndustries } from "@ui-component/solutions";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
@@ -11,7 +10,6 @@ import {
   mapSolutionsSmallCells,
   mapSolutionsDas,
   mapSolutionsIndustries,
-  mapSolutionsApproach,
 } from "@services/mappers/solutions.mapper";
 import FlowBackground from "@ui-animations/FlowBackground";
 import { SOLUTIONS_SEO_FALLBACK } from "@data/solutions.data";
@@ -40,7 +38,6 @@ export default async function SolutionsPage() {
   const smallCellsProps = mapSolutionsSmallCells(getSection("Small Cells"));
   const dasProps = mapSolutionsDas(getSection("Distributed Antenna Systems"));
   const industriesProps = mapSolutionsIndustries(getSection("Industries"));
-  const approachProps = mapSolutionsApproach(getSection("Our Approach"));
 
   const hasHeroWidget =
     hasWidgetComponent(globalWidgets, "hero-banner") ||
@@ -75,12 +72,6 @@ export default async function SolutionsPage() {
         globalWidgets.some((w) => w.PositionNumber === 3) ||
         hasWidgetComponent(globalWidgets, "industry"),
       el: <SolutionsIndustries key="industry" {...industriesProps} />,
-    },
-    {
-      pos: 99,
-      key: "global-cta",
-      skip: hasWidgetComponent(globalWidgets, "global-cta"),
-      el: <GlobeCTA key="global-cta" {...approachProps} />,
     },
   ];
 

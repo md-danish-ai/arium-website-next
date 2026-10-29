@@ -1,10 +1,13 @@
 import React from "react";
 import FlowBackground from "@ui-animations/FlowBackground";
+import { PeopleGlobalSection } from "@ui-common";
+import { mapPeopleMembers } from "@services/mappers/people.mapper";
 import { WIDGET_REGISTRY } from "./registry";
 
 export interface GlobalWidgetSection {
   id?: number | string;
   __component?: string;
+  [key: string]: unknown;
 }
 
 export interface GlobalWidgetData {
@@ -21,6 +24,10 @@ export interface GlobalWidgetProps {
 type GroupedSection =
   | {
       type: "storyteller-flow";
+      items: { section: GlobalWidgetSection; index: number }[];
+    }
+  | {
+      type: "people-group";
       items: { section: GlobalWidgetSection; index: number }[];
     }
   | {
@@ -49,26 +56,43 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
     return <Component key={`widget-section-${index}`} section={section} index={index} />;
   };
 
-  // Group contiguous storyteller components into storyteller-flow containers
+  // Group contiguous storyteller components and contiguous people cards
   const groupedSections: GroupedSection[] = [];
   let currentFlowGroup: { section: GlobalWidgetSection; index: number }[] = [];
+  let currentPeopleGroup: { section: GlobalWidgetSection; index: number }[] = [];
+
+  const flushGroups = () => {
+    if (currentFlowGroup.length > 0) {
+      groupedSections.push({ type: "storyteller-flow", items: currentFlowGroup });
+      currentFlowGroup = [];
+    }
+    if (currentPeopleGroup.length > 0) {
+      groupedSections.push({ type: "people-group", items: currentPeopleGroup });
+      currentPeopleGroup = [];
+    }
+  };
 
   widget.Sections.forEach((section: GlobalWidgetSection, index: number) => {
     const compBase = section.__component?.toLowerCase().replace(/^(shared|widget)\./, "") || "";
     if (STORYTELLER_COMPONENTS.has(compBase)) {
+      if (currentPeopleGroup.length > 0) {
+        groupedSections.push({ type: "people-group", items: currentPeopleGroup });
+        currentPeopleGroup = [];
+      }
       currentFlowGroup.push({ section, index });
-    } else {
+    } else if (compBase === "people-global-section") {
       if (currentFlowGroup.length > 0) {
         groupedSections.push({ type: "storyteller-flow", items: currentFlowGroup });
         currentFlowGroup = [];
       }
+      currentPeopleGroup.push({ section, index });
+    } else {
+      flushGroups();
       groupedSections.push({ type: "single", section, index });
     }
   });
 
-  if (currentFlowGroup.length > 0) {
-    groupedSections.push({ type: "storyteller-flow", items: currentFlowGroup });
-  }
+  flushGroups();
 
   return (
     <div className={widget.CustomCssClass || undefined}>
@@ -94,6 +118,12 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
             </div>
           );
         }
+
+        if (group.type === "people-group") {
+          const members = mapPeopleMembers(group.items.map((i) => i.section));
+          return <PeopleGlobalSection key={`people-group-${groupIndex}`} members={members} />;
+        }
+
         return renderNode(group.section, group.index);
       })}
     </div>

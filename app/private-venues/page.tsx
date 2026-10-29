@@ -85,9 +85,9 @@ export default async function PrivateVenuesPage() {
       el: (
         <GlobeCTA
           key="global-cta"
-          title={ctaProps.title}
-          buttonText={ctaProps.buttonText}
-          buttonLink={ctaProps.buttonLink}
+          prompt_to_cta={ctaProps.title}
+          CTA_text={ctaProps.buttonText}
+          CTA_url={ctaProps.buttonLink}
         />
       ),
     },

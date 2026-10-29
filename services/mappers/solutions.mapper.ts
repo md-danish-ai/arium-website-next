@@ -5,7 +5,6 @@ import {
   SOLUTIONS_SMALL_CELLS_FALLBACK,
   SOLUTIONS_DAS_FALLBACK,
   SOLUTIONS_INDUSTRIES_FALLBACK,
-  SOLUTIONS_APPROACH_FALLBACK,
   SolutionStatItem,
   IndustryItem,
 } from "@data/solutions.data";
@@ -25,13 +24,6 @@ export interface SolutionsHeroMappedProps {
   description: string;
   ctaText?: string;
   ctaLink?: string;
-}
-
-export interface SolutionsApproachMappedProps {
-  heading: string;
-  description: string;
-  buttonText: string;
-  buttonLink: string;
 }
 
 /**
@@ -209,37 +201,5 @@ export function mapSolutionsIndustries(
     contentHtml,
     description,
     industries,
-  };
-}
-
-/**
- * 5. Solutions Approach / GlobeCTA Mapper
- */
-export function mapSolutionsApproach(
-  raw?: StrapiSectionItem | RawRecord | null,
-  fallback = SOLUTIONS_APPROACH_FALLBACK
-): SolutionsApproachMappedProps {
-  const heading = (raw?.title as string) || fallback.heading;
-  const description = (raw?.body as string) || (raw?.description as string) || fallback.description;
-
-  const rawCtas = (Array.isArray(raw?.cta) ? raw?.cta : [raw?.cta].filter(Boolean)) as
-    RawRecord[] | undefined;
-  const buttonText =
-    (rawCtas?.[0]?.label as string) ||
-    (raw?.ctaLabel as string) ||
-    (raw?.buttonText as string) ||
-    fallback.buttonText;
-
-  const buttonLink =
-    (rawCtas?.[0]?.url as string) ||
-    (raw?.ctaUrl as string) ||
-    (raw?.buttonLink as string) ||
-    fallback.buttonLink;
-
-  return {
-    heading,
-    description,
-    buttonText,
-    buttonLink,
   };
 }

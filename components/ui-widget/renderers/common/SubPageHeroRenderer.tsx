@@ -7,13 +7,13 @@ export default function SubPageHeroRenderer({ section, index }: SectionRendererP
     <SubPageHeroBanner
       key={`sub-hero-${index}`}
       id={`widget-sub-hero-${index}`}
-      heroTag={section.HeroTag || section.heroTag || section.tag}
-      heroTitle={section.HeroTitle || section.heroTitle || section.heading}
-      heroDescription={section.HeroDescription || section.heroDescription || section.description}
-      heroCtasLabel={section.heroCtasLabel || section.ctaLabel}
-      heroCtasUrl={section.heroCtasUrl || section.ctaUrl}
-      backgroundGradient={section.BackgroundGradient || section.backgroundGradient}
-      contentMaxWidth={section.ContentMaxWidth || section.contentMaxWidth}
+      tag={section.tag}
+      title={section.title}
+      description={section.description}
+      CTA_text={section.CTA_text}
+      CTA_url={section.CTA_url}
+      background_gradient={section.background_gradient}
+      content_max_width={section.content_max_width}
     />
   );
 }

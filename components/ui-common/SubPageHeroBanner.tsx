@@ -6,24 +6,24 @@ import { Container } from "@ui-layout/SectionContainer";
 
 export interface SubPageHeroBannerProps {
   id?: string;
-  heroTag?: string;
-  heroTitle?: string;
-  heroDescription?: string;
-  heroCtasLabel?: string;
-  heroCtasUrl?: string;
-  backgroundGradient?: string;
-  contentMaxWidth?: string;
+  title?: string;
+  description?: string;
+  tag?: string | null;
+  CTA_text?: string | null;
+  CTA_url?: string | null;
+  background_gradient?: string | null;
+  content_max_width?: string | null;
 }
 
 export default function SubPageHeroBanner({
   id = "sub-page-hero",
-  heroTag,
-  heroTitle,
-  heroDescription,
-  heroCtasLabel,
-  heroCtasUrl,
-  backgroundGradient,
-  contentMaxWidth,
+  title,
+  description,
+  tag,
+  CTA_text,
+  CTA_url,
+  background_gradient,
+  content_max_width,
 }: SubPageHeroBannerProps) {
   const pathname = usePathname() || "";
 
@@ -75,7 +75,7 @@ export default function SubPageHeroBanner({
       id={id}
       style={{
         background:
-          backgroundGradient ||
+          background_gradient ||
           (pathname.includes("/leadership") || pathname.includes("/board-of-directors")
             ? "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 50%, #DDD5FF 100%)"
             : "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)"),
@@ -99,16 +99,16 @@ export default function SubPageHeroBanner({
       <Container className="relative z-[1] flex flex-col items-center text-center">
         <div
           className="flex flex-col items-center text-center w-full mx-auto"
-          style={{ maxWidth: contentMaxWidth || "960px" }}
+          style={{ maxWidth: content_max_width || "960px" }}
         >
-          {heroTag && (
+          {tag && (
             <>
               <Typography
                 variant="b4"
                 uppercase
                 className="reveal stagger-1 text-midnight/70 mb-4 tracking-[0.12em]"
               >
-                {heroTag}
+                {tag}
               </Typography>
               <div className="reveal stagger-1 w-12 h-0.5 bg-midnight mx-auto mb-5" />
             </>
@@ -120,7 +120,7 @@ export default function SubPageHeroBanner({
             className="reveal stagger-2 text-center text-midnight"
             dangerouslySetInnerHTML={{
               __html:
-                heroTitle ||
+                title ||
                 (pathname.includes("/leadership")
                   ? "Our Leadership"
                   : pathname.includes("/board-of-directors")
@@ -129,7 +129,7 @@ export default function SubPageHeroBanner({
             }}
           />
 
-          {(heroDescription ||
+          {(description ||
             pathname.includes("/leadership") ||
             pathname.includes("/board-of-directors")) && (
             <Typography
@@ -137,7 +137,7 @@ export default function SubPageHeroBanner({
               className="reveal stagger-3 text-center text-midnight/80 max-w-[800px] mx-auto mt-4"
               dangerouslySetInnerHTML={{
                 __html:
-                  heroDescription ||
+                  description ||
                   (pathname.includes("/leadership")
                     ? "Seasoned industry leaders driving strategic growth and operational excellence."
                     : "Guiding our vision with extensive governance and telecommunications expertise."),
@@ -145,10 +145,10 @@ export default function SubPageHeroBanner({
             />
           )}
 
-          {heroCtasLabel && heroCtasUrl && (
+          {CTA_text && CTA_url && (
             <div className="reveal stagger-4 mt-7">
-              <Button href={heroCtasUrl} color="primary">
-                {heroCtasLabel}
+              <Button href={CTA_url} color="primary">
+                {CTA_text}
               </Button>
             </div>
           )}

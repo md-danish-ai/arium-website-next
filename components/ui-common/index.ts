@@ -16,6 +16,6 @@ export { default as ImageCardGrid } from "./ImageCardGrid";
 export { default as SubPageHeroBanner } from "./SubPageHeroBanner";
 export type { SubPageHeroBannerProps } from "./SubPageHeroBanner";
 export { default as PeopleGlobalSection } from "./PeopleGlobalSection";
-export type { PeopleCard, PeopleGlobalSectionProps } from "./PeopleGlobalSection";
+export type { PeopleGlobalSectionProps } from "./PeopleGlobalSection";
 export { default as ProcessSection } from "./ProcessSection";
 export type { PillarData, ProcessSectionProps, TimelineItem } from "./ProcessSection";

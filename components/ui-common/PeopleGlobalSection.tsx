@@ -1,91 +1,18 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { CloseIconSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
-import { extractMediaUrl } from "@utils";
 import type { PeopleMemberItem } from "@data/leadership.data";
 
 export type { PeopleMemberItem };
 
-type StrapiImageField =
-  | { data?: { attributes?: { url: string } } }
-  | { url: string }[]
-  | { url: string }
-  | Record<string, unknown>;
-
-export interface PeopleCard {
-  Name?: string;
-  title?: string;
-  Designation?: string;
-  badge?: string;
-  Image?: StrapiImageField;
-  image?: StrapiImageField;
-  Description?: string;
-  description?: string;
-  ModalUpperSectionBg?: string;
-}
-
 export interface PeopleGlobalSectionProps {
   members?: PeopleMemberItem[];
-  cards?: PeopleCard[];
-  data?: {
-    cards?: PeopleCard[];
-  };
 }
 
-const STATIC_FALLBACK_IMAGES: Record<string, string> = {
-  // Board of Directors
-  "Marni M. Walden": "/images/team/placeholder-female.png",
-  "Gerard Ainsztein": "/images/team/placeholder-male.png",
-  "Tim Biltz": "/images/team/placeholder-male.png",
-  "Tim Cohen": "/images/team/placeholder-male.png",
-  "Bill Hogg": "/images/team/placeholder-male.png",
-  "Nirav Shah": "/images/team/placeholder-male.png",
-  // Leadership Team
-  'Laurent "LT" Therivel': "/images/team/placeholder-male.png",
-  "Jerry Karnick": "/images/team/placeholder-male.png",
-  "Karen Rohrkemper": "/images/team/placeholder-female.png",
-  "Jeffery Schott": "/images/team/placeholder-male.png",
-  "Manjula Sriram": "/images/team/placeholder-female.png",
-  "John Townsend": "/images/team/placeholder-male.png",
-};
-
-export default function PeopleGlobalSection({ members, cards, data }: PeopleGlobalSectionProps) {
-  // If clean `members` prop is passed, use it directly!
-  const legacyCards = cards || data?.cards || [];
-  const processedLegacy: PeopleMemberItem[] = legacyCards.map((card) => {
-    const name = card.Name || card.title || "";
-    const role = card.Designation || card.badge || "";
-    const bioText = card.Description || card.description || "";
-
-    const rawImage = card.Image || card.image;
-    const extractedUrl = extractMediaUrl(rawImage);
-    let imageUrl =
-      extractedUrl || STATIC_FALLBACK_IMAGES[name] || "/images/team/placeholder-male.png";
-
-    if (imageUrl.startsWith("/") && !imageUrl.startsWith("/images")) {
-      imageUrl = GetStrapiMediaUrl(imageUrl);
-    }
-
-    return {
-      name,
-      role,
-      image: imageUrl,
-      bio: bioText
-        ? bioText
-            .split("\n\n")
-            .map((p) => `<p>${p}</p>`)
-            .join("")
-        : "",
-      modalBg: card.ModalUpperSectionBg || "#162047",
-    };
-  });
-
-  const membersList = members && members.length > 0 ? members : processedLegacy;
-
+export default function PeopleGlobalSection({ members = [] }: PeopleGlobalSectionProps) {
   const [activeLeader, setActiveLeader] = useState<PeopleMemberItem | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -155,7 +82,7 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
         <Container>
           <div className="max-w-[1200px] mx-auto -mt-32 sm:-mt-36 md:-mt-44 lg:-mt-44 relative z-[2]">
             <div className="flex flex-wrap justify-center gap-6">
-              {membersList.map((leader, index) => (
+              {members.map((leader, index) => (
                 <div
                   key={index}
                   className={`reveal stagger-${(index % 4) + 1} relative rounded-xl overflow-hidden cursor-pointer aspect-[4/4.6] shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl group w-full max-w-[400px] sm:max-w-none sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]`}
@@ -227,7 +154,9 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
             <>
               <div
                 className="flex flex-col items-center text-center p-6 pt-8 pb-6 min-[769px]:flex-row min-[769px]:items-center min-[769px]:text-left min-[769px]:p-10 min-[769px]:gap-8 border-b border-white/10 shrink-0 relative"
-                style={{ backgroundColor: activeLeader.modalBg || "#162047" }}
+                style={{
+                  backgroundColor: activeLeader.modal_upper_section_background || "#162047",
+                }}
               >
                 <div className="shrink-0 relative w-24 h-24 sm:w-28 sm:h-28 min-[769px]:w-32 min-[769px]:h-32 rounded-full min-[769px]:rounded-2xl overflow-hidden mb-3.5 min-[769px]:mb-0">
                   <Image
@@ -260,7 +189,7 @@ export default function PeopleGlobalSection({ members, cards, data }: PeopleGlob
               </div>
               <div
                 className="p-6 sm:p-8 min-[769px]:p-10 lg:p-12 overflow-y-auto flex-1 columns-1 min-[769px]:columns-2 gap-8 lg:gap-10 bg-white rounded-b-[24px] text-[#0d1224]/80 text-sm sm:text-base leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&>p]:[break-inside:avoid]"
-                dangerouslySetInnerHTML={{ __html: activeLeader.bio }}
+                dangerouslySetInnerHTML={{ __html: activeLeader.description }}
               />
             </>
           )}
