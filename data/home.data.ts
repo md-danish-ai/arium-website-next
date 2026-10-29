@@ -135,7 +135,7 @@ export const STATS_FALLBACK: {
 } = {
   title: "Scale and experience to match your ambition ",
   title_color: "#ffffff",
-  stat_illustration: "/images/svg/us-dot-map-faint.svg",
+  stat_illustration: "/images/svg-images/us-dot-map-faint.svg",
   stats_card: [
     {
       id: 88,
@@ -201,8 +201,8 @@ export const COMMUNITY_IMPACT_FALLBACK: {
   description_color: undefined,
   CTA_text: "Learn More",
   CTA_url: "/community",
-  background_image_desktop: "/images/background/arena.jpg",
-  background_image_mobile: "/images/background/arena-mobile.jpg",
+  background_image_desktop: "/images/backgrounds/arena.jpg",
+  background_image_mobile: "/images/backgrounds/arena-mobile.jpg",
   section_pointers: [
     {
       id: 55,
