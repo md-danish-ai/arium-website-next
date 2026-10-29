@@ -10,7 +10,7 @@ export default function SmallCellsSvg({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="-25 0 240 240"
+      viewBox="0 52 192 188"
       fill="none"
       className={className}
       aria-hidden="true"

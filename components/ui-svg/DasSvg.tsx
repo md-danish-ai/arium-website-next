@@ -8,7 +8,7 @@ export default function DasSvg({ className = "infra-panel-svg draw-svg" }: DasSv
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="-30 0 240 240"
+      viewBox="0 56 182 185"
       fill="none"
       className={className}
       aria-hidden="true"
