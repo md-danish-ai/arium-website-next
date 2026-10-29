@@ -42,24 +42,24 @@ export default async function SolutionsPage() {
   const industriesProps = mapSolutionsIndustries(getSection("Industries"));
   const approachProps = mapSolutionsApproach(getSection("Our Approach"));
 
-  const hasHeroWidget = globalWidgets.some(
-    (w) => w.PositionNumber === 0 && (w.Sections || []).length > 0
-  );
+  const hasHeroWidget =
+    hasWidgetComponent(globalWidgets, "hero-banner") ||
+    globalWidgets.some((w) => w.PositionNumber === 0 && (w.Sections || []).length > 0);
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
+      key: "hero-banner",
       skip: hasHeroWidget,
-      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+      el: <HeroBanner key="hero-banner" {...heroProps} />,
     },
     {
       pos: 1,
-      key: "solutions-flow-fallback",
+      key: "illustration-split",
       skip: hasWidgetComponent(globalWidgets, "illustration-split"),
       el: (
         <div
-          key="solutions-flow-fallback"
+          key="illustration-split"
           className="bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] relative overflow-hidden -mt-px border-none"
         >
           <FlowBackground />
@@ -70,17 +70,17 @@ export default async function SolutionsPage() {
     },
     {
       pos: 3,
-      key: "industries-fallback",
+      key: "industry",
       skip:
         globalWidgets.some((w) => w.PositionNumber === 3) ||
         hasWidgetComponent(globalWidgets, "industry"),
-      el: <SolutionsIndustries key="industries-fallback" {...industriesProps} />,
+      el: <SolutionsIndustries key="industry" {...industriesProps} />,
     },
     {
       pos: 99,
-      key: "cta-fallback",
+      key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
-      el: <GlobeCTA key="cta-fallback" {...approachProps} />,
+      el: <GlobeCTA key="global-cta" {...approachProps} />,
     },
   ];
 

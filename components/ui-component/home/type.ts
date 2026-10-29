@@ -57,20 +57,7 @@ export interface StatsWithImageProps {
   stats_card?: StatItem[];
 }
 
-/**
- * 5. Image Gradient Split Props (Widget 5 - shared.image-gradient-split)
- */
-export interface ImageGradientSplitProps {
-  title?: string;
-  title_color?: string;
-  description?: string;
-  description_color?: string;
-  CTA_text?: string;
-  CTA_url?: string;
-  background_image_desktop?: string;
-  background_image_mobile?: string;
-  section_pointers?: SectionPointerItem[];
-}
+export type { ImageGradientSplitProps } from "@ui-common";
 
 /**
  * 6. Careers CTA Props (Widget 6 - shared.centered-image-cta)

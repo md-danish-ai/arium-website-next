@@ -16,7 +16,6 @@ import {
   AboutJourneyRenderer,
   AboutStatsCardsRenderer,
   AboutCommitmentsRenderer,
-  AboutCultureRenderer,
 } from "./renderers/about";
 
 // 3. Careers Renderers
@@ -51,7 +50,7 @@ import {
 // 7. Common / Shared Global Renderers
 import {
   HeroBannerRenderer,
-  InnerPageHeroRenderer,
+  SubPageHeroRenderer,
   GlobeCTARenderer,
   CenteredImageCTARenderer,
   CtaWithGraphicRenderer,
@@ -80,7 +79,6 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   "widget.timeline": AboutJourneyRenderer,
   "widget.stats-cards": AboutStatsCardsRenderer,
   "widget.commitments": AboutCommitmentsRenderer,
-  "widget.culture": AboutCultureRenderer,
 
   // ==========================================
   // 3. Careers Page Widgets
@@ -114,8 +112,10 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   // ==========================================
   // 7. Common / Shared Global Widgets
   // ==========================================
+  "widget.hero-banner": HeroBannerRenderer,
   "widget.test-banner": HeroBannerRenderer,
-  "widget.inner-page-hero": InnerPageHeroRenderer,
+  "widget.sub-page-hero": SubPageHeroRenderer,
+  "widget.inner-page-hero": SubPageHeroRenderer,
   "widget.global-cta": GlobeCTARenderer,
   "widget.process": ProcessRenderer,
   "widget.people-global-section": PeopleGlobalRenderer,

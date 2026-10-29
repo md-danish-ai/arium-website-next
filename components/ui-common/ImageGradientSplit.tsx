@@ -6,7 +6,7 @@ import { Typography } from "@ui-element";
 import { DoubleRightArrowSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 
-export interface GradientSplitPointer {
+export interface SectionPointerItem {
   id?: string | number;
   title: string;
   description: string;
@@ -14,7 +14,9 @@ export interface GradientSplitPointer {
   description_color?: string;
 }
 
-export interface GradientImageSplitProps {
+export type GradientSplitPointer = SectionPointerItem;
+
+export interface ImageGradientSplitProps {
   id?: string;
   title?: string;
   title_color?: string;
@@ -22,14 +24,16 @@ export interface GradientImageSplitProps {
   description_color?: string;
   background_image_desktop?: string;
   background_image_mobile?: string;
-  section_pointers?: GradientSplitPointer[];
+  section_pointers?: SectionPointerItem[];
   CTA_text?: string;
   CTA_url?: string;
   style?: React.CSSProperties;
   className?: string;
 }
 
-export default function GradientImageSplit({
+export type GradientImageSplitProps = ImageGradientSplitProps;
+
+export default function ImageGradientSplit({
   id = "community",
   title,
   title_color,
@@ -42,7 +46,7 @@ export default function GradientImageSplit({
   CTA_url,
   style,
   className = "",
-}: GradientImageSplitProps) {
+}: ImageGradientSplitProps) {
   const mobileImg = background_image_mobile || background_image_desktop;
 
   return (
@@ -163,3 +167,5 @@ export default function GradientImageSplit({
     </section>
   );
 }
+
+export const GradientImageSplit = ImageGradientSplit;

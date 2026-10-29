@@ -26,16 +26,16 @@ export default async function ContactPage() {
   const contactContent: StrapiPageData | undefined = pageData?.data?.[0];
   const globalWidgets: StrapiWidget[] = widgetData?.data?.[0]?.widgets || [];
 
-  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
+  const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 1,
-      key: "hero-fallback",
-      skip: hasInnerHeroWidget,
+      key: "sub-page-hero",
+      skip: hasSubPageHeroWidget,
       el: (
         <ContactHero
-          key="hero-fallback"
+          key="sub-page-hero"
           heading={contactContent?.heroTitle || CONTACT_HERO_FALLBACK.heading}
           intro={contactContent?.heroDescription || CONTACT_HERO_FALLBACK.intro}
         />
@@ -43,8 +43,8 @@ export default async function ContactPage() {
     },
     {
       pos: 2,
-      key: "form-fallback",
-      el: <ContactForm key="form-fallback" topicOptions={CONTACT_TOPIC_OPTIONS} />,
+      key: "contact-form",
+      el: <ContactForm key="contact-form" topicOptions={CONTACT_TOPIC_OPTIONS} />,
     },
   ];
 

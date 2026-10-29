@@ -53,38 +53,38 @@ export default async function PrivateVenuesPage() {
   const contactSection = getSection("Contact Us");
   const ctaProps = mapSubpageCta(contactSection, PV_CTA_FALLBACK);
 
-  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
+  const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
-      skip: hasInnerHeroWidget,
-      el: <PrivateVenuesHero key="hero-fallback" {...heroProps} />,
+      key: "sub-page-hero",
+      skip: hasSubPageHeroWidget,
+      el: <PrivateVenuesHero key="sub-page-hero" {...heroProps} />,
     },
     {
       pos: 1,
-      key: "process-fallback",
+      key: "process",
       skip: hasWidgetComponent(globalWidgets, "process"),
-      el: <ProcessSection key="process-fallback" {...processProps} />,
+      el: <ProcessSection key="process" {...processProps} />,
     },
     {
       pos: 2,
-      key: "testimonials-fallback",
+      key: "gloabl-testimonails",
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
-        <div key="testimonials-fallback">
+        <div key="gloabl-testimonails">
           <PrivateVenuesTestimonials {...testimonialsProps} />
         </div>
       ),
     },
     {
       pos: 99,
-      key: "cta-fallback",
+      key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
       el: (
         <GlobeCTA
-          key="cta-fallback"
+          key="global-cta"
           title={ctaProps.title}
           buttonText={ctaProps.buttonText}
           buttonLink={ctaProps.buttonLink}

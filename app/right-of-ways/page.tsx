@@ -53,38 +53,38 @@ export default async function RightOfWayPage() {
   const contactSection = getSection("Contact Us");
   const ctaProps = mapSubpageCta(contactSection, ROW_CTA_FALLBACK);
 
-  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
+  const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 1,
-      key: "hero-fallback",
-      skip: hasInnerHeroWidget,
-      el: <RightOfWayHero key="hero-fallback" {...heroProps} />,
+      key: "sub-page-hero",
+      skip: hasSubPageHeroWidget,
+      el: <RightOfWayHero key="sub-page-hero" {...heroProps} />,
     },
     {
       pos: 2,
-      key: "process-fallback",
+      key: "process",
       skip: hasWidgetComponent(globalWidgets, "process"),
-      el: <ProcessSection key="process-fallback" {...processProps} />,
+      el: <ProcessSection key="process" {...processProps} />,
     },
     {
       pos: 3,
-      key: "testimonials-fallback",
+      key: "gloabl-testimonails",
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
-        <div key="testimonials-fallback">
+        <div key="gloabl-testimonails">
           <RightOfWayTestimonials {...testimonialsProps} />
         </div>
       ),
     },
     {
       pos: 4,
-      key: "cta-fallback",
+      key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
       el: (
         <GlobeCTA
-          key="cta-fallback"
+          key="global-cta"
           title={ctaProps.title}
           buttonText={ctaProps.buttonText}
           buttonLink={ctaProps.buttonLink}

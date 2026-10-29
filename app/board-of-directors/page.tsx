@@ -1,10 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
-import { InnerPageHero, PeopleGlobalSection, GlobeCTA } from "@ui-common";
+import { SubPageHeroBanner, PeopleGlobalSection, GlobeCTA } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
-import { mapInnerHero, mapPeopleMembers, mapPeopleCta } from "@services/mappers/people.mapper";
+import { mapSubPageHero, mapPeopleMembers, mapPeopleCta } from "@services/mappers/people.mapper";
 import {
   BOARD_HERO_FALLBACK,
   BOARD_MEMBERS_FALLBACK,
@@ -32,7 +32,7 @@ export default async function BoardOfDirectorsPage() {
   const getSection = (key: string): StrapiSectionItem | undefined =>
     boardContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  const heroProps = mapInnerHero(boardContent, BOARD_HERO_FALLBACK);
+  const heroProps = mapSubPageHero(boardContent, BOARD_HERO_FALLBACK);
 
   const directorsSection = getSection("Directors");
   const members = mapPeopleMembers(directorsSection, BOARD_MEMBERS_FALLBACK);
@@ -40,26 +40,26 @@ export default async function BoardOfDirectorsPage() {
   const ctaSection = getSection("Leadership Meet");
   const ctaProps = mapPeopleCta(ctaSection, BOARD_CTA_FALLBACK);
 
-  const hasInnerHeroWidget = hasWidgetComponent(globalWidgets, "inner-page-hero");
+  const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
-      skip: hasInnerHeroWidget,
-      el: <InnerPageHero key="hero-fallback" {...heroProps} />,
+      key: "sub-page-hero",
+      skip: hasSubPageHeroWidget,
+      el: <SubPageHeroBanner key="sub-page-hero" {...heroProps} />,
     },
     {
       pos: 1,
-      key: "team-fallback",
+      key: "people-global-section",
       skip: hasWidgetComponent(globalWidgets, "people-global-section"),
-      el: <PeopleGlobalSection key="team-fallback" members={members} />,
+      el: <PeopleGlobalSection key="people-global-section" members={members} />,
     },
     {
       pos: 99,
-      key: "cta-fallback",
+      key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
-      el: <GlobeCTA key="cta-fallback" {...ctaProps} />,
+      el: <GlobeCTA key="global-cta" {...ctaProps} />,
     },
   ];
 

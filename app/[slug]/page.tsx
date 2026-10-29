@@ -49,11 +49,11 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
+      key: "hero-banner",
       skip: hasHeroWidget,
       el: (
         <HeroBanner
-          key="hero-fallback"
+          key="hero-banner"
           id={`${slug}-hero`}
           imageSrc={heroImgUrl}
           imageAlt={pageContent?.heroTitle || slug}

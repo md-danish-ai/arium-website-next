@@ -4,7 +4,7 @@ import type { PeopleMemberItem } from "@data/leadership.data";
 
 type RawRecord = Record<string, unknown>;
 
-export interface InnerPageHeroMappedProps {
+export interface SubPageHeroMappedProps {
   id?: string;
   heroTitle: string;
   heroDescription: string;
@@ -20,16 +20,16 @@ export interface GlobeCtaMappedProps {
 }
 
 /**
- * 1. Inner Page Hero Mapper (used by Leadership, Board of Directors, etc.)
+ * 1. Sub Page Hero Mapper (used by Leadership, Board of Directors, etc.)
  */
-export function mapInnerHero(
+export function mapSubPageHero(
   raw?: RawRecord | null,
   fallback = {
     heroTitle: "Our Leadership",
     heroDescription:
       "Seasoned industry leaders driving strategic growth and operational excellence.",
   }
-): InnerPageHeroMappedProps {
+): SubPageHeroMappedProps {
   const heroTitle = (raw?.heroTitle as string) || (raw?.title as string) || fallback.heroTitle;
   const heroDescription = (raw?.heroDescription as string) || fallback.heroDescription;
 

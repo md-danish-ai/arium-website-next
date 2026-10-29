@@ -21,7 +21,7 @@ export interface SectionPointerItem {
 }
 
 /**
- * Widget 1: Main Hero Fallback (shared.main-hero - Position 0)
+ * Widget 1: Main Hero Fallback (widget.main-hero - Position 0)
  */
 export const HOME_HERO_FALLBACK = {
   title: "Build with clarity. <br/> Connect with confidence.",
@@ -33,7 +33,7 @@ export const HOME_HERO_FALLBACK = {
 };
 
 /**
- * Widget 2: Network Challenges Fallback (shared.background-feature-section - Position 1)
+ * Widget 2: Network Challenges Fallback (widget.background-feature-section - Position 1)
  */
 export const NETWORK_CHALLENGES_FALLBACK: {
   title: string;
@@ -84,7 +84,7 @@ export const NETWORK_CHALLENGES_FALLBACK: {
 };
 
 /**
- * Widget 3: Our Infrastructure Fallback (shared.detailed-card-grid - Position 2)
+ * Widget 3: Our Infrastructure Fallback (widget.detailed-card-grid - Position 2)
  */
 export const INFRASTRUCTURE_FALLBACK: {
   title: string;
@@ -125,7 +125,7 @@ export const INFRASTRUCTURE_FALLBACK: {
 };
 
 /**
- * Widget 4: Scale and Experience Fallback (shared.stats-with-image - Position 3)
+ * Widget 4: Scale and Experience Fallback (widget.stats-with-image - Position 3)
  */
 export const STATS_FALLBACK: {
   title: string;
@@ -181,7 +181,7 @@ export const STATS_FALLBACK: {
 };
 
 /**
- * Widget 5: Community Impact Fallback (shared.image-gradient-split - Position 4)
+ * Widget 5: Community Impact Fallback (widget.image-gradient-split - Position 4)
  */
 export const COMMUNITY_IMPACT_FALLBACK: {
   title: string;
@@ -232,7 +232,7 @@ export const COMMUNITY_IMPACT_FALLBACK: {
 };
 
 /**
- * Widget 6: Careers Image CTA Fallback (shared.centered-image-cta - Position 5)
+ * Widget 6: Careers Image CTA Fallback (widget.centered-image-cta - Position 5)
  */
 export const CAREERS_FALLBACK = {
   title: "Help us shape the future of connectivity ",
@@ -246,7 +246,7 @@ export const CAREERS_FALLBACK = {
 };
 
 /**
- * Widget 7: Final Contact CTA Fallback (shared.cta-with-graphic - Position 6)
+ * Widget 7: Final Contact CTA Fallback (widget.cta-with-graphic - Position 6)
  */
 export const CONTACT_FALLBACK = {
   title: "Where can we take your network?",

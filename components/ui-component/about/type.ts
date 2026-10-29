@@ -8,7 +8,7 @@ import type {
 export type { TimeLineCard, StatCardItem, CommitmentCardItem, PillarCardItem };
 
 /**
- * 1. Hero Banner Props (shared.test-banner - Position 0)
+ * 1. Hero Banner Props (widget.hero-banner - Position 0)
  */
 export interface AboutHeroProps {
   title?: string;
@@ -23,7 +23,7 @@ export interface AboutHeroProps {
 }
 
 /**
- * 2. AboutContentWithSideGraphic Props (shared.content-with-side-graphic - Position 1)
+ * 2. AboutContentWithSideGraphic Props (widget.content-with-side-graphic - Position 1)
  */
 export interface AboutContentWithSideGraphicProps {
   title: string;
@@ -35,7 +35,7 @@ export interface AboutContentWithSideGraphicProps {
 }
 
 /**
- * 3. AboutJourney Props (shared.timeline - Position 2, SubSection 0)
+ * 3. AboutJourney Props (widget.timeline - Position 2, SubSection 0)
  */
 export interface AboutJourneyProps {
   title: string;
@@ -44,7 +44,7 @@ export interface AboutJourneyProps {
 }
 
 /**
- * 4. AboutStatsCards Props (shared.stats-cards - Position 2, SubSection 1)
+ * 4. AboutStatsCards Props (widget.stats-cards - Position 2, SubSection 1)
  */
 export interface AboutStatsCardsProps {
   title: string;
@@ -53,7 +53,7 @@ export interface AboutStatsCardsProps {
 }
 
 /**
- * 5. AboutCommitments Props (shared.commitments - Position 2, SubSection 2)
+ * 5. AboutCommitments Props (widget.commitments - Position 2, SubSection 2)
  */
 export interface AboutCommitmentsProps {
   title: string;
@@ -64,18 +64,5 @@ export interface AboutCommitmentsProps {
   CommitmentCards: CommitmentCardItem[];
 }
 
-/**
- * 6. AboutCulture Props (shared.pillar-highlights - Position 3)
- */
-export interface AboutCultureProps {
-  title: string;
-  title_color?: string;
-  description?: string;
-  description_color?: string;
-  CTA_text?: string;
-  CTA_url?: string;
-  background_color?: string;
-  background_image_desktop?: string;
-  background_image_mobile?: string;
-  PillarCards: PillarCardItem[];
-}
+import type { ImageGradientSplitProps } from "@ui-common";
+export type AboutCultureProps = ImageGradientSplitProps;

@@ -18,13 +18,13 @@ import type {
   AboutJourneyProps,
   AboutStatsCardsProps,
   AboutCommitmentsProps,
-  AboutCultureProps,
 } from "@ui-component/about/type";
+import type { ImageGradientSplitProps } from "@ui-common";
 
 type RawRecord = Record<string, unknown>;
 
 /**
- * 1. About Hero Mapper (shared.test-banner - Position 0)
+ * 1. About Hero Mapper (widget.hero-banner - Position 0)
  * Canonical keys: title, description, media, CTA_text, CTA_url, max_width_title, max_width_description, object_position, tag
  */
 export function mapAboutHero(
@@ -56,7 +56,7 @@ export function mapAboutHero(
 }
 
 /**
- * 2. About Story (Content With Side Graphic) Mapper (shared.content-with-side-graphic - Position 1)
+ * 2. About Story (Content With Side Graphic) Mapper (widget.content-with-side-graphic - Position 1)
  * Canonical keys: title, title_color, description, description_color, background_color, image
  */
 export function mapAboutStory(
@@ -81,7 +81,7 @@ export function mapAboutStory(
 }
 
 /**
- * 3. About Journey (Timeline) Mapper (shared.timeline - Position 2, SubSection 0)
+ * 3. About Journey (Timeline) Mapper (widget.timeline - Position 2, SubSection 0)
  * Canonical keys: title, description, TimeLineCards
  */
 export function mapAboutJourney(
@@ -114,7 +114,7 @@ export function mapAboutJourney(
 }
 
 /**
- * 4. About Stats Cards (Why Our Infrastructure Matters) Mapper (shared.stats-cards - Position 2, SubSection 1)
+ * 4. About Stats Cards (Why Our Infrastructure Matters) Mapper (widget.stats-cards - Position 2, SubSection 1)
  * Canonical keys: title, description, Cards
  */
 export function mapAboutStatsCards(
@@ -147,7 +147,7 @@ export function mapAboutStatsCards(
 }
 
 /**
- * 5. About Commitments Mapper (shared.commitments - Position 2, SubSection 2)
+ * 5. About Commitments Mapper (widget.commitments - Position 2, SubSection 2)
  * Canonical keys: title, description, background_overlay, pillars_description, background_image, CommitmentCards
  */
 export function mapAboutCommitments(
@@ -191,21 +191,20 @@ export function mapAboutCommitments(
 }
 
 /**
- * 6. About Culture / Pillars Mapper (shared.pillar-highlights - Position 3)
+ * 6. About Culture / Pillars Mapper (widget.culture - Position 3)
  * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
  * background_color, background_image_desktop, background_image_mobile, PillarCards
  */
 export function mapAboutCulture(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_CULTURE_FALLBACK
-): AboutCultureProps {
+): ImageGradientSplitProps & { PillarCards?: PillarCardItem[] } {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
   const description = (raw?.description as string) || fallback.description;
   const description_color = (raw?.description_color as string) || fallback.description_color;
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
   const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
-  const background_color = (raw?.background_color as string) || fallback.background_color;
 
   const background_image_desktop = raw?.background_image_desktop
     ? resolveStrapiImage(raw.background_image_desktop, fallback.background_image_desktop)
@@ -215,31 +214,38 @@ export function mapAboutCulture(
     ? resolveStrapiImage(raw.background_image_mobile, fallback.background_image_mobile)
     : fallback.background_image_mobile;
 
-  const rawCards = raw?.PillarCards as RawRecord[] | undefined;
-  const PillarCards: PillarCardItem[] =
+  const rawCards = (raw?.section_pointers || raw?.PillarCards) as RawRecord[] | undefined;
+  const section_pointers =
     Array.isArray(rawCards) && rawCards.length > 0
       ? rawCards.map((p, i) => {
           const fb = fallback.PillarCards[i % fallback.PillarCards.length];
           return {
             id: (p.id as string | number) ?? i,
-            title: (p.title as string) || fb?.title,
-            description: (p.description as string) || fb?.description,
+            title: (p.title as string) || fb?.title || "",
+            description: (p.description as string) || fb?.description || "",
             title_color: (p.title_color as string) || fb?.title_color,
             description_color: (p.description_color as string) || fb?.description_color,
           };
         })
-      : fallback.PillarCards;
+      : fallback.PillarCards.map((p, i) => ({
+          id: p.id ?? i,
+          title: p.title || "",
+          description: p.description || "",
+          title_color: p.title_color,
+          description_color: p.description_color,
+        }));
 
   return {
+    id: "culture",
     title,
     title_color,
     description,
     description_color,
     CTA_text,
     CTA_url,
-    background_color,
     background_image_desktop,
     background_image_mobile,
-    PillarCards,
+    section_pointers,
+    PillarCards: section_pointers,
   };
 }

@@ -1,12 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
-import HeroBanner from "@ui-common/HeroBanner";
+import { HeroBanner, ImageGradientSplit } from "@ui-common";
 import {
   AboutContentWithSideGraphic,
   AboutJourney,
   AboutStatsCards,
   AboutCommitments,
-  AboutCulture,
 } from "@ui-component/about";
 import FlowBackground from "@ui-animations/FlowBackground";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
@@ -49,16 +48,18 @@ export default async function AboutPage() {
   const valuesProps = mapAboutCommitments(getSection("Values"));
   const cultureProps = mapAboutCulture(getSection("We're Hiring"));
 
-  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
+  const hasHeroWidget =
+    hasWidgetComponent(globalWidgets, "hero-banner") ||
+    globalWidgets.some((w) => w.PositionNumber === 0);
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
+      key: "hero-banner",
       skip: hasHeroWidget,
       el: (
         <HeroBanner
-          key="hero-fallback"
+          key="hero-banner"
           id="about-hero"
           title={heroProps.title}
           description={heroProps.description}
@@ -73,16 +74,16 @@ export default async function AboutPage() {
     },
     {
       pos: 1,
-      key: "story-fallback",
+      key: "content-with-side-graphic",
       skip: hasWidgetComponent(globalWidgets, "content-with-side-graphic"),
-      el: <AboutContentWithSideGraphic key="story-fallback" {...storyProps} />,
+      el: <AboutContentWithSideGraphic key="content-with-side-graphic" {...storyProps} />,
     },
     {
       pos: 2,
-      key: "flow-fallback",
+      key: "storyteller-flow",
       skip: hasWidgetComponent(globalWidgets, ["timeline", "stats-cards", "commitments"]),
       el: (
-        <div key="flow-fallback" className="relative overflow-hidden -mt-px border-none">
+        <div key="storyteller-flow" className="relative overflow-hidden -mt-px border-none">
           <FlowBackground />
           <AboutJourney {...journeyProps} />
           <AboutStatsCards {...trustProps} />
@@ -92,9 +93,9 @@ export default async function AboutPage() {
     },
     {
       pos: 3,
-      key: "culture-fallback",
-      skip: hasWidgetComponent(globalWidgets, ["culture", "image-gradient-split"]),
-      el: <AboutCulture key="culture-fallback" {...cultureProps} />,
+      key: "image-gradient-split",
+      skip: hasWidgetComponent(globalWidgets, "image-gradient-split"),
+      el: <ImageGradientSplit key="image-gradient-split" {...cultureProps} />,
     },
   ];
 

@@ -41,14 +41,16 @@ export default async function WhereWeBuildPage() {
 
   const hasImageSplitWidgets = hasWidgetComponent(globalWidgets, "image-split");
 
-  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
+  const hasHeroWidget =
+    hasWidgetComponent(globalWidgets, "hero-banner") ||
+    globalWidgets.some((w) => w.PositionNumber === 0);
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero",
+      key: "hero-banner",
       skip: hasHeroWidget,
-      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+      el: <HeroBanner key="hero-banner" {...heroProps} />,
     },
     {
       pos: 1,

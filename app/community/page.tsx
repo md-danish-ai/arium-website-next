@@ -46,48 +46,50 @@ export default async function YourCommunityPage() {
   const testimonialsProps = mapCommunityTestimonials(getSection("Communities support"));
   const faqProps = mapCommunityFaqs(getSection("FAQ"));
 
-  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
+  const hasHeroWidget =
+    hasWidgetComponent(globalWidgets, "hero-banner") ||
+    globalWidgets.some((w) => w.PositionNumber === 0);
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
+      key: "hero-banner",
       skip: hasHeroWidget,
-      el: <HeroBanner key="hero-fallback" {...heroProps} />,
+      el: <HeroBanner key="hero-banner" {...heroProps} />,
     },
     {
       pos: 1,
-      key: "smallcell-fallback",
+      key: "illustration-split",
       skip: hasWidgetComponent(globalWidgets, "illustration-split"),
-      el: <CommunitySmallCells key="smallcell-fallback" {...smallCellProps} />,
+      el: <CommunitySmallCells key="illustration-split" {...smallCellProps} />,
     },
     {
       pos: 2,
-      key: "imagecardgrid-fallback",
+      key: "image-card-grid",
       skip: hasWidgetComponent(globalWidgets, "image-card-grid"),
-      el: <ImageCardGrid key="imagecardgrid-fallback" {...benefitsProps} />,
+      el: <ImageCardGrid key="image-card-grid" {...benefitsProps} />,
     },
     {
       pos: 3,
-      key: "howwework-fallback",
+      key: "background-feature-section",
       skip: hasWidgetComponent(globalWidgets, "background-feature-section"),
-      el: <CommunityHowWeWork key="howwework-fallback" {...howWeWorkProps} />,
+      el: <CommunityHowWeWork key="background-feature-section" {...howWeWorkProps} />,
     },
     {
       pos: 4,
-      key: "testimonials-fallback",
+      key: "gloabl-testimonails",
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
-        <div key="testimonials-fallback">
+        <div key="gloabl-testimonails">
           <CommunityTestimonials {...testimonialsProps} />
         </div>
       ),
     },
     {
       pos: 5,
-      key: "faq-fallback",
+      key: "faq",
       skip: hasWidgetComponent(globalWidgets, "faq"),
-      el: <CommunityFAQ key="faq-fallback" {...faqProps} />,
+      el: <CommunityFAQ key="faq" {...faqProps} />,
     },
   ];
 

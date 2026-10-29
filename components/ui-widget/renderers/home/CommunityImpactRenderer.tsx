@@ -1,9 +1,9 @@
 import React from "react";
-import { GradientImageSplit } from "@ui-common";
+import { ImageGradientSplit } from "@ui-common";
 import { SectionRendererProps } from "../../helper";
 import { mapCommunityImpact } from "@services/mappers/home.mapper";
 
 export default function CommunityImpactRenderer({ section, index }: SectionRendererProps) {
   const props = mapCommunityImpact(section);
-  return <GradientImageSplit key={`community-impact-${index}`} id="community" {...props} />;
+  return <ImageGradientSplit key={`community-impact-${index}`} id="community" {...props} />;
 }

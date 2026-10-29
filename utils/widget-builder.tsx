@@ -10,13 +10,18 @@ export function hasWidgetComponent(
   widgets: StrapiWidget[] = [],
   componentName: string | string[]
 ): boolean {
-  const targets = (Array.isArray(componentName) ? componentName : [componentName]).map((t) =>
-    t.toLowerCase().replace(/^(shared|widget)\./, "")
-  );
+  const targets = (Array.isArray(componentName) ? componentName : [componentName]).map((t) => {
+    let clean = t.toLowerCase().replace(/^(shared|widget)\./, "");
+    if (clean === "test-banner" || clean === "sub-page-banner") clean = "hero-banner";
+    if (clean === "inner-page-hero") clean = "sub-page-hero";
+    return clean;
+  });
 
   return widgets.some((w) =>
     w.Sections?.some((s) => {
-      const comp = (s.__component?.toLowerCase() || "").replace(/^(shared|widget)\./, "");
+      let comp = (s.__component?.toLowerCase() || "").replace(/^(shared|widget)\./, "");
+      if (comp === "test-banner" || comp === "sub-page-banner") comp = "hero-banner";
+      if (comp === "inner-page-hero") comp = "sub-page-hero";
       return targets.some((target) => comp === target || comp.includes(target));
     })
   );

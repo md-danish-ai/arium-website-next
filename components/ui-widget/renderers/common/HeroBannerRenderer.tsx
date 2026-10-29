@@ -1,27 +1,27 @@
 import React from "react";
 import { HeroBanner } from "@ui-common";
-import { SectionRendererProps, GetStrapiMediaUrl } from "../../helper";
+import { resolveStrapiImage } from "@utils";
+import { SectionRendererProps } from "../../helper";
 
 export default function HeroBannerRenderer({ section, index }: SectionRendererProps) {
   const {
     title,
     description,
     media,
+    background_image,
     CTA_text,
     CTA_url,
     max_width_title,
     max_width_description,
     object_position,
+    background_image_position,
   } = section;
 
-  const mediaObj = Array.isArray(media) ? media[0] : media;
-  const mediaUrl =
-    typeof mediaObj === "string"
-      ? GetStrapiMediaUrl(mediaObj)
-      : mediaObj?.url
-        ? GetStrapiMediaUrl(mediaObj.url)
-        : undefined;
-  const isVideo = mediaObj?.mime?.startsWith("video/");
+  const rawMedia = background_image || media;
+  const mediaObj = Array.isArray(rawMedia) ? rawMedia[0] : rawMedia;
+  const mediaUrl = resolveStrapiImage(rawMedia, "/images/heroes/about.png");
+  const isVideo = mediaObj?.mime?.startsWith("video/") || false;
+  const finalObjectPosition = background_image_position || object_position || "center top";
 
   return (
     <HeroBanner
@@ -37,7 +37,7 @@ export default function HeroBannerRenderer({ section, index }: SectionRendererPr
       isExternalLink={false}
       maxWidthTitle={max_width_title}
       maxWidthDescription={max_width_description}
-      objectPosition={object_position}
+      objectPosition={finalObjectPosition}
       ctaColor="secondary"
       ctaVariant="outlined"
     />

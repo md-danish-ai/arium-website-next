@@ -16,15 +16,15 @@ import type {
   BackgroundFeatureSectionProps,
   DetailedCardGridProps,
   StatsWithImageProps,
-  ImageGradientSplitProps,
   CareersCtaProps,
   ContactCtaProps,
 } from "@ui-component/home/type";
+import type { ImageGradientSplitProps } from "@ui-common";
 
 type RawRecord = Record<string, unknown>;
 
 /**
- * 1. Home Hero Mapper (shared.main-hero - Position 0)
+ * 1. Home Hero Mapper (widget.main-hero - Position 0)
  * Canonical keys: title, description, font_color, background_color, scroll_text
  */
 export function mapHomeHero(raw?: RawRecord | null, fallback = HOME_HERO_FALLBACK): HomeHeroProps {
@@ -44,7 +44,7 @@ export function mapHomeHero(raw?: RawRecord | null, fallback = HOME_HERO_FALLBAC
 }
 
 /**
- * 2. Background Feature (Network Challenges) Mapper (shared.background-feature-section - Position 1)
+ * 2. Background Feature (Network Challenges) Mapper (widget.background-feature-section - Position 1)
  * Canonical keys: title, title_color, description, description_color, background_image_desktop,
  * background_image_mobile, CTA_text, CTA_url, FeatureCards
  */
@@ -97,7 +97,7 @@ export function mapBackgroundFeature(
 }
 
 /**
- * 3. Our Infrastructure (Detailed Card Grid) Mapper (shared.detailed-card-grid - Position 2)
+ * 3. Our Infrastructure (Detailed Card Grid) Mapper (widget.detailed-card-grid - Position 2)
  * Canonical keys: title, description, background_color, panel_cards
  */
 export function mapInfrastructure(
@@ -149,7 +149,7 @@ export function mapInfrastructure(
 }
 
 /**
- * 4. Scale and Experience (Stats With Image) Mapper (shared.stats-with-image - Position 3)
+ * 4. Scale and Experience (Stats With Image) Mapper (widget.stats-with-image - Position 3)
  * Canonical keys: title, title_color, stat_illustration, stats_card
  */
 export function mapStatsWithImage(
@@ -188,7 +188,7 @@ export function mapStatsWithImage(
 }
 
 /**
- * 5. Community Impact (Image Gradient Split) Mapper (shared.image-gradient-split - Position 4)
+ * 5. Community Impact (Image Gradient Split) Mapper (widget.image-gradient-split - Position 4)
  * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
  * background_image_desktop, background_image_mobile, section_pointers
  */
@@ -241,7 +241,7 @@ export function mapCommunityImpact(
 }
 
 /**
- * 6. Careers Image CTA Mapper (shared.centered-image-cta - Position 5)
+ * 6. Careers Image CTA Mapper (widget.centered-image-cta - Position 5)
  * Canonical keys: title, title_color, description, description_color, background_image, CTA_text, CTA_url
  */
 export function mapCareersCta(
@@ -272,7 +272,7 @@ export function mapCareersCta(
 }
 
 /**
- * 7. Final Contact CTA Mapper (shared.cta-with-graphic - Position 6)
+ * 7. Final Contact CTA Mapper (widget.cta-with-graphic - Position 6)
  * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
  * globe_illustration_desktop, globe_illustration_mobile, background_color
  */

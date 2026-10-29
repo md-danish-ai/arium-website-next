@@ -176,7 +176,7 @@ export function mapSubpageHero(
 }
 
 /**
- * 2. Subpage Process Section Mapper (Right of Way, Private Venues, and shared.process widgets)
+ * 2. Subpage Process Section Mapper (Right of Way, Private Venues, and widget.process widgets)
  */
 export function mapSubpageProcess(
   section?: StrapiSectionItem | RawRecord | null,

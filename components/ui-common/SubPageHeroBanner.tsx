@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { Typography, Button, Breadcrumbs } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
-interface InnerPageHeroProps {
+export interface SubPageHeroBannerProps {
   id?: string;
   heroTag?: string;
   heroTitle?: string;
@@ -15,8 +15,8 @@ interface InnerPageHeroProps {
   contentMaxWidth?: string;
 }
 
-export default function InnerPageHero({
-  id = "inner-hero",
+export default function SubPageHeroBanner({
+  id = "sub-page-hero",
   heroTag,
   heroTitle,
   heroDescription,
@@ -24,7 +24,7 @@ export default function InnerPageHero({
   heroCtasUrl,
   backgroundGradient,
   contentMaxWidth,
-}: InnerPageHeroProps) {
+}: SubPageHeroBannerProps) {
   const pathname = usePathname() || "";
 
   let parentLabel = "";

@@ -30,7 +30,7 @@ export interface PillarCardItem {
 }
 
 /**
- * Widget 0: Hero Banner Fallback (shared.test-banner - Position 0)
+ * Widget 0: Hero Banner Fallback (widget.hero-banner - Position 0)
  */
 export const ABOUT_HERO_FALLBACK = {
   title: "Building a more connected future",
@@ -46,7 +46,7 @@ export const ABOUT_HERO_FALLBACK = {
 };
 
 /**
- * Widget 1: Story with Side Graphic Fallback (shared.content-with-side-graphic - Position 1)
+ * Widget 1: Story with Side Graphic Fallback (widget.content-with-side-graphic - Position 1)
  */
 export const ABOUT_STORY_FALLBACK = {
   title: "A story rooted in connection",
@@ -60,7 +60,7 @@ export const ABOUT_STORY_FALLBACK = {
 };
 
 /**
- * Widget 2A: Journey Timeline Fallback (shared.timeline - Position 2, SubSection 0)
+ * Widget 2A: Journey Timeline Fallback (widget.timeline - Position 2, SubSection 0)
  */
 export const ABOUT_JOURNEY_FALLBACK: {
   title: string;
@@ -105,7 +105,7 @@ export const ABOUT_JOURNEY_FALLBACK: {
 };
 
 /**
- * Widget 2B: Infrastructure Stats Cards Fallback (shared.stats-cards - Position 2, SubSection 1)
+ * Widget 2B: Infrastructure Stats Cards Fallback (widget.stats-cards - Position 2, SubSection 1)
  */
 export const ABOUT_STATS_FALLBACK: {
   title: string;
@@ -140,7 +140,7 @@ export const ABOUT_STATS_FALLBACK: {
 };
 
 /**
- * Widget 2C: Commitments Fallback (shared.commitments - Position 2, SubSection 2)
+ * Widget 2C: Commitments Fallback (widget.commitments - Position 2, SubSection 2)
  */
 export const ABOUT_COMMITMENTS_FALLBACK: {
   title: string;
@@ -183,7 +183,7 @@ export const ABOUT_COMMITMENTS_FALLBACK: {
 };
 
 /**
- * Widget 3: About Pillars / Culture Fallback (shared.pillar-highlights - Position 3)
+ * Widget 3: About Pillars / Culture Fallback (widget.culture - Position 3)
  */
 export const ABOUT_CULTURE_FALLBACK: {
   title: string;

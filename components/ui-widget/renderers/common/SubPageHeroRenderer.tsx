@@ -1,12 +1,12 @@
 import React from "react";
-import { InnerPageHero } from "@ui-common";
+import { SubPageHeroBanner } from "@ui-common";
 import { SectionRendererProps } from "../../helper";
 
-export default function InnerPageHeroRenderer({ section, index }: SectionRendererProps) {
+export default function SubPageHeroRenderer({ section, index }: SectionRendererProps) {
   return (
-    <InnerPageHero
-      key={`inner-hero-${index}`}
-      id={`widget-inner-hero-${index}`}
+    <SubPageHeroBanner
+      key={`sub-hero-${index}`}
+      id={`widget-sub-hero-${index}`}
       heroTag={section.HeroTag || section.heroTag || section.tag}
       heroTitle={section.HeroTitle || section.heroTitle || section.heading}
       heroDescription={section.HeroDescription || section.heroDescription || section.description}

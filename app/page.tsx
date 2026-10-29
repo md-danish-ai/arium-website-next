@@ -4,9 +4,7 @@ import HomeHero from "@ui-component/home/HomeHero";
 import BackgroundFeatureSection from "@ui-component/home/BackgroundFeatureSection";
 import DetailedCardGrid from "@ui-component/home/DetailedCardGrid";
 import StatsWithImage from "@ui-component/home/StatsWithImage";
-import ImageGradientSplit from "@ui-component/home/ImageGradientSplit";
-import CenteredImageCTA from "@ui-common/CenteredImageCTA";
-import CtaWithGraphic from "@ui-common/CtaWithGraphic";
+import { ImageGradientSplit, CenteredImageCTA, CtaWithGraphic } from "@ui-common";
 import Particles from "@ui-animations/Particles";
 import type { Metadata } from "next";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
@@ -55,45 +53,45 @@ export default async function Home() {
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero",
+      key: "main-hero",
       skip: hasWidget("main-hero"),
-      el: <HomeHero key="hero" {...heroProps} />,
+      el: <HomeHero key="main-hero" {...heroProps} />,
     },
     {
       pos: 1,
-      key: "challenges",
+      key: "background-feature-section",
       skip: hasWidget("background-feature-section"),
-      el: <BackgroundFeatureSection key="challenges-fallback" {...networkChallengesProps} />,
+      el: <BackgroundFeatureSection key="background-feature-section" {...networkChallengesProps} />,
     },
     {
       pos: 2,
-      key: "infra",
+      key: "detailed-card-grid",
       skip: hasWidget("detailed-card-grid"),
-      el: <DetailedCardGrid key="infra" {...infraProps} />,
+      el: <DetailedCardGrid key="detailed-card-grid" {...infraProps} />,
     },
     {
       pos: 3,
-      key: "stats",
+      key: "stats-with-image",
       skip: hasWidget("stats-with-image"),
-      el: <StatsWithImage key="stats" {...statsProps} />,
+      el: <StatsWithImage key="stats-with-image" {...statsProps} />,
     },
     {
       pos: 4,
-      key: "community",
+      key: "image-gradient-split",
       skip: hasWidget("image-gradient-split"),
-      el: <ImageGradientSplit key="community" {...communityProps} />,
+      el: <ImageGradientSplit key="image-gradient-split" {...communityProps} />,
     },
     {
       pos: 5,
-      key: "careers",
+      key: "centered-image-cta",
       skip: hasWidget("centered-image-cta"),
-      el: <CenteredImageCTA key="careers" {...careersProps} />,
+      el: <CenteredImageCTA key="centered-image-cta" {...careersProps} />,
     },
     {
       pos: 6,
-      key: "finalcta",
+      key: "cta-with-graphic",
       skip: hasWidget("cta-with-graphic"),
-      el: <CtaWithGraphic key="finalcta" {...contactProps} />,
+      el: <CtaWithGraphic key="cta-with-graphic" {...contactProps} />,
     },
   ];
 

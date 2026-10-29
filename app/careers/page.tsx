@@ -52,54 +52,54 @@ export default async function CareersPage() {
   const benefitsProps = mapCareersBenefits(getSection("Benefits"));
   const eeoProps = mapCareersEEO(getSection("Message"));
 
-  const hasHeroWidget = globalWidgets.some((w) => w.PositionNumber === 0);
+  const hasHeroWidget =
+    hasWidgetComponent(globalWidgets, "hero-banner") ||
+    globalWidgets.some((w) => w.PositionNumber === 0);
 
   const fallbackSections: SectionEntry[] = [
     {
       pos: 0,
-      key: "hero-fallback",
+      key: "hero-banner",
       skip: hasHeroWidget,
-      el: (
-        <HeroBanner key="hero-fallback" {...heroProps} ctaColor="secondary" ctaVariant="filled" />
-      ),
+      el: <HeroBanner key="hero-banner" {...heroProps} ctaColor="secondary" ctaVariant="filled" />,
     },
     {
       pos: 1,
-      key: "culture-fallback",
+      key: "accordion-split",
       skip: hasWidgetComponent(globalWidgets, "accordion-split"),
-      el: <CareersCultureAccordion key="culture-fallback" {...cultureProps} />,
+      el: <CareersCultureAccordion key="accordion-split" {...cultureProps} />,
     },
     {
       pos: 2,
-      key: "testimonials-fallback",
+      key: "gloabl-testimonails",
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
-        <div key="testimonials-fallback">
+        <div key="gloabl-testimonails">
           <CareersTestimonials {...testimonialsProps} />
         </div>
       ),
     },
     {
       pos: 3,
-      key: "jobareas-fallback",
+      key: "highlight-list",
       skip: hasWidgetComponent(globalWidgets, "highlight-list"),
       el: (
-        <div key="jobareas-fallback">
+        <div key="highlight-list">
           <CareersJobAreas {...jobAreasProps} />
         </div>
       ),
     },
     {
       pos: 4,
-      key: "benefits-fallback",
+      key: "benefits",
       skip: hasWidgetComponent(globalWidgets, "benefits"),
-      el: <CareersBenefits key="benefits-fallback" {...benefitsProps} />,
+      el: <CareersBenefits key="benefits" {...benefitsProps} />,
     },
     {
       pos: 5,
-      key: "eeo-fallback",
+      key: "eeo",
       skip: hasWidgetComponent(globalWidgets, "benefits"),
-      el: <CareersEEO key="eeo-fallback" {...eeoProps} />,
+      el: <CareersEEO key="eeo" {...eeoProps} />,
     },
   ];
 
