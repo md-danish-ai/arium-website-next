@@ -1,4 +1,4 @@
-import type { StatItem, FeatureCardItem, StrapiMediaLike } from "@types";
+import type { FeatureCardItem, StatItem, StrapiMediaLike } from "@types";
 
 export interface InfrastructureCard {
   id?: string | number;
@@ -6,7 +6,7 @@ export interface InfrastructureCard {
   description: string;
   CTA_text?: string;
   CTA_url?: string;
-  content_color?: string;
+  text_color?: string;
   svg_code?: string;
   svgType?: "small-cells" | "das";
   image?: string | StrapiMediaLike | null;
@@ -24,12 +24,12 @@ export interface SectionPointerItem {
  * Widget 1: Main Hero Fallback (shared.main-hero - Position 0)
  */
 export const HOME_HERO_FALLBACK = {
-  title: "Build with clarity. connect with confidence",
+  title: "Build with clarity. <br/> Connect with confidence.",
   description:
     "We are the country's largest small cell provider, bringing densification and capacity services to the wireless industry. With a focus on clarity and precision, we design, build, and deploy the essential infrastructure that powers today's most advanced wireless networks.",
   font_color: "#ffffff",
   background_color: "#162047",
-  scroll_text: "Scroll to explore",
+  scroll_text: " Scroll to explore",
 };
 
 /**
@@ -57,25 +57,28 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   CTA_url: undefined,
   FeatureCards: [
     {
+      id: 45,
       title: "Design",
       description:
         "We identify the best network technology, equipment, and architecture designs based on a careful assessment of structure and required capacity.",
-      title_color: undefined,
-      text_color: undefined,
+      title_color: "#00e8d9",
+      description_color: undefined,
     },
     {
+      id: 46,
       title: "Implement",
       description:
         "We bring together the right partners—coordinating and collaborating to deploy the necessary infrastructure.",
-      title_color: undefined,
-      text_color: undefined,
+      title_color: "#00e8d9",
+      description_color: undefined,
     },
     {
+      id: 47,
       title: "Optimize",
       description:
         "We partner with leading firms to conduct radio frequency (RF) testing and optimization, ensuring the network continues to perform as expected.",
-      title_color: undefined,
-      text_color: undefined,
+      title_color: "#00e8d9",
+      description_color: undefined,
     },
   ],
 };
@@ -87,29 +90,33 @@ export const INFRASTRUCTURE_FALLBACK: {
   title: string;
   description: string;
   background_color?: string;
-  PanelCards: InfrastructureCard[];
+  panel_cards: InfrastructureCard[];
 } = {
-  title: "The infrastructure that powers advanced connectivity",
+  title: "The infrastructure that powers advanced connectivity ",
   description:
-    "For over 15 years, we've been building and maintaining the infrastructure the wireless industry relies on.",
+    "For over 15 years, we've been building and maintaining the infrastructure the wireless industry relies on. ",
   background_color: undefined,
-  PanelCards: [
+  panel_cards: [
     {
+      id: 43,
       title: "Small Cells",
       description:
         "Small cells are discreet, low-powered, fiber-connected antennas that enhance connectivity by providing targeted wireless coverage and capacity in public spaces—especially in dense populations or high-traffic areas like cities and suburbs.",
       CTA_text: "Explore more",
-      CTA_url: "/our-solutions",
+      CTA_url: "/solutions",
+      text_color: "#ffffff",
       svgType: "small-cells",
       svg_code: undefined,
       image: undefined,
     },
     {
+      id: 44,
       title: "Distributed Antenna Systems",
       description:
-        "Distributed Antenna Systems (DAS) use small, strategically placed connection points, also called nodes, to meet the unique coverage and capacity needs of venues and indoor spaces like high-rises, hospitals, campuses, stadiums, resorts, and theme parks.",
-      CTA_text: "Explore more",
-      CTA_url: "/our-solutions",
+        "Distributed antenna systems (DAS) use small, strategically placed connection points, also called nodes, to meet the unique coverage and capacity needs of venues and indoor spaces like high-rises, hospitals, campuses, stadiums, resorts, and theme parks.",
+      CTA_text: "Learn more",
+      CTA_url: "/solutions",
+      text_color: "#ffffff",
       svgType: "das",
       svg_code: undefined,
       image: undefined,
@@ -123,47 +130,52 @@ export const INFRASTRUCTURE_FALLBACK: {
 export const STATS_FALLBACK: {
   title: string;
   title_color?: string;
-  image: string;
-  StatsCard: StatItem[];
+  stat_illustration: string;
+  stats_card: StatItem[];
 } = {
-  title: "Scale and experience to match your ambition",
+  title: "Scale and experience to match your ambition ",
   title_color: "#ffffff",
-  image: "/images/svg-images/us-dot-map-faint.svg",
-  StatsCard: [
+  stat_illustration: "/images/svg/us-dot-map-faint.svg",
+  stats_card: [
     {
-      number: "100K+",
+      id: 88,
+      stat: "100K+",
+      stat_color: "#162047",
       description: "Small cells on air or under contract",
+      description_color: undefined,
       background_color: "#898cf3",
-      number_color: "#162047",
-      description_color: "#162047",
     },
     {
-      number: "300+",
+      id: 89,
+      stat: "300+",
+      stat_color: undefined,
       description: "DAS-connected venues and buildings",
+      description_color: undefined,
       background_color: "#bcf6f2",
-      number_color: "#162047",
-      description_color: "#162047",
     },
     {
-      number: "700+",
+      id: 90,
+      stat: "700+",
+      stat_color: undefined,
       description: "Supported municipal networks",
+      description_color: undefined,
       background_color: "#ffffff",
-      number_color: "#162047",
-      description_color: "#162047",
     },
     {
-      number: "15+",
+      id: 91,
+      stat: "15+",
+      stat_color: undefined,
       description: "Years of expertise",
+      description_color: undefined,
       background_color: "#ffffca",
-      number_color: "#162047",
-      description_color: "#162047",
     },
     {
-      number: "24/7",
+      id: 92,
+      stat: "24/7",
+      stat_color: undefined,
       description: "Monitoring via the NOC",
+      description_color: undefined,
       background_color: "#ffdac8",
-      number_color: "#162047",
-      description_color: "#162047",
     },
   ],
 };
@@ -180,26 +192,28 @@ export const COMMUNITY_IMPACT_FALLBACK: {
   CTA_url: string;
   background_image_desktop: string;
   background_image_mobile: string;
-  SectionPointers: SectionPointerItem[];
+  section_pointers: SectionPointerItem[];
 } = {
-  title: "Keeping communities safe and connected",
+  title: "Keeping communities safe and connected ",
   title_color: "#ffffff",
   description:
     "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes.",
   description_color: undefined,
   CTA_text: "Learn More",
   CTA_url: "/community",
-  background_image_desktop: "/images/backgrounds/arena.jpg",
-  background_image_mobile: "/images/backgrounds/arena-mobile.jpg",
-  SectionPointers: [
+  background_image_desktop: "/images/background/arena.jpg",
+  background_image_mobile: "/images/background/arena-mobile.jpg",
+  section_pointers: [
     {
+      id: 55,
       title: "Reliability",
       title_color: "#00e8d9",
       description:
-        "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps, and data they depend on.",
+        "Our infrastructure makes wireless coverage more accessible and reliable, so communities and businesses can stay connected to the people, apps and data they depend on.",
       description_color: undefined,
     },
     {
+      id: 56,
       title: "Opportunity",
       title_color: "#00e8d9",
       description:
@@ -207,10 +221,11 @@ export const COMMUNITY_IMPACT_FALLBACK: {
       description_color: undefined,
     },
     {
+      id: 57,
       title: "Safety",
       title_color: "#00e8d9",
       description:
-        "In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters, and other first responders can access the essential data they need to do their jobs effectively.",
+        "In an emergency, reliable wireless service ensures that 911 services remain available, and that police, firefighters and other first responders can access the essential data they need to do their jobs effectively.",
       description_color: undefined,
     },
   ],
@@ -220,7 +235,7 @@ export const COMMUNITY_IMPACT_FALLBACK: {
  * Widget 6: Careers Image CTA Fallback (shared.centered-image-cta - Position 5)
  */
 export const CAREERS_FALLBACK = {
-  title: "Help us shape the future of connectivity",
+  title: "Help us shape the future of connectivity ",
   title_color: "#ffffff",
   description:
     "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",
@@ -241,12 +256,12 @@ export const CONTACT_FALLBACK = {
   description_color: "#162047",
   CTA_text: "Contact Us",
   CTA_url: "/contact",
-  image_desktop: "/images/svg-images/connection-cta.svg",
-  image_mobile: "/images/svg-images/connection-cta.svg",
+  globe_illustration_desktop: "/images/svg-images/connection-cta.svg",
+  globe_illustration_mobile: "/images/svg-images/connection-cta.svg",
   background_color: "#d2c7ff",
 };
 
 export const HOME_SEO_FALLBACK = {
   title: "Arium Networks",
-  description: "Build with clarity—connect with confidence",
+  description: "Build with clarity. Connect with confidence.",
 };

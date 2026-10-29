@@ -19,10 +19,10 @@ export interface LinkItem {
 
 export interface StatItem {
   id?: string | number;
-  number: string;
+  stat?: string;
   description: string;
   background_color?: string;
-  number_color?: string;
+  stat_color?: string;
   description_color?: string;
 }
 

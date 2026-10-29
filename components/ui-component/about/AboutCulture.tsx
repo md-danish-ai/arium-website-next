@@ -25,7 +25,7 @@ export default function AboutCulture({
       CTA_url={CTA_url}
       background_image_desktop={background_image_desktop}
       background_image_mobile={background_image_mobile}
-      SectionPointers={PillarCards}
+      section_pointers={PillarCards}
       style={background_color ? { background: background_color } : undefined}
     />
   );

@@ -10,7 +10,7 @@ export default function DetailedCardGrid({
   title,
   description,
   background_color,
-  PanelCards = [],
+  panel_cards = [],
 }: DetailedCardGridProps) {
   const containerRef = useSvgDraw();
   const backgroundStyle = background_color ? { background: background_color } : undefined;
@@ -46,7 +46,7 @@ export default function DetailedCardGrid({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-5 lg:gap-8 max-w-[520px] md:max-w-none mx-auto w-full">
-          {PanelCards.map((card, index) => {
+          {panel_cards.map((card, index) => {
             const cardImageUrl =
               typeof card.image === "string"
                 ? card.image

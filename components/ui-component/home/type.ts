@@ -1,11 +1,14 @@
-import type { StatItem, FeatureCardItem, StrapiMediaLike, StrapiMediaItem } from "@types";
+import type { FeatureCardItem, StatItem, StrapiMediaLike, StrapiMediaItem } from "@types";
 import type { InfrastructureCard, SectionPointerItem } from "@data/home.data";
 
-export type { FeatureCardItem as FeatureCard };
-export type { StatItem };
-export type { InfrastructureCard as PanelsCard };
-export type { SectionPointerItem as SectionPointer };
-export type { StrapiMediaLike, StrapiMediaItem };
+export type {
+  FeatureCardItem,
+  InfrastructureCard,
+  SectionPointerItem,
+  StatItem,
+  StrapiMediaLike,
+  StrapiMediaItem,
+};
 
 /**
  * 1. Home Hero Props (Widget 1 - shared.main-hero)
@@ -23,11 +26,11 @@ export interface HomeHeroProps {
  */
 export interface BackgroundFeatureSectionProps {
   title?: string;
+  title_color?: string;
   description?: string;
+  description_color?: string;
   background_image_desktop?: string;
   background_image_mobile?: string;
-  title_color?: string;
-  description_color?: string;
   CTA_text?: string;
   CTA_url?: string;
   FeatureCards?: FeatureCardItem[];
@@ -41,7 +44,7 @@ export interface DetailedCardGridProps {
   title?: string;
   description?: string;
   background_color?: string;
-  PanelCards?: InfrastructureCard[];
+  panel_cards?: InfrastructureCard[];
 }
 
 /**
@@ -50,8 +53,8 @@ export interface DetailedCardGridProps {
 export interface StatsWithImageProps {
   title?: string;
   title_color?: string;
-  image?: string;
-  StatsCard?: StatItem[];
+  stat_illustration?: string;
+  stats_card?: StatItem[];
 }
 
 /**
@@ -66,7 +69,7 @@ export interface ImageGradientSplitProps {
   CTA_url?: string;
   background_image_desktop?: string;
   background_image_mobile?: string;
-  SectionPointers?: SectionPointerItem[];
+  section_pointers?: SectionPointerItem[];
 }
 
 /**
@@ -92,7 +95,7 @@ export interface ContactCtaProps {
   description_color?: string;
   CTA_text?: string;
   CTA_url?: string;
-  image_desktop?: string | null;
-  image_mobile?: string | null;
+  globe_illustration_desktop?: string | null;
+  globe_illustration_mobile?: string | null;
   background_color?: string;
 }

@@ -79,7 +79,6 @@ export function mapBackgroundFeature(
             title_color: (c.title_color as string) || fb?.title_color,
             description: (c.description as string) || fb?.description || "",
             description_color: (c.description_color as string) || fb?.description_color,
-            text_color: (c.text_color as string) || fb?.text_color,
           };
         })
       : fallback.FeatureCards;
@@ -99,8 +98,7 @@ export function mapBackgroundFeature(
 
 /**
  * 3. Our Infrastructure (Detailed Card Grid) Mapper (shared.detailed-card-grid - Position 2)
- * Canonical keys: title, description, background_color, PanelCards
- * Note: PanelCards contains an OR option between interactive svg_code / svgType and image
+ * Canonical keys: title, description, background_color, panel_cards
  */
 export function mapInfrastructure(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -110,16 +108,16 @@ export function mapInfrastructure(
   const description = (raw?.description as string) || fallback.description;
   const background_color = (raw?.background_color as string) || fallback.background_color;
 
-  const rawCards = raw?.PanelCards as RawRecord[] | undefined;
-  const PanelCards: InfrastructureCard[] =
+  const rawCards = raw?.panel_cards as RawRecord[] | undefined;
+  const panel_cards: InfrastructureCard[] =
     Array.isArray(rawCards) && rawCards.length > 0
       ? rawCards.map((item, idx) => {
-          const fb = fallback.PanelCards[idx % fallback.PanelCards.length];
+          const fb = fallback.panel_cards[idx % fallback.panel_cards.length];
           const cardTitle = (item.title as string) || fb?.title || "";
           const cardDesc = (item.description as string) || fb?.description || "";
           const CTA_text = (item.CTA_text as string) || fb?.CTA_text;
           const CTA_url = (item.CTA_url as string) || fb?.CTA_url;
-          const content_color = (item.content_color as string) || fb?.content_color;
+          const text_color = (item.text_color as string) || fb?.text_color;
           const svg_code = (item.svg_code as string) || fb?.svg_code;
           const image = item.image ? resolveStrapiImage(item.image) : fb?.image;
 
@@ -134,25 +132,25 @@ export function mapInfrastructure(
             description: cardDesc,
             CTA_text,
             CTA_url,
-            content_color,
+            text_color,
             svg_code,
             image,
             svgType,
           };
         })
-      : fallback.PanelCards;
+      : fallback.panel_cards;
 
   return {
     title,
     description,
     background_color,
-    PanelCards,
+    panel_cards,
   };
 }
 
 /**
  * 4. Scale and Experience (Stats With Image) Mapper (shared.stats-with-image - Position 3)
- * Canonical keys: title, title_color, image, StatsCard
+ * Canonical keys: title, title_color, stat_illustration, stats_card
  */
 export function mapStatsWithImage(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -161,36 +159,38 @@ export function mapStatsWithImage(
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
 
-  const image = raw?.image ? resolveStrapiImage(raw.image, fallback.image) : fallback.image;
+  const stat_illustration = raw?.stat_illustration
+    ? resolveStrapiImage(raw.stat_illustration, fallback.stat_illustration)
+    : fallback.stat_illustration;
 
-  const rawStats = raw?.StatsCard as RawRecord[] | undefined;
-  const StatsCard: StatItem[] =
+  const rawStats = raw?.stats_card as RawRecord[] | undefined;
+  const stats_card: StatItem[] =
     Array.isArray(rawStats) && rawStats.length > 0
       ? rawStats.map((s, idx) => {
-          const fb = fallback.StatsCard[idx % fallback.StatsCard.length];
+          const fb = fallback.stats_card[idx % fallback.stats_card.length];
           return {
             id: (s.id as string | number) ?? idx,
-            number: (s.number as string) || fb?.number || "",
-            number_color: (s.number_color as string) || fb?.number_color,
+            stat: (s.stat as string) || fb?.stat || "",
+            stat_color: (s.stat_color as string) || fb?.stat_color,
             description: (s.description as string) || fb?.description || "",
             description_color: (s.description_color as string) || fb?.description_color,
             background_color: (s.background_color as string) || fb?.background_color,
           };
         })
-      : fallback.StatsCard;
+      : fallback.stats_card;
 
   return {
     title,
     title_color,
-    image,
-    StatsCard,
+    stat_illustration,
+    stats_card,
   };
 }
 
 /**
  * 5. Community Impact (Image Gradient Split) Mapper (shared.image-gradient-split - Position 4)
  * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
- * background_image_desktop, background_image_mobile, SectionPointers
+ * background_image_desktop, background_image_mobile, section_pointers
  */
 export function mapCommunityImpact(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -212,11 +212,11 @@ export function mapCommunityImpact(
     ? resolveStrapiImage(raw.background_image_mobile, fallback.background_image_mobile)
     : fallback.background_image_mobile;
 
-  const rawPointers = raw?.SectionPointers as RawRecord[] | undefined;
-  const SectionPointers: SectionPointerItem[] =
+  const rawPointers = raw?.section_pointers as RawRecord[] | undefined;
+  const section_pointers: SectionPointerItem[] =
     Array.isArray(rawPointers) && rawPointers.length > 0
       ? rawPointers.map((p, i) => {
-          const fb = fallback.SectionPointers[i % fallback.SectionPointers.length];
+          const fb = fallback.section_pointers[i % fallback.section_pointers.length];
           return {
             id: (p.id as string | number) ?? i,
             title: (p.title as string) || fb?.title || "",
@@ -225,7 +225,7 @@ export function mapCommunityImpact(
             description_color: (p.description_color as string) || fb?.description_color,
           };
         })
-      : fallback.SectionPointers;
+      : fallback.section_pointers;
 
   return {
     title,
@@ -236,7 +236,7 @@ export function mapCommunityImpact(
     CTA_url,
     background_image_desktop,
     background_image_mobile,
-    SectionPointers,
+    section_pointers,
   };
 }
 
@@ -274,7 +274,7 @@ export function mapCareersCta(
 /**
  * 7. Final Contact CTA Mapper (shared.cta-with-graphic - Position 6)
  * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
- * image_desktop, image_mobile, background_color
+ * globe_illustration_desktop, globe_illustration_mobile, background_color
  */
 export function mapContactCta(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -288,13 +288,13 @@ export function mapContactCta(
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
   const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const image_desktop = raw?.image_desktop
-    ? resolveStrapiImage(raw.image_desktop, fallback.image_desktop)
-    : fallback.image_desktop;
+  const globe_illustration_desktop = raw?.globe_illustration_desktop
+    ? resolveStrapiImage(raw.globe_illustration_desktop, fallback.globe_illustration_desktop)
+    : fallback.globe_illustration_desktop;
 
-  const image_mobile = raw?.image_mobile
-    ? resolveStrapiImage(raw.image_mobile, fallback.image_mobile)
-    : fallback.image_mobile;
+  const globe_illustration_mobile = raw?.globe_illustration_mobile
+    ? resolveStrapiImage(raw.globe_illustration_mobile, fallback.globe_illustration_mobile)
+    : fallback.globe_illustration_mobile;
 
   const background_color = (raw?.background_color as string) || fallback.background_color;
 
@@ -305,8 +305,8 @@ export function mapContactCta(
     description_color,
     CTA_text,
     CTA_url,
-    image_desktop,
-    image_mobile,
+    globe_illustration_desktop,
+    globe_illustration_mobile,
     background_color,
   };
 }

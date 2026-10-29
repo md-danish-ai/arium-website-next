@@ -22,8 +22,8 @@ export interface CtaWithGraphicProps {
   description?: string;
   CTA_text?: string;
   CTA_url?: string;
-  image_desktop?: GraphicType;
-  image_mobile?: GraphicType;
+  globe_illustration_desktop?: GraphicType;
+  globe_illustration_mobile?: GraphicType;
   background_color?: string;
   title_color?: string;
   description_color?: string;
@@ -34,8 +34,8 @@ export default function CtaWithGraphic({
   description,
   CTA_text,
   CTA_url,
-  image_desktop,
-  image_mobile,
+  globe_illustration_desktop,
+  globe_illustration_mobile,
   background_color,
   title_color,
   description_color,
@@ -43,16 +43,18 @@ export default function CtaWithGraphic({
   if (!title && !description) return null;
 
   const graphicUrl =
-    typeof image_desktop === "string"
-      ? image_desktop
-      : image_desktop?.url ||
-        image_desktop?.data?.attributes?.url ||
+    typeof globe_illustration_desktop === "string"
+      ? globe_illustration_desktop
+      : globe_illustration_desktop?.url ||
+        globe_illustration_desktop?.data?.attributes?.url ||
         "/images/svg-images/connection-cta.svg";
   const absoluteGraphicUrl = GetStrapiMediaUrl(graphicUrl);
 
   const altText =
-    (typeof image_desktop === "object" && image_desktop?.alternativeText) ||
-    (typeof image_desktop === "object" && image_desktop?.data?.attributes?.alternativeText) ||
+    (typeof globe_illustration_desktop === "object" &&
+      globe_illustration_desktop?.alternativeText) ||
+    (typeof globe_illustration_desktop === "object" &&
+      globe_illustration_desktop?.data?.attributes?.alternativeText) ||
     title ||
     "CTA Graphic";
   const isSvg =
@@ -69,7 +71,6 @@ export default function CtaWithGraphic({
             as="h2"
             variant="h3"
             uppercase
-            weight="bold"
             className="reveal stagger-1 m-0 mb-4 md:mb-6 text-midnight leading-[1.15] tracking-tight"
             style={{ color: title_color || undefined }}
           >

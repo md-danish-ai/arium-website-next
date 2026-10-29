@@ -164,7 +164,9 @@ export default function Typography({
   return (
     <Component
       className={classes}
-      {...(finalDangerouslySetInnerHTML ? { dangerouslySetInnerHTML: finalDangerouslySetInnerHTML } : {})}
+      {...(finalDangerouslySetInnerHTML
+        ? { dangerouslySetInnerHTML: finalDangerouslySetInnerHTML }
+        : {})}
       {...props}
     >
       {finalChildren}

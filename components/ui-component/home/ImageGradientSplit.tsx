@@ -13,7 +13,7 @@ export default function ImageGradientSplit({
   CTA_url,
   background_image_desktop,
   background_image_mobile,
-  SectionPointers = [],
+  section_pointers = [],
 }: ImageGradientSplitProps) {
   return (
     <GradientImageSplit
@@ -26,7 +26,7 @@ export default function ImageGradientSplit({
       CTA_url={CTA_url}
       background_image_desktop={background_image_desktop}
       background_image_mobile={background_image_mobile}
-      SectionPointers={SectionPointers}
+      section_pointers={section_pointers}
     />
   );
 }

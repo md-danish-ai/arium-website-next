@@ -5,13 +5,13 @@ import Image from "next/image";
 import { Typography, StatCard } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import { useCounterAnimation } from "@hooks/useCounterAnimation";
-import { StatsWithImageProps, StatItem } from "./type";
+import { StatsWithImageProps } from "./type";
 
 export default function StatsWithImage({
   title,
   title_color,
-  image,
-  StatsCard = [],
+  stat_illustration,
+  stats_card = [],
 }: StatsWithImageProps) {
   const sectionRef = useCounterAnimation();
 
@@ -36,17 +36,17 @@ export default function StatsWithImage({
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-center">
           <div className="grid grid-cols-2 gap-3 sm:gap-3.5 md:gap-4 w-full h-full reveal stagger-1">
-            {StatsCard.map((stat: StatItem, index: number, array: StatItem[]) => {
+            {stats_card.map((item, index: number, array) => {
               const isLastSpan2 = index === array.length - 1 && array.length % 2 !== 0;
 
               return (
                 <StatCard
-                  key={stat.id ?? index}
-                  number={stat.number}
-                  description={stat.description}
-                  bgColor={stat.background_color}
-                  numberColor={stat.number_color}
-                  descriptionColor={stat.description_color}
+                  key={item.id ?? index}
+                  stat={item.stat}
+                  description={item.description}
+                  background_color={item.background_color}
+                  stat_color={item.stat_color}
+                  description_color={item.description_color}
                   align={isLastSpan2 ? "center" : "left"}
                   className={isLastSpan2 ? "col-span-2" : ""}
                 />
@@ -54,10 +54,10 @@ export default function StatsWithImage({
             })}
           </div>
 
-          {image && (
+          {stat_illustration && (
             <div className="flex items-center justify-center h-full w-full reveal stagger-2 mt-4 lg:mt-0">
               <Image
-                src={image}
+                src={stat_illustration}
                 alt={title || "Coverage Map"}
                 width={800}
                 height={480}
