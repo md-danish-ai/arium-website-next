@@ -122,6 +122,9 @@ const weightMap: Record<string | number, string> = {
 // Regex to detect if className already provides an explicit font weight
 const HAS_FONT_WEIGHT_REGEX = /\bfont-(light|normal|medium|semibold|bold|extrabold)\b/;
 
+// Regex to detect HTML tags in string children
+const HTML_TAG_REGEX = /<\/?[a-z][a-z0-9]*\b[^>]*>/i;
+
 export default function Typography({
   variant = "b2",
   as,
@@ -129,6 +132,7 @@ export default function Typography({
   uppercase,
   className = "",
   children,
+  dangerouslySetInnerHTML,
   ...props
 }: TypographyProps) {
   const Component = as || variantTagMap[variant] || "div";
@@ -151,9 +155,19 @@ export default function Typography({
 
   const classes = [variantStyles, weightClass, uppercaseClass, className].filter(Boolean).join(" ");
 
+  // Auto-detect HTML string in children or use explicit dangerouslySetInnerHTML
+  const isHtmlString = typeof children === "string" && HTML_TAG_REGEX.test(children);
+  const finalDangerouslySetInnerHTML =
+    dangerouslySetInnerHTML || (isHtmlString ? { __html: children } : undefined);
+  const finalChildren = finalDangerouslySetInnerHTML ? undefined : children;
+
   return (
-    <Component className={classes} {...props}>
-      {children}
+    <Component
+      className={classes}
+      {...(finalDangerouslySetInnerHTML ? { dangerouslySetInnerHTML: finalDangerouslySetInnerHTML } : {})}
+      {...props}
+    >
+      {finalChildren}
     </Component>
   );
 }

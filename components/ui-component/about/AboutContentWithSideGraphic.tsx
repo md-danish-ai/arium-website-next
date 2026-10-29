@@ -44,13 +44,12 @@ export default function AboutContentWithSideGraphic({
             className="reveal stagger-1 flex flex-col gap-5 text-midnight/80 text-left leading-[1.8]"
             style={description_color ? { color: description_color } : undefined}
           >
-            {description
-              ? description.split("\n\n").map((paragraph, i) => (
-                <Typography variant="b1" as="p" className="m-0" key={i}>
-                  {paragraph}
-                </Typography>
-              ))
-              : null}
+            <Typography
+              variant="b1"
+              as="p"
+              className="m-0"
+              dangerouslySetInnerHTML={{ __html: description || "" }}
+            />
           </div>
         </div>
       </Container>
