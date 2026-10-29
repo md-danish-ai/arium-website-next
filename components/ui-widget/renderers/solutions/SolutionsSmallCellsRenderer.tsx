@@ -1,28 +1,22 @@
 import React from "react";
-import { SolutionsSmallCells, SolutionsDas } from "@ui-component/solutions";
+import { SolutionsIllustrationSplit } from "@ui-component/solutions";
 import { mapSolutionsSmallCells, mapSolutionsDas } from "@services/mappers/solutions.mapper";
 import { SectionRendererProps } from "../../helper";
 
-export default function SolutionsSmallCellsRenderer({ section, index }: SectionRendererProps) {
-  const heading = (
-    section.heading ||
-    section.Heading ||
-    section.title ||
-    section.Title ||
-    ""
-  ).toLowerCase();
-  const rawAlignment = section.mediaAlignment || section.MediaAlignment;
+export default function SolutionsSmallCellsRenderer({
+  section,
+  section: { title = "", illustration_image_alignment },
+  index,
+}: SectionRendererProps) {
   const isDas =
-    rawAlignment === "Left" ||
-    rawAlignment === "Media Left" ||
-    heading.includes("antenna") ||
-    heading.includes("das");
+    illustration_image_alignment === "Left" ||
+    title.toLowerCase().includes("antenna") ||
+    title.toLowerCase().includes("das");
 
-  if (isDas) {
-    const props = mapSolutionsDas(section);
-    return <SolutionsDas key={`solutions-das-${index}`} {...props} />;
-  }
-
-  const props = mapSolutionsSmallCells(section);
-  return <SolutionsSmallCells key={`solutions-smallcells-${index}`} {...props} />;
+  return (
+    <SolutionsIllustrationSplit
+      key={`solutions-smallcells-${index}`}
+      {...(isDas ? mapSolutionsDas(section) : mapSolutionsSmallCells(section))}
+    />
+  );
 }

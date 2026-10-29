@@ -8,9 +8,9 @@ import { Typography } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 interface Statistic {
-  Number?: string;
-  Label?: string;
-  NumberColor?: string;
+  stat: string;
+  description: string;
+  stat_color?: string;
 }
 
 interface StrapiMediaObject {
@@ -21,51 +21,54 @@ interface StrapiMediaObject {
 
 interface IllustrationSplitProps {
   id?: string;
-  heading?: string;
+  title?: string;
+  title_color?: string;
   description?: string;
-  media?: StrapiMediaObject[] | StrapiMediaObject;
-  mediaAlignment?: "Media Right" | "Media Left" | "Right" | "Left";
+  description_color?: string;
+  illustration_image?: StrapiMediaObject[] | StrapiMediaObject | string | null;
+  illustration_image_alignment?: "Media Right" | "Media Left" | "Right" | "Left";
+  show_bottom_divider?: boolean;
   statistics?: Statistic[];
-  showBottomDivider?: boolean;
-  HeadingColor?: string;
-  DescriptionColor?: string;
 }
 
 export default function IllustrationSplit({
   id,
-  heading,
+  title,
+  title_color,
   description,
-  media,
-  mediaAlignment = "Media Right",
+  description_color,
+  illustration_image,
+  illustration_image_alignment,
+  show_bottom_divider,
   statistics = [],
-  showBottomDivider = false,
-  HeadingColor,
-  DescriptionColor,
 }: IllustrationSplitProps) {
   const pathname = usePathname();
   const isSolutions = pathname?.includes("solutions") || pathname?.includes("/solutions");
 
-  let rawImgUrl = undefined;
+  let rawImgUrl: string | undefined = undefined;
   let altText: string | undefined = undefined;
-  if (Array.isArray(media)) {
-    rawImgUrl = media[0]?.url;
-    altText = media[0]?.alternativeText;
-  } else if (media) {
-    const singleMedia = media as StrapiMediaObject;
+
+  if (typeof illustration_image === "string") {
+    rawImgUrl = illustration_image;
+  } else if (Array.isArray(illustration_image)) {
+    rawImgUrl = illustration_image[0]?.url;
+    altText = illustration_image[0]?.alternativeText;
+  } else if (illustration_image) {
+    const singleMedia = illustration_image as StrapiMediaObject;
     rawImgUrl = singleMedia.url ?? singleMedia.data?.attributes?.url;
     altText = singleMedia.alternativeText;
   }
-  const isDas =
-    (heading || "").toLowerCase().includes("antenna") ||
-    (heading || "").toLowerCase().includes("das") ||
-    mediaAlignment === "Media Left" ||
-    mediaAlignment === "Left";
-  const defaultSvg = isDas
+
+  const isMediaLeft =
+    illustration_image_alignment === "Media Left" ||
+    illustration_image_alignment === "Left" ||
+    (title ? title.toLowerCase().includes("antenna") : false) ||
+    (title ? title.toLowerCase().includes("das") : false);
+
+  const defaultSvg = isMediaLeft
     ? "/images/svg-images/das-illustration.svg"
     : "/images/svg-images/small-cells-illustration.svg";
   const imgUrl = rawImgUrl ? GetStrapiMediaUrl(rawImgUrl) : defaultSvg;
-
-  const isMediaLeft = mediaAlignment === "Media Left" || mediaAlignment === "Left";
 
   return (
     <section
@@ -79,7 +82,6 @@ export default function IllustrationSplit({
         aria-hidden="true"
       />
 
-      {/* Mobile-only illustration — absolutely pinned to top-right of section so text is full width */}
       <div
         className="md:hidden absolute top-[-25px] right-0 w-[150px] sm:w-[180px] pointer-events-none z-[1]"
         aria-hidden="true"
@@ -99,30 +101,28 @@ export default function IllustrationSplit({
 
       <Container className="relative z-[1]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
-          {/* Text Content Area */}
           <div className={`order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
-            {heading && (
+            {title && (
               <Typography
                 as="h2"
                 variant="h3"
                 uppercase
                 weight="normal"
                 className="section-title text-left tracking-[0.06em] leading-[1.45] text-midnight m-0 mb-3"
-                style={{ color: HeadingColor || undefined }}
+                style={{ color: title_color || undefined }}
               >
-                {heading}
+                {title}
               </Typography>
             )}
 
             {description && (
               <div
                 className="strapi-richtext-body leading-[1.8] text-midnight/80 mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-3"
-                style={{ color: DescriptionColor || undefined }}
+                style={{ color: description_color || undefined }}
                 dangerouslySetInnerHTML={{ __html: description }}
               />
             )}
 
-            {/* Statistics Area */}
             {statistics && statistics.length > 0 && (
               <div className="flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
                 {statistics.map((stat, index) => (
@@ -130,50 +130,35 @@ export default function IllustrationSplit({
                     key={`stat-${index}`}
                     className="flex flex-col gap-1 py-1 cursor-default shrink-0"
                   >
-                    {stat?.Number ? (
-                      <>
-                        <Typography
-                          as="span"
-                          variant="stat"
-                          weight="bold"
-                          className="tracking-tight leading-none text-[#7c5cbf]"
-                          style={{ color: stat.NumberColor || "#7c5cbf" }}
-                        >
-                          {stat?.Number}
-                        </Typography>
-                        {stat?.Label && (
-                          <Typography
-                            as="p"
-                            variant="b2"
-                            weight="normal"
-                            className="normal-case tracking-normal text-midnight/80 m-0 mt-1.5 whitespace-nowrap"
-                          >
-                            {stat?.Label}
-                          </Typography>
-                        )}
-                      </>
-                    ) : stat?.Label ? (
+                    <Typography
+                      as="span"
+                      variant="stat"
+                      weight="bold"
+                      className="tracking-tight leading-none text-[#7c5cbf]"
+                      style={{ color: stat.stat_color || "#7c5cbf" }}
+                    >
+                      {stat.stat}
+                    </Typography>
+                    {stat.description && (
                       <Typography
-                        as="span"
-                        variant="b4"
-                        weight="medium"
-                        className="px-3.5 py-1.5 rounded-full border border-midnight/15 text-midnight bg-midnight/5 m-0 whitespace-nowrap"
+                        as="p"
+                        variant="b2"
+                        weight="normal"
+                        className="normal-case tracking-normal text-midnight/80 m-0 mt-1.5 whitespace-nowrap"
                       >
-                        {stat?.Label}
+                        {stat.description}
                       </Typography>
-                    ) : null}
+                    )}
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Optional Bottom Divider */}
-            {showBottomDivider && !isSolutions && (
+            {show_bottom_divider && !isSolutions && (
               <div className="w-full h-px bg-midnight/10 mt-7" />
             )}
           </div>
 
-          {/* Desktop / Tablet Illustration Column (>= md) */}
           <div
             className={`hidden md:flex items-center self-center w-full ${
               isMediaLeft
@@ -184,7 +169,7 @@ export default function IllustrationSplit({
             <div className="relative w-full max-w-[340px] md:max-w-[440px]">
               <Image
                 src={imgUrl}
-                alt={altText || heading || "Illustration"}
+                alt={altText || title || "Illustration"}
                 width={440}
                 height={440}
                 unoptimized={imgUrl.toLowerCase().endsWith(".svg")}

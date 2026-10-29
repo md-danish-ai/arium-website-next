@@ -1,7 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import HeroBanner from "@ui-common/HeroBanner";
-import { SolutionsSmallCells, SolutionsDas, SolutionsIndustries } from "@ui-component/solutions";
+import { CtaWithGraphic } from "@ui-common";
+import { SolutionsIllustrationSplit, SolutionsIndustries } from "@ui-component/solutions";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -10,6 +11,7 @@ import {
   mapSolutionsSmallCells,
   mapSolutionsDas,
   mapSolutionsIndustries,
+  mapSolutionsCta,
 } from "@services/mappers/solutions.mapper";
 import FlowBackground from "@ui-animations/FlowBackground";
 import { SOLUTIONS_SEO_FALLBACK } from "@data/solutions.data";
@@ -38,6 +40,8 @@ export default async function SolutionsPage() {
   const smallCellsProps = mapSolutionsSmallCells(getSection("Small Cells"));
   const dasProps = mapSolutionsDas(getSection("Distributed Antenna Systems"));
   const industriesProps = mapSolutionsIndustries(getSection("Industries"));
+  const ctaSection = getSection("A Balanced Approach") || getSection("Approach");
+  const ctaProps = mapSolutionsCta(ctaSection);
 
   const hasHeroWidget =
     hasWidgetComponent(globalWidgets, "hero-banner") ||
@@ -48,7 +52,20 @@ export default async function SolutionsPage() {
       pos: 0,
       key: "hero-banner",
       skip: hasHeroWidget,
-      el: <HeroBanner key="hero-banner" {...heroProps} />,
+      el: (
+        <HeroBanner
+          key="hero-banner"
+          id="solutions-hero"
+          title={heroProps.title}
+          description={heroProps.description}
+          imageSrc={heroProps.background_image}
+          ctaText={heroProps.CTA_text || undefined}
+          ctaLink={heroProps.CTA_url || undefined}
+          maxWidthTitle={heroProps.max_width_title || undefined}
+          maxWidthDescription={heroProps.max_width_description || undefined}
+          objectPosition={heroProps.background_image_position || undefined}
+        />
+      ),
     },
     {
       pos: 1,
@@ -60,18 +77,25 @@ export default async function SolutionsPage() {
           className="bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] relative overflow-hidden -mt-px border-none"
         >
           <FlowBackground />
-          <SolutionsSmallCells {...smallCellsProps} />
-          <SolutionsDas {...dasProps} />
+          <SolutionsIllustrationSplit {...smallCellsProps} />
+          <SolutionsIllustrationSplit {...dasProps} />
         </div>
       ),
     },
     {
       pos: 3,
-      key: "industry",
+      key: "accordion-split",
       skip:
         globalWidgets.some((w) => w.PositionNumber === 3) ||
+        hasWidgetComponent(globalWidgets, "accordion-split") ||
         hasWidgetComponent(globalWidgets, "industry"),
-      el: <SolutionsIndustries key="industry" {...industriesProps} />,
+      el: <SolutionsIndustries key="accordion-split" {...industriesProps} />,
+    },
+    {
+      pos: 99,
+      key: "cta-with-graphic",
+      skip: hasWidgetComponent(globalWidgets, "cta-with-graphic"),
+      el: <CtaWithGraphic key="cta-with-graphic" {...ctaProps} />,
     },
   ];
 
