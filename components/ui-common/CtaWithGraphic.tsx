@@ -97,7 +97,7 @@ export default function CtaWithGraphic({
       </Container>
 
       <div
-        className="absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden opacity-25 sm:opacity-40 md:opacity-100 transition-opacity duration-300"
+        className="absolute top-0 bottom-0 right-0 h-full aspect-square pointer-events-none z-[1] flex items-center justify-end overflow-hidden opacity-15 sm:opacity-20 md:opacity-25 lg:opacity-100 transition-opacity duration-300"
         aria-hidden="true"
       >
         <Image
