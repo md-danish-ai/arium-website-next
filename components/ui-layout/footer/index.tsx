@@ -43,7 +43,6 @@ export default function Footer({
 }
 
 export * from "./footer-data";
-export * from "./FooterSvgs";
 export * from "./FooterBrand";
 export * from "./FooterSocialRow";
 export * from "./FooterLegalRow";

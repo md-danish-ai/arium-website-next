@@ -22,11 +22,6 @@ export interface CareersCultureAccordionProps {
   pillars?: CareersPillar[];
 }
 
-export interface CareersTestimonialsProps {
-  title: string;
-  cards: CareersEmployeeTestimonial[];
-}
-
 export interface CareersJobAreasProps {
   title: string;
   description?: string;

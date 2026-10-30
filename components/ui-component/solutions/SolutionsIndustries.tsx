@@ -37,7 +37,6 @@ export default function SolutionsIndustries({
   description,
   description_color,
   background_color,
-  template_grid_columns,
   accordian_cards = [],
 }: SolutionsIndustriesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);

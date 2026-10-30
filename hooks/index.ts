@@ -6,4 +6,3 @@ export * from "./useCounters";
 export * from "./useCounterAnimation";
 export * from "./useSpringShapes";
 export * from "./useSvgDraw";
-export * from "./useAnimations";

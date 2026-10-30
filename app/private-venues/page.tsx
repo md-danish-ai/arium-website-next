@@ -1,8 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import PrivateVenuesHero from "@ui-component/where-we-build/PrivateVenuesHero";
-import PrivateVenuesTestimonials from "@ui-component/where-we-build/PrivateVenuesTestimonials";
-import { ProcessSection, SubPageCTA } from "@ui-common";
+import { SubPageHeroBanner, SharedTestimonials, ProcessSection, SubPageCTA } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -60,7 +58,7 @@ export default async function PrivateVenuesPage() {
       pos: 0,
       key: "sub-page-hero",
       skip: hasSubPageHeroWidget,
-      el: <PrivateVenuesHero key="sub-page-hero" {...heroProps} />,
+      el: <SubPageHeroBanner key="sub-page-hero" {...heroProps} />,
     },
     {
       pos: 1,
@@ -74,7 +72,7 @@ export default async function PrivateVenuesPage() {
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
         <div key="gloabl-testimonails">
-          <PrivateVenuesTestimonials {...testimonialsProps} />
+          <SharedTestimonials {...testimonialsProps} />
         </div>
       ),
     },

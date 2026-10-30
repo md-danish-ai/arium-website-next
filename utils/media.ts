@@ -102,16 +102,3 @@ export function resolveStrapiImage(media: unknown, fallback = ""): string {
   if (!extracted) return fallback;
   return GetStrapiMediaUrl(extracted);
 }
-
-/**
- * Resolves an array of media objects into a clean array of full URLs.
- */
-export function resolveMediaList(media: unknown): string[] {
-  if (!media) return [];
-  if (!Array.isArray(media)) {
-    const single = resolveStrapiImage(media);
-    return single ? [single] : [];
-  }
-
-  return media.map((item) => resolveStrapiImage(item)).filter((url): url is string => Boolean(url));
-}

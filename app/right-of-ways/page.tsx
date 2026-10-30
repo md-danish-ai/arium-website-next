@@ -1,8 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import RightOfWayHero from "@ui-component/where-we-build/RightOfWayHero";
-import RightOfWayTestimonials from "@ui-component/where-we-build/RightOfWayTestimonials";
-import { ProcessSection, SubPageCTA } from "@ui-common";
+import { SubPageHeroBanner, SharedTestimonials, ProcessSection, SubPageCTA } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -60,7 +58,7 @@ export default async function RightOfWayPage() {
       pos: 1,
       key: "sub-page-hero",
       skip: hasSubPageHeroWidget,
-      el: <RightOfWayHero key="sub-page-hero" {...heroProps} />,
+      el: <SubPageHeroBanner key="sub-page-hero" {...heroProps} />,
     },
     {
       pos: 2,
@@ -74,7 +72,7 @@ export default async function RightOfWayPage() {
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
         <div key="gloabl-testimonails">
-          <RightOfWayTestimonials {...testimonialsProps} />
+          <SharedTestimonials {...testimonialsProps} />
         </div>
       ),
     },
