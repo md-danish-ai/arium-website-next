@@ -31,9 +31,12 @@ export async function fetchAPI(path: string, options: RequestInit = {}) {
 }
 
 // In Strapi v5, populate[widgets][populate][Sections][populate]=* cleanly populates
-// all shared component fields, nested card arrays, and media assets across all widgets,
-// avoiding fragile manual field lists and staying well within AWS ALB URL limits.
-export const WIDGETS_POPULATE_QUERY = "populate[widgets][populate][Sections][populate]=*";
+// top-level section fields, while explicit dynamic-zone component clauses deeply populate
+// nested card arrays and media assets (e.g. icon_card.icon, benefits_card.icon)
+// without exceeding AWS ALB URL limits.
+export const WIDGETS_POPULATE_QUERY =
+  "populate[widgets][populate][Sections][populate]=*&populate[widgets][populate][Sections][on][shared.image-card-grid][populate][icon_card][populate]=*&populate[widgets][populate][Sections][on][shared.benefits][populate][benefits_card][populate]=*";
+
 /**
  * Dedicated widget fetch — always a clean, short URL separate from page-data queries.
  */

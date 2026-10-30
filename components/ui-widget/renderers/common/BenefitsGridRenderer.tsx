@@ -9,11 +9,11 @@ export default function BenefitsGridRenderer({
   section,
   index,
 }: SectionRendererProps<{ title?: string; __component?: string }>) {
-  const comp = section?.__component || "";
+  const comp = (section?.__component || "").toLowerCase();
   const title = (section?.title || "").toLowerCase();
 
   const isCommunity =
-    comp === "widget.image-card-grid" || title.includes("small cell") || title.includes("matter");
+    comp.includes("image-card-grid") || title.includes("small cell") || title.includes("matter");
 
   if (isCommunity) {
     const props = mapCommunityBenefits(section);

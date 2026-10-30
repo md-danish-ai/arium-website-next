@@ -1,27 +1,36 @@
 "use client";
+
+import React from "react";
 import Image from "next/image";
 import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import type { CommunityHowWeWorkProps } from "./type";
 
 export default function CommunityHowWeWork({
+  id = "how-we-work",
   title,
-  contentHtml,
-  paragraphs = [],
-  bgImageUrl = "/images/backgrounds/how-we-work.png",
-  cta,
+  title_color,
+  description,
+  description_color,
+  CTA_text,
+  CTA_url,
+  background_image_desktop,
 }: CommunityHowWeWorkProps) {
+  const isHtml = Boolean(description && description.includes("<") && description.includes(">"));
+
   return (
-    <section id="how-we-work" className="relative overflow-hidden p-0">
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={bgImageUrl}
-          alt=""
-          aria-hidden="true"
-          fill
-          className="object-cover object-center block"
-        />
-      </div>
+    <section id={id} className="relative overflow-hidden p-0">
+      {background_image_desktop && (
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={background_image_desktop}
+            alt=""
+            aria-hidden="true"
+            fill
+            className="object-cover object-center block"
+          />
+        </div>
+      )}
 
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#0d1224]/80 via-[#0d1224]/50 to-transparent" />
       <div className="absolute left-0 right-0 bottom-0 h-[200px] z-[1] bg-gradient-to-t from-[#0d1224]/50 to-transparent" />
@@ -34,36 +43,36 @@ export default function CommunityHowWeWork({
             variant="h2"
             uppercase
             className="reveal text-white leading-tight mb-6"
+            style={title_color ? { color: title_color } : undefined}
           >
             {title}
           </Typography>
-          {contentHtml ? (
+
+          {isHtml ? (
             <div
-              className="reveal stagger-1 text-white/85 leading-relaxed mb-9 flex flex-col gap-5"
-              dangerouslySetInnerHTML={{ __html: contentHtml }}
+              className="reveal stagger-1 text-white/85 leading-relaxed mb-9 flex flex-col gap-5 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-4"
+              style={description_color ? { color: description_color } : undefined}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
-            <div className="text-white/85 leading-relaxed mb-9 space-y-5">
-              {paragraphs.map((paragraph, index) => (
-                <Typography
-                  key={index}
-                  as="p"
-                  variant="b1"
-                  className={`reveal stagger-${index + 1} m-0`}
-                >
-                  {paragraph}
-                </Typography>
-              ))}
+            <div
+              className="text-white/85 leading-relaxed mb-9 space-y-5"
+              style={description_color ? { color: description_color } : undefined}
+            >
+              <Typography as="p" variant="b1" className="m-0">
+                {description}
+              </Typography>
             </div>
           )}
-          {cta && (
+
+          {CTA_text && CTA_url && (
             <div className="reveal stagger-3">
               <Button
-                href={cta.url}
+                href={CTA_url}
                 color="secondary"
-                aria-label={`${cta.label} about how we work in your community`}
+                aria-label={`${CTA_text} about how we work in your community`}
               >
-                {cta.label}
+                {CTA_text}
               </Button>
             </div>
           )}

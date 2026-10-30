@@ -33,7 +33,7 @@ export default async function YourCommunityPage() {
   const getSection = (key: string): StrapiSectionItem | undefined =>
     communityContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
-  const heroProps = mapCommunityHero(communityContent);
+  const heroProps = mapCommunityHero(getSection("Community banner") || communityContent);
   const smallCellProps = mapCommunitySmallCells(getSection("Small cell"));
   const benefitsProps = mapCommunityBenefits(getSection("Small cells matter"));
   const howWeWorkProps = mapCommunityHowWeWork(getSection("How we work"));

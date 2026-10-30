@@ -1,4 +1,4 @@
-import type { StrapiSectionItem, LinkItem, FAQItem } from "@types";
+import type { StrapiSectionItem } from "@types";
 import { resolveStrapiImage } from "@utils";
 import {
   COMMUNITY_HERO_FALLBACK,
@@ -8,6 +8,7 @@ import {
   COMMUNITY_TESTIMONIALS_FALLBACK,
   COMMUNITY_FAQS_FALLBACK,
   CommunityBenefitCard,
+  CommunityFaqItem,
 } from "@data/community.data";
 import type {
   CommunitySmallCellsProps,
@@ -16,10 +17,11 @@ import type {
 } from "@ui-component/community/type";
 import type { BenefitCardItem, BenefitsGridProps } from "@ui-common/BenefitsGrid";
 import type { SharedTestimonialsProps, SharedTestimonialCard } from "@ui-common/SharedTestimonials";
+import type { HeroBannerProps } from "@ui-common/HeroBanner";
 
 type RawRecord = Record<string, unknown>;
 
-export interface CommunityHeroMappedProps {
+export interface CommunityHeroMappedProps extends HeroBannerProps {
   id: string;
   imageSrc: string;
   imageAlt: string;
@@ -30,27 +32,24 @@ export interface CommunityHeroMappedProps {
 export type CommunityBenefitsMappedProps = BenefitsGridProps;
 
 /**
- * 1. Community Hero Mapper
+ * 1. Community Hero Mapper (Pure 1-to-1 with shared.test-banner)
+ * Canonical keys: title, description, background_image, background_image_position, CTA_text, CTA_url, max_width_title, max_width_description
  */
 export function mapCommunityHero(
   raw?: RawRecord | null,
   fallback = COMMUNITY_HERO_FALLBACK
 ): CommunityHeroMappedProps {
-  const title = (raw?.title as string) || (raw?.heroTitle as string) || fallback.heading;
-  const description =
-    (raw?.description as string) || (raw?.heroDescription as string) || fallback.intro;
-
-  const rawMedia = (raw?.media || raw?.heroMedia) as unknown;
-  let imageSrc = fallback.imageSrc;
-  let imageAlt = fallback.imageAlt;
-
-  if (Array.isArray(rawMedia) && rawMedia.length > 0) {
-    const first = rawMedia[0] as RawRecord;
-    imageSrc = resolveStrapiImage(first, fallback.imageSrc);
-    imageAlt = (first.alternativeText as string) || fallback.imageAlt;
-  } else if (rawMedia) {
-    imageSrc = resolveStrapiImage(rawMedia, fallback.imageSrc);
-  }
+  const title = (raw?.title as string) || fallback.title;
+  const description = (raw?.description as string) || fallback.description;
+  const imageSrc = resolveStrapiImage(raw?.background_image, fallback.imageSrc);
+  const imageAlt = (raw?.imageAlt as string) || fallback.imageAlt;
+  const ctaText = (raw?.CTA_text as string) || (fallback.CTA_text ?? undefined);
+  const ctaLink = (raw?.CTA_url as string) || (fallback.CTA_url ?? undefined);
+  const maxWidthTitle = (raw?.max_width_title as string) || fallback.max_width_title;
+  const maxWidthDescription =
+    (raw?.max_width_description as string) || fallback.max_width_description;
+  const objectPosition =
+    (raw?.background_image_position as string) || fallback.background_image_position;
 
   return {
     id: "community-hero",
@@ -58,69 +57,159 @@ export function mapCommunityHero(
     imageAlt,
     title,
     description,
+    ctaText,
+    ctaLink,
+    maxWidthTitle,
+    maxWidthDescription,
+    objectPosition,
   };
 }
 
 /**
- * 2. Community Small Cells Mapper ("What is a small cell?")
+ * 2. Community Small Cells Mapper (Pure 1-to-1 with shared.illustration-split)
+ * Canonical keys: title, title_color, description, description_color, illustration_image, illustration_image_alignment, show_bottom_divider, statistics
  */
 export function mapCommunitySmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_SMALL_CELLS_FALLBACK
 ): CommunitySmallCellsProps {
   const title = (raw?.title as string) || fallback.title;
-  const rawBody = (raw?.body as string) || (raw?.description as string);
-
-  const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
-  const contentHtml = isHtml ? rawBody : undefined;
-  const paragraphs = isHtml ? undefined : fallback.paragraphs;
-
-  const rawMedia = (raw?.media || raw?.image) as unknown;
-  let illustrationSrc = fallback.illustrationSrc;
-  let illustrationAlt = fallback.illustrationAlt;
-
-  if (Array.isArray(rawMedia) && rawMedia.length > 0) {
-    const first = rawMedia[0] as RawRecord;
-    illustrationSrc = resolveStrapiImage(first, fallback.illustrationSrc);
-    illustrationAlt = (first.alternativeText as string) || fallback.illustrationAlt;
-  } else if (rawMedia) {
-    illustrationSrc = resolveStrapiImage(rawMedia, fallback.illustrationSrc);
-  }
+  const title_color = ((raw?.title_color as string) || fallback.title_color) ?? undefined;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color =
+    ((raw?.description_color as string) || fallback.description_color) ?? undefined;
+  const illustration_image = resolveStrapiImage(
+    raw?.illustration_image,
+    fallback.illustration_image
+  );
+  const illustration_image_alignment =
+    (raw?.illustration_image_alignment as "Right" | "Left") ||
+    fallback.illustration_image_alignment;
+  const show_bottom_divider = Boolean(
+    raw?.show_bottom_divider !== undefined ? raw.show_bottom_divider : fallback.show_bottom_divider
+  );
+  const rawStats = raw?.statistics as RawRecord[] | undefined;
+  const statistics = Array.isArray(rawStats)
+    ? rawStats.map((s) => ({
+        stat: (s.stat as string) || "",
+        description: (s.description as string) || "",
+        stat_color: (s.stat_color as string) || undefined,
+      }))
+    : fallback.statistics;
 
   return {
+    id: "what-are-small-cells",
     title,
-    contentHtml,
-    paragraphs,
-    illustrationSrc,
-    illustrationAlt,
+    title_color,
+    description,
+    description_color,
+    illustration_image,
+    illustration_image_alignment,
+    show_bottom_divider,
+    statistics,
   };
 }
 
 /**
- * 3. Community Benefits Mapper ("Why small cells matter")
+ * 3. Community Benefits Mapper (Pure 1-to-1 with shared.image-card-grid)
+ * Canonical keys: title, title_color, icon_card (id, title, description, image, title_color, description_color)
  */
 export function mapCommunityBenefits(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_WHY_MATTER_FALLBACK
 ): CommunityBenefitsMappedProps {
   const title = (raw?.title as string) || fallback.title;
-  const rawCards = (raw?.cards || raw?.cardgrid) as RawRecord[] | undefined;
+  const title_color = ((raw?.title_color as string) || fallback.title_color) ?? undefined;
+  const rawCards = (raw?.icon_card || raw?.cards) as RawRecord[] | undefined;
 
-  let cards: BenefitCardItem[] = fallback.cards.map((c: CommunityBenefitCard) => ({
+  let cards: BenefitCardItem[] = fallback.icon_card.map((c: CommunityBenefitCard) => ({
+    id: c.id,
     title: c.title,
     description: c.description,
     image: c.image,
+    title_color: (c.title_color as string) || undefined,
+    description_color: (c.description_color as string) || undefined,
   }));
 
   if (Array.isArray(rawCards) && rawCards.length > 0) {
     cards = rawCards.map((c, index) => {
-      const fallbackCard = fallback.cards[index] || fallback.cards[0];
+      const fb = fallback.icon_card[index] || fallback.icon_card[0];
+      const rawImg = c.image || c.media || c.icon || c.iconSrc;
       return {
-        title: (c.title as string) || (c.heading as string) || "",
-        description: (c.description as string) || (c.body as string) || "",
-        image: resolveStrapiImage(c.image, fallbackCard?.image || "/images/placeholder.png"),
-        titleColor: (c.titleColor as string) || undefined,
-        descriptionColor: (c.descriptionColor as string) || undefined,
+        id: (c.id as number) ?? index + 1,
+        title: (c.title as string) || fb.title,
+        description: (c.description as string) || fb.description,
+        image: resolveStrapiImage(rawImg, fb.image),
+        title_color: ((c.title_color as string) || fb.title_color) ?? undefined,
+        description_color: ((c.description_color as string) || fb.description_color) ?? undefined,
+      };
+    });
+  }
+
+  return {
+    title,
+    title_color,
+    cards,
+  };
+}
+
+/**
+ * 4. Community How We Work Mapper (Pure 1-to-1 with shared.background-feature-section)
+ * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url, background_image_desktop, background_image_mobile
+ */
+export function mapCommunityHowWeWork(
+  raw?: StrapiSectionItem | RawRecord | null,
+  fallback = COMMUNITY_HOW_WE_WORK_FALLBACK
+): CommunityHowWeWorkProps {
+  const title = (raw?.title as string) || fallback.title;
+  const title_color = ((raw?.title_color as string) || fallback.title_color) ?? undefined;
+  const description = (raw?.description as string) || fallback.description;
+  const description_color =
+    ((raw?.description_color as string) || fallback.description_color) ?? undefined;
+  const CTA_text = ((raw?.CTA_text as string) || fallback.CTA_text) ?? undefined;
+  const CTA_url = ((raw?.CTA_url as string) || fallback.CTA_url) ?? undefined;
+  const background_image_desktop = resolveStrapiImage(
+    raw?.background_image_desktop,
+    fallback.background_image_desktop
+  );
+  const background_image_mobile = raw?.background_image_mobile
+    ? resolveStrapiImage(raw.background_image_mobile, fallback.background_image_mobile || "")
+    : undefined;
+
+  return {
+    id: "how-we-work",
+    title,
+    title_color,
+    description,
+    description_color,
+    CTA_text,
+    CTA_url,
+    background_image_desktop,
+    background_image_mobile,
+  };
+}
+
+/**
+ * 5. Community Testimonials Mapper (Pure 1-to-1 with shared.gloabl-testimonails)
+ * Canonical keys: title, cards (id, person_name, person_designation, person_message, card_footer_bg)
+ */
+export function mapCommunityTestimonials(
+  raw?: StrapiSectionItem | RawRecord | null,
+  fallback = COMMUNITY_TESTIMONIALS_FALLBACK
+): SharedTestimonialsProps {
+  const title = (raw?.title as string) || fallback.title;
+  const rawCards = (raw?.cards || raw?.testimonials) as RawRecord[] | undefined;
+
+  let cards: SharedTestimonialCard[] = fallback.cards;
+  if (Array.isArray(rawCards) && rawCards.length > 0) {
+    cards = rawCards.map((c, i) => {
+      const fb = fallback.cards[i] || fallback.cards[0];
+      return {
+        id: (c.id as number | string) ?? i + 1,
+        person_name: (c.person_name as string) || fb.person_name,
+        person_designation: (c.person_designation as string) || fb.person_designation,
+        person_message: (c.person_message as string) || fb.person_message,
+        card_footer_bg: (c.card_footer_bg as string) || fb.card_footer_bg,
       };
     });
   }
@@ -132,103 +221,36 @@ export function mapCommunityBenefits(
 }
 
 /**
- * 4. Community How We Work Mapper
- */
-export function mapCommunityHowWeWork(
-  raw?: StrapiSectionItem | RawRecord | null,
-  fallback = COMMUNITY_HOW_WE_WORK_FALLBACK
-): CommunityHowWeWorkProps {
-  const title = (raw?.title as string) || fallback.title;
-  const rawBody = (raw?.body as string) || (raw?.description as string);
-
-  const isHtml = Boolean(rawBody && rawBody.includes("<") && rawBody.includes(">"));
-  const contentHtml = isHtml ? rawBody : undefined;
-  const paragraphs = isHtml ? undefined : fallback.paragraphs;
-
-  const rawMedia = (raw?.media || raw?.image) as unknown;
-  const bgImageUrl = rawMedia
-    ? resolveStrapiImage(rawMedia, fallback.bgImageUrl)
-    : fallback.bgImageUrl;
-
-  const rawCtas = (Array.isArray(raw?.cta) ? raw.cta[0] : raw?.cta) as RawRecord | undefined;
-  let cta: LinkItem = fallback.cta;
-
-  if (rawCtas && typeof rawCtas === "object") {
-    cta = {
-      label: (rawCtas.label as string) || fallback.cta.label,
-      url: (rawCtas.url as string) || fallback.cta.url,
-    };
-  }
-
-  return {
-    title,
-    contentHtml,
-    paragraphs,
-    bgImageUrl,
-    cta,
-  };
-}
-
-/**
- * 5. Community Testimonials Mapper (SharedTestimonials)
- */
-export function mapCommunityTestimonials(
-  raw?: StrapiSectionItem | RawRecord | null,
-  fallback = COMMUNITY_TESTIMONIALS_FALLBACK
-): SharedTestimonialsProps {
-  const title = (raw?.title as string) || fallback.title;
-
-  const rawCards = (raw?.cards || raw?.testimonials) as RawRecord[] | undefined;
-
-  let cards: SharedTestimonialCard[] = fallback.cards;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    cards = rawCards.map((c, i) => ({
-      id: (c.id as number | string) ?? i + 1,
-      person_name:
-        (c.person_name as string) || (c.title as string) || (c.personName as string) || "",
-      person_designation:
-        (c.person_designation as string) ||
-        (c.badge as string) ||
-        (c.personDesignation as string) ||
-        "",
-      person_message:
-        (c.person_message as string) ||
-        (c.description as string) ||
-        (c.personMessage as string) ||
-        "",
-      card_footer_bg:
-        (c.card_footer_bg as string) || ["#bcf6f2", "#ffdac8", "#d2c7ff", "#ffffca"][i % 4],
-    }));
-  }
-
-  return {
-    title,
-    cards,
-  };
-}
-
-/**
- * 6. Community FAQ Mapper
+ * 6. Community FAQ Mapper (Pure 1-to-1 with shared.faq)
+ * Canonical keys: title, title_color, faq_data (id, question, answer, question_color, answer_color, question_color_hover)
  */
 export function mapCommunityFaqs(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_FAQS_FALLBACK
 ): CommunityFAQProps {
   const title = (raw?.title as string) || fallback.title;
+  const title_color = ((raw?.title_color as string) || fallback.title_color) ?? undefined;
+  const rawData = (raw?.faq_data || raw?.cards || raw?.faqs) as RawRecord[] | undefined;
 
-  const rawCards = (raw?.cards || raw?.faqs) as RawRecord[] | undefined;
-
-  let faqs: FAQItem[] = fallback.faqs;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    faqs = rawCards.map((c, index) => ({
-      id: (c.id as number) || index + 1,
-      question: (c.title as string) || (c.question as string) || "",
-      answer: (c.description as string) || (c.answer as string) || "",
-    }));
+  let faq_data: CommunityFaqItem[] = fallback.faq_data;
+  if (Array.isArray(rawData) && rawData.length > 0) {
+    faq_data = rawData.map((c, index) => {
+      const fb = fallback.faq_data[index] || fallback.faq_data[0];
+      return {
+        id: (c.id as number) ?? index + 1,
+        question: (c.question as string) || fb.question,
+        answer: (c.answer as string) || fb.answer,
+        question_color: ((c.question_color as string) || fb.question_color) ?? undefined,
+        answer_color: ((c.answer_color as string) || fb.answer_color) ?? undefined,
+        question_color_hover:
+          ((c.question_color_hover as string) || fb.question_color_hover) ?? undefined,
+      };
+    });
   }
 
   return {
     title,
-    faqs,
+    title_color,
+    faq_data,
   };
 }
