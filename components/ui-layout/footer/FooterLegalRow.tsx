@@ -29,7 +29,7 @@ export function FooterLegalRow({ legalLinks: propLegalLinks, layoutData }: Foote
         : DEFAULT_LEGAL_LINKS;
 
   return (
-    <div className="flex flex-wrap items-center justify-center min-[601px]:justify-start gap-x-5 md:gap-x-7 gap-y-2.5 pt-1 text-center min-[601px]:text-left">
+    <div className="flex flex-wrap xl:flex-nowrap items-center justify-center min-[601px]:justify-start gap-x-5 md:gap-x-6 xl:gap-x-7 gap-y-2.5 pt-1 text-center min-[601px]:text-left">
       {linksToRender.map((link, idx: number) => (
         <a
           key={link.id ?? link.name ?? idx}

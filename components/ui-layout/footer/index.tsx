@@ -23,7 +23,7 @@ export default function Footer({
         <div className="flex flex-col min-[601px]:flex-row items-center min-[601px]:items-start justify-between gap-8 min-[601px]:gap-12 md:gap-16">
           <FooterBrand logoDesktop={logoDesktop} logoMobile={logoMobile} layoutData={layoutData} />
 
-          <div className="w-full min-[601px]:w-auto min-[601px]:max-w-[700px] min-[601px]:ml-auto">
+          <div className="w-full min-[601px]:w-auto min-[601px]:max-w-[700px] xl:max-w-none min-[601px]:ml-auto">
             <FooterSocialRow
               contactLink={contactLink}
               socialLinks={socialLinks}
