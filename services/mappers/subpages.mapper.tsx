@@ -273,7 +273,7 @@ export function mapSubpageCta(
   const background_gradient = (raw?.background_gradient as string) || fallback.background_gradient;
   const globe_illustration = resolveStrapiImage(
     raw?.globe_illustration as unknown,
-    fallback.globe_illustration || "/images/svg-images/connection-globe-blue.svg"
+    fallback.globe_illustration || "/images/svg-images/connection-globe.svg"
   );
 
   return {

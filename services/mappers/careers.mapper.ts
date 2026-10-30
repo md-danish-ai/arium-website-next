@@ -8,13 +8,11 @@ import {
   CAREERS_BENEFITS_FALLBACK,
   CAREERS_EEO_FALLBACK,
   CareersPillar,
-  CareersEmployeeTestimonial,
   CareersJobAreaItem,
   CareersBenefitItem,
 } from "@data/careers.data";
 import type {
   CareersCultureAccordionProps,
-  CareersTestimonialsProps,
   CareersJobAreasProps,
   CareersBenefitsProps,
   CareersEEOProps,

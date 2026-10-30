@@ -35,7 +35,6 @@ export default function CtaWithGraphic({
   CTA_text,
   CTA_url,
   globe_illustration_desktop,
-  globe_illustration_mobile,
   background_color,
   title_color,
   description_color,

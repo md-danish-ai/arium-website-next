@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { Typography, Button } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
@@ -26,51 +27,49 @@ export default function SubPageCTA({
     globe_illustration,
     "/images/svg-images/connection-globe.svg"
   );
+  const isSvg = displayImg.toLowerCase().endsWith(".svg") || displayImg.includes(".svg");
 
   return (
-    <section
-      className="py-24 max-md:pt-10 max-md:pb-[270px] relative overflow-hidden z-[1] max-md:block"
-      style={{ background: displayBg }}
-    >
+    <section className="relative overflow-hidden z-[1]" style={{ background: displayBg }}>
+      <Container className="relative z-[2]">
+        <div className="w-full max-w-full md:max-w-[580px] lg:max-w-[650px] py-14 sm:py-16 md:py-20 text-left">
+          {prompt_to_cta ? (
+            <Typography
+              as="p"
+              variant="h3"
+              weight="light"
+              className="reveal stagger-1 !tracking-normal leading-[1.5] text-midnight mb-6 md:mb-8 [text-wrap:balance]"
+            >
+              {prompt_to_cta}
+            </Typography>
+          ) : null}
+          {CTA_text ? (
+            <div className="reveal stagger-2 flex justify-start">
+              <Button href={CTA_url} color="primary">
+                {CTA_text}
+              </Button>
+            </div>
+          ) : null}
+        </div>
+      </Container>
+
       <div
-        className="absolute -right-[8%] top-1/2 -translate-y-1/2 -rotate-[25deg] w-[720px] h-[130%] pointer-events-none max-md:left-1/2 max-md:-translate-x-[51.7%] max-md:bottom-[-110px] max-md:top-auto max-md:right-auto max-md:w-[120%] max-md:max-w-[440px] max-md:h-auto max-md:aspect-[1.15/1] max-md:block max-md:overflow-visible max-md:z-[-1] max-md:rotate-0"
+        className="absolute top-0 bottom-0 right-[-5%] sm:right-[-1%] md:right-[1%] lg:right-[-2%] h-full pointer-events-none z-[1] flex items-center justify-end overflow-visible opacity-20 sm:opacity-25 md:opacity-40 lg:opacity-65 transition-opacity duration-300"
         aria-hidden="true"
       >
         {displayImg ? (
-          <Image
-            src={displayImg}
-            alt=""
-            width={993}
-            height={958}
-            unoptimized
-            className="w-full h-full opacity-55 block"
-          />
-        ) : null}
-        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#ffdac8]/40 to-[#ffdac8] pointer-events-none" />
-      </div>
-
-      <Container className="relative z-[1]">
-        <div className="reveal flex items-center">
-          <div className="max-w-[580px]">
-            {prompt_to_cta ? (
-              <Typography
-                as="p"
-                variant="h3"
-                weight="light"
-                className="!tracking-normal leading-[1.5] text-midnight mb-6 md:mb-9 max-w-[580px] [text-wrap:balance]"
-              >
-                {prompt_to_cta}
-              </Typography>
-            ) : null}
-            {CTA_text ? (
-              <Button href={CTA_url} color="primary" className="mt-4 sm:mt-0">
-                {CTA_text}
-              </Button>
-            ) : null}
+          <div className="relative h-[80%] sm:h-[80%] md:h-[85%] lg:h-[90%] aspect-[950/713] flex items-center justify-center -rotate-[25deg]">
+            <Image
+              src={displayImg}
+              alt=""
+              width={950}
+              height={713}
+              unoptimized={isSvg}
+              className="w-full h-full block object-contain"
+            />
           </div>
-          <div />
-        </div>
-      </Container>
+        ) : null}
+      </div>
     </section>
   );
 }

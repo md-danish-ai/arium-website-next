@@ -189,7 +189,7 @@ export const ROW_CTA_FALLBACK: SubpageCtaData = {
   CTA_text: "Contact Us",
   CTA_url: "/contact",
   background_gradient: null,
-  globe_illustration: "/images/svg-images/connection-globe-blue.svg",
+  globe_illustration: "/images/svg-images/connection-globe.svg",
 };
 
 export const ROW_SEO_FALLBACK: SubpageSeoData = {
@@ -313,7 +313,7 @@ export const PV_CTA_FALLBACK: SubpageCtaData = {
   CTA_url: "/contact",
   background_gradient:
     "linear-gradient(135deg, rgb(255, 255, 202) 0%, rgb(255, 248, 225) 40%, rgb(255, 218, 200) 100%)",
-  globe_illustration: "/images/svg-images/connection-globe-blue.svg",
+  globe_illustration: "/images/svg-images/connection-globe.svg",
 };
 
 export const PV_SEO_FALLBACK: SubpageSeoData = {
