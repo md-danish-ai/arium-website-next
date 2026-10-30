@@ -10,8 +10,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "http",
-        hostname:
-          "arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com",
+        hostname: "arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com",
       },
     ],
   },

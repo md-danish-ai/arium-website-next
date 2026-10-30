@@ -1,0 +1,125 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { Typography } from "@ui-element";
+import { DoubleDownArrowSvg } from "@ui-svg";
+import { Container } from "@ui-layout/SectionContainer";
+import { useSpringShapes } from "@hooks/useSpringShapes";
+import { HomeHeroProps } from "./type";
+
+export default function HomeHero({
+  title,
+  description,
+  font_color,
+  background_color,
+  scroll_text,
+}: HomeHeroProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const { tealShapeRef, whiteShapeRef, tealInnerRef, whiteInnerRef, shapesWrapRef, bgRef } =
+    useSpringShapes();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <section
+      id="hero"
+      className="relative grid place-items-center h-screen h-[100svh] min-h-[600px] w-full overflow-hidden"
+    >
+      {/* Background with animated shapes */}
+      <div
+        ref={bgRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ backgroundColor: background_color }}
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center">
+          <div ref={shapesWrapRef} className="relative h-full w-full opacity-0">
+            {/* Teal shape */}
+            <div
+              ref={tealShapeRef}
+              className="absolute [width:170vmin] [aspect-ratio:1955/1769] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              style={{ left: "26%", top: "33%", rotate: "180deg" }}
+            >
+              <div ref={tealInnerRef} className="relative h-full w-full animate-breathe-teal">
+                <Image
+                  src="/images/svg-images/shape-teal.svg"
+                  alt=""
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* White shape */}
+            <div
+              ref={whiteShapeRef}
+              className="absolute [width:170vmin] [aspect-ratio:1940/1757] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
+              style={{ left: "73%", top: "97%", rotate: "525deg" }}
+            >
+              <div ref={whiteInnerRef} className="relative h-full w-full animate-breathe-white">
+                <Image
+                  src="/images/svg-images/shape-white.svg"
+                  alt=""
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <Container className="relative z-[5] pt-[150px] pb-[100px] text-center w-full">
+        <Typography
+          variant="h1"
+          uppercase
+          weight="normal"
+          className="m-0 mb-0 mx-auto max-w-[970px] tracking-[0.12em] leading-[1.4] relative z-[1]"
+          style={{ color: font_color }}
+          dangerouslySetInnerHTML={{ __html: title || "" }}
+        />
+        <Typography
+          variant="b1"
+          weight="normal"
+          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
+          style={{ color: font_color }}
+          dangerouslySetInnerHTML={{ __html: description || "" }}
+        />
+      </Container>
+
+      {/* Scroll indicator */}
+      <div
+        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
+        id="scroll-indicator"
+      >
+        <Typography
+          variant="b4"
+          uppercase
+          weight="normal"
+          className="block text-white/60 tracking-[0.15em] whitespace-nowrap"
+        >
+          {scroll_text}
+        </Typography>
+        <div className="text-teal animate-bounce">
+          <DoubleDownArrowSvg width={24} height={24} />
+        </div>
+      </div>
+    </section>
+  );
+}

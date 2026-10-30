@@ -19,7 +19,31 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@ui-common": ["./components/ui-common"],
+      "@ui-common/*": ["./components/ui-common/*"],
+      "@ui-component": ["./components/ui-component"],
+      "@ui-component/*": ["./components/ui-component/*"],
+      "@ui-widget": ["./components/ui-widget"],
+      "@ui-widget/*": ["./components/ui-widget/*"],
+      "@ui-element": ["./components/ui-element"],
+      "@ui-element/*": ["./components/ui-element/*"],
+      "@ui-svg": ["./components/ui-svg"],
+      "@ui-svg/*": ["./components/ui-svg/*"],
+      "@ui-layout/*": ["./components/ui-layout/*"],
+      "@ui-animations/*": ["./components/ui-animations/*"],
+      "@lib": ["./lib"],
+      "@lib/*": ["./lib/*"],
+      "@hooks": ["./hooks"],
+      "@hooks/*": ["./hooks/*"],
+      "@public/*": ["./public/*"],
+      "@types": ["./types"],
+      "@types/*": ["./types/*"],
+      "@utils": ["./utils"],
+      "@utils/*": ["./utils/*"],
+      "@data": ["./data"],
+      "@data/*": ["./data/*"],
+      "@services": ["./services"],
+      "@services/*": ["./services/*"]
     }
   },
   "include": [
