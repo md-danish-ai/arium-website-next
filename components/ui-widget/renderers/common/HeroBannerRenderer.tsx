@@ -39,7 +39,7 @@ export default function HeroBannerRenderer({ section, index }: SectionRendererPr
       maxWidthDescription={max_width_description}
       objectPosition={finalObjectPosition}
       ctaColor="secondary"
-      ctaVariant="outlined"
+      ctaVariant="filled"
     />
   );
 }

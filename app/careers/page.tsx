@@ -36,15 +36,11 @@ export default async function CareersPage() {
     careersContent?.sections?.find((section) => section.key?.toLowerCase() === key.toLowerCase());
 
   const heroProps = mapCareersHero(careersContent);
-  const cultureProps = mapCareersCulture(
-    careersContent,
-    getSection("Why Join"),
-    getSection("Pillars")
-  );
+  const cultureProps = mapCareersCulture(getSection("Why Join") || careersContent);
   const testimonialsProps = mapCareersTestimonials(getSection("Arium Networks Team"));
   const jobAreasProps = mapCareersJobAreas(getSection("Job Areas"));
   const benefitsProps = mapCareersBenefits(getSection("Benefits"));
-  const eeoProps = mapCareersEEO(getSection("Message"));
+  const eeoProps = mapCareersEEO(getSection("Message") || getSection("Benefits"));
 
   const hasHeroWidget =
     hasWidgetComponent(globalWidgets, "hero-banner") ||

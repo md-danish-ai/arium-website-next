@@ -26,7 +26,9 @@ export default function BenefitsGridRenderer({
   return (
     <React.Fragment key={`benefits-grid-${index}`}>
       <BenefitsGrid {...benefitsProps} />
-      {(eeoProps.statementText || eeoProps.contentHtml) && <CareersEEO {...eeoProps} />}
+      {(eeoProps.bottom_message || eeoProps.statementText || eeoProps.contentHtml) && (
+        <CareersEEO {...eeoProps} />
+      )}
     </React.Fragment>
   );
 }

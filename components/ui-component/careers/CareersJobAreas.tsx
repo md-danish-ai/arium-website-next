@@ -8,11 +8,23 @@ export default function CareersJobAreas({
   title,
   contentHtml,
   description,
-  jobAreas = [],
-  cta,
-  imageSrc = "/images/team/team.png",
+  CTA_text,
+  CTA_url,
+  image,
   imageAlt = "Arium Networks team collaborating in a modern office",
+  items = [],
+  jobAreas,
+  cta,
+  imageSrc,
 }: CareersJobAreasProps) {
+  const listItems = items && items.length > 0 ? items : jobAreas || [];
+  const finalImage = image || imageSrc || "/images/team/team.png";
+  const buttonText = CTA_text || cta?.label;
+  const buttonUrl = CTA_url || cta?.url;
+  const isExternal =
+    cta?.isExternal ??
+    Boolean(buttonUrl && (buttonUrl.startsWith("http://") || buttonUrl.startsWith("https://")));
+
   return (
     <section
       id="job-areas"
@@ -34,7 +46,7 @@ export default function CareersJobAreas({
               className="reveal stagger-1 text-[#162047]/80 leading-relaxed max-w-[800px] mx-auto mt-5"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
-          ) : (
+          ) : description ? (
             <Typography
               variant="b1"
               as="p"
@@ -42,17 +54,17 @@ export default function CareersJobAreas({
             >
               {description}
             </Typography>
-          )}
+          ) : null}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* LEFT: Job list + CTA */}
           <div className="flex flex-col justify-between">
             <div className="flex flex-col flex-1 divide-y divide-[#162047]/10">
-              {jobAreas.map((area, index) => {
+              {listItems.map((area, index) => {
                 return (
                   <div
-                    key={index}
+                    key={area.id ?? index}
                     className={`reveal stagger-${(index % 5) + 1} py-5 flex items-center`}
                   >
                     <Typography
@@ -70,10 +82,10 @@ export default function CareersJobAreas({
               })}
             </div>
 
-            {cta && (
+            {buttonText && buttonUrl && (
               <div className="reveal stagger-5 mt-9">
-                <Button href={cta.url} isExternal={cta.isExternal}>
-                  {cta.label}
+                <Button href={buttonUrl} isExternal={isExternal}>
+                  {buttonText}
                 </Button>
               </div>
             )}
@@ -83,7 +95,7 @@ export default function CareersJobAreas({
           <div className="reveal">
             <div className="relative rounded-[20px] overflow-hidden shadow-2xl h-[320px] lg:h-full min-h-[320px]">
               <Image
-                src={imageSrc}
+                src={finalImage}
                 alt={imageAlt}
                 fill
                 className="w-full h-full object-cover block"
