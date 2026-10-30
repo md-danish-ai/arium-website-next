@@ -1,13 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import HeroBanner from "@ui-common/HeroBanner";
-import {
-  CareersCultureAccordion,
-  CareersJobAreas,
-  CareersBenefits,
-  CareersEEO,
-} from "@ui-component/careers";
-import { SharedTestimonials } from "@ui-common";
+import { HeroBanner, SharedTestimonials, BenefitsGrid } from "@ui-common";
+import { CareersCultureAccordion, CareersJobAreas, CareersEEO } from "@ui-component/careers";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -93,7 +87,7 @@ export default async function CareersPage() {
       pos: 4,
       key: "benefits",
       skip: hasWidgetComponent(globalWidgets, "benefits"),
-      el: <CareersBenefits key="benefits" {...benefitsProps} />,
+      el: <BenefitsGrid key="benefits" {...benefitsProps} />,
     },
     {
       pos: 5,

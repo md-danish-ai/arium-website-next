@@ -7,16 +7,15 @@ import {
   COMMUNITY_HOW_WE_WORK_FALLBACK,
   COMMUNITY_TESTIMONIALS_FALLBACK,
   COMMUNITY_FAQS_FALLBACK,
-  CommunityTestimonialItem,
   CommunityBenefitCard,
 } from "@data/community.data";
 import type {
   CommunitySmallCellsProps,
   CommunityHowWeWorkProps,
-  CommunityTestimonialsProps,
   CommunityFAQProps,
 } from "@ui-component/community/type";
-import type { BenefitCardItem } from "@ui-common/ImageCardGrid";
+import type { BenefitCardItem, BenefitsGridProps } from "@ui-common/BenefitsGrid";
+import type { SharedTestimonialsProps, SharedTestimonialCard } from "@ui-common/SharedTestimonials";
 
 type RawRecord = Record<string, unknown>;
 
@@ -28,11 +27,7 @@ export interface CommunityHeroMappedProps {
   description: string;
 }
 
-export interface CommunityBenefitsMappedProps {
-  title: string;
-  headingColor?: string;
-  cards: BenefitCardItem[];
-}
+export type CommunityBenefitsMappedProps = BenefitsGridProps;
 
 /**
  * 1. Community Hero Mapper
@@ -175,28 +170,40 @@ export function mapCommunityHowWeWork(
 }
 
 /**
- * 5. Community Testimonials Mapper
+ * 5. Community Testimonials Mapper (SharedTestimonials)
  */
 export function mapCommunityTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_TESTIMONIALS_FALLBACK
-): CommunityTestimonialsProps {
+): SharedTestimonialsProps {
   const title = (raw?.title as string) || fallback.title;
 
   const rawCards = (raw?.cards || raw?.testimonials) as RawRecord[] | undefined;
 
-  let testimonials: CommunityTestimonialItem[] = fallback.testimonials;
+  let cards: SharedTestimonialCard[] = fallback.cards;
   if (Array.isArray(rawCards) && rawCards.length > 0) {
-    testimonials = rawCards.map((c) => ({
-      title: (c.title as string) || (c.personName as string) || "",
-      badge: (c.badge as string) || (c.personDesignation as string) || "",
-      description: (c.description as string) || (c.personMessage as string) || "",
+    cards = rawCards.map((c, i) => ({
+      id: (c.id as number | string) ?? i + 1,
+      person_name:
+        (c.person_name as string) || (c.title as string) || (c.personName as string) || "",
+      person_designation:
+        (c.person_designation as string) ||
+        (c.badge as string) ||
+        (c.personDesignation as string) ||
+        "",
+      person_message:
+        (c.person_message as string) ||
+        (c.description as string) ||
+        (c.personMessage as string) ||
+        "",
+      card_footer_bg:
+        (c.card_footer_bg as string) || ["#bcf6f2", "#ffdac8", "#d2c7ff", "#ffffca"][i % 4],
     }));
   }
 
   return {
     title,
-    testimonials,
+    cards,
   };
 }
 

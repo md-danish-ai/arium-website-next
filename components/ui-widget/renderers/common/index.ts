@@ -9,3 +9,4 @@ export { default as PeopleGlobalRenderer } from "./PeopleGlobalRenderer";
 export { default as IllustrationSplitRenderer } from "./IllustrationSplitRenderer";
 export { default as AccordionSplitRenderer } from "./AccordionSplitRenderer";
 export { default as GlobalTestimonialsRenderer } from "./GlobalTestimonialsRenderer";
+export { default as BenefitsGridRenderer } from "./BenefitsGridRenderer";

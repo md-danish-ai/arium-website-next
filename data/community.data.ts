@@ -1,11 +1,5 @@
 import type { LinkItem, FAQItem } from "@types";
 
-export interface CommunityTestimonialItem {
-  title: string;
-  badge: string;
-  description: string;
-}
-
 export interface CommunityBenefitCard {
   title: string;
   description: string;
@@ -75,28 +69,31 @@ export const COMMUNITY_HOW_WE_WORK_FALLBACK: {
   },
 };
 
-export const COMMUNITY_TESTIMONIALS_FALLBACK: {
-  title: string;
-  testimonials: CommunityTestimonialItem[];
-} = {
+export const COMMUNITY_TESTIMONIALS_FALLBACK = {
   title: "Communities support advanced connectivity",
-  testimonials: [
+  cards: [
     {
-      title: "Dewitt",
-      badge: "President & CEO, Downtown Austin Alliance",
-      description:
+      id: 1,
+      person_name: "Dewitt",
+      person_designation: "President & CEO, Downtown Austin Alliance",
+      person_message:
         "Wireless connectivity is so critically important in today's economy. It's like roadways. It's infrastructure that we have to have.\"",
+      card_footer_bg: "#bcf6f2",
     },
     {
-      title: "Rob",
-      badge: "City Sustainability Director",
-      description:
+      id: 2,
+      person_name: "Rob",
+      person_designation: "City Sustainability Director",
+      person_message:
         "It's not just the technology and the connectivity, but it's how we work, too.\"",
+      card_footer_bg: "#ffdac8",
     },
     {
-      title: "Kari",
-      badge: "Real Estate Agent",
-      description: 'I use my phone as my lifeline to get my job done."',
+      id: 3,
+      person_name: "Kari",
+      person_designation: "Real Estate Agent",
+      person_message: 'I use my phone as my lifeline to get my job done."',
+      card_footer_bg: "#d2c7ff",
     },
   ],
 };

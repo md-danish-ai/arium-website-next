@@ -19,15 +19,10 @@ import {
 } from "./renderers/about";
 
 // 3. Careers Renderers
-import { CareersBenefitsRenderer, CareersJobAreasRenderer } from "./renderers/careers";
+import { CareersJobAreasRenderer } from "./renderers/careers";
 
 // 4. Community Renderers
-import {
-  CommunityBenefitsRenderer,
-  CommunityHowWeWorkRenderer,
-  CommunityTestimonialsRenderer,
-  CommunityFAQRenderer,
-} from "./renderers/community";
+import { CommunityHowWeWorkRenderer, CommunityFAQRenderer } from "./renderers/community";
 
 // 5. Solutions Renderers
 import {
@@ -55,6 +50,7 @@ import {
   IllustrationSplitRenderer,
   AccordionSplitRenderer,
   GlobalTestimonialsRenderer,
+  BenefitsGridRenderer,
 } from "./renderers/common";
 
 export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRendererProps>> = {
@@ -80,16 +76,16 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   // ==========================================
   // 3. Careers Page Widgets
   // ==========================================
-  "widget.benefits": CareersBenefitsRenderer,
+  "widget.benefits": BenefitsGridRenderer,
   "widget.highlight-list": CareersJobAreasRenderer,
   "widget.gloabl-testimonails": GlobalTestimonialsRenderer,
 
   // ==========================================
   // 4. Community Page Widgets
   // ==========================================
-  "widget.image-card-grid": CommunityBenefitsRenderer,
+  "widget.image-card-grid": BenefitsGridRenderer,
   "widget.how-we-work": CommunityHowWeWorkRenderer,
-  "widget.community-testimonials": CommunityTestimonialsRenderer,
+  "widget.community-testimonials": GlobalTestimonialsRenderer,
   "widget.faq": CommunityFAQRenderer,
 
   // ==========================================

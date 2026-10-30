@@ -14,9 +14,9 @@ import {
 import type {
   CareersCultureAccordionProps,
   CareersJobAreasProps,
-  CareersBenefitsProps,
   CareersEEOProps,
 } from "@ui-component/careers/type";
+import type { BenefitsGridProps } from "@ui-common/BenefitsGrid";
 
 type RawRecord = Record<string, unknown>;
 
@@ -221,7 +221,7 @@ export function mapCareersJobAreas(
 export function mapCareersBenefits(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_BENEFITS_FALLBACK
-): CareersBenefitsProps {
+): BenefitsGridProps {
   const title = (raw?.title as string) || fallback.title;
   const rawBody = (raw?.body as string) || (raw?.description as string);
 

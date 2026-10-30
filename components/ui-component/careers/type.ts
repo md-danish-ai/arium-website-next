@@ -36,12 +36,7 @@ export interface CareersJobAreasProps {
   imageAlt?: string;
 }
 
-export interface CareersBenefitsProps {
-  title: string;
-  contentHtml?: string;
-  description?: string;
-  benefits: CareersBenefitItem[];
-}
+export type CareersBenefitsProps = import("@ui-common/BenefitsGrid").BenefitsGridProps;
 
 export interface CareersEEOProps {
   contentHtml?: string;

@@ -1,13 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import HeroBanner from "@ui-common/HeroBanner";
-import ImageCardGrid from "@ui-common/ImageCardGrid";
-import {
-  CommunitySmallCells,
-  CommunityHowWeWork,
-  CommunityTestimonials,
-  CommunityFAQ,
-} from "@ui-component/community";
+import { HeroBanner, BenefitsGrid, SharedTestimonials } from "@ui-common";
+import { CommunitySmallCells, CommunityHowWeWork, CommunityFAQ } from "@ui-component/community";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -67,7 +61,7 @@ export default async function YourCommunityPage() {
       pos: 2,
       key: "image-card-grid",
       skip: hasWidgetComponent(globalWidgets, "image-card-grid"),
-      el: <ImageCardGrid key="image-card-grid" {...benefitsProps} />,
+      el: <BenefitsGrid key="benefits-grid" {...benefitsProps} />,
     },
     {
       pos: 3,
@@ -79,11 +73,7 @@ export default async function YourCommunityPage() {
       pos: 4,
       key: "gloabl-testimonails",
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
-      el: (
-        <div key="gloabl-testimonails">
-          <CommunityTestimonials {...testimonialsProps} />
-        </div>
-      ),
+      el: <SharedTestimonials key="shared-testimonials" {...testimonialsProps} />,
     },
     {
       pos: 5,

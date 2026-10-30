@@ -1,7 +1,14 @@
 import type { LinkItem, FAQItem } from "@types";
-import type { CommunityTestimonialItem, CommunityBenefitCard } from "@data/community.data";
+import type { CommunityBenefitCard } from "@data/community.data";
+import type { SharedTestimonialsProps, SharedTestimonialCard } from "@ui-common";
 
-export type { LinkItem, FAQItem, CommunityTestimonialItem, CommunityBenefitCard };
+export type {
+  LinkItem,
+  FAQItem,
+  CommunityBenefitCard,
+  SharedTestimonialsProps,
+  SharedTestimonialCard,
+};
 
 export interface CommunitySmallCellsProps {
   title: string;
@@ -17,11 +24,6 @@ export interface CommunityHowWeWorkProps {
   paragraphs?: string[];
   bgImageUrl?: string;
   cta?: LinkItem;
-}
-
-export interface CommunityTestimonialsProps {
-  title: string;
-  testimonials: CommunityTestimonialItem[];
 }
 
 export interface CommunityFAQProps {
