@@ -8,3 +8,4 @@ export { default as ProcessRenderer } from "./ProcessRenderer";
 export { default as PeopleGlobalRenderer } from "./PeopleGlobalRenderer";
 export { default as IllustrationSplitRenderer } from "./IllustrationSplitRenderer";
 export { default as AccordionSplitRenderer } from "./AccordionSplitRenderer";
+export { default as GlobalTestimonialsRenderer } from "./GlobalTestimonialsRenderer";

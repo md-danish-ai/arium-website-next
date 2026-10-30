@@ -127,23 +127,40 @@ export function mapCareersCulture(
 export function mapCareersTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_TESTIMONIALS_FALLBACK
-): CareersTestimonialsProps {
+) {
   const title = (raw?.title as string) || fallback.title;
-
   const rawCards = (raw?.cards || raw?.testimonials) as RawRecord[] | undefined;
 
-  let testimonials: CareersEmployeeTestimonial[] = fallback.testimonials;
-  if (Array.isArray(rawCards) && rawCards.length > 0) {
-    testimonials = rawCards.map((c) => ({
-      title: (c.title as string) || (c.personName as string) || "",
-      badge: (c.badge as string) || (c.personDesignation as string) || "",
-      description: (c.description as string) || (c.personMessage as string) || "",
-    }));
+  if (!Array.isArray(rawCards) || rawCards.length === 0) {
+    return {
+      title,
+      cards: fallback.cards,
+    };
   }
+
+  const cards = rawCards.map((c, idx) => ({
+    id: (c.id as number | string) || idx + 1,
+    person_name:
+      (c.person_name as string) || (c.title as string) || fallback.cards[idx]?.person_name || "",
+    person_designation:
+      (c.person_designation as string) ||
+      (c.badge as string) ||
+      fallback.cards[idx]?.person_designation ||
+      "",
+    person_message:
+      (c.person_message as string) ||
+      (c.description as string) ||
+      fallback.cards[idx]?.person_message ||
+      "",
+    card_footer_bg:
+      (c.card_footer_bg as string | null | undefined) ||
+      fallback.cards[idx]?.card_footer_bg ||
+      (idx % 2 === 0 ? "#bcf6f2" : "#ffdac8"),
+  }));
 
   return {
     title,
-    testimonials,
+    cards,
   };
 }
 

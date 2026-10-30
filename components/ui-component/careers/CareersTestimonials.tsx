@@ -7,21 +7,21 @@ const TESTIMONIAL_STYLES = [
   {
     "--kpi-color": "#00b4a0",
     "--glow-color": "0, 180, 160",
-    "--footer-bg": "var(--color-secondary-teal)",
+    "--footer-bg": "var(--color-secondary-teal, #bcf6f2)",
     "--footer-text": "var(--color-midnight-blue)",
     "--footer-role": "var(--color-midnight-blue)",
   } as React.CSSProperties, // Teal
   {
     "--kpi-color": "#8b6fe6",
     "--glow-color": "139, 111, 230",
-    "--footer-bg": "var(--color-secondary-purple)",
+    "--footer-bg": "var(--color-secondary-purple, #d2c7ff)",
     "--footer-text": "var(--color-midnight-blue)",
     "--footer-role": "var(--color-midnight-blue)",
   } as React.CSSProperties, // Purple
   {
     "--kpi-color": "#e8935a",
     "--glow-color": "232, 147, 90",
-    "--footer-bg": "var(--color-secondary-peach)",
+    "--footer-bg": "var(--color-secondary-peach, #ffdac8)",
     "--footer-text": "var(--color-midnight-blue)",
     "--footer-role": "var(--color-midnight-blue)",
   } as React.CSSProperties, // Peach

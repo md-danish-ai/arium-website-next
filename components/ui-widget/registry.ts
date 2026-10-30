@@ -19,11 +19,7 @@ import {
 } from "./renderers/about";
 
 // 3. Careers Renderers
-import {
-  CareersBenefitsRenderer,
-  CareersTestimonialsRenderer,
-  CareersJobAreasRenderer,
-} from "./renderers/careers";
+import { CareersBenefitsRenderer, CareersJobAreasRenderer } from "./renderers/careers";
 
 // 4. Community Renderers
 import {
@@ -58,6 +54,7 @@ import {
   PeopleGlobalRenderer,
   IllustrationSplitRenderer,
   AccordionSplitRenderer,
+  GlobalTestimonialsRenderer,
 } from "./renderers/common";
 
 export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRendererProps>> = {
@@ -85,7 +82,7 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   // ==========================================
   "widget.benefits": CareersBenefitsRenderer,
   "widget.highlight-list": CareersJobAreasRenderer,
-  "widget.gloabl-testimonails": CareersTestimonialsRenderer,
+  "widget.gloabl-testimonails": GlobalTestimonialsRenderer,
 
   // ==========================================
   // 4. Community Page Widgets

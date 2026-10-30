@@ -82,14 +82,7 @@ export default async function RightOfWayPage() {
       pos: 4,
       key: "global-cta",
       skip: hasWidgetComponent(globalWidgets, "global-cta"),
-      el: (
-        <SubPageCTA
-          key="global-cta"
-          prompt_to_cta={ctaProps.title}
-          CTA_text={ctaProps.buttonText}
-          CTA_url={ctaProps.buttonLink}
-        />
-      ),
+      el: <SubPageCTA key="global-cta" {...ctaProps} />,
     },
   ];
 

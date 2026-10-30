@@ -1,24 +1,29 @@
+import React from "react";
 import Image from "next/image";
 import { Typography, Button } from "@ui-element";
 import { ArrowRightSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
-import type { WhereVenuesProps } from "./type";
+import { resolveStrapiImage } from "@utils";
+import type { WhereImageSplitProps } from "./type";
 
 export default function WhereVenues({
   title,
+  title_color,
   description,
-  cta,
-  images,
-  isHtmlDescription,
-  bgGradient,
-}: WhereVenuesProps) {
-  const displayImage = images[0];
+  description_color,
+  image,
+  background_color,
+  CTA_text,
+  CTA_url,
+}: WhereImageSplitProps) {
+  const imageUrl = resolveStrapiImage(image, "/images/gallery/venue-hero.png");
+  const isHtml = description.includes("<") && description.includes(">");
 
   return (
     <section
       className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-[#E4FAF8] via-[#BCF6F2] to-[#E8FBF9]"
       id="venues-feature"
-      style={bgGradient ? { background: bgGradient } : undefined}
+      style={background_color ? { background: background_color } : undefined}
     >
       <div className="absolute w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.18)_0%,transparent_60%)] -top-[180px] -left-[150px] pointer-events-none" />
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.12)_0%,transparent_65%)] -bottom-[180px] -right-[120px] pointer-events-none" />
@@ -31,41 +36,58 @@ export default function WhereVenues({
             as="h2"
             uppercase
             weight="light"
-            className="text-[#162047] leading-tight m-0"
+            className="leading-tight m-0"
+            style={title_color ? { color: title_color } : { color: "#162047" }}
           >
             {title}
           </Typography>
 
-          {isHtmlDescription ? (
+          {isHtml ? (
             <div
-              className="strapi-richtext-body text-[#162047]/85 leading-relaxed m-0"
+              className="strapi-richtext-body leading-relaxed m-0"
+              style={
+                description_color
+                  ? { color: description_color }
+                  : { color: "rgba(22, 32, 71, 0.85)" }
+              }
               dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : (
-            <Typography variant="b1" as="p" className="text-[#162047]/85 m-0">
+            <Typography
+              variant="b1"
+              as="p"
+              className="m-0 leading-relaxed"
+              style={
+                description_color
+                  ? { color: description_color }
+                  : { color: "rgba(22, 32, 71, 0.85)" }
+              }
+            >
               {description}
             </Typography>
           )}
 
-          <Button
-            href={cta.url}
-            color="primary"
-            rightIcon={
-              <ArrowRightSvg className="transition-transform duration-300 group-hover:translate-x-1" />
-            }
-            aria-label={`${cta.label} about private venues`}
-            className="reveal stagger-2 self-start mt-2"
-          >
-            {cta.label}
-          </Button>
+          {CTA_text && CTA_url && (
+            <Button
+              href={CTA_url}
+              color="primary"
+              rightIcon={
+                <ArrowRightSvg className="transition-transform duration-300 group-hover:translate-x-1" />
+              }
+              aria-label={`${CTA_text} about private venues`}
+              className="reveal stagger-2 self-start mt-2"
+            >
+              {CTA_text}
+            </Button>
+          )}
         </div>
 
         <div className="reveal stagger-1 lg:order-1">
           <div className="aspect-video lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative w-full">
-            {displayImage && (
+            {imageUrl && (
               <Image
-                src={displayImage.src}
-                alt={displayImage.alt}
+                src={imageUrl}
+                alt={typeof title === "string" ? title : "Venues illustration"}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"

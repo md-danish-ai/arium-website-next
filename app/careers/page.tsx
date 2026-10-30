@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 import HeroBanner from "@ui-common/HeroBanner";
 import {
   CareersCultureAccordion,
-  CareersTestimonials,
   CareersJobAreas,
   CareersBenefits,
   CareersEEO,
 } from "@ui-component/careers";
+import { SharedTestimonials } from "@ui-common";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -75,7 +75,7 @@ export default async function CareersPage() {
       skip: hasWidgetComponent(globalWidgets, "gloabl-testimonails"),
       el: (
         <div key="gloabl-testimonails">
-          <CareersTestimonials {...testimonialsProps} />
+          <SharedTestimonials {...testimonialsProps} />
         </div>
       ),
     },

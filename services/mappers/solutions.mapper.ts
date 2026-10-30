@@ -30,7 +30,7 @@ export interface SolutionsHeroProps {
 }
 
 /**
- * 1. Solutions Hero Mapper
+ * 1. Solutions Hero Mapper (Pure 1-to-1)
  * Canonical keys: title, description, background_image, background_image_position, CTA_text, CTA_url, max_width_title, max_width_description, tag
  */
 export function mapSolutionsHero(
@@ -39,10 +39,7 @@ export function mapSolutionsHero(
 ): SolutionsHeroProps {
   const title = (raw?.title as string) || fallback.title;
   const description = (raw?.description as string) || fallback.description;
-  const background_image = resolveStrapiImage(
-    raw?.background_image || raw?.media,
-    fallback.background_image
-  );
+  const background_image = resolveStrapiImage(raw?.background_image, fallback.background_image);
   const background_image_position =
     (raw?.background_image_position as string) || fallback.background_image_position;
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
@@ -66,19 +63,19 @@ export function mapSolutionsHero(
 }
 
 /**
- * Helper to normalize statistics array from Strapi or Fallback
+ * Helper to normalize statistics array from Strapi or Fallback (Pure 1-to-1)
  */
 function normalizeStatistics(rawStats: unknown, fallback: SolutionStatItem[]): SolutionStatItem[] {
   if (!Array.isArray(rawStats) || rawStats.length === 0) return fallback;
-  return rawStats.map((s) => ({
-    stat: (s.stat || s.value || s.number || s.Number || "") as string,
-    description: (s.description || s.label || s.Label || "") as string,
-    stat_color: (s.stat_color || s.statColor || undefined) as string | undefined,
+  return rawStats.map((s, idx) => ({
+    stat: (s.stat as string) || fallback[idx]?.stat || "",
+    description: (s.description as string) || fallback[idx]?.description || "",
+    stat_color: (s.stat_color as string | undefined) ?? fallback[idx]?.stat_color,
   }));
 }
 
 /**
- * 2. Small Cells Mapper -> <SolutionsSmallCells />
+ * 2. Small Cells Mapper -> <SolutionsIllustrationSplit /> (Pure 1-to-1)
  */
 export function mapSolutionsSmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -86,10 +83,10 @@ export function mapSolutionsSmallCells(
 ): SolutionsIllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
-  const description = (raw?.description as string) || (raw?.body as string) || fallback.description;
+  const description = (raw?.description as string) || fallback.description;
   const description_color = (raw?.description_color as string) || fallback.description_color;
   const illustration_image = resolveStrapiImage(
-    raw?.illustration_image || raw?.image || raw?.media,
+    raw?.illustration_image,
     fallback.illustration_image
   );
   const illustration_image_alignment =
@@ -100,7 +97,7 @@ export function mapSolutionsSmallCells(
       ? Boolean(raw.show_bottom_divider)
       : fallback.show_bottom_divider;
 
-  const statistics = normalizeStatistics(raw?.statistics || raw?.stats, fallback.statistics);
+  const statistics = normalizeStatistics(raw?.statistics, fallback.statistics);
 
   return {
     title,
@@ -115,7 +112,7 @@ export function mapSolutionsSmallCells(
 }
 
 /**
- * 3. DAS Mapper -> <SolutionsIllustrationSplit />
+ * 3. DAS Mapper -> <SolutionsIllustrationSplit /> (Pure 1-to-1)
  */
 export function mapSolutionsDas(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -123,10 +120,10 @@ export function mapSolutionsDas(
 ): SolutionsIllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
-  const description = (raw?.description as string) || (raw?.body as string) || fallback.description;
+  const description = (raw?.description as string) || fallback.description;
   const description_color = (raw?.description_color as string) || fallback.description_color;
   const illustration_image = resolveStrapiImage(
-    raw?.illustration_image || raw?.image || raw?.media,
+    raw?.illustration_image,
     fallback.illustration_image
   );
   const illustration_image_alignment =
@@ -137,7 +134,7 @@ export function mapSolutionsDas(
       ? Boolean(raw.show_bottom_divider)
       : fallback.show_bottom_divider;
 
-  const statistics = normalizeStatistics(raw?.statistics || raw?.stats, fallback.statistics);
+  const statistics = normalizeStatistics(raw?.statistics, fallback.statistics);
 
   return {
     title,
@@ -152,7 +149,7 @@ export function mapSolutionsDas(
 }
 
 /**
- * 4. Industries Accordion Mapper -> <SolutionsIndustries />
+ * 4. Industries Accordion Mapper -> <SolutionsIndustries /> (Pure 1-to-1)
  */
 export function mapSolutionsIndustries(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -166,8 +163,7 @@ export function mapSolutionsIndustries(
   const template_grid_columns =
     (raw?.template_grid_columns as string) || fallback.template_grid_columns;
 
-  const rawCards = (raw?.accordian_cards || raw?.cards || raw?.industries) as
-    RawRecord[] | undefined;
+  const rawCards = raw?.accordian_cards as RawRecord[] | undefined;
   let accordian_cards: IndustryAccordionCard[] = fallback.accordian_cards;
 
   if (Array.isArray(rawCards) && rawCards.length > 0) {
@@ -201,7 +197,7 @@ export function mapSolutionsIndustries(
 }
 
 /**
- * 5. Solutions CTA Mapper -> <CtaWithGraphic />
+ * 5. Solutions CTA Mapper -> <CtaWithGraphic /> (Pure 1-to-1)
  */
 export function mapSolutionsCta(
   raw?: StrapiSectionItem | RawRecord | null,

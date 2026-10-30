@@ -74,35 +74,40 @@ export const CAREERS_CULTURE_FALLBACK: {
   ],
 };
 
-export const CAREERS_TESTIMONIALS_FALLBACK: {
-  title: string;
-  testimonials: CareersEmployeeTestimonial[];
-} = {
+export const CAREERS_TESTIMONIALS_FALLBACK = {
   title: "Meet the Arium Networks Team",
-  testimonials: [
+  cards: [
     {
-      title: "Gabe Villalobos",
-      badge: "Project Manager",
-      description:
+      id: 1,
+      person_name: "Gabe Villalobos",
+      person_designation: "Project Manager",
+      person_message:
         "At Arium Networks, you're surrounded by individuals who are experts in their respective fields that push you to want to grow and excel. You are heard and your opinions hold value.\"",
+      card_footer_bg: "#bcf6f2",
     },
     {
-      title: "Emily Cates",
-      badge: "Permitting Specialist",
-      description:
+      id: 2,
+      person_name: "Emily Cates",
+      person_designation: "Permitting Specialist",
+      person_message:
         "Working here, I've been able to learn, grow, and feel truly valued. It has been incredibly rewarding—and thanks to the benefits, it even helped make starting my family possible.\"",
+      card_footer_bg: "#d2c7ff",
     },
     {
-      title: "Anthony Price",
-      badge: "Client Services Manager",
-      description:
+      id: 3,
+      person_name: "Anthony Price",
+      person_designation: "Client Services Manager",
+      person_message:
         'Working at Arium Networks is energizing because of the strong sense of ownership and accountability across the team. I get to move fast, solve challenges, and deliver outcomes that truly matter."',
+      card_footer_bg: "#ffdac8",
     },
     {
-      title: "Jessica Fernandez",
-      badge: "Senior External Affairs Manager",
-      description:
+      id: 4,
+      person_name: "Jessica Fernandez",
+      person_designation: "Senior External Affairs Manager",
+      person_message:
         'The best part of my role is being surrounded by accomplished people across the organization, working toward the same shared goal of building better connectivity. That makes the work especially rewarding."',
+      card_footer_bg: "#ffffca",
     },
   ],
 };

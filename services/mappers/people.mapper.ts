@@ -29,7 +29,8 @@ export interface SubPageCtaMappedProps {
 }
 
 /**
- * 1. Sub Page Hero Mapper (used by Leadership, Board of Directors, etc.)
+ * 1. Sub Page Hero Mapper (Pure 1-to-1)
+ * Canonical keys: title, description, tag, CTA_text, CTA_url, background_gradient, content_max_width
  */
 export function mapSubPageHero(
   raw?: RawRecord | null,
@@ -38,34 +39,27 @@ export function mapSubPageHero(
   const title = (raw?.title as string) || fallback.title;
   const description = (raw?.description as string) || fallback.description;
   const tag = (raw?.tag as string) || fallback.tag || null;
+  const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
+  const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
   const background_gradient =
     (raw?.background_gradient as string) || fallback.background_gradient || null;
   const content_max_width =
     (raw?.content_max_width as string) || fallback.content_max_width || null;
 
-  let CTA_text = (raw?.CTA_text as string) || null;
-  let CTA_url = (raw?.CTA_url as string) || null;
-
-  if (!CTA_text && raw?.heroCtas) {
-    const rawCtas = raw.heroCtas as RawRecord[] | RawRecord;
-    const firstCta = Array.isArray(rawCtas) ? rawCtas[0] : rawCtas;
-    CTA_text = (firstCta?.label as string) || null;
-    CTA_url = (firstCta?.url as string) || null;
-  }
-
   return {
     title,
     description,
     tag,
-    CTA_text: CTA_text || fallback.CTA_text,
-    CTA_url: CTA_url || fallback.CTA_url,
+    CTA_text,
+    CTA_url,
     background_gradient,
     content_max_width,
   };
 }
 
 /**
- * 2. People Grid Mapper (used by Leadership and Board of Directors)
+ * 2. People Grid Mapper (Pure 1-to-1 with live Strapi shared.people-global-section)
+ * Canonical keys: name, designation, image, description, modal_upper_section_background
  */
 export function mapPeopleMembers(
   source?: StrapiSectionItem | RawRecord | RawRecord[] | null,
@@ -84,9 +78,9 @@ export function mapPeopleMembers(
   }
 
   return rawItems.map((item, index) => {
-    const name = ((item.name || item.title || "") as string).trim();
-    const role = ((item.designation || item.badge || item.role || "") as string).trim();
-    const bioText = ((item.description || item.bio || "") as string).trim();
+    const name = ((item.name || "") as string).trim();
+    const role = ((item.designation || "") as string).trim();
+    const bioText = ((item.description || "") as string).trim();
 
     const matchedFallback =
       fallbackMembers.find((f) => f.name.toLowerCase() === name.toLowerCase()) ||
@@ -110,7 +104,6 @@ export function mapPeopleMembers(
       : matchedFallback?.description || "";
 
     const modalBg = (item.modal_upper_section_background ||
-      item.modalBg ||
       matchedFallback?.modal_upper_section_background ||
       "#162047") as string;
 
@@ -125,35 +118,25 @@ export function mapPeopleMembers(
 }
 
 /**
- * 3. Sub Page CTA Mapper (used by Leadership, Board of Directors, etc.)
+ * 3. Sub Page CTA Mapper (Pure 1-to-1 with shared.global-cta)
+ * Canonical keys: prompt_to_cta, CTA_text, CTA_url, background_gradient, globe_illustration
  */
 export function mapSubPageCta(
   source?: StrapiSectionItem | RawRecord | null,
   fallbackCta = LEADERSHIP_CTA_FALLBACK
 ): SubPageCtaMappedProps {
-  const prompt_to_cta =
-    (source?.prompt_to_cta as string) || (source?.title as string) || fallbackCta.prompt_to_cta;
-
-  let CTA_text = (source?.CTA_text as string) || null;
-  let CTA_url = (source?.CTA_url as string) || null;
-
-  if (!CTA_text && source?.cta) {
-    const rawCta = source.cta as RawRecord | RawRecord[];
-    const firstCta = Array.isArray(rawCta) ? rawCta[0] : rawCta;
-    CTA_text = (firstCta?.label as string) || null;
-    CTA_url = (firstCta?.url as string) || null;
-  }
-
+  const prompt_to_cta = (source?.prompt_to_cta as string) || fallbackCta.prompt_to_cta;
+  const CTA_text = (source?.CTA_text as string) || fallbackCta.CTA_text;
+  const CTA_url = (source?.CTA_url as string) || fallbackCta.CTA_url;
   const background_gradient =
     (source?.background_gradient as string) || fallbackCta.background_gradient || null;
-
   const globe_illustration =
     resolveStrapiImage(source?.globe_illustration, fallbackCta.globe_illustration) || null;
 
   return {
     prompt_to_cta,
-    CTA_text: CTA_text || fallbackCta.CTA_text,
-    CTA_url: CTA_url || fallbackCta.CTA_url,
+    CTA_text,
+    CTA_url,
     background_gradient,
     globe_illustration,
   };

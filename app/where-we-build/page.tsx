@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { fetchAPI } from "@lib/api";
+import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import HeroBanner from "@ui-common/HeroBanner";
 import WhereCommunities from "@ui-component/where-we-build/WhereCommunities";
@@ -24,9 +24,7 @@ export default async function WhereWeBuildPage() {
     fetchAPI(
       "/api/pages?filters[slug][$eq]=where-we-build&populate[heroMedia][populate]=*&populate[sections][populate]=*"
     ),
-    fetchAPI(
-      "/api/pages?filters[slug][$eq]=where-we-build&populate[widgets][populate][Sections][populate]=*"
-    ),
+    fetchPageWidgets("where-we-build"),
   ]);
 
   const whereContent: StrapiPageData | undefined = pageData?.data?.[0];

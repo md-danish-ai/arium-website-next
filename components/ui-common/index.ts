@@ -20,3 +20,5 @@ export { default as PeopleGlobalSection } from "./PeopleGlobalSection";
 export type { PeopleGlobalSectionProps } from "./PeopleGlobalSection";
 export { default as ProcessSection } from "./ProcessSection";
 export type { PillarData, ProcessSectionProps, TimelineItem } from "./ProcessSection";
+export { default as SharedTestimonials } from "./SharedTestimonials";
+export type { SharedTestimonialsProps, SharedTestimonialCard } from "./SharedTestimonials";

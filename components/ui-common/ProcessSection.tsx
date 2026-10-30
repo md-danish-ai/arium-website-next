@@ -15,7 +15,8 @@ export interface PillarData {
   id: string;
   title: string;
   iconSvg: React.ReactNode;
-  themeColor: string;
+  themeColor?: string;
+  background_color?: string;
   steps: string[];
   timelineItems: TimelineItem[];
 }
@@ -23,6 +24,7 @@ export interface PillarData {
 export interface ProcessSectionProps {
   title: string;
   description: string;
+  background_color?: string | null;
   pillars: PillarData[];
   maxWidthTitle?: string;
 }
@@ -30,6 +32,7 @@ export interface ProcessSectionProps {
 export default function ProcessSection({
   title,
   description,
+  background_color,
   pillars,
   maxWidthTitle,
 }: ProcessSectionProps) {
@@ -48,11 +51,16 @@ export default function ProcessSection({
     setActiveTab(index);
   };
 
-  // The V6.1 html hardcodes rgba(0, 232, 217, 0.15).
-
   return (
-    <div className="border-none mt-[-1px] bg-white">
-      <section className="relative overflow-hidden py-20 bg-white" id="process">
+    <div
+      className="border-none mt-[-1px] bg-white"
+      style={background_color ? { backgroundColor: background_color } : undefined}
+    >
+      <section
+        className="relative overflow-hidden py-20 bg-white"
+        style={background_color ? { backgroundColor: background_color } : undefined}
+        id="process"
+      >
         <div
           className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
           aria-hidden="true"
@@ -106,7 +114,10 @@ export default function ProcessSection({
           >
             {pillars.map((pillar, index) => {
               const accentColor =
-                pillar.timelineItems?.[0]?.backgroundColor || pillar.themeColor || "#FBCBB5";
+                pillar.background_color ||
+                pillar.themeColor ||
+                pillar.timelineItems?.[0]?.backgroundColor ||
+                "#FBCBB5";
               const isActive = safeActiveTab === index;
               return (
                 <button
@@ -196,8 +207,9 @@ export default function ProcessSection({
                         className="w-[48px] h-[48px] rounded-[14px] flex items-center justify-center text-[#162047] shrink-0 [&_svg]:w-7 [&_svg]:h-7 [&_img]:w-9 [&_img]:h-9 [&_img]:object-contain"
                         style={{
                           background:
-                            pillar.timelineItems?.[0]?.backgroundColor ||
+                            pillar.background_color ||
                             pillar.themeColor ||
+                            pillar.timelineItems?.[0]?.backgroundColor ||
                             "#FBCBB5",
                         }}
                       >
@@ -215,7 +227,11 @@ export default function ProcessSection({
                       }`}
                     >
                       {pillar.timelineItems.map((item, idx) => {
-                        const cardBg = item.backgroundColor || pillar.themeColor || "#FBCBB5";
+                        const cardBg =
+                          item.backgroundColor ||
+                          pillar.background_color ||
+                          pillar.themeColor ||
+                          "#FBCBB5";
                         return (
                           <div
                             key={idx}
