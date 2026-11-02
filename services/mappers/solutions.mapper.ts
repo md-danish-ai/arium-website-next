@@ -8,6 +8,7 @@ import {
   SOLUTIONS_CTA_FALLBACK,
   SolutionStatItem,
   IndustryAccordionCard,
+  INDUSTRY_BG_IMAGES,
 } from "@data/solutions.data";
 import type { IllustrationSplitProps } from "@ui-common";
 import type { SolutionsIndustriesProps } from "@ui-component/solutions/type";
@@ -157,6 +158,11 @@ export function mapSolutionsIndustries(
         fallback.accordian_cards.find((c) => c.title.toLowerCase() === itemTitle.toLowerCase()) ||
         fallback.accordian_cards[index % fallback.accordian_cards.length];
 
+      const background_image = resolveStrapiImage(
+        item.background_image || item.bg_image,
+        matchedFallback.background_image || INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length]
+      );
+
       return {
         title: itemTitle || matchedFallback.title,
         description: (item.description || matchedFallback.description) as string,
@@ -165,6 +171,7 @@ export function mapSolutionsIndustries(
         title_color_hover: (item.title_color_hover as string) || matchedFallback.title_color_hover,
         description_color: (item.description_color as string) || matchedFallback.description_color,
         background_color: (item.background_color as string) || matchedFallback.background_color,
+        background_image,
       };
     });
   }

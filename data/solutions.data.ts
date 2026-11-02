@@ -12,6 +12,7 @@ export interface IndustryAccordionCard {
   title_color_hover?: string | null;
   description_color?: string | null;
   background_color?: string | null;
+  background_image?: string | null;
 }
 
 export const INDUSTRY_BG_IMAGES = [
@@ -95,6 +96,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#00e8d9",
       description_color: null,
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[0],
     },
     {
       title: "Amusement Parks, Hospitality & Entertainment",
@@ -104,6 +106,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#00e8d9",
       description_color: null,
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[1],
     },
     {
       title: "Higher Education",
@@ -113,6 +116,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#00e8d9",
       description_color: null,
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[2],
     },
     {
       title: "Commercial Real Estate",
@@ -122,6 +126,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#ffffff",
       description_color: null,
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[3],
     },
     {
       title: "Healthcare",
@@ -131,6 +136,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#00e8d9",
       description_color: null,
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[4],
     },
     {
       title: "State & Local Government",
@@ -140,6 +146,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#00e8d9",
       description_color: "#ffffff",
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[5],
     },
     {
       title: "Airports",
@@ -149,6 +156,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
       title_color_hover: "#00e8d9",
       description_color: "#ffffff",
       background_color: null,
+      background_image: INDUSTRY_BG_IMAGES[6],
     },
   ],
 };

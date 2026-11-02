@@ -47,7 +47,7 @@ export interface AccordionSplitProps {
 }
 
 function resolveItemImage(item: AccordionItem, index?: number): string {
-  const directUrl = extractMediaUrl(item.bg_image);
+  const directUrl = extractMediaUrl(item.background_image || item.bg_image);
   if (directUrl) return GetStrapiMediaUrl(directUrl);
   if (typeof index === "number" && index >= 0 && INDUSTRY_BG_IMAGES.length > 0) {
     return INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];

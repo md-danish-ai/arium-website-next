@@ -97,7 +97,8 @@ export default function SolutionsIndustries({
     >
       <div className="absolute left-0 top-0 w-full h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
         {accordian_cards.map((card, index) => {
-          const bgSrc = INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
+          const bgSrc =
+            card.background_image || INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
           return (
             <Image
               key={index}
