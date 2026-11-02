@@ -2,33 +2,27 @@
 
 import React from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { GetStrapiMediaUrl } from "@lib/strapi";
 import { Typography } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
+import { resolveStrapiImage } from "@utils";
 
-interface Statistic {
-  stat: string;
-  description: string;
+export interface IllustrationSplitStatItem {
+  stat?: string;
+  description?: string;
   stat_color?: string;
 }
 
-interface StrapiMediaObject {
-  url?: string;
-  data?: { attributes?: { url?: string } };
-  alternativeText?: string;
-}
-
-interface IllustrationSplitProps {
+export interface IllustrationSplitProps {
   id?: string;
   title?: string;
-  title_color?: string;
+  title_color?: string | null;
   description?: string;
-  description_color?: string;
-  illustration_image?: StrapiMediaObject[] | StrapiMediaObject | string | null;
-  illustration_image_alignment?: "Media Right" | "Media Left" | "Right" | "Left";
+  description_color?: string | null;
+  illustration_image?: unknown;
+  illustration_image_alignment?: "Right" | "Left" | "Media Right" | "Media Left";
   show_bottom_divider?: boolean;
-  statistics?: Statistic[];
+  statistics?: IllustrationSplitStatItem[];
+  className?: string;
 }
 
 export default function IllustrationSplit({
@@ -38,149 +32,148 @@ export default function IllustrationSplit({
   description,
   description_color,
   illustration_image,
-  illustration_image_alignment,
-  show_bottom_divider,
+  illustration_image_alignment = "Right",
+  show_bottom_divider = false,
   statistics = [],
+  className = "",
 }: IllustrationSplitProps) {
-  const pathname = usePathname();
-  const isSolutions = pathname?.includes("solutions") || pathname?.includes("/solutions");
+  const isLeft =
+    illustration_image_alignment === "Left" || illustration_image_alignment === "Media Left";
 
-  let rawImgUrl: string | undefined = undefined;
-  let altText: string | undefined = undefined;
-
-  if (typeof illustration_image === "string") {
-    rawImgUrl = illustration_image;
-  } else if (Array.isArray(illustration_image)) {
-    rawImgUrl = illustration_image[0]?.url;
-    altText = illustration_image[0]?.alternativeText;
-  } else if (illustration_image) {
-    const singleMedia = illustration_image as StrapiMediaObject;
-    rawImgUrl = singleMedia.url ?? singleMedia.data?.attributes?.url;
-    altText = singleMedia.alternativeText;
-  }
-
-  const isMediaLeft =
-    illustration_image_alignment === "Media Left" ||
-    illustration_image_alignment === "Left" ||
-    (title ? title.toLowerCase().includes("antenna") : false) ||
-    (title ? title.toLowerCase().includes("das") : false);
-
-  const defaultSvg = isMediaLeft
+  const defaultImg = isLeft
     ? "/images/svg-images/das-illustration.svg"
     : "/images/svg-images/small-cells-illustration.svg";
-  const imgUrl = rawImgUrl ? GetStrapiMediaUrl(rawImgUrl) : defaultSvg;
+
+  const resolvedImg = resolveStrapiImage(illustration_image, defaultImg);
+  const isSvg = (resolvedImg || "").toLowerCase().endsWith(".svg");
+
+  const isHtml = Boolean(
+    description &&
+    (description.includes("<br") ||
+      description.includes("<p") ||
+      (description.includes("<") && description.includes(">")))
+  );
 
   return (
-    <section
-      id={id}
-      className={`relative overflow-hidden flex items-center bg-transparent border-none ${
-        isSolutions ? "py-[50px]" : "py-16 md:py-24"
-      }`}
-    >
-      <div
-        className="infra-grid-bg absolute inset-0 opacity-10 pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div
-        className="md:hidden absolute top-[-25px] right-0 w-[150px] sm:w-[180px] pointer-events-none z-[1]"
-        aria-hidden="true"
-      >
-        <Image
-          src={imgUrl}
-          alt=""
-          aria-hidden="true"
-          width={180}
-          height={180}
-          unoptimized={imgUrl.toLowerCase().endsWith(".svg")}
-          className={`w-full h-auto opacity-75 [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
-            imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""
-          }`}
-        />
-      </div>
-
-      <Container className="relative z-[1]">
+    <section id={id} className={`bg-transparent py-[50px] relative overflow-hidden ${className}`}>
+      <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
-          <div className={`order-1 ${isMediaLeft ? "md:order-2" : "md:order-1"}`}>
+          <div className={`order-1 ${isLeft ? "md:order-2" : "md:order-1"}`}>
+            {/* Mobile Top-Right Floated Illustration (< md) */}
+            {resolvedImg && (
+              <div className="md:hidden float-right w-[115px] sm:w-[140px] ml-4 mb-2 pointer-events-none">
+                <Image
+                  src={resolvedImg}
+                  alt=""
+                  aria-hidden="true"
+                  className={`w-full h-auto opacity-75 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
+                    isSvg ? "svg-recolor" : ""
+                  }`}
+                  width={140}
+                  height={140}
+                  unoptimized={isSvg}
+                />
+              </div>
+            )}
+
             {title && (
               <Typography
-                as="h2"
                 variant="h3"
+                as="h2"
                 uppercase
                 weight="normal"
-                className="section-title text-left tracking-[0.06em] leading-[1.45] text-midnight m-0 mb-3"
-                style={{ color: title_color || undefined }}
+                className="section-title text-left text-[#162047] m-0 mb-3"
+                style={title_color ? { color: title_color } : undefined}
               >
                 {title}
               </Typography>
             )}
 
-            {description && (
+            {isHtml ? (
               <div
-                className="strapi-richtext-body leading-[1.8] text-midnight/80 mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-0 [&>p+p]:mt-3"
-                style={{ color: description_color || undefined }}
-                dangerouslySetInnerHTML={{ __html: description }}
+                className="strapi-richtext-body text-[#162047]/80 leading-[1.8] mb-6 flex flex-col gap-4 [&>p]:m-0"
+                style={description_color ? { color: description_color } : undefined}
+                dangerouslySetInnerHTML={{ __html: description || "" }}
               />
-            )}
+            ) : description ? (
+              <div
+                className="text-[#162047]/80 mb-6 flex flex-col gap-4"
+                style={description_color ? { color: description_color } : undefined}
+              >
+                {description
+                  .split("\n\n")
+                  .filter(Boolean)
+                  .map((p, idx) => (
+                    <Typography
+                      key={idx}
+                      variant="b1"
+                      as="p"
+                      className="text-[#162047]/80 m-0 leading-[1.8]"
+                    >
+                      {p}
+                    </Typography>
+                  ))}
+              </div>
+            ) : null}
 
             {statistics && statistics.length > 0 && (
-              <div className="flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
-                {statistics.map((stat, index) => (
-                  <div
-                    key={`stat-${index}`}
-                    className="flex flex-col gap-1 py-1 cursor-default shrink-0"
-                  >
-                    <Typography
-                      as="span"
-                      variant="stat"
-                      weight="bold"
-                      className="tracking-tight leading-none text-[#7c5cbf]"
-                      style={{ color: stat.stat_color || "#7c5cbf" }}
-                    >
-                      {stat.stat}
-                    </Typography>
-                    {stat.description && (
+              <div className="clear-both flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
+                {statistics.map((item, index) => (
+                  <div key={index} className="flex flex-col gap-1 py-1 cursor-default shrink-0">
+                    {item.stat && (
                       <Typography
-                        as="p"
-                        variant="b2"
-                        weight="normal"
-                        className="normal-case tracking-normal text-midnight/80 m-0 mt-1.5 whitespace-nowrap"
+                        variant="stat"
+                        weight="bold"
+                        className="text-[#7c5cbf] leading-none tracking-tight"
+                        style={item.stat_color ? { color: item.stat_color } : undefined}
                       >
-                        {stat.description}
+                        {item.stat}
+                      </Typography>
+                    )}
+                    {item.description && (
+                      <Typography
+                        variant="b2"
+                        as="p"
+                        weight="normal"
+                        className="normal-case tracking-normal text-[#162047]/80 m-0 mt-1.5 whitespace-nowrap"
+                      >
+                        {item.description}
                       </Typography>
                     )}
                   </div>
                 ))}
               </div>
             )}
-
-            {show_bottom_divider && !isSolutions && (
-              <div className="w-full h-px bg-midnight/10 mt-7" />
-            )}
           </div>
 
-          <div
-            className={`hidden md:flex items-center self-center w-full ${
-              isMediaLeft
-                ? "justify-center md:justify-start md:order-1"
-                : "justify-center md:justify-end md:order-2"
-            }`}
-          >
-            <div className="relative w-full max-w-[340px] md:max-w-[440px]">
-              <Image
-                src={imgUrl}
-                alt={altText || title || "Illustration"}
-                width={440}
-                height={440}
-                unoptimized={imgUrl.toLowerCase().endsWith(".svg")}
-                className={`w-full h-auto opacity-75 md:opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
-                  imgUrl.toLowerCase().endsWith(".svg") ? "svg-recolor" : ""
-                }`}
-              />
+          {/* Desktop / Tablet Illustration Column (>= md) */}
+          {resolvedImg && (
+            <div
+              className={`hidden md:flex items-center self-center order-2 w-full ${
+                isLeft
+                  ? "justify-center md:justify-start md:order-1"
+                  : "justify-center md:justify-end md:order-2"
+              }`}
+            >
+              <div className="relative w-full max-w-[340px] md:max-w-[440px]">
+                <Image
+                  src={resolvedImg}
+                  alt={title || "Illustration"}
+                  className={`w-full h-auto opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
+                    isSvg ? "svg-recolor" : ""
+                  }`}
+                  width={440}
+                  height={440}
+                  unoptimized={isSvg}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </Container>
+      {show_bottom_divider && (
+        <div className="max-w-[1200px] mx-auto mt-12 border-b border-[#162047]/10" />
+      )}
     </section>
   );
 }

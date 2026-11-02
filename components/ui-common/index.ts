@@ -13,6 +13,7 @@ export type {
 } from "./ImageGradientSplit";
 export { default as HeroBanner } from "./HeroBanner";
 export { default as IllustrationSplit } from "./IllustrationSplit";
+export type { IllustrationSplitProps, IllustrationSplitStatItem } from "./IllustrationSplit";
 export { default as BenefitsGrid } from "./BenefitsGrid";
 export type { BenefitsGridProps, BenefitCardItem } from "./BenefitsGrid";
 export { default as SubPageHeroBanner } from "./SubPageHeroBanner";

@@ -8,18 +8,6 @@ export type {
   SharedTestimonialCard,
 };
 
-export interface CommunitySmallCellsProps {
-  id?: string;
-  title: string;
-  title_color?: string;
-  description: string;
-  description_color?: string;
-  illustration_image?: string;
-  illustration_image_alignment?: "Right" | "Left" | "Media Right" | "Media Left";
-  show_bottom_divider?: boolean;
-  statistics?: Array<{ stat: string; description: string; stat_color?: string }>;
-}
-
 export interface CommunityHowWeWorkProps {
   id?: string;
   title: string;

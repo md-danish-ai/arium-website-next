@@ -47,7 +47,7 @@ export const SOLUTIONS_SMALL_CELLS_FALLBACK = {
   description_color: "#162047",
   illustration_image: "/images/svg-images/small-cells-illustration.svg",
   illustration_image_alignment: "Right" as const,
-  show_bottom_divider: true,
+  show_bottom_divider: false,
   statistics: [
     { stat: "100K+", description: "small cells on air or under contract", stat_color: "#7c5cbf" },
     { stat: "700+", description: "municipalities served", stat_color: "#7c5cbf" },

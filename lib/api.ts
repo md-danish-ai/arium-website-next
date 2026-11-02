@@ -38,14 +38,14 @@ export const WIDGETS_POPULATE_QUERY = "populate[widgets][populate][Sections][pop
 
 const PAGE_WIDGET_POPULATE_MAP: Record<string, string> = {
   careers: [
-    "populate[widgets][populate][Sections][on][shared.test-banner][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.hero][populate]=*",
     "populate[widgets][populate][Sections][on][shared.accordion-split][populate]=*",
     "populate[widgets][populate][Sections][on][shared.gloabl-testimonails][populate]=*",
     "populate[widgets][populate][Sections][on][shared.highlight-list][populate]=*",
     "populate[widgets][populate][Sections][on][shared.benefits][populate][benefits_card][populate]=*",
   ].join("&"),
   community: [
-    "populate[widgets][populate][Sections][on][shared.test-banner][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.hero][populate]=*",
     "populate[widgets][populate][Sections][on][shared.illustration-split][populate]=*",
     "populate[widgets][populate][Sections][on][shared.image-card-grid][populate][icon_card][populate]=*",
     "populate[widgets][populate][Sections][on][shared.background-feature-section][populate]=*",

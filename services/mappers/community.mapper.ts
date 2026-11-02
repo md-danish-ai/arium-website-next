@@ -10,11 +10,8 @@ import {
   CommunityBenefitCard,
   CommunityFaqItem,
 } from "@data/community.data";
-import type {
-  CommunitySmallCellsProps,
-  CommunityHowWeWorkProps,
-  CommunityFAQProps,
-} from "@ui-component/community/type";
+import type { CommunityHowWeWorkProps, CommunityFAQProps } from "@ui-component/community/type";
+import type { IllustrationSplitProps } from "@ui-common";
 import type { BenefitCardItem, BenefitsGridProps } from "@ui-common/BenefitsGrid";
 import type { SharedTestimonialsProps, SharedTestimonialCard } from "@ui-common/SharedTestimonials";
 import type { HeroBannerProps } from "@ui-common/HeroBanner";
@@ -72,7 +69,7 @@ export function mapCommunityHero(
 export function mapCommunitySmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_SMALL_CELLS_FALLBACK
-): CommunitySmallCellsProps {
+): IllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = ((raw?.title_color as string) || fallback.title_color) ?? undefined;
   const description = (raw?.description as string) || fallback.description;

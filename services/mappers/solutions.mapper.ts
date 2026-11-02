@@ -9,10 +9,8 @@ import {
   SolutionStatItem,
   IndustryAccordionCard,
 } from "@data/solutions.data";
-import type {
-  SolutionsIllustrationSplitProps,
-  SolutionsIndustriesProps,
-} from "@ui-component/solutions/type";
+import type { IllustrationSplitProps } from "@ui-common";
+import type { SolutionsIndustriesProps } from "@ui-component/solutions/type";
 import type { CtaWithGraphicProps } from "@ui-common/CtaWithGraphic";
 
 type RawRecord = Record<string, unknown>;
@@ -75,12 +73,12 @@ function normalizeStatistics(rawStats: unknown, fallback: SolutionStatItem[]): S
 }
 
 /**
- * 2. Small Cells Mapper -> <SolutionsIllustrationSplit /> (Pure 1-to-1)
+ * 2. Small Cells Mapper -> <IllustrationSplit /> (Pure 1-to-1)
  */
 export function mapSolutionsSmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_SMALL_CELLS_FALLBACK
-): SolutionsIllustrationSplitProps {
+): IllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
   const description = (raw?.description as string) || fallback.description;
@@ -92,10 +90,7 @@ export function mapSolutionsSmallCells(
   const illustration_image_alignment =
     (raw?.illustration_image_alignment as "Left" | "Right") ||
     fallback.illustration_image_alignment;
-  const show_bottom_divider =
-    raw?.show_bottom_divider !== undefined
-      ? Boolean(raw.show_bottom_divider)
-      : fallback.show_bottom_divider;
+  const show_bottom_divider = false;
 
   const statistics = normalizeStatistics(raw?.statistics, fallback.statistics);
 
@@ -112,12 +107,12 @@ export function mapSolutionsSmallCells(
 }
 
 /**
- * 3. DAS Mapper -> <SolutionsIllustrationSplit /> (Pure 1-to-1)
+ * 3. DAS Mapper -> <IllustrationSplit /> (Pure 1-to-1)
  */
 export function mapSolutionsDas(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_DAS_FALLBACK
-): SolutionsIllustrationSplitProps {
+): IllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
   const description = (raw?.description as string) || fallback.description;

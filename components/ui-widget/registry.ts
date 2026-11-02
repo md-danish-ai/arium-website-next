@@ -105,8 +105,7 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   // ==========================================
   // 7. Common / Shared Global Widgets
   // ==========================================
-  "widget.hero-banner": HeroBannerRenderer,
-  "widget.test-banner": HeroBannerRenderer,
+  "widget.hero": HeroBannerRenderer,
   "widget.sub-page-hero": SubPageHeroRenderer,
   "widget.inner-page-hero": SubPageHeroRenderer,
   "widget.global-cta": SubPageCTARenderer,
