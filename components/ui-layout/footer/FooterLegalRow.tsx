@@ -1,46 +1,51 @@
 import React from "react";
-import {
-  FooterLayoutData,
-  RawFooterLink,
-  FooterLinkItem,
-  DEFAULT_LEGAL_LINKS,
-} from "./footer-data";
+import { FooterLinkItem, DEFAULT_LEGAL_LINKS } from "./footer-data";
 
 interface FooterLegalRowProps {
   legalLinks?: FooterLinkItem[];
-  layoutData?: FooterLayoutData | null;
+  variant?: "column" | "wrapped";
 }
 
-export function FooterLegalRow({ legalLinks: propLegalLinks, layoutData }: FooterLegalRowProps) {
-  const dynamicLinks = layoutData?.footerColumn?.footerLinks?.filter(
-    (link) => link.url !== "/contact"
-  );
+export function FooterLegalRow({
+  legalLinks = DEFAULT_LEGAL_LINKS,
+  variant = "column",
+}: FooterLegalRowProps) {
+  const linksToRender = legalLinks && legalLinks.length > 0 ? legalLinks : DEFAULT_LEGAL_LINKS;
 
-  const hasDynamicLinks = Boolean(dynamicLinks && dynamicLinks.length > 0);
-
-  const linkClass =
-    "relative inline-block text-white/75 hover:text-white text-[0.78rem] font-body whitespace-nowrap no-underline transition-colors after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-teal after:transition-all after:duration-300 hover:after:w-full";
-
-  const linksToRender: (FooterLinkItem | RawFooterLink)[] =
-    propLegalLinks && propLegalLinks.length > 0
-      ? propLegalLinks
-      : hasDynamicLinks && dynamicLinks
-        ? dynamicLinks
-        : DEFAULT_LEGAL_LINKS;
+  if (variant === "wrapped") {
+    return (
+      <nav
+        aria-label="Legal links"
+        className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-center"
+      >
+        {linksToRender.map((link, idx: number) => (
+          <a
+            key={link.id ?? link.name ?? idx}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/70 hover:text-teal text-xs sm:text-sm font-normal no-underline transition-colors whitespace-nowrap"
+          >
+            {link.name}
+          </a>
+        ))}
+      </nav>
+    );
+  }
 
   return (
-    <div className="flex flex-wrap xl:flex-nowrap items-center justify-center min-[601px]:justify-start gap-x-5 md:gap-x-6 xl:gap-x-7 gap-y-2.5 pt-1 text-center min-[601px]:text-left">
+    <nav aria-label="Legal links" className="flex flex-col space-y-3.5">
       {linksToRender.map((link, idx: number) => (
         <a
           key={link.id ?? link.name ?? idx}
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={linkClass}
+          className="text-white/80 hover:text-teal text-sm md:text-base font-normal no-underline transition-colors leading-normal"
         >
           {link.name}
         </a>
       ))}
-    </div>
+    </nav>
   );
 }

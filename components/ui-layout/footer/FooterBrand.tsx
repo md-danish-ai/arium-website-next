@@ -1,45 +1,39 @@
 import React from "react";
 import Link from "next/link";
-import { FooterLayoutData } from "./footer-data";
 import { FooterDesktopLogoSvg, FooterMobileLogoSvg } from "@ui-svg";
 
 interface FooterBrandProps {
   logoDesktop?: string;
   logoMobile?: string;
-  layoutData?: FooterLayoutData | null;
 }
 
-export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrandProps) {
-  const finalDesktopLogo = logoDesktop || layoutData?.FooterLogoDesktop;
-  const finalMobileLogo = logoMobile || layoutData?.FooterLogoMobile;
-
+export function FooterBrand({ logoDesktop, logoMobile }: FooterBrandProps) {
   return (
-    <Link
-      href="/"
-      aria-label="Arium Networks"
-      className="inline-block no-underline shrink-0 text-center min-[601px]:text-left mx-auto min-[601px]:mx-0"
-    >
-      <span className="hidden min-[601px]:block">
-        {finalDesktopLogo ? (
-          <span
-            dangerouslySetInnerHTML={{ __html: finalDesktopLogo }}
-            className="inline-block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
-          />
-        ) : (
-          <FooterDesktopLogoSvg />
-        )}
-      </span>
+    <div className="flex justify-center md:justify-start w-full md:w-auto">
+      <Link href="/" aria-label="Arium Networks" className="inline-block no-underline shrink-0">
+        <span className="hidden md:block">
+          {logoDesktop ? (
+            <span
+              dangerouslySetInnerHTML={{ __html: logoDesktop }}
+              className="inline-block [&>svg]:w-[150px] lg:[&>svg]:w-[185px] [&>svg]:h-auto [&>svg]:text-white"
+            />
+          ) : (
+            <FooterDesktopLogoSvg className="w-[150px] lg:w-[185px] h-auto text-white" />
+          )}
+        </span>
 
-      <span className="block min-[601px]:hidden">
-        {finalMobileLogo ? (
-          <span
-            dangerouslySetInnerHTML={{ __html: finalMobileLogo }}
-            className="inline-block [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
-          />
-        ) : (
-          <FooterMobileLogoSvg />
-        )}
-      </span>
-    </Link>
+        {/* Mobile Logo (single-line horizontal: Arium Networks) */}
+        <span className="block md:hidden">
+          {logoMobile ? (
+            <span
+              dangerouslySetInnerHTML={{ __html: logoMobile }}
+              className="inline-block [&>svg]:w-[200px] sm:[&>svg]:w-[230px] [&>svg]:h-auto [&>svg]:text-white"
+            />
+          ) : (
+            <FooterMobileLogoSvg className="w-[200px] sm:w-[230px] h-auto text-white" />
+          )}
+        </span>
+      </Link>
+    </div>
   );
 }
