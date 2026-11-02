@@ -108,13 +108,7 @@ export default function ImageGradientSplit({
               {section_pointers.map((item, index, array) => (
                 <div key={item.id ?? index} className="flex flex-col">
                   <div
-                    className={
-                      index === 0
-                        ? "pb-6"
-                        : index === array.length - 1
-                          ? "pt-6"
-                          : "py-6"
-                    }
+                    className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}
                   >
                     <Typography
                       as="div"
