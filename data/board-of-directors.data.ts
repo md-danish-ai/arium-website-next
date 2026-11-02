@@ -75,7 +75,7 @@ export const BOARD_CTA_FALLBACK = {
   CTA_url: "/leadership",
   background_gradient:
     "linear-gradient(135deg, rgb(255, 255, 202) 0%, rgb(255, 248, 225) 40%, rgb(255, 218, 200) 100%)",
-  globe_illustration: "https://d2919ce8l80osk.cloudfront.net/connection_globe_blue_b0853202f4.svg",
+  globe_illustration: "/images/svg-images/connection-globe.svg",
 };
 
 export const BOARD_SEO_FALLBACK = {
