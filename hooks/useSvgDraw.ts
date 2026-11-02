@@ -5,6 +5,9 @@ import { useEffect, useRef, type RefObject } from "react";
 export interface SvgDrawOptions {
   selector?: string;
   color?: string;
+  fillColor?: string;
+  strokeWidth?: number | string;
+  circleStrokeWidth?: number | string;
   drawDuration?: number;
   totalSpread?: number;
   fillDelay?: number;
@@ -26,6 +29,9 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
   const {
     selector = ".draw-svg",
     color = "#00E8D9",
+    fillColor,
+    strokeWidth = "0.5",
+    circleStrokeWidth = "1.3",
     drawDuration = 1.5,
     totalSpread = 2.5,
     fillDelay = 0.3,
@@ -49,7 +55,11 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
         const len = path.getTotalLength();
         path.style.fill = "transparent";
         path.style.stroke = "transparent";
-        path.style.strokeWidth = path.getAttribute("data-circle") ? "1.5" : "0.6";
+        const defaultW = path.getAttribute("data-circle")
+          ? circleStrokeWidth.toString()
+          : strokeWidth.toString();
+        const strokeW = path.getAttribute("data-stroke-width") || defaultW;
+        path.style.strokeWidth = strokeW;
         path.style.strokeDasharray = len.toString();
         path.style.strokeDashoffset = len.toString();
       }
@@ -76,11 +86,11 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
 
       const fillStart = (lastDelay + drawDuration + fillDelay) * 1000;
       const timer = setTimeout(() => {
-        const circles = svg.querySelectorAll('path[data-circle="1"]');
-        circles.forEach((c) => {
-          const circle = c as SVGPathElement;
-          circle.style.transition = `fill ${fillDuration}s ease`;
-          circle.style.fill = color;
+        const fillTargets = svg.querySelectorAll('path[data-circle="1"], path[data-fill="1"]');
+        fillTargets.forEach((c) => {
+          const el = c as SVGPathElement;
+          el.style.transition = `fill ${fillDuration}s ease`;
+          el.style.fill = fillColor || color;
         });
       }, fillStart);
       timers.push(timer);
@@ -111,6 +121,9 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
     containerRef,
     selector,
     color,
+    fillColor,
+    strokeWidth,
+    circleStrokeWidth,
     drawDuration,
     totalSpread,
     fillDelay,

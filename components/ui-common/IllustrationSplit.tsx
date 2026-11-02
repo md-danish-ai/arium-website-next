@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Typography } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 import { resolveStrapiImage } from "@utils";
+import { SmallCellsSvg, DasSvg } from "@ui-svg";
+import { useSvgDraw } from "@hooks/useSvgDraw";
 
 export interface IllustrationSplitStatItem {
   stat?: string;
@@ -47,6 +49,18 @@ export default function IllustrationSplit({
   const resolvedImg = resolveStrapiImage(illustration_image, defaultImg);
   const isSvg = (resolvedImg || "").toLowerCase().endsWith(".svg");
 
+  const titleStr = (title || "").toLowerCase();
+  const imgStr = (resolvedImg || "").toLowerCase();
+  const isDas =
+    isLeft || titleStr.includes("antenna") || titleStr.includes("das") || imgStr.includes("das");
+
+  const svgColor = title_color || "#162047";
+  const containerRef = useSvgDraw<HTMLElement>({
+    color: svgColor,
+    strokeWidth: 0.22,
+    circleStrokeWidth: 0.3,
+  });
+
   const isHtml = Boolean(
     description &&
     (description.includes("<br") ||
@@ -55,24 +69,33 @@ export default function IllustrationSplit({
   );
 
   return (
-    <section id={id} className={`bg-transparent py-[50px] relative overflow-hidden ${className}`}>
+    <section
+      ref={containerRef}
+      id={id}
+      className={`bg-transparent py-[50px] relative overflow-hidden ${className}`}
+    >
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           <div className={`order-1 ${isLeft ? "md:order-2" : "md:order-1"}`}>
             {/* Mobile Top-Right Floated Illustration (< md) */}
             {resolvedImg && (
               <div className="md:hidden float-right w-[115px] sm:w-[140px] ml-4 mb-2 pointer-events-none">
-                <Image
-                  src={resolvedImg}
-                  alt=""
-                  aria-hidden="true"
-                  className={`w-full h-auto opacity-75 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
-                    isSvg ? "svg-recolor" : ""
-                  }`}
-                  width={140}
-                  height={140}
-                  unoptimized={isSvg}
-                />
+                {isSvg ? (
+                  isDas ? (
+                    <DasSvg className="draw-svg w-full h-auto opacity-75 relative z-[1]" />
+                  ) : (
+                    <SmallCellsSvg className="draw-svg w-full h-auto opacity-75 relative z-[1]" />
+                  )
+                ) : (
+                  <Image
+                    src={resolvedImg}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-auto opacity-75 relative z-[1]"
+                    width={140}
+                    height={140}
+                  />
+                )}
               </div>
             )}
 
@@ -156,16 +179,21 @@ export default function IllustrationSplit({
               }`}
             >
               <div className="relative w-full max-w-[340px] md:max-w-[440px]">
-                <Image
-                  src={resolvedImg}
-                  alt={title || "Illustration"}
-                  className={`w-full h-auto opacity-85 relative z-[1] [filter:brightness(0)_saturate(0)_invert(13%)_sepia(35%)_saturate(3000%)_hue-rotate(210deg)_brightness(95%)_contrast(92%)] ${
-                    isSvg ? "svg-recolor" : ""
-                  }`}
-                  width={440}
-                  height={440}
-                  unoptimized={isSvg}
-                />
+                {isSvg ? (
+                  isDas ? (
+                    <DasSvg className="draw-svg w-full h-auto opacity-85 relative z-[1]" />
+                  ) : (
+                    <SmallCellsSvg className="draw-svg w-full h-auto opacity-85 relative z-[1]" />
+                  )
+                ) : (
+                  <Image
+                    src={resolvedImg}
+                    alt={title || "Illustration"}
+                    className="w-full h-auto opacity-85 relative z-[1]"
+                    width={440}
+                    height={440}
+                  />
+                )}
               </div>
             </div>
           )}
