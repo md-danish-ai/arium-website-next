@@ -10,12 +10,7 @@ interface FooterBrandProps {
 export function FooterBrand({ logoDesktop, logoMobile }: FooterBrandProps) {
   return (
     <div className="flex justify-center md:justify-start w-full md:w-auto">
-      <Link
-        href="/"
-        aria-label="Arium Networks"
-        className="inline-block no-underline shrink-0"
-      >
-
+      <Link href="/" aria-label="Arium Networks" className="inline-block no-underline shrink-0">
         <span className="hidden md:block">
           {logoDesktop ? (
             <span

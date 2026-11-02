@@ -31,7 +31,9 @@ export function FooterSocialRow({
     .filter(Boolean);
 
   const cleanPhone = (contact_number || DEFAULT_FOOTER_DATA.contact_number).replace(/[^0-9+]/g, "");
-  const displayPhone = (contact_number_display || DEFAULT_FOOTER_DATA.contact_number_display).trim();
+  const displayPhone = (
+    contact_number_display || DEFAULT_FOOTER_DATA.contact_number_display
+  ).trim();
 
   const itemsToRender = socialLinks && socialLinks.length > 0 ? socialLinks : DEFAULT_SOCIAL_LINKS;
 
