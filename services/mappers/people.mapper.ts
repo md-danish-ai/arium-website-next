@@ -90,6 +90,13 @@ export function mapPeopleMembers(
 
     const image = resolveStrapiImage(item.image, fallbackImg);
 
+    const rawModalImg = Array.isArray(item.modal_image) ? item.modal_image[0] : item.modal_image;
+    const modal_image = rawModalImg ? resolveStrapiImage(rawModalImg, image) : undefined;
+
+    const background_image_mobile = item.background_image_mobile
+      ? resolveStrapiImage(item.background_image_mobile, modal_image || image)
+      : modal_image || matchedFallback?.background_image_mobile || matchedFallback?.modal_image;
+
     const descriptionHtml = bioText
       ? bioText.includes("<p>")
         ? bioText
@@ -107,6 +114,8 @@ export function mapPeopleMembers(
       name: name || matchedFallback?.name || "Team Member",
       role: role || matchedFallback?.role || "",
       image,
+      modal_image,
+      background_image_mobile,
       description: descriptionHtml,
       modal_upper_section_background: modalBg,
     };

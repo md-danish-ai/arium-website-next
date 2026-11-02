@@ -9,6 +9,8 @@ export interface MemberModalItem {
   name: string;
   role: string;
   image: string;
+  modal_image?: string;
+  background_image_mobile?: string;
   description: string;
   modal_upper_section_background?: string;
 }
@@ -75,6 +77,9 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
 
   if (!isOpen && !member) return null;
 
+  const mobileImage = member?.background_image_mobile || member?.modal_image || member?.image || "";
+  const desktopImage = member?.image || mobileImage;
+
   return (
     <div
       className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${
@@ -93,7 +98,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
       />
 
       <div
-        className={`relative z-[1] w-full max-w-[840px] max-h-[85vh] sm:max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
+        className={`relative z-[1] w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[840px] max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
           isOpen && member
             ? "scale-100 translate-y-0 opacity-100"
             : "scale-95 translate-y-4 opacity-0"
@@ -110,28 +115,35 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
         {member && (
           <>
             <div
-              className="flex flex-row items-center gap-4 sm:gap-6 md:gap-7 p-6 sm:p-8 shrink-0 relative text-left"
+              className="flex flex-col lg:flex-row items-center gap-3.5 sm:gap-4 lg:gap-7 pt-8 pb-6 px-6 sm:pt-9 sm:pb-7 sm:px-8 lg:p-8 shrink-0 relative text-center lg:text-left"
               style={{
                 backgroundColor: member.modal_upper_section_background || "#162047",
               }}
             >
-              <div className="shrink-0 relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border border-white/10 shadow-md bg-white/5">
+              <div className="shrink-0 relative w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full lg:rounded-2xl overflow-hidden border-2 lg:border border-white/15 shadow-md bg-white/5">
                 <Image
-                  className="object-cover object-[center_15%]"
-                  src={member.image}
+                  className="object-cover object-[center_15%] lg:hidden"
+                  src={mobileImage}
                   alt={member.name}
                   fill
-                  sizes="(max-width: 640px) 96px, 128px"
+                  sizes="(max-width: 1024px) 112px, 128px"
+                />
+                <Image
+                  className="object-cover object-[center_15%] hidden lg:block"
+                  src={desktopImage}
+                  alt={member.name}
+                  fill
+                  sizes="128px"
                 />
               </div>
 
-              <div className="flex-1 min-w-0 pr-8 sm:pr-10">
+              <div className="flex-1 min-w-0 w-full lg:w-auto pr-0 lg:pr-10">
                 <Typography
                   as="h2"
                   variant="h3"
                   uppercase
                   weight="normal"
-                  className="text-white m-0 text-xl sm:text-2xl md:text-3xl tracking-wide uppercase leading-tight"
+                  className="text-white m-0 text-xl sm:text-2xl lg:text-3xl tracking-wider lg:tracking-wide uppercase leading-tight"
                 >
                   {member.name}
                 </Typography>
@@ -139,21 +151,21 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
                   as="p"
                   variant="b3"
                   weight="medium"
-                  className="text-[#00e8d9] m-0 text-xs sm:text-sm md:text-base mt-1.5 leading-snug"
+                  className="text-[#00e8d9] m-0 text-xs sm:text-sm lg:text-base mt-1.5 leading-snug"
                 >
                   {member.role}
                 </Typography>
               </div>
             </div>
 
-            <div className="bg-white p-6 sm:p-8 md:p-10 overflow-y-auto flex-1 rounded-b-[24px]">
+            <div className="bg-white p-6 sm:p-8 lg:p-10 overflow-y-auto flex-1 rounded-b-[24px]">
               {member.description.includes("<") ? (
                 <div
-                  className="text-[#374151] text-sm sm:text-[15px] md:text-base leading-[1.8] [&>p]:mb-4 sm:[&>p]:mb-5 [&>p:last-child]:mb-0"
+                  className="text-[#374151] text-sm sm:text-[15px] lg:text-base leading-[1.8] [&>p]:mb-4 sm:[&>p]:mb-5 [&>p:last-child]:mb-0"
                   dangerouslySetInnerHTML={{ __html: member.description }}
                 />
               ) : (
-                <div className="text-[#374151] text-sm sm:text-[15px] md:text-base leading-[1.8] space-y-4 sm:space-y-5">
+                <div className="text-[#374151] text-sm sm:text-[15px] lg:text-base leading-[1.8] space-y-4 sm:space-y-5">
                   {member.description.split("\n\n").map((paragraph, idx) => (
                     <p key={idx} className="m-0">
                       {paragraph}
