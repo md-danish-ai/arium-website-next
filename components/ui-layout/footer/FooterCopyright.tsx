@@ -2,14 +2,15 @@ import React from "react";
 
 interface FooterCopyrightProps {
   copyright?: string;
+  className?: string;
 }
 
-export function FooterCopyright({ copyright }: FooterCopyrightProps) {
+export function FooterCopyright({ copyright, className = "" }: FooterCopyrightProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="w-full mt-6 min-[601px]:mt-10">
-      <p className="text-[0.78rem] text-white/60 font-body text-center min-[601px]:text-right m-0">
+    <div className={`w-full ${className}`}>
+      <p className="text-xs text-white/60 font-body m-0">
         {copyright || `© ${currentYear} Arium Networks`}
       </p>
     </div>

@@ -33,7 +33,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const globalData = await fetchAPI(
-    "/api/global-layout?populate[navigation][populate]=*&populate[footerColumn][populate][footerLinks][populate]=*&populate[socialLinks][populate]=*"
+    "/api/global-layout?populate[navigation][populate]=*&populate[footer_column][populate][footer_links][populate]=*&populate[social_links][populate]=*"
   );
   const layout = globalData?.data;
 

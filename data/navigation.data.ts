@@ -134,3 +134,15 @@ export const DEFAULT_CONTACT_LINK: FooterLinkItem = {
   name: "Contact Us",
   url: "/contact",
 };
+
+export interface FooterContactData {
+  address: string;
+  contact_number: string;
+  contact_number_display: string;
+}
+
+export const DEFAULT_FOOTER_DATA: FooterContactData = {
+  address: "1435 W Morehead\nSuite 170\nCharlotte, North Carolina 28208",
+  contact_number: "844-932-7486",
+  contact_number_display: "844-93-ARIUM",
+};
