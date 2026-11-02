@@ -15,9 +15,7 @@ export default function ContactHero({
       className="relative overflow-hidden bg-gradient-to-br from-[#FFF5EE] via-[#FFE8D6] to-[#FFDAC8] pt-[160px] md:pt-[200px] pb-20 md:pb-28 px-6"
       id="contact-header"
     >
-      {/* Ambient glow: top-right teal */}
       <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
-      {/* Ambient glow: bottom-left warm */}
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
       <div className="relative z-[1] flex flex-col items-center text-center">

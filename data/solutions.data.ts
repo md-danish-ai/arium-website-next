@@ -24,7 +24,7 @@ export const INDUSTRY_BG_IMAGES = [
   "/images/industries/airports.png",
 ];
 
-// 1. Solutions Hero Fallback
+// Solutions hero fallback
 export const SOLUTIONS_HERO_FALLBACK = {
   title: "Infrastructure for tomorrow's wireless data demands",
   description:
@@ -38,7 +38,7 @@ export const SOLUTIONS_HERO_FALLBACK = {
   tag: null,
 };
 
-// 2. Small Cells Fallback
+// Small cells fallback
 export const SOLUTIONS_SMALL_CELLS_FALLBACK = {
   title: "Small Cells",
   title_color: "#162047",
@@ -47,14 +47,14 @@ export const SOLUTIONS_SMALL_CELLS_FALLBACK = {
   description_color: "#162047",
   illustration_image: "/images/svg-images/small-cells-illustration.svg",
   illustration_image_alignment: "Right" as const,
-  show_bottom_divider: true,
+  show_bottom_divider: false,
   statistics: [
     { stat: "100K+", description: "small cells on air or under contract", stat_color: "#7c5cbf" },
     { stat: "700+", description: "municipalities served", stat_color: "#7c5cbf" },
   ],
 };
 
-// 3. DAS Fallback
+// DAS fallback
 export const SOLUTIONS_DAS_FALLBACK = {
   title: "Distributed Antenna Systems",
   title_color: "#162047",
@@ -69,7 +69,7 @@ export const SOLUTIONS_DAS_FALLBACK = {
   ],
 };
 
-// 4. Industries Accordion Fallback
+// Industries accordion fallback
 export const SOLUTIONS_INDUSTRIES_FALLBACK: {
   title: string;
   title_color: string | null;
@@ -153,7 +153,7 @@ export const SOLUTIONS_INDUSTRIES_FALLBACK: {
   ],
 };
 
-// 5. Solutions CTA Fallback
+// Solutions CTA fallback
 export const SOLUTIONS_CTA_FALLBACK = {
   title: "A Balanced Approach",
   title_color: null,
@@ -167,7 +167,7 @@ export const SOLUTIONS_CTA_FALLBACK = {
   globe_illustration_mobile: "/images/svg-images/connection-cta-mobile.svg",
 };
 
-// 6. SEO Fallback
+// Solutions SEO fallback
 export const SOLUTIONS_SEO_FALLBACK = {
   title: "Our Solutions | Arium Networks",
   description:

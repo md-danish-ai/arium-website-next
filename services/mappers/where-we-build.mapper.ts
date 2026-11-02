@@ -11,10 +11,7 @@ import type { HeroBannerProps } from "@ui-common/HeroBanner";
 
 type RawRecord = Record<string, unknown>;
 
-/**
- * 1. Where We Build Hero Mapper (Pure 1-to-1 with HeroBannerProps)
- * Canonical keys: title, description, background_image, background_image_position, CTA_text, CTA_url, max_width_title, max_width_description, tag
- */
+// Hero banner mapper
 export function mapWhereHero(
   raw?: RawRecord | null,
   fallback = WHERE_HERO_FALLBACK
@@ -49,10 +46,7 @@ export function mapWhereHero(
   };
 }
 
-/**
- * 2. Where We Build Image Split Mapper (Pure 1-to-1: Dynamic Strapi || Fallback)
- * Canonical keys: title, title_color, description, description_color, image, image_alignment, background_color, CTA_text, CTA_url
- */
+// Image split section mapper
 export function mapWhereImageSplit(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback: WhereImageSplitData = COMMUNITIES_FALLBACK
@@ -80,16 +74,12 @@ export function mapWhereImageSplit(
   };
 }
 
-/**
- * 3. Communities Section Mapper
- */
+// Communities section mapper
 export function mapWhereCommunities(raw?: StrapiSectionItem | RawRecord | null) {
   return mapWhereImageSplit(raw, COMMUNITIES_FALLBACK);
 }
 
-/**
- * 4. Venues Section Mapper
- */
+// Venues section mapper
 export function mapWhereVenues(raw?: StrapiSectionItem | RawRecord | null) {
   return mapWhereImageSplit(raw, VENUES_FALLBACK);
 }

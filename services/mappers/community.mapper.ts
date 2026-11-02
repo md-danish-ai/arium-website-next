@@ -10,11 +10,8 @@ import {
   CommunityBenefitCard,
   CommunityFaqItem,
 } from "@data/community.data";
-import type {
-  CommunitySmallCellsProps,
-  CommunityHowWeWorkProps,
-  CommunityFAQProps,
-} from "@ui-component/community/type";
+import type { CommunityHowWeWorkProps, CommunityFAQProps } from "@ui-component/community/type";
+import type { IllustrationSplitProps } from "@ui-common";
 import type { BenefitCardItem, BenefitsGridProps } from "@ui-common/BenefitsGrid";
 import type { SharedTestimonialsProps, SharedTestimonialCard } from "@ui-common/SharedTestimonials";
 import type { HeroBannerProps } from "@ui-common/HeroBanner";
@@ -31,10 +28,7 @@ export interface CommunityHeroMappedProps extends HeroBannerProps {
 
 export type CommunityBenefitsMappedProps = BenefitsGridProps;
 
-/**
- * 1. Community Hero Mapper (Pure 1-to-1 with shared.test-banner)
- * Canonical keys: title, description, background_image, background_image_position, CTA_text, CTA_url, max_width_title, max_width_description
- */
+// Community hero banner mapper
 export function mapCommunityHero(
   raw?: RawRecord | null,
   fallback = COMMUNITY_HERO_FALLBACK
@@ -65,14 +59,11 @@ export function mapCommunityHero(
   };
 }
 
-/**
- * 2. Community Small Cells Mapper (Pure 1-to-1 with shared.illustration-split)
- * Canonical keys: title, title_color, description, description_color, illustration_image, illustration_image_alignment, show_bottom_divider, statistics
- */
+// Community small cells illustration split mapper
 export function mapCommunitySmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_SMALL_CELLS_FALLBACK
-): CommunitySmallCellsProps {
+): IllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = ((raw?.title_color as string) || fallback.title_color) ?? undefined;
   const description = (raw?.description as string) || fallback.description;
@@ -110,10 +101,7 @@ export function mapCommunitySmallCells(
   };
 }
 
-/**
- * 3. Community Benefits Mapper (Pure 1-to-1 with shared.image-card-grid)
- * Canonical keys: title, title_color, icon_card (id, title, description, image, title_color, description_color)
- */
+// Community why it matters benefits grid mapper
 export function mapCommunityBenefits(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_WHY_MATTER_FALLBACK
@@ -153,10 +141,7 @@ export function mapCommunityBenefits(
   };
 }
 
-/**
- * 4. Community How We Work Mapper (Pure 1-to-1 with shared.background-feature-section)
- * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url, background_image_desktop, background_image_mobile
- */
+// Community how we work background feature mapper
 export function mapCommunityHowWeWork(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_HOW_WE_WORK_FALLBACK
@@ -189,10 +174,7 @@ export function mapCommunityHowWeWork(
   };
 }
 
-/**
- * 5. Community Testimonials Mapper (Pure 1-to-1 with shared.gloabl-testimonails)
- * Canonical keys: title, cards (id, person_name, person_designation, person_message, card_footer_bg)
- */
+// Community testimonials mapper
 export function mapCommunityTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_TESTIMONIALS_FALLBACK
@@ -220,10 +202,7 @@ export function mapCommunityTestimonials(
   };
 }
 
-/**
- * 6. Community FAQ Mapper (Pure 1-to-1 with shared.faq)
- * Canonical keys: title, title_color, faq_data (id, question, answer, question_color, answer_color, question_color_hover)
- */
+// Community FAQ accordion mapper
 export function mapCommunityFaqs(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_FAQS_FALLBACK

@@ -1,7 +1,6 @@
 import React from "react";
 import { SectionRendererProps } from "./helper";
 
-// 1. Home Renderers
 import {
   HomeHeroRenderer,
   BackgroundFeatureRenderer,
@@ -10,7 +9,6 @@ import {
   CommunityImpactRenderer,
 } from "./renderers/home";
 
-// 2. About Renderers
 import {
   AboutStoryRenderer,
   AboutJourneyRenderer,
@@ -18,27 +16,22 @@ import {
   AboutCommitmentsRenderer,
 } from "./renderers/about";
 
-// 3. Careers Renderers
 import { CareersJobAreasRenderer } from "./renderers/careers";
 
-// 4. Community Renderers
 import { CommunityHowWeWorkRenderer, CommunityFAQRenderer } from "./renderers/community";
 
-// 5. Solutions Renderers
 import {
   SolutionsSmallCellsRenderer,
   SolutionsDasRenderer,
   SolutionsIndustriesRenderer,
 } from "./renderers/solutions";
 
-// 6. Where We Build Renderers
 import {
   WhereCommunitiesRenderer,
   WhereVenuesRenderer,
   ImageSplitRenderer,
 } from "./renderers/where-we-build";
 
-// 7. Common / Shared Global Renderers
 import {
   HeroBannerRenderer,
   SubPageHeroRenderer,
@@ -54,9 +47,7 @@ import {
 } from "./renderers/common";
 
 export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRendererProps>> = {
-  // ==========================================
-  // 1. Home Page Widgets
-  // ==========================================
+  // Home
   "widget.main-hero": HomeHeroRenderer,
   "widget.background-feature-section": BackgroundFeatureRenderer,
   "widget.detailed-card-grid": DetailedCardGridRenderer,
@@ -65,48 +56,35 @@ export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRenderer
   "widget.centered-image-cta": CenteredImageCTARenderer,
   "widget.cta-with-graphic": CtaWithGraphicRenderer,
 
-  // ==========================================
-  // 2. About Page Widgets
-  // ==========================================
+  // About
   "widget.content-with-side-graphic": AboutStoryRenderer,
   "widget.timeline": AboutJourneyRenderer,
   "widget.stats-cards": AboutStatsCardsRenderer,
   "widget.commitments": AboutCommitmentsRenderer,
 
-  // ==========================================
-  // 3. Careers Page Widgets
-  // ==========================================
+  // Careers
   "widget.benefits": BenefitsGridRenderer,
   "widget.highlight-list": CareersJobAreasRenderer,
   "widget.gloabl-testimonails": GlobalTestimonialsRenderer,
 
-  // ==========================================
-  // 4. Community Page Widgets
-  // ==========================================
+  // Community
   "widget.image-card-grid": BenefitsGridRenderer,
   "widget.how-we-work": CommunityHowWeWorkRenderer,
   "widget.community-testimonials": GlobalTestimonialsRenderer,
   "widget.faq": CommunityFAQRenderer,
 
-  // ==========================================
-  // 5. Solutions Page Widgets
-  // ==========================================
+  // Solutions
   "widget.small-cells": SolutionsSmallCellsRenderer,
   "widget.das": SolutionsDasRenderer,
   "widget.industry": SolutionsIndustriesRenderer,
 
-  // ==========================================
-  // 6. Where We Build Page Widgets
-  // ==========================================
+  // Where We Build
   "widget.image-split": ImageSplitRenderer,
   "widget.communities": WhereCommunitiesRenderer,
   "widget.venues": WhereVenuesRenderer,
 
-  // ==========================================
-  // 7. Common / Shared Global Widgets
-  // ==========================================
-  "widget.hero-banner": HeroBannerRenderer,
-  "widget.test-banner": HeroBannerRenderer,
+  // Shared
+  "widget.hero": HeroBannerRenderer,
   "widget.sub-page-hero": SubPageHeroRenderer,
   "widget.inner-page-hero": SubPageHeroRenderer,
   "widget.global-cta": SubPageCTARenderer,

@@ -2,18 +2,10 @@
 
 import { useEffect } from "react";
 
-/**
- * Scroll Reveal Hook
- * Observes elements with `.reveal`, `.reveal-left`, `.reveal-right`, `.reveal-scale`
- * and applies the `.active` class when they enter the viewport.
- */
+// Toggles active state on reveal elements as they enter/leave viewport
 export function useScrollReveal(pathname?: string) {
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
-
-    const activateElement = (el: Element) => {
-      el.classList.add("active");
-    };
 
     const setupObserver = () => {
       const reveals = document.querySelectorAll(
@@ -23,38 +15,31 @@ export function useScrollReveal(pathname?: string) {
 
       if (!observer) {
         observer = new IntersectionObserver(
-          (entries, obs) => {
+          (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                activateElement(entry.target);
-                obs.unobserve(entry.target);
+                entry.target.classList.add("active");
+              } else {
+                entry.target.classList.remove("active");
               }
             });
           },
-          { threshold: 0.1 }
+          { threshold: 0.08 }
         );
       }
 
       reveals.forEach((el) => {
-        if (el.classList.contains("active")) return;
-
-        const rect = el.getBoundingClientRect();
-        // If element is already within the viewport, activate it immediately
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          activateElement(el);
-        } else {
-          observer!.observe(el);
-        }
+        observer!.observe(el);
       });
     };
 
-    // Run immediately and at staggered intervals to catch streaming/client transitions
+    // Staggered checks for client transitions
     setupObserver();
     const t1 = setTimeout(setupObserver, 50);
     const t2 = setTimeout(setupObserver, 150);
     const t3 = setTimeout(setupObserver, 350);
 
-    // MutationObserver to automatically catch any newly added reveal elements on client-side routing
+    // Re-check when route content updates
     const mutationObserver = new MutationObserver(() => {
       setupObserver();
     });

@@ -2,6 +2,8 @@ export interface PeopleMemberItem {
   name: string;
   role: string;
   image: string;
+  modal_image?: string;
+  background_image_mobile?: string;
   description: string;
   modal_upper_section_background?: string;
 }

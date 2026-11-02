@@ -29,7 +29,7 @@ export default function WhereCommunities({
       <div className="absolute w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(255,218,200,0.35)_0%,transparent_65%)] -bottom-[200px] -left-[120px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(210,199,255,0.1)_0%,transparent_70%)] top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-      <Container className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1]">
+      <Container className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1] items-start">
         <div className="reveal flex flex-col gap-5">
           <Typography
             variant="h2"

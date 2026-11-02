@@ -58,9 +58,7 @@ export interface SubpageSeoData {
   description: string;
 }
 
-// ==========================================
-// Right of Ways Defaults
-// ==========================================
+// Right of Way defaults
 
 export const ROW_HERO_FALLBACK: SubpageHeroData = {
   tag: "Right of Way",
@@ -198,9 +196,7 @@ export const ROW_SEO_FALLBACK: SubpageSeoData = {
     "As technology advances, Arium Networks is building the small cells that keep communities connected to what matters.",
 };
 
-// ==========================================
-// Private Venues Defaults
-// ==========================================
+// Private Venues defaults
 
 export const PV_HERO_FALLBACK: SubpageHeroData = {
   tag: "Private Venues",

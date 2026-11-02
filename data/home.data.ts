@@ -20,9 +20,8 @@ export interface SectionPointerItem {
   description_color?: string;
 }
 
-/**
- * Widget 1: Main Hero Fallback (widget.main-hero - Position 0)
- */
+// Main hero fallback
+
 export const HOME_HERO_FALLBACK = {
   title: "Build with clarity. <br/> Connect with confidence.",
   description:
@@ -32,9 +31,8 @@ export const HOME_HERO_FALLBACK = {
   scroll_text: " Scroll to explore",
 };
 
-/**
- * Widget 2: Network Challenges Fallback (widget.background-feature-section - Position 1)
- */
+// Network challenges fallback
+
 export const NETWORK_CHALLENGES_FALLBACK: {
   title: string;
   description: string;
@@ -44,7 +42,7 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   description_color?: string;
   CTA_text?: string;
   CTA_url?: string;
-  FeatureCards: FeatureCardItem[];
+  feature_cards: FeatureCardItem[];
 } = {
   title: "Solve network challenges with a trusted partner",
   description:
@@ -55,7 +53,7 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   description_color: undefined,
   CTA_text: undefined,
   CTA_url: undefined,
-  FeatureCards: [
+  feature_cards: [
     {
       id: 45,
       title: "Design",
@@ -83,9 +81,8 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   ],
 };
 
-/**
- * Widget 3: Our Infrastructure Fallback (widget.detailed-card-grid - Position 2)
- */
+// Infrastructure fallback
+
 export const INFRASTRUCTURE_FALLBACK: {
   title: string;
   description: string;
@@ -124,9 +121,8 @@ export const INFRASTRUCTURE_FALLBACK: {
   ],
 };
 
-/**
- * Widget 4: Scale and Experience Fallback (widget.stats-with-image - Position 3)
- */
+// Stats fallback
+
 export const STATS_FALLBACK: {
   title: string;
   title_color?: string;
@@ -180,9 +176,8 @@ export const STATS_FALLBACK: {
   ],
 };
 
-/**
- * Widget 5: Community Impact Fallback (widget.image-gradient-split - Position 4)
- */
+// Community impact fallback
+
 export const COMMUNITY_IMPACT_FALLBACK: {
   title: string;
   title_color?: string;
@@ -231,9 +226,8 @@ export const COMMUNITY_IMPACT_FALLBACK: {
   ],
 };
 
-/**
- * Widget 6: Careers Image CTA Fallback (widget.centered-image-cta - Position 5)
- */
+// Careers CTA fallback
+
 export const CAREERS_FALLBACK = {
   title: "Help us shape the future of connectivity ",
   title_color: "#ffffff",
@@ -245,9 +239,8 @@ export const CAREERS_FALLBACK = {
   CTA_url: "/careers",
 };
 
-/**
- * Widget 7: Final Contact CTA Fallback (widget.cta-with-graphic - Position 6)
- */
+// Contact CTA fallback
+
 export const CONTACT_FALLBACK = {
   title: "Where can we take your network?",
   title_color: "#162047",

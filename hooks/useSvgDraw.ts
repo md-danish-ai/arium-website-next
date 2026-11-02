@@ -5,17 +5,18 @@ import { useEffect, useRef, type RefObject } from "react";
 export interface SvgDrawOptions {
   selector?: string;
   color?: string;
+  fillColor?: string;
+  strokeWidth?: number | string;
+  circleStrokeWidth?: number | string;
   drawDuration?: number;
   totalSpread?: number;
   fillDelay?: number;
   fillDuration?: number;
   threshold?: number;
+  replay?: boolean;
 }
 
-/**
- * Custom hook to animate SVG paths with stroke-dashoffset drawing and circle filling.
- * Returns a containerRef to attach to the container element.
- */
+// Animates SVG path drawing and fill on scroll enter/exit
 export function useSvgDraw<T extends HTMLElement = HTMLElement>(
   options: SvgDrawOptions = {},
   externalRef?: RefObject<T | null>
@@ -26,11 +27,15 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
   const {
     selector = ".draw-svg",
     color = "#00E8D9",
+    fillColor,
+    strokeWidth = "0.5",
+    circleStrokeWidth = "1.3",
     drawDuration = 1.5,
     totalSpread = 2.5,
     fillDelay = 0.3,
     fillDuration = 0.5,
-    threshold = 0.3,
+    threshold = 0.25,
+    replay = true,
   } = options;
 
   useEffect(() => {
@@ -38,24 +43,36 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
     const svgs = root.querySelectorAll(selector);
     if (!svgs.length) return;
 
+    const timerMap = new Map<Element, NodeJS.Timeout[]>();
+
+    const resetSvg = (svg: Element) => {
+      const activeTimers = timerMap.get(svg) || [];
+      activeTimers.forEach((t) => clearTimeout(t));
+      timerMap.set(svg, []);
+
+      const paths = svg.querySelectorAll("path[data-i]");
+      for (let p = 0; p < paths.length; p++) {
+        const path = paths[p] as SVGPathElement;
+        const len = path.getTotalLength();
+        path.style.transition = "none";
+        path.style.fill = "transparent";
+        path.style.stroke = "transparent";
+        const defaultW = path.getAttribute("data-circle")
+          ? circleStrokeWidth.toString()
+          : strokeWidth.toString();
+        const strokeW = path.getAttribute("data-stroke-width") || defaultW;
+        path.style.strokeWidth = strokeW;
+        path.style.strokeDasharray = len.toString();
+        path.style.strokeDashoffset = len.toString();
+      }
+    };
+
     // Hide all paths initially
     for (let s = 0; s < svgs.length; s++) {
       const svgEl = svgs[s] as HTMLElement;
       svgEl.removeAttribute("data-done");
-
-      const paths = svgs[s].querySelectorAll("path[data-i]");
-      for (let p = 0; p < paths.length; p++) {
-        const path = paths[p] as SVGPathElement;
-        const len = path.getTotalLength();
-        path.style.fill = "transparent";
-        path.style.stroke = "transparent";
-        path.style.strokeWidth = path.getAttribute("data-circle") ? "1.5" : "0.6";
-        path.style.strokeDasharray = len.toString();
-        path.style.strokeDashoffset = len.toString();
-      }
+      resetSvg(svgEl);
     }
-
-    const timers: NodeJS.Timeout[] = [];
 
     const animate = (svg: Element) => {
       const paths = svg.querySelectorAll("path[data-i]");
@@ -76,25 +93,31 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
 
       const fillStart = (lastDelay + drawDuration + fillDelay) * 1000;
       const timer = setTimeout(() => {
-        const circles = svg.querySelectorAll('path[data-circle="1"]');
-        circles.forEach((c) => {
-          const circle = c as SVGPathElement;
-          circle.style.transition = `fill ${fillDuration}s ease`;
-          circle.style.fill = color;
+        const fillTargets = svg.querySelectorAll('path[data-circle="1"], path[data-fill="1"]');
+        fillTargets.forEach((c) => {
+          const el = c as SVGPathElement;
+          el.style.transition = `fill ${fillDuration}s ease`;
+          el.style.fill = fillColor || color;
         });
       }, fillStart);
-      timers.push(timer);
+
+      const currentTimers = timerMap.get(svg) || [];
+      currentTimers.push(timer);
+      timerMap.set(svg, currentTimers);
     };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const svgEl = entry.target as HTMLElement;
           if (entry.isIntersecting) {
-            const svgEl = entry.target as HTMLElement;
             if (!svgEl.hasAttribute("data-done")) {
               svgEl.setAttribute("data-done", "true");
               animate(entry.target);
             }
+          } else if (replay && svgEl.hasAttribute("data-done")) {
+            svgEl.removeAttribute("data-done");
+            resetSvg(entry.target);
           }
         });
       },
@@ -105,17 +128,22 @@ export function useSvgDraw<T extends HTMLElement = HTMLElement>(
 
     return () => {
       observer.disconnect();
-      timers.forEach((t) => clearTimeout(t));
+      timerMap.forEach((timers) => timers.forEach((t) => clearTimeout(t)));
+      timerMap.clear();
     };
   }, [
     containerRef,
     selector,
     color,
+    fillColor,
+    strokeWidth,
+    circleStrokeWidth,
     drawDuration,
     totalSpread,
     fillDelay,
     fillDuration,
     threshold,
+    replay,
   ]);
 
   return containerRef;

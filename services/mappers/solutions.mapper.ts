@@ -9,10 +9,8 @@ import {
   SolutionStatItem,
   IndustryAccordionCard,
 } from "@data/solutions.data";
-import type {
-  SolutionsIllustrationSplitProps,
-  SolutionsIndustriesProps,
-} from "@ui-component/solutions/type";
+import type { IllustrationSplitProps } from "@ui-common";
+import type { SolutionsIndustriesProps } from "@ui-component/solutions/type";
 import type { CtaWithGraphicProps } from "@ui-common/CtaWithGraphic";
 
 type RawRecord = Record<string, unknown>;
@@ -29,10 +27,7 @@ export interface SolutionsHeroProps {
   tag?: string | null;
 }
 
-/**
- * 1. Solutions Hero Mapper (Pure 1-to-1)
- * Canonical keys: title, description, background_image, background_image_position, CTA_text, CTA_url, max_width_title, max_width_description, tag
- */
+// Solutions hero mapper
 export function mapSolutionsHero(
   raw?: RawRecord | null,
   fallback = SOLUTIONS_HERO_FALLBACK
@@ -62,9 +57,7 @@ export function mapSolutionsHero(
   };
 }
 
-/**
- * Helper to normalize statistics array from Strapi or Fallback (Pure 1-to-1)
- */
+// Normalizes statistics array with fallbacks
 function normalizeStatistics(rawStats: unknown, fallback: SolutionStatItem[]): SolutionStatItem[] {
   if (!Array.isArray(rawStats) || rawStats.length === 0) return fallback;
   return rawStats.map((s, idx) => ({
@@ -74,13 +67,11 @@ function normalizeStatistics(rawStats: unknown, fallback: SolutionStatItem[]): S
   }));
 }
 
-/**
- * 2. Small Cells Mapper -> <SolutionsIllustrationSplit /> (Pure 1-to-1)
- */
+// Small cells illustration split mapper
 export function mapSolutionsSmallCells(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_SMALL_CELLS_FALLBACK
-): SolutionsIllustrationSplitProps {
+): IllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
   const description = (raw?.description as string) || fallback.description;
@@ -92,10 +83,7 @@ export function mapSolutionsSmallCells(
   const illustration_image_alignment =
     (raw?.illustration_image_alignment as "Left" | "Right") ||
     fallback.illustration_image_alignment;
-  const show_bottom_divider =
-    raw?.show_bottom_divider !== undefined
-      ? Boolean(raw.show_bottom_divider)
-      : fallback.show_bottom_divider;
+  const show_bottom_divider = false;
 
   const statistics = normalizeStatistics(raw?.statistics, fallback.statistics);
 
@@ -111,13 +99,11 @@ export function mapSolutionsSmallCells(
   };
 }
 
-/**
- * 3. DAS Mapper -> <SolutionsIllustrationSplit /> (Pure 1-to-1)
- */
+// DAS illustration split mapper
 export function mapSolutionsDas(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_DAS_FALLBACK
-): SolutionsIllustrationSplitProps {
+): IllustrationSplitProps {
   const title = (raw?.title as string) || fallback.title;
   const title_color = (raw?.title_color as string) || fallback.title_color;
   const description = (raw?.description as string) || fallback.description;
@@ -148,9 +134,7 @@ export function mapSolutionsDas(
   };
 }
 
-/**
- * 4. Industries Accordion Mapper -> <SolutionsIndustries /> (Pure 1-to-1)
- */
+// Industries accordion mapper
 export function mapSolutionsIndustries(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_INDUSTRIES_FALLBACK
@@ -196,9 +180,7 @@ export function mapSolutionsIndustries(
   };
 }
 
-/**
- * 5. Solutions CTA Mapper -> <CtaWithGraphic /> (Pure 1-to-1)
- */
+// Solutions CTA with graphic mapper
 export function mapSolutionsCta(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = SOLUTIONS_CTA_FALLBACK

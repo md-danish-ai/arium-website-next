@@ -22,10 +22,7 @@ import type { ImageGradientSplitProps, SectionPointerItem } from "@ui-common";
 
 type RawRecord = Record<string, unknown>;
 
-/**
- * 1. About Hero Mapper (widget.hero-banner - Position 0)
- * Canonical keys: title, description, background_image, background_image_position, CTA_text, CTA_url, max_width_title, max_width_description, tag
- */
+// About hero banner mapper
 export function mapAboutHero(
   raw?: RawRecord | null,
   fallback = ABOUT_HERO_FALLBACK
@@ -57,10 +54,7 @@ export function mapAboutHero(
   };
 }
 
-/**
- * 2. About Story (Content With Side Graphic) Mapper (widget.content-with-side-graphic - Position 1)
- * Canonical keys: title, title_color, description, description_color, background_color, image
- */
+// About story with side graphic mapper
 export function mapAboutStory(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_STORY_FALLBACK
@@ -84,10 +78,7 @@ export function mapAboutStory(
   };
 }
 
-/**
- * 3. About Journey (Timeline) Mapper (widget.timeline - Position 2, SubSection 0)
- * Canonical keys: title, description, timeline_cards
- */
+// About journey timeline mapper
 export function mapAboutJourney(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_JOURNEY_FALLBACK
@@ -117,10 +108,7 @@ export function mapAboutJourney(
   };
 }
 
-/**
- * 4. About Stats Cards (Why Our Infrastructure Matters) Mapper (widget.stats-cards - Position 2, SubSection 1)
- * Canonical keys: title, description, cards
- */
+// About stats cards mapper
 export function mapAboutStatsCards(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_STATS_FALLBACK
@@ -150,10 +138,7 @@ export function mapAboutStatsCards(
   };
 }
 
-/**
- * 5. About Commitments Mapper (widget.commitments - Position 2, SubSection 2)
- * Canonical keys: title, description, background_overlay, commitment_statement, background_image, commitment_cards
- */
+// About commitments mapper
 export function mapAboutCommitments(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_COMMITMENTS_FALLBACK
@@ -192,11 +177,7 @@ export function mapAboutCommitments(
   };
 }
 
-/**
- * 6. About Culture / Pillars Mapper (widget.image-gradient-split - Position 3)
- * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
- * background_image_desktop, background_image_mobile, section_pointers
- */
+// About culture gradient split mapper
 export function mapAboutCulture(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = ABOUT_CULTURE_FALLBACK

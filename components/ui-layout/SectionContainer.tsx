@@ -1,14 +1,6 @@
 import React, { ElementType, HTMLAttributes, ReactNode } from "react";
 
-/**
- * Single source of truth for responsive left & right padding across all breakpoints up to 1920px
- * - Mobile (< 640px): 20px (px-5)
- * - Phablet (>= 640px): 24px (sm:px-6)
- * - Tablet (>= 768px): 32px (md:px-8)
- * - Laptop (>= 1024px): 48px (lg:px-12)
- * - Desktop / Laptop+ (>= 1280px): 138px (xl:px-[138px])
- * - Max Width: 1920px auto-centered
- */
+// Responsive container padding classes up to 1920px max-width
 export const CONTAINER_CLASSES =
   "w-full mx-auto max-w-[1920px] box-border px-5 sm:px-6 md:px-8 lg:px-12 xl:px-[138px]";
 
@@ -19,9 +11,7 @@ export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   fluid?: boolean;
 }
 
-/**
- * Pure Container component for Navbar, Footer, Breadcrumbs, and custom inner layouts.
- */
+// Standard container for page layouts, navbar, and footer
 export function Container({
   as: Component = "div",
   children,
@@ -55,10 +45,7 @@ export interface SectionContainerProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
 }
 
-/**
- * Full-bleed Section + Centered Responsive Container.
- * Ensures section background stretches 100vw while inner content stays perfectly aligned.
- */
+// Section wrapper with background slot and nested responsive container
 export default function SectionContainer({
   as: Component = "section",
   id,
@@ -76,10 +63,7 @@ export default function SectionContainer({
       className={`w-full relative overflow-hidden ${bg} ${py} ${className}`.trim()}
       {...props}
     >
-      {/* Background Layer: 100% full-bleed textures/particles */}
       {backgroundSlot}
-
-      {/* Content Layer: Clamped to 1920px with responsive left/right padding */}
       <Container className={containerClassName}>{children}</Container>
     </Component>
   );

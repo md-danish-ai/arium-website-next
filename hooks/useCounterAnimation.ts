@@ -15,10 +15,7 @@ function easeOutQuart(t: number) {
   return 1 - Math.pow(1 - t, 4);
 }
 
-/**
- * Custom hook to animate element counters (.counter) upon intersection.
- * Returns a containerRef to attach to the animated section/container.
- */
+// Animates scoped number counters inside a container
 export function useCounterAnimation<T extends HTMLElement = HTMLDivElement>(
   options: CounterAnimationOptions = {},
   externalRef?: RefObject<T | null>

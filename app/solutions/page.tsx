@@ -1,8 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import HeroBanner from "@ui-common/HeroBanner";
-import { CtaWithGraphic } from "@ui-common";
-import { SolutionsIllustrationSplit, SolutionsIndustries } from "@ui-component/solutions";
+import { CtaWithGraphic, IllustrationSplit } from "@ui-common";
+import { SolutionsIndustries } from "@ui-component/solutions";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -77,8 +77,8 @@ export default async function SolutionsPage() {
           className="bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] relative overflow-hidden -mt-px border-none"
         >
           <FlowBackground />
-          <SolutionsIllustrationSplit {...smallCellsProps} />
-          <SolutionsIllustrationSplit {...dasProps} />
+          <IllustrationSplit {...smallCellsProps} />
+          <IllustrationSplit {...dasProps} />
         </div>
       ),
     },

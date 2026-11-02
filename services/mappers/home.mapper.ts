@@ -23,10 +23,7 @@ import type { ImageGradientSplitProps } from "@ui-common";
 
 type RawRecord = Record<string, unknown>;
 
-/**
- * 1. Home Hero Mapper (widget.main-hero - Position 0)
- * Canonical keys: title, description, font_color, background_color, scroll_text
- */
+// Home hero mapper
 export function mapHomeHero(raw?: RawRecord | null, fallback = HOME_HERO_FALLBACK): HomeHeroProps {
   const title = (raw?.title as string) || fallback.title;
   const description = (raw?.description as string) || fallback.description;
@@ -43,11 +40,7 @@ export function mapHomeHero(raw?: RawRecord | null, fallback = HOME_HERO_FALLBAC
   };
 }
 
-/**
- * 2. Background Feature (Network Challenges) Mapper (widget.background-feature-section - Position 1)
- * Canonical keys: title, title_color, description, description_color, background_image_desktop,
- * background_image_mobile, CTA_text, CTA_url, FeatureCards
- */
+// Network challenges background feature mapper
 export function mapBackgroundFeature(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = NETWORK_CHALLENGES_FALLBACK
@@ -68,20 +61,19 @@ export function mapBackgroundFeature(
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
   const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const rawCards = raw?.FeatureCards as RawRecord[] | undefined;
-  const FeatureCards: FeatureCardItem[] =
-    Array.isArray(rawCards) && rawCards.length > 0
-      ? rawCards.map((c, i) => {
-          const fb = fallback.FeatureCards[i % fallback.FeatureCards.length];
-          return {
-            id: (c.id as string | number) ?? i,
-            title: (c.title as string) || fb?.title || "",
-            title_color: (c.title_color as string) || fb?.title_color,
-            description: (c.description as string) || fb?.description || "",
-            description_color: (c.description_color as string) || fb?.description_color,
-          };
-        })
-      : fallback.FeatureCards;
+  const rawCards = raw?.feature_cards as RawRecord[] | undefined;
+  const feature_cards: FeatureCardItem[] = Array.isArray(rawCards)
+    ? rawCards.map((c, i) => {
+        const fb = fallback.feature_cards?.[i % (fallback.feature_cards?.length || 1)];
+        return {
+          id: (c.id as string | number) ?? i,
+          title: (c.title as string) || fb?.title || "",
+          title_color: (c.title_color as string) || fb?.title_color,
+          description: (c.description as string) || fb?.description || "",
+          description_color: (c.description_color as string) || fb?.description_color,
+        };
+      })
+    : fallback.feature_cards || [];
 
   return {
     title,
@@ -92,14 +84,11 @@ export function mapBackgroundFeature(
     background_image_mobile,
     CTA_text,
     CTA_url,
-    FeatureCards,
+    feature_cards,
   };
 }
 
-/**
- * 3. Our Infrastructure (Detailed Card Grid) Mapper (widget.detailed-card-grid - Position 2)
- * Canonical keys: title, description, background_color, panel_cards
- */
+// Detailed card grid mapper
 export function mapInfrastructure(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = INFRASTRUCTURE_FALLBACK
@@ -148,10 +137,7 @@ export function mapInfrastructure(
   };
 }
 
-/**
- * 4. Scale and Experience (Stats With Image) Mapper (widget.stats-with-image - Position 3)
- * Canonical keys: title, title_color, stat_illustration, stats_card
- */
+// Stats with image mapper
 export function mapStatsWithImage(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = STATS_FALLBACK
@@ -187,11 +173,7 @@ export function mapStatsWithImage(
   };
 }
 
-/**
- * 5. Community Impact (Image Gradient Split) Mapper (widget.image-gradient-split - Position 4)
- * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
- * background_image_desktop, background_image_mobile, section_pointers
- */
+// Community impact mapper
 export function mapCommunityImpact(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = COMMUNITY_IMPACT_FALLBACK
@@ -240,10 +222,7 @@ export function mapCommunityImpact(
   };
 }
 
-/**
- * 6. Careers Image CTA Mapper (widget.centered-image-cta - Position 5)
- * Canonical keys: title, title_color, description, description_color, background_image, CTA_text, CTA_url
- */
+// Careers image CTA mapper
 export function mapCareersCta(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_FALLBACK
@@ -271,11 +250,7 @@ export function mapCareersCta(
   };
 }
 
-/**
- * 7. Final Contact CTA Mapper (widget.cta-with-graphic - Position 6)
- * Canonical keys: title, title_color, description, description_color, CTA_text, CTA_url,
- * globe_illustration_desktop, globe_illustration_mobile, background_color
- */
+// Contact CTA with graphic mapper
 export function mapContactCta(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CONTACT_FALLBACK

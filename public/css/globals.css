@@ -232,13 +232,14 @@ body {
   overflow: hidden;
 }
 
-/* Scroll Reveal Animations (Synchronized with useAnimations.ts) */
+/* Scroll reveal animations */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(28px);
   transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.active {
@@ -248,10 +249,11 @@ body {
 
 .reveal-left {
   opacity: 0;
-  transform: translateX(-50px);
+  transform: translateX(-40px);
   transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-left.active {
@@ -261,10 +263,11 @@ body {
 
 .reveal-right {
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateX(40px);
   transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-right.active {
@@ -274,10 +277,11 @@ body {
 
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.95);
+  transform: scale(0.96);
   transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-scale.active {

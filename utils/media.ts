@@ -2,16 +2,11 @@ export const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL ||
   "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
 
-/**
- * Converts a relative Strapi media URL (e.g. /uploads/image.png)
- * into a full absolute URL using STRAPI_URL.
- * If the URL is already absolute, or is a local static asset (e.g. /images/...),
- * it is returned as-is.
- */
+// Resolves relative Strapi upload paths or returns absolute/static URLs as-is
 export function GetStrapiMediaUrl(url?: string | null): string {
   if (!url) return "";
 
-  // 1. Return already resolved absolute URLs, protocol-relative, or data URIs
+  // Return already resolved URLs
   if (
     url.startsWith("http://") ||
     url.startsWith("https://") ||
@@ -21,8 +16,7 @@ export function GetStrapiMediaUrl(url?: string | null): string {
     return url;
   }
 
-  // 2. Return local static public assets as-is (e.g., /images/..., /assets/..., /icons/...)
-  // Strapi media uploads always reside in /uploads/. Any other root-relative path is a local Next.js asset.
+  // Return local public assets as-is
   if (
     url.startsWith("/images/") ||
     url.startsWith("/assets/") ||
@@ -36,19 +30,11 @@ export function GetStrapiMediaUrl(url?: string | null): string {
     return url;
   }
 
-  // 3. Strapi media uploads (e.g. /uploads/filename.png or uploads/filename.png)
+  // Strapi media upload
   return `${STRAPI_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
-/**
- * Deeply extracts the relative or absolute media URL from any Strapi media shape:
- * - Direct string ("/uploads/...")
- * - Media item with .url
- * - Media item with .attributes.url
- * - Wrapper with .data.attributes.url or .data.url
- * - Array of media items (takes the first item)
- * - Nested formats (e.g. .formats.large.url)
- */
+// Extracts media URL from Strapi v4/v5 payload formats
 export function extractMediaUrl(media: unknown): string | undefined {
   if (!media) return undefined;
   if (typeof media === "string") return media.trim() || undefined;
@@ -61,17 +47,14 @@ export function extractMediaUrl(media: unknown): string | undefined {
   if (typeof media === "object" && media !== null) {
     const record = media as Record<string, unknown>;
 
-    // 1. Direct url property
     if (typeof record.url === "string" && record.url) {
       return record.url;
     }
 
-    // 2. data property (Strapi v4 envelope)
     if (record.data !== undefined) {
       return extractMediaUrl(record.data);
     }
 
-    // 3. attributes property (Strapi v4 entity)
     if (record.attributes && typeof record.attributes === "object") {
       const attrs = record.attributes as Record<string, unknown>;
       if (typeof attrs.url === "string" && attrs.url) {
@@ -79,7 +62,7 @@ export function extractMediaUrl(media: unknown): string | undefined {
       }
     }
 
-    // 4. formats fallback (e.g. large, medium, small)
+    // Check responsive formats (large, medium, small, thumbnail)
     if (record.formats && typeof record.formats === "object") {
       const formats = record.formats as Record<string, Record<string, unknown>>;
       const formatOrder = ["large", "medium", "small", "thumbnail"];

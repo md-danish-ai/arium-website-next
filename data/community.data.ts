@@ -89,7 +89,7 @@ export const COMMUNITY_HOW_WE_WORK_FALLBACK = {
   CTA_url: "/right-of-ways",
   background_image_desktop: "/images/backgrounds/how-we-work.png",
   background_image_mobile: null as string | null,
-  FeatureCards: null,
+  feature_cards: [],
 };
 
 export const COMMUNITY_TESTIMONIALS_FALLBACK = {

@@ -1,5 +1,5 @@
 import React from "react";
-import { SolutionsIllustrationSplit } from "@ui-component/solutions";
+import { IllustrationSplit } from "@ui-common";
 import { mapSolutionsSmallCells, mapSolutionsDas } from "@services/mappers/solutions.mapper";
 import { SectionRendererProps } from "../../helper";
 
@@ -14,7 +14,7 @@ export default function SolutionsSmallCellsRenderer({
     title.toLowerCase().includes("das");
 
   return (
-    <SolutionsIllustrationSplit
+    <IllustrationSplit
       key={`solutions-smallcells-${index}`}
       {...(isDas ? mapSolutionsDas(section) : mapSolutionsSmallCells(section))}
     />

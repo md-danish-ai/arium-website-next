@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import { HeroBanner, BenefitsGrid, SharedTestimonials } from "@ui-common";
-import { CommunitySmallCells, CommunityHowWeWork, CommunityFAQ } from "@ui-component/community";
+import { HeroBanner, BenefitsGrid, SharedTestimonials, IllustrationSplit } from "@ui-common";
+import { CommunityHowWeWork, CommunityFAQ } from "@ui-component/community";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
@@ -55,7 +55,7 @@ export default async function YourCommunityPage() {
       pos: 1,
       key: "illustration-split",
       skip: hasWidgetComponent(globalWidgets, "illustration-split"),
-      el: <CommunitySmallCells key="illustration-split" {...smallCellProps} />,
+      el: <IllustrationSplit key="illustration-split" {...smallCellProps} />,
     },
     {
       pos: 2,

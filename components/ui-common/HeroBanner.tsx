@@ -76,7 +76,16 @@ export default function HeroBanner({
           />
         ) : null}
       </div>
-      <div className="absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(13,18,36,0.85)_0%,rgba(13,18,36,0.5)_12%,rgba(13,18,36,0.2)_22%,transparent_35%),radial-gradient(ellipse_120%_70%_at_50%_55%,rgba(13,18,36,0.65)_0%,rgba(13,18,36,0.35)_40%,transparent_70%)]" />
+      <div
+        className="absolute inset-0 z-[2] bg-[linear-gradient(180deg,
+      rgba(13, 18, 36, 0.70) 0%,
+      rgba(13, 18, 36, 0.38) 10%,
+      rgba(13, 18, 36, 0.10) 18%,
+      transparent 26%),radial-gradient(ellipse 120% 38% at 50% 55%,
+      rgba(13, 18, 36, 0.50) 0%,
+      rgba(13, 18, 36, 0.28) 40%,
+      transparent 75%)]"
+      />
       <Container className="relative z-[3] pt-[130px] md:pt-[150px] pb-[80px] md:pb-[100px] text-center w-full">
         {title && (
           <Typography

@@ -70,14 +70,14 @@ export default function AboutJourney({
                 />
 
                 {/* Year & Badge Header */}
-                <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2">
+                <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1">
                   <Typography
                     variant="h5"
                     as="span"
                     uppercase
                     weight="extrabold"
                     style={{ color: item.year_range_color }}
-                    className="tracking-[0.06em] m-0 mb-0 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1 block"
+                    className="tracking-[0.06em] m-0 mb-0 block"
                   >
                     {item.year_range}
                   </Typography>
@@ -99,7 +99,6 @@ export default function AboutJourney({
                   )}
                 </div>
 
-                {/* Description */}
                 <Typography
                   variant="b3"
                   as="p"

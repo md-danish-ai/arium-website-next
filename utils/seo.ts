@@ -27,9 +27,7 @@ export interface StrapiSeoFields {
   [key: string]: unknown;
 }
 
-/**
- * Converts Strapi SEO fields into Next.js standard Metadata with fallbacks.
- */
+// Converts Strapi SEO payload into Next.js Metadata
 export function mapSeoToMetadata(
   seo?: StrapiSeoFields | null,
   fallback: SeoFallback = { title: "Arium Networks", description: "" }
@@ -62,9 +60,7 @@ export function mapSeoToMetadata(
   };
 }
 
-/**
- * Fetches page SEO fields by slug and returns standard Next.js Metadata.
- */
+// Fetches page SEO fields by slug
 export async function getPageMetadata(slug: string, fallback: SeoFallback): Promise<Metadata> {
   const pageData = await fetchAPI(
     `/api/pages?filters[slug][$eq]=${slug}&populate[SeoFields][populate]=*`
@@ -73,9 +69,7 @@ export async function getPageMetadata(slug: string, fallback: SeoFallback): Prom
   return mapSeoToMetadata(seo, fallback);
 }
 
-/**
- * Fetches page SEO fields for dynamic routes supporting slug variations (e.g. /[slug] and /slug).
- */
+// Fetches dynamic page SEO metadata supporting slug variations
 export async function getDynamicPageMetadata(
   slug: string,
   fallback: SeoFallback

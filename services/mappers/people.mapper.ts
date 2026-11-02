@@ -28,10 +28,8 @@ export interface SubPageCtaMappedProps {
   globe_illustration?: string | null;
 }
 
-/**
- * 1. Sub Page Hero Mapper (Pure 1-to-1)
- * Canonical keys: title, description, tag, CTA_text, CTA_url, background_gradient, content_max_width
- */
+// Hero banner mapper
+
 export function mapSubPageHero(
   raw?: RawRecord | null,
   fallback = LEADERSHIP_HERO_FALLBACK
@@ -57,10 +55,8 @@ export function mapSubPageHero(
   };
 }
 
-/**
- * 2. People Grid Mapper (Pure 1-to-1 with live Strapi shared.people-global-section)
- * Canonical keys: name, designation, image, description, modal_upper_section_background
- */
+// Team members grid mapper
+
 export function mapPeopleMembers(
   source?: StrapiSectionItem | RawRecord | RawRecord[] | null,
   fallbackMembers: PeopleMemberItem[] = LEADERSHIP_MEMBERS_FALLBACK
@@ -94,6 +90,13 @@ export function mapPeopleMembers(
 
     const image = resolveStrapiImage(item.image, fallbackImg);
 
+    const rawModalImg = Array.isArray(item.modal_image) ? item.modal_image[0] : item.modal_image;
+    const modal_image = rawModalImg ? resolveStrapiImage(rawModalImg, image) : undefined;
+
+    const background_image_mobile = item.background_image_mobile
+      ? resolveStrapiImage(item.background_image_mobile, modal_image || image)
+      : modal_image || matchedFallback?.background_image_mobile || matchedFallback?.modal_image;
+
     const descriptionHtml = bioText
       ? bioText.includes("<p>")
         ? bioText
@@ -111,16 +114,16 @@ export function mapPeopleMembers(
       name: name || matchedFallback?.name || "Team Member",
       role: role || matchedFallback?.role || "",
       image,
+      modal_image,
+      background_image_mobile,
       description: descriptionHtml,
       modal_upper_section_background: modalBg,
     };
   });
 }
 
-/**
- * 3. Sub Page CTA Mapper (Pure 1-to-1 with shared.global-cta)
- * Canonical keys: prompt_to_cta, CTA_text, CTA_url, background_gradient, globe_illustration
- */
+// Sub-page CTA section mapper
+
 export function mapSubPageCta(
   source?: StrapiSectionItem | RawRecord | null,
   fallbackCta = LEADERSHIP_CTA_FALLBACK

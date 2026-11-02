@@ -38,7 +38,6 @@ export default function HomeHero({
       id="hero"
       className="relative grid place-items-center h-screen h-[100svh] min-h-[600px] w-full overflow-hidden"
     >
-      {/* Background with animated shapes */}
       <div
         ref={bgRef}
         className="absolute inset-0 pointer-events-none"
@@ -47,7 +46,6 @@ export default function HomeHero({
       >
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center">
           <div ref={shapesWrapRef} className="relative h-full w-full opacity-0">
-            {/* Teal shape */}
             <div
               ref={tealShapeRef}
               className="absolute [width:170vmin] [aspect-ratio:1955/1769] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
@@ -64,7 +62,6 @@ export default function HomeHero({
               </div>
             </div>
 
-            {/* White shape */}
             <div
               ref={whiteShapeRef}
               className="absolute [width:170vmin] [aspect-ratio:1940/1757] pointer-events-none opacity-50 will-change-transform -translate-x-1/2 -translate-y-1/2"
@@ -84,7 +81,6 @@ export default function HomeHero({
         </div>
       </div>
 
-      {/* Content */}
       <Container className="relative z-[5] pt-[150px] pb-[100px] text-center w-full">
         <Typography
           variant="h1"
@@ -103,7 +99,6 @@ export default function HomeHero({
         />
       </Container>
 
-      {/* Scroll indicator */}
       <div
         className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
         id="scroll-indicator"
