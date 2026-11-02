@@ -3,9 +3,7 @@ import type { StrapiWidget } from "../types/strapi.types";
 import type { SectionEntry } from "../types/content.types";
 import GlobalWidgetRenderer from "@ui-widget/GlobalWidgetRenderer";
 
-/**
- * Checks whether any global widget contains a specific Strapi component.
- */
+// Checks if any global widget matches the given component name
 export function hasWidgetComponent(
   widgets: StrapiWidget[] = [],
   componentName: string | string[]
@@ -27,10 +25,7 @@ export function hasWidgetComponent(
   );
 }
 
-/**
- * Combines static fallback sections with CMS global widgets,
- * filters out skipped fallbacks, and sorts them by position order.
- */
+// Combines static fallback sections and CMS widgets sorted by position
 export function combinePageSections(
   fallbackSections: SectionEntry[],
   globalWidgets: StrapiWidget[] = []

@@ -23,10 +23,7 @@ export interface CareersHeroMappedProps extends HeroBannerProps {
   id: string;
 }
 
-/**
- * 1. Careers Hero Mapper (Pure 1-to-1 with shared.test-banner)
- * Canonical keys: title, description, tag, CTA_text, CTA_url, background_image, background_image_position, max_width_title, max_width_description
- */
+// Careers hero banner mapper
 export function mapCareersHero(
   raw?: RawRecord | null,
   fallback = CAREERS_HERO_FALLBACK
@@ -58,10 +55,7 @@ export function mapCareersHero(
   };
 }
 
-/**
- * 2. Careers Culture Accordion Mapper (Pure 1-to-1 with shared.accordion-split)
- * Canonical keys: title, title_color, description, description_color, background_color, template_grid_columns, accordian_cards
- */
+// Careers culture accordion mapper
 export function mapCareersCulture(
   raw?: RawRecord | null,
   fallback = CAREERS_CULTURE_FALLBACK
@@ -108,10 +102,7 @@ export function mapCareersCulture(
   };
 }
 
-/**
- * 3. Careers Testimonials Mapper (Pure 1-to-1 with shared.gloabl-testimonails)
- * Canonical keys: title, cards (id, person_name, person_designation, person_message, card_footer_bg)
- */
+// Careers testimonials mapper
 export function mapCareersTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_TESTIMONIALS_FALLBACK
@@ -138,10 +129,7 @@ export function mapCareersTestimonials(
   };
 }
 
-/**
- * 4. Careers Job Areas Mapper (Pure 1-to-1 with shared.highlight-list)
- * Canonical keys: title, description, CTA_text, CTA_url, image, list_items
- */
+// Careers job areas highlight list mapper
 export function mapCareersJobAreas(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_JOB_AREAS_FALLBACK
@@ -174,10 +162,7 @@ export function mapCareersJobAreas(
   };
 }
 
-/**
- * 5. Careers Benefits Mapper (Pure 1-to-1 with shared.benefits)
- * Canonical keys: title, description, benefits_card (id, title, description, title_color, icon)
- */
+// Careers benefits grid mapper
 export function mapCareersBenefits(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_BENEFITS_FALLBACK
@@ -215,10 +200,7 @@ export function mapCareersBenefits(
   };
 }
 
-/**
- * 6. Careers EEO Statement Mapper (Pure 1-to-1 with shared.benefits)
- * Canonical key: bottom_message
- */
+// Careers EEO statement mapper
 export function mapCareersEEO(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback = CAREERS_EEO_FALLBACK

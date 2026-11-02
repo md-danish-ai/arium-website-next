@@ -95,7 +95,6 @@ export default function SolutionsIndustries({
       style={background_color ? { background: background_color } : undefined}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background images wrapper */}
       <div className="absolute left-0 top-0 w-full h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
         {accordian_cards.map((card, index) => {
           const bgSrc = INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
@@ -112,14 +111,11 @@ export default function SolutionsIndustries({
             />
           );
         })}
-        {/* Gradient overlay inside wrapper: vertical fade on mobile, horizontal fade on desktop */}
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-[#101830]" />
       </div>
 
-      {/* Two-column layout: heading left, pillars right */}
       <Container className="relative z-[2]">
         <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.9fr] gap-8 lg:gap-16 items-start">
-          {/* LEFT: Section heading & description */}
           <div className="reveal w-full lg:max-w-[540px] lg:sticky lg:top-36">
             <Typography
               variant="h3"
@@ -141,7 +137,6 @@ export default function SolutionsIndustries({
             </Typography>
           </div>
 
-          {/* RIGHT: Industry pillars */}
           <div className="w-full flex flex-col justify-center">
             <div className="reveal flex flex-col gap-2.5 md:gap-3">
               {accordian_cards.map((card, index) => {

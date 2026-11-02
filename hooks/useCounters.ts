@@ -2,10 +2,7 @@
 
 import { useEffect } from "react";
 
-/**
- * Animated Number Counters Hook (Global Page Level)
- * Observes elements with `.counter` class and animates their numbers upon viewport entry.
- */
+// Animates number counters when entering the viewport
 export function useCounters(pathname?: string) {
   useEffect(() => {
     let observer: IntersectionObserver | null = null;

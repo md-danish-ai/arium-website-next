@@ -16,11 +16,7 @@ export interface SvgDrawOptions {
   replay?: boolean;
 }
 
-/**
- * Custom hook to animate SVG paths with stroke-dashoffset drawing and circle filling.
- * Returns a containerRef to attach to the container element.
- * Supports bidirectional replay (re-animates on scroll down and scroll up).
- */
+// Animates SVG path drawing and fill on scroll enter/exit
 export function useSvgDraw<T extends HTMLElement = HTMLElement>(
   options: SvgDrawOptions = {},
   externalRef?: RefObject<T | null>

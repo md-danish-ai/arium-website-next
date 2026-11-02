@@ -1,6 +1,4 @@
-/**
- * Core Strapi API Response & Entity Types
- */
+// Strapi API response types
 
 export interface StrapiMediaAttributes {
   url?: string;

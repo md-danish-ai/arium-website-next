@@ -2,10 +2,7 @@
 
 import { useEffect } from "react";
 
-/**
- * Timeline Horizontal Scroll Hook
- * Translates vertical wheel deltas into horizontal scroll for `.timeline-track` on desktop viewports.
- */
+// Converts vertical wheel deltas to horizontal scroll for timeline tracks
 export function useTimeline(pathname?: string) {
   useEffect(() => {
     let track: HTMLElement | null = null;

@@ -31,7 +31,6 @@ export default function AboutStatCard({
       className={`relative px-5 py-5 sm:px-7 sm:py-6 md:p-8 lg:p-10 rounded-3xl md:rounded-[28px] flex flex-row items-center gap-4 sm:gap-6 md:flex-col md:items-start md:justify-between border border-black/5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] md:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden hover:-translate-y-1 hover:shadow-xl ${className}`}
       style={backgroundStyle}
     >
-      {/* Left on mobile, Top on desktop */}
       <div className="shrink-0 flex flex-col justify-center items-start relative z-[2] w-[92px] sm:w-[110px] md:w-auto">
         <Typography
           variant="stat"
@@ -46,7 +45,6 @@ export default function AboutStatCard({
         <div className="hidden md:block w-9 h-0.5 bg-midnight/20 opacity-60 mt-3 mb-4 rounded-full" />
       </div>
 
-      {/* Right on mobile, Bottom/Middle on desktop */}
       <div className="flex flex-col justify-center items-start gap-1 sm:gap-1.5 flex-1 min-w-0 md:w-full md:flex-1 md:justify-between md:gap-3 relative z-[2]">
         <Typography
           variant="b2"

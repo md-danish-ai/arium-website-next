@@ -2,11 +2,7 @@
 
 import { useEffect } from "react";
 
-/**
- * Scroll Reveal Hook
- * Observes elements with `.reveal`, `.reveal-left`, `.reveal-right`, `.reveal-scale`
- * and applies the `.active` class when they enter the viewport.
- */
+// Toggles active state on reveal elements as they enter/leave viewport
 export function useScrollReveal(pathname?: string) {
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
@@ -37,13 +33,13 @@ export function useScrollReveal(pathname?: string) {
       });
     };
 
-    // Run immediately and at staggered intervals to catch streaming/client transitions
+    // Staggered checks for client transitions
     setupObserver();
     const t1 = setTimeout(setupObserver, 50);
     const t2 = setTimeout(setupObserver, 150);
     const t3 = setTimeout(setupObserver, 350);
 
-    // MutationObserver to automatically catch any newly added reveal elements on client-side routing
+    // Re-check when route content updates
     const mutationObserver = new MutationObserver(() => {
       setupObserver();
     });

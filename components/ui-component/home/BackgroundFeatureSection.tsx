@@ -22,7 +22,6 @@ export default function BackgroundFeatureSection({
 
   return (
     <section className="relative overflow-hidden p-0">
-      {/* Desktop Image */}
       {background_image_desktop && (
         <div className="hidden md:block absolute inset-0 z-0">
           <Image
@@ -35,7 +34,6 @@ export default function BackgroundFeatureSection({
         </div>
       )}
 
-      {/* Mobile Image */}
       {mobileImg && (
         <div className="block md:hidden absolute inset-0 z-0">
           <Image
@@ -48,10 +46,8 @@ export default function BackgroundFeatureSection({
         </div>
       )}
 
-      {/* Background Veil */}
       <div className="absolute inset-0 z-[1] [background-image:linear-gradient(90deg,rgba(13,18,36,0.92)_0%,rgba(13,18,36,0.82)_38%,rgba(13,18,36,0.45)_60%,transparent_80%)] max-[1079px]:[background-image:none] max-[1079px]:bg-[#0a1628]/80 max-[480px]:bg-[#0a1628]/85" />
 
-      {/* Bottom Gradient (desktop only) */}
       <div className="hidden min-[1080px]:block absolute inset-x-0 bottom-0 h-[380px] z-[1] [background-image:linear-gradient(180deg,transparent_0%,rgba(13,18,36,0.72)_40%,rgba(13,18,36,0.95)_100%)]" />
 
       <Container

@@ -23,9 +23,8 @@ export interface CommitmentCardItem {
   top_line_color?: string;
 }
 
-/**
- * Widget 0: Hero Banner Fallback (widget.hero-banner - Position 0)
- */
+// Hero banner fallback
+
 export const ABOUT_HERO_FALLBACK = {
   title: "Building a more connected future",
   description:
@@ -39,9 +38,8 @@ export const ABOUT_HERO_FALLBACK = {
   tag: null,
 };
 
-/**
- * Widget 1: Story with Side Graphic Fallback (widget.content-with-side-graphic - Position 1)
- */
+// Story with side graphic fallback
+
 export const ABOUT_STORY_FALLBACK = {
   title: "A story rooted in connection",
   title_color: "#162047",
@@ -53,9 +51,8 @@ export const ABOUT_STORY_FALLBACK = {
   image: "/images/svg-images/connection-illustration.svg",
 };
 
-/**
- * Widget 2A: Journey Timeline Fallback (widget.timeline - Position 2, SubSection 0)
- */
+// Journey timeline fallback
+
 export const ABOUT_JOURNEY_FALLBACK: {
   title: string;
   description?: string;
@@ -98,9 +95,8 @@ export const ABOUT_JOURNEY_FALLBACK: {
   ],
 };
 
-/**
- * Widget 2B: Infrastructure Stats Cards Fallback (widget.stats-cards - Position 2, SubSection 1)
- */
+// Stats cards fallback
+
 export const ABOUT_STATS_FALLBACK: {
   title: string;
   description?: string;
@@ -133,9 +129,8 @@ export const ABOUT_STATS_FALLBACK: {
   ],
 };
 
-/**
- * Widget 2C: Commitments Fallback (widget.commitments - Position 2, SubSection 2)
- */
+// Commitments section fallback
+
 export const ABOUT_COMMITMENTS_FALLBACK: {
   title: string;
   description?: string;
@@ -176,9 +171,8 @@ export const ABOUT_COMMITMENTS_FALLBACK: {
   ],
 };
 
-/**
- * Widget 3: About Pillars / Image Gradient Split Fallback (widget.image-gradient-split - Position 3)
- */
+// Pillars split section fallback
+
 export const ABOUT_CULTURE_FALLBACK: {
   title: string;
   title_color?: string;

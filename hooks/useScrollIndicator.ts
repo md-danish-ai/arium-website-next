@@ -2,10 +2,7 @@
 
 import { useEffect } from "react";
 
-/**
- * Scroll Indicator Fade Hook
- * Adjusts opacity of `.scroll-indicator` elements as the user scrolls down from top of page.
- */
+// Fades out scroll indicator as user scrolls away from hero
 export function useScrollIndicator(pathname?: string) {
   useEffect(() => {
     let indicator: HTMLElement | null = null;

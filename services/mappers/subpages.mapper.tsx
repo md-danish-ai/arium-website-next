@@ -63,7 +63,7 @@ export function resolveProcessIcon(
   stageId: string,
   stageTitle: string
 ): React.ReactNode {
-  // 1. Inline SVG from live Strapi stage_icon_svg
+  // Inline SVG from stage data
   const svgContent = stage.stage_icon_svg as string | null | undefined;
   if (svgContent && typeof svgContent === "string" && svgContent.trim().length > 0) {
     return (
@@ -74,7 +74,7 @@ export function resolveProcessIcon(
     );
   }
 
-  // 2. Predefined SVG icons matched by stage title or id
+  // Predefined icon matched by title or id
   const searchKey = `${stageId} ${stageTitle}`.toLowerCase();
   for (const [key, iconNode] of Object.entries(DEFAULT_PROCESS_ICONS)) {
     if (searchKey.includes(key)) {
@@ -82,7 +82,7 @@ export function resolveProcessIcon(
     }
   }
 
-  // 3. Fallback generic icon
+  // Fallback generic icon
   return (
     <AssessmentIconSvg
       className="w-9 h-9 lg:w-10 lg:h-10"
@@ -93,10 +93,8 @@ export function resolveProcessIcon(
   );
 }
 
-/**
- * 1. Subpage Hero Mapper (Pure 1-to-1 with shared.inner-page-hero)
- * Canonical keys: title, description, tag, CTA_text, CTA_url, background_gradient, content_max_width
- */
+// Subpage hero banner mapper
+
 export function mapSubpageHero(
   raw?: StrapiPageData | RawRecord | null,
   fallback: SubpageHeroData = ROW_HERO_FALLBACK
@@ -120,10 +118,8 @@ export function mapSubpageHero(
   };
 }
 
-/**
- * 2. Subpage Process Section Mapper (Pure 1-to-1 with shared.process)
- * Canonical keys: title, description, process_stage (stage_name, stage_icon_svg)
- */
+// Process section mapper
+
 export function mapSubpageProcess(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback: ProcessSectionData = ROW_PROCESS_FALLBACK
@@ -222,10 +218,8 @@ export function mapSubpageProcess(
   };
 }
 
-/**
- * 3. Subpage Testimonials Mapper (Pure 1-to-1 with shared.gloabl-testimonails)
- * Canonical keys: title, cards (id, person_name, person_message, person_designation, card_footer_bg)
- */
+// Testimonials section mapper
+
 export function mapSubpageTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback: SubpageTestimonialsData = ROW_TESTIMONIALS_FALLBACK
@@ -259,10 +253,8 @@ export function mapSubpageTestimonials(
   };
 }
 
-/**
- * 4. Subpage CTA Mapper (Pure 1-to-1 with shared.global-cta)
- * Canonical keys: prompt_to_cta, CTA_text, CTA_url, background_gradient, globe_illustration
- */
+// CTA section mapper
+
 export function mapSubpageCta(
   raw?: StrapiSectionItem | RawRecord | null,
   fallback: SubpageCtaData = ROW_CTA_FALLBACK

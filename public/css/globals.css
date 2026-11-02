@@ -232,7 +232,7 @@ body {
   overflow: hidden;
 }
 
-/* Scroll Reveal Animations (Synchronized with useAnimations.ts) */
+/* Scroll reveal animations */
 .reveal {
   opacity: 0;
   transform: translateY(28px);

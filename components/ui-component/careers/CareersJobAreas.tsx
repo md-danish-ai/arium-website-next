@@ -31,7 +31,6 @@ export default function CareersJobAreas({
       className="section-light bg-white py-20 md:py-28 relative overflow-hidden !border-none"
     >
       <Container className="relative z-[2]">
-        {/* Centered Header */}
         <div className="text-center mb-14">
           <Typography
             variant="h3"
@@ -58,7 +57,6 @@ export default function CareersJobAreas({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          {/* LEFT: Job list + CTA */}
           <div className="flex flex-col justify-between">
             <div className="flex flex-col flex-1 divide-y divide-[#162047]/10">
               {listItems.map((area, index) => {
@@ -91,7 +89,6 @@ export default function CareersJobAreas({
             )}
           </div>
 
-          {/* RIGHT: Image */}
           <div className="reveal">
             <div className="relative rounded-[20px] overflow-hidden shadow-2xl h-[320px] lg:h-full min-h-[320px]">
               <Image

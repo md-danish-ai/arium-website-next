@@ -19,7 +19,6 @@ export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrand
       aria-label="Arium Networks"
       className="inline-block no-underline shrink-0 text-center min-[601px]:text-left mx-auto min-[601px]:mx-0"
     >
-      {/* Desktop Logo */}
       <span className="hidden min-[601px]:block">
         {finalDesktopLogo ? (
           <span
@@ -31,7 +30,6 @@ export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrand
         )}
       </span>
 
-      {/* Mobile Logo */}
       <span className="block min-[601px]:hidden">
         {finalMobileLogo ? (
           <span

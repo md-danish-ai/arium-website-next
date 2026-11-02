@@ -2,11 +2,7 @@
 
 import { useEffect } from "react";
 
-/**
- * Parallax Background Hook
- * Smoothly calculates backgroundPositionY offsets for elements with `.parallax-bg`
- * on viewports wider than 1080px.
- */
+// Parallax scroll effect for elements with .parallax-bg on desktop
 export function useParallax(pathname?: string) {
   useEffect(() => {
     let parallaxEls: NodeListOf<Element>;

@@ -99,7 +99,6 @@ export default function AboutJourney({
                   )}
                 </div>
 
-                {/* Description */}
                 <Typography
                   variant="b3"
                   as="p"

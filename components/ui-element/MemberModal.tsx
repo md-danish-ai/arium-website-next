@@ -86,14 +86,12 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
       aria-modal="true"
       ref={modalRef}
     >
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-[#0a0e20]/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Card */}
       <div
         className={`relative z-[1] w-full max-w-[840px] max-h-[85vh] sm:max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
           isOpen && member
@@ -101,7 +99,6 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
             : "scale-95 translate-y-4 opacity-0"
         }`}
       >
-        {/* Close Button */}
         <button
           className="absolute top-4 right-4 sm:top-5 sm:right-5 z-[5] bg-transparent border-none p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full cursor-pointer transition-colors"
           onClick={onClose}
@@ -112,14 +109,12 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
 
         {member && (
           <>
-            {/* Upper Header */}
             <div
               className="flex flex-row items-center gap-4 sm:gap-6 md:gap-7 p-6 sm:p-8 shrink-0 relative text-left"
               style={{
                 backgroundColor: member.modal_upper_section_background || "#162047",
               }}
             >
-              {/* Profile Image (Rounded rectangle) */}
               <div className="shrink-0 relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border border-white/10 shadow-md bg-white/5">
                 <Image
                   className="object-cover object-[center_15%]"
@@ -130,7 +125,6 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
                 />
               </div>
 
-              {/* Title & Role */}
               <div className="flex-1 min-w-0 pr-8 sm:pr-10">
                 <Typography
                   as="h2"
@@ -152,7 +146,6 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
               </div>
             </div>
 
-            {/* Bottom Body Section (Clean single-column text) */}
             <div className="bg-white p-6 sm:p-8 md:p-10 overflow-y-auto flex-1 rounded-b-[24px]">
               {member.description.includes("<") ? (
                 <div

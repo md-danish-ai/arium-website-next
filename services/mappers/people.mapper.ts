@@ -28,10 +28,8 @@ export interface SubPageCtaMappedProps {
   globe_illustration?: string | null;
 }
 
-/**
- * 1. Sub Page Hero Mapper (Pure 1-to-1)
- * Canonical keys: title, description, tag, CTA_text, CTA_url, background_gradient, content_max_width
- */
+// Hero banner mapper
+
 export function mapSubPageHero(
   raw?: RawRecord | null,
   fallback = LEADERSHIP_HERO_FALLBACK
@@ -57,10 +55,8 @@ export function mapSubPageHero(
   };
 }
 
-/**
- * 2. People Grid Mapper (Pure 1-to-1 with live Strapi shared.people-global-section)
- * Canonical keys: name, designation, image, description, modal_upper_section_background
- */
+// Team members grid mapper
+
 export function mapPeopleMembers(
   source?: StrapiSectionItem | RawRecord | RawRecord[] | null,
   fallbackMembers: PeopleMemberItem[] = LEADERSHIP_MEMBERS_FALLBACK
@@ -117,10 +113,8 @@ export function mapPeopleMembers(
   });
 }
 
-/**
- * 3. Sub Page CTA Mapper (Pure 1-to-1 with shared.global-cta)
- * Canonical keys: prompt_to_cta, CTA_text, CTA_url, background_gradient, globe_illustration
- */
+// Sub-page CTA section mapper
+
 export function mapSubPageCta(
   source?: StrapiSectionItem | RawRecord | null,
   fallbackCta = LEADERSHIP_CTA_FALLBACK

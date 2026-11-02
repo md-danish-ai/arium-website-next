@@ -151,7 +151,6 @@ export default function Navbar({
   return (
     <header className={navClasses} id="main-nav" ref={navRef}>
       <Container className="flex items-center justify-between w-full py-3.5 min-[1080px]:py-3.5 min-[1280px]:py-4 xl:py-5 min-[1080px]:max-h-[800px]:py-2.5 box-border">
-        {/* Brand Logo */}
         <Link
           href="/"
           className="flex items-center shrink-0 pointer-events-auto"
@@ -181,7 +180,6 @@ export default function Navbar({
           )}
         </Link>
 
-        {/* Mobile Navigation (Drawer & Toggle) */}
         <MobileNav
           routes={routes}
           pathname={pathname}
@@ -192,7 +190,6 @@ export default function Navbar({
           onToggleDropdown={toggleDropdown}
         />
 
-        {/* Desktop Navigation */}
         <DesktopNav
           routes={routes}
           pathname={pathname}

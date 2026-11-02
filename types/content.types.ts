@@ -1,8 +1,6 @@
 import type { ReactElement } from "react";
 
-/**
- * Universal Clean UI Content Models (Pure Presentational Props)
- */
+// Shared UI content models
 
 export interface ImageItem {
   src: string;

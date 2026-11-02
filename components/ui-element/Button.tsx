@@ -6,42 +6,13 @@ export type ButtonColor = "primary" | "secondary";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonBaseProps {
-  /**
-   * Button style variant
-   * @default "filled"
-   */
   variant?: ButtonVariant;
-  /**
-   * Color palette:
-   * - primary: #162047 (Midnight Blue)
-   * - secondary: #00e8d9 (Teal)
-   * @default "primary"
-   */
   color?: ButtonColor;
-  /**
-   * Button sizing
-   * @default "md"
-   */
   size?: ButtonSize;
-  /**
-   * Link destination (if provided, renders as Next.js Link or external <a>)
-   */
   href?: string;
-  /**
-   * Forces opening as external link
-   */
   isExternal?: boolean;
-  /**
-   * Icon placed before label
-   */
   leftIcon?: ReactNode;
-  /**
-   * Icon placed after label
-   */
   rightIcon?: ReactNode;
-  /**
-   * Stretch button to 100% width of parent
-   */
   fullWidth?: boolean;
   className?: string;
   children?: ReactNode;

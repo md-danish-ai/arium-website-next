@@ -26,7 +26,6 @@ export default function MobileNav({
 }: MobileNavProps) {
   return (
     <>
-      {/* Mobile Hamburger Toggle Button */}
       <button
         type="button"
         className="block min-[1080px]:hidden bg-transparent border-none cursor-pointer p-3 min-w-[44px] min-h-[44px] -mr-2 z-[51] pointer-events-auto focus-visible:outline-2 focus-visible:outline-teal focus-visible:outline-offset-4 focus-visible:rounded"
@@ -38,7 +37,6 @@ export default function MobileNav({
         <HamburgerIcon isOpen={isMobileOpen} />
       </button>
 
-      {/* Mobile Drawer */}
       <nav
         aria-label="Mobile navigation"
         id="nav-links"

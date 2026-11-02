@@ -77,7 +77,6 @@ export default function IllustrationSplit({
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
           <div className={`order-1 reveal ${isLeft ? "md:order-2" : "md:order-1"}`}>
-            {/* Mobile Top-Right Floated Illustration (< md) */}
             {resolvedImg && (
               <div className="md:hidden float-right w-[115px] sm:w-[140px] ml-4 mb-2 pointer-events-none">
                 {isSvg ? (
@@ -169,7 +168,7 @@ export default function IllustrationSplit({
             )}
           </div>
 
-          {/* Desktop / Tablet Illustration Column (>= md) */}
+          {/* Desktop illustration */}
           {resolvedImg && (
             <div
               className={`hidden md:flex items-center self-center order-2 w-full reveal-scale ${
