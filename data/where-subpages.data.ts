@@ -61,7 +61,7 @@ export interface SubpageSeoData {
 // Right of Way defaults
 
 export const ROW_HERO_FALLBACK: SubpageHeroData = {
-  tag: "Right of Way",
+  tag: "",
   title: "Connectivity that moves communities forward",
   description: "As technology advances, small cells keep your community connected to what matters.",
   CTA_text: "Contact Us",
@@ -199,7 +199,7 @@ export const ROW_SEO_FALLBACK: SubpageSeoData = {
 // Private Venues defaults
 
 export const PV_HERO_FALLBACK: SubpageHeroData = {
-  tag: "Private Venues",
+  tag: "",
   title: "Bringing advanced connectivity to your property",
   description:
     "Our in-building solutions help private venues keep up with advances and technology, while supporting the connectivity demands of tenants and guests.",

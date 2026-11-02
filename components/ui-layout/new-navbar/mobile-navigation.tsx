@@ -52,30 +52,32 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
       {/* Animated Colorful Hamburger / Cross Button - always visible at z-[60] */}
       <button
         type="button"
-        className="relative z-[60] inline-flex flex-col items-center justify-center size-11 p-2 rounded-xl text-teal hover:bg-white/10 transition-colors cursor-pointer bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal -mr-1"
+        className="relative z-[60] inline-flex items-center justify-center size-11 rounded-xl text-teal hover:bg-white/10 transition-colors cursor-pointer bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal -mr-1"
         id="nav-toggle"
         aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={open}
         onClick={() => setOpen(!open)}
       >
-        <span
-          className={cn(
-            "block w-5 h-[2.5px] bg-teal my-[3px] rounded-[2px] transition-all duration-300 origin-center",
-            open && "translate-y-[5.5px] rotate-45"
-          )}
-        />
-        <span
-          className={cn(
-            "block w-5 h-[2.5px] bg-teal my-[3px] rounded-[2px] transition-all duration-300",
-            open ? "opacity-0 scale-0" : "opacity-100 scale-100"
-          )}
-        />
-        <span
-          className={cn(
-            "block w-5 h-[2.5px] bg-teal my-[3px] rounded-[2px] transition-all duration-300 origin-center",
-            open && "-translate-y-[5.5px] -rotate-45"
-          )}
-        />
+        <div className="relative size-5 flex items-center justify-center">
+          <span
+            className={cn(
+              "absolute w-5 h-[2.5px] bg-teal rounded-[2px] transition-all duration-300 origin-center",
+              open ? "translate-y-0 rotate-45" : "-translate-y-[6px] rotate-0"
+            )}
+          />
+          <span
+            className={cn(
+              "absolute w-5 h-[2.5px] bg-teal rounded-[2px] transition-all duration-300 origin-center",
+              open ? "opacity-0 scale-0" : "opacity-100 scale-100"
+            )}
+          />
+          <span
+            className={cn(
+              "absolute w-5 h-[2.5px] bg-teal rounded-[2px] transition-all duration-300 origin-center",
+              open ? "translate-y-0 -rotate-45" : "translate-y-[6px] rotate-0"
+            )}
+          />
+        </div>
       </button>
 
       {/* Smooth Backdrop Overlay */}

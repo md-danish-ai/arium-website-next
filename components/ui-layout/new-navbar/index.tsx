@@ -32,7 +32,7 @@ export function Navbar({ logoDesktop, logoMobile }: NewNavbarProps) {
   const navBarBg =
     isHome && !isScrolled
       ? "bg-transparent"
-      : "bg-[#162047]/95 backdrop-blur-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.15)] border-b border-white/10";
+      : "bg-[#162047]/95 backdrop-blur-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.15)]";
   const navBarPos = isHome ? "fixed" : "sticky";
 
   return (
