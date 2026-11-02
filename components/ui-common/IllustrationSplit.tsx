@@ -72,7 +72,8 @@ export default function IllustrationSplit({
     <section
       ref={containerRef}
       id={id}
-      className={`bg-transparent py-[50px] relative overflow-hidden ${className}`}
+      className={`py-[50px] relative overflow-hidden ${className}`}
+      style={{ background: "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%) !important" }}
     >
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
@@ -171,11 +172,10 @@ export default function IllustrationSplit({
           {/* Desktop illustration */}
           {resolvedImg && (
             <div
-              className={`hidden md:flex items-center self-center order-2 w-full reveal-scale ${
-                isLeft
-                  ? "justify-center md:justify-start md:order-1"
-                  : "justify-center md:justify-end md:order-2"
-              }`}
+              className={`hidden md:flex items-center self-center order-2 w-full reveal-scale ${isLeft
+                ? "justify-center md:justify-start md:order-1"
+                : "justify-center md:justify-end md:order-2"
+                }`}
             >
               <div className="relative w-full max-w-[340px] md:max-w-[440px]">
                 {isSvg ? (
