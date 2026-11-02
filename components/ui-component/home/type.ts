@@ -33,7 +33,7 @@ export interface BackgroundFeatureSectionProps {
   background_image_mobile?: string;
   CTA_text?: string;
   CTA_url?: string;
-  FeatureCards?: FeatureCardItem[];
+  feature_cards?: FeatureCardItem[];
   maxWidthText?: string;
 }
 

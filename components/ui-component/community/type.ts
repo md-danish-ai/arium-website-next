@@ -30,7 +30,7 @@ export interface CommunityHowWeWorkProps {
   CTA_url?: string;
   background_image_desktop?: string;
   background_image_mobile?: string;
-  FeatureCards?: Array<{ id: number; title: string; description: string }> | null;
+  feature_cards?: Array<{ id: number; title: string; description: string }> | null;
 }
 
 export interface CommunityFAQProps {

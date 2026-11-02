@@ -13,10 +13,10 @@ export default function BackgroundFeatureSection({
   description_color,
   CTA_text,
   CTA_url,
-  FeatureCards = [],
+  feature_cards = [],
   maxWidthText,
 }: BackgroundFeatureSectionProps) {
-  const hasCards = FeatureCards.length > 0;
+  const hasCards = feature_cards.length > 0;
   const textMaxWidth = maxWidthText || (hasCards ? "620px" : "560px");
   const mobileImg = background_image_mobile || background_image_desktop;
 
@@ -96,7 +96,7 @@ export default function BackgroundFeatureSection({
         <div className="relative z-[2] pt-3 pb-8 max-[768px]:pt-5 max-[768px]:pb-9 md:pt-6 md:pb-11 lg:pt-11 lg:pb-16 xl:pt-15 xl:pb-[70px]">
           <Container>
             <div className="reveal stagger-2 grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-[clamp(40px,5vw,80px)] w-full max-w-full mx-auto">
-              {FeatureCards.map((card, index) => (
+              {feature_cards.map((card, index) => (
                 <div className="flex flex-col items-center text-center p-0" key={card.id ?? index}>
                   <Typography
                     variant="h4"

@@ -44,7 +44,7 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   description_color?: string;
   CTA_text?: string;
   CTA_url?: string;
-  FeatureCards: FeatureCardItem[];
+  feature_cards: FeatureCardItem[];
 } = {
   title: "Solve network challenges with a trusted partner",
   description:
@@ -55,7 +55,7 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   description_color: undefined,
   CTA_text: undefined,
   CTA_url: undefined,
-  FeatureCards: [
+  feature_cards: [
     {
       id: 45,
       title: "Design",

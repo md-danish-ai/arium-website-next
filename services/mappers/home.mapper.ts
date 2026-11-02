@@ -46,7 +46,7 @@ export function mapHomeHero(raw?: RawRecord | null, fallback = HOME_HERO_FALLBAC
 /**
  * 2. Background Feature (Network Challenges) Mapper (widget.background-feature-section - Position 1)
  * Canonical keys: title, title_color, description, description_color, background_image_desktop,
- * background_image_mobile, CTA_text, CTA_url, FeatureCards
+ * background_image_mobile, CTA_text, CTA_url, feature_cards
  */
 export function mapBackgroundFeature(
   raw?: StrapiSectionItem | RawRecord | null,
@@ -68,20 +68,19 @@ export function mapBackgroundFeature(
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
   const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
 
-  const rawCards = raw?.FeatureCards as RawRecord[] | undefined;
-  const FeatureCards: FeatureCardItem[] =
-    Array.isArray(rawCards) && rawCards.length > 0
-      ? rawCards.map((c, i) => {
-          const fb = fallback.FeatureCards[i % fallback.FeatureCards.length];
-          return {
-            id: (c.id as string | number) ?? i,
-            title: (c.title as string) || fb?.title || "",
-            title_color: (c.title_color as string) || fb?.title_color,
-            description: (c.description as string) || fb?.description || "",
-            description_color: (c.description_color as string) || fb?.description_color,
-          };
-        })
-      : fallback.FeatureCards;
+  const rawCards = raw?.feature_cards as RawRecord[] | undefined;
+  const feature_cards: FeatureCardItem[] = Array.isArray(rawCards)
+    ? rawCards.map((c, i) => {
+        const fb = fallback.feature_cards?.[i % (fallback.feature_cards?.length || 1)];
+        return {
+          id: (c.id as string | number) ?? i,
+          title: (c.title as string) || fb?.title || "",
+          title_color: (c.title_color as string) || fb?.title_color,
+          description: (c.description as string) || fb?.description || "",
+          description_color: (c.description_color as string) || fb?.description_color,
+        };
+      })
+    : fallback.feature_cards || [];
 
   return {
     title,
@@ -92,7 +91,7 @@ export function mapBackgroundFeature(
     background_image_mobile,
     CTA_text,
     CTA_url,
-    FeatureCards,
+    feature_cards,
   };
 }
 
