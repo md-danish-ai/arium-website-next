@@ -3,6 +3,7 @@ import {
   DEFAULT_LEGAL_LINKS,
   DEFAULT_SOCIAL_LINKS,
   DEFAULT_CONTACT_LINK,
+  DEFAULT_FOOTER_DATA,
   NavRoute,
   NavItemChild,
   FooterLinkItem,
@@ -39,6 +40,9 @@ export interface RawGlobalLayout {
   logoDesktop?: string;
   logoMobile?: string;
   copyright?: string;
+  address?: string;
+  contact_number?: string;
+  contact_number_display?: string;
   navigation?: RawNavigationItem[];
   footer_column?: {
     footer_links?: RawFooterLink[];
@@ -58,6 +62,9 @@ export interface FooterPropsClean {
   socialLinks: SocialLinkItem[];
   legalLinks: FooterLinkItem[];
   copyright: string;
+  address: string;
+  contact_number: string;
+  contact_number_display: string;
   logoDesktop?: string;
   logoMobile?: string;
 }
@@ -137,6 +144,13 @@ export function mapFooterData(rawGlobalLayout?: RawGlobalLayout | null): FooterP
   const currentYear = new Date().getFullYear();
   const copyright = (rawGlobalLayout?.copyright as string) || `© ${currentYear} Arium Networks`;
 
+  const address = (rawGlobalLayout?.address as string) || DEFAULT_FOOTER_DATA.address;
+  const contact_number =
+    (rawGlobalLayout?.contact_number as string) || DEFAULT_FOOTER_DATA.contact_number;
+  const contact_number_display =
+    (rawGlobalLayout?.contact_number_display as string) ||
+    DEFAULT_FOOTER_DATA.contact_number_display;
+
   const logoDesktop = rawGlobalLayout?.logoDesktop || undefined;
   const logoMobile = rawGlobalLayout?.logoMobile || undefined;
 
@@ -145,6 +159,9 @@ export function mapFooterData(rawGlobalLayout?: RawGlobalLayout | null): FooterP
     socialLinks,
     legalLinks,
     copyright,
+    address,
+    contact_number,
+    contact_number_display,
     logoDesktop,
     logoMobile,
   };
