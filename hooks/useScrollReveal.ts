@@ -11,10 +11,6 @@ export function useScrollReveal(pathname?: string) {
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
 
-    const activateElement = (el: Element) => {
-      el.classList.add("active");
-    };
-
     const setupObserver = () => {
       const reveals = document.querySelectorAll(
         ".reveal, .reveal-left, .reveal-right, .reveal-scale"
@@ -23,28 +19,21 @@ export function useScrollReveal(pathname?: string) {
 
       if (!observer) {
         observer = new IntersectionObserver(
-          (entries, obs) => {
+          (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                activateElement(entry.target);
-                obs.unobserve(entry.target);
+                entry.target.classList.add("active");
+              } else {
+                entry.target.classList.remove("active");
               }
             });
           },
-          { threshold: 0.1 }
+          { threshold: 0.08 }
         );
       }
 
       reveals.forEach((el) => {
-        if (el.classList.contains("active")) return;
-
-        const rect = el.getBoundingClientRect();
-        // If element is already within the viewport, activate it immediately
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          activateElement(el);
-        } else {
-          observer!.observe(el);
-        }
+        observer!.observe(el);
       });
     };
 
