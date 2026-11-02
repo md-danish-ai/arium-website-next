@@ -24,7 +24,9 @@ export interface IllustrationSplitProps {
   illustration_image_alignment?: "Right" | "Left" | "Media Right" | "Media Left";
   show_bottom_divider?: boolean;
   statistics?: IllustrationSplitStatItem[];
+  background?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function IllustrationSplit({
@@ -37,7 +39,9 @@ export default function IllustrationSplit({
   illustration_image_alignment = "Right",
   show_bottom_divider = false,
   statistics = [],
+  background,
   className = "",
+  style,
 }: IllustrationSplitProps) {
   const isLeft =
     illustration_image_alignment === "Left" || illustration_image_alignment === "Media Left";
@@ -68,12 +72,18 @@ export default function IllustrationSplit({
       (description.includes("<") && description.includes(">")))
   );
 
+  const defaultBg = "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)";
+  const resolvedBg = background || (className.includes("bg-transparent") ? undefined : defaultBg);
+
   return (
     <section
       ref={containerRef}
       id={id}
       className={`py-[50px] relative overflow-hidden ${className}`}
-      style={{ background: "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%) !important" }}
+      style={{
+        ...(resolvedBg ? { background: resolvedBg } : {}),
+        ...style,
+      }}
     >
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
@@ -172,10 +182,11 @@ export default function IllustrationSplit({
           {/* Desktop illustration */}
           {resolvedImg && (
             <div
-              className={`hidden md:flex items-center self-center order-2 w-full reveal-scale ${isLeft
-                ? "justify-center md:justify-start md:order-1"
-                : "justify-center md:justify-end md:order-2"
-                }`}
+              className={`hidden md:flex items-center self-center order-2 w-full reveal-scale ${
+                isLeft
+                  ? "justify-center md:justify-start md:order-1"
+                  : "justify-center md:justify-end md:order-2"
+              }`}
             >
               <div className="relative w-full max-w-[340px] md:max-w-[440px]">
                 {isSvg ? (

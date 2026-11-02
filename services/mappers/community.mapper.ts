@@ -88,6 +88,8 @@ export function mapCommunitySmallCells(
       }))
     : fallback.statistics;
 
+  const background = ((raw?.background as string) || fallback.background) ?? undefined;
+
   return {
     id: "what-are-small-cells",
     title,
@@ -98,6 +100,7 @@ export function mapCommunitySmallCells(
     illustration_image_alignment,
     show_bottom_divider,
     statistics,
+    background,
   };
 }
 

@@ -86,6 +86,7 @@ export function mapSolutionsSmallCells(
   const show_bottom_divider = false;
 
   const statistics = normalizeStatistics(raw?.statistics, fallback.statistics);
+  const background = ((raw?.background as string) || fallback.background) ?? undefined;
 
   return {
     title,
@@ -96,6 +97,7 @@ export function mapSolutionsSmallCells(
     illustration_image_alignment,
     show_bottom_divider,
     statistics,
+    background,
   };
 }
 
@@ -121,6 +123,7 @@ export function mapSolutionsDas(
       : fallback.show_bottom_divider;
 
   const statistics = normalizeStatistics(raw?.statistics, fallback.statistics);
+  const background = ((raw?.background as string) || fallback.background) ?? undefined;
 
   return {
     title,
@@ -131,6 +134,7 @@ export function mapSolutionsDas(
     illustration_image_alignment,
     show_bottom_divider,
     statistics,
+    background,
   };
 }
 
