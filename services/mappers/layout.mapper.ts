@@ -30,29 +30,20 @@ export interface RawFooterLink {
 
 export interface RawSocialLink {
   id?: string | number;
-  Platform?: string;
   platform?: string;
   url?: string;
   icon?: string;
-  Icon?: string;
 }
 
 export interface RawGlobalLayout {
   logoDesktop?: string;
-  LogoDesktop?: string;
   logoMobile?: string;
-  LogoMobile?: string;
-  FooterLogoDesktop?: string;
-  footerLogoDesktop?: string;
-  FooterLogoMobile?: string;
-  footerLogoMobile?: string;
-  Copyright?: string;
   copyright?: string;
   navigation?: RawNavigationItem[];
-  footerColumn?: {
-    footerLinks?: RawFooterLink[];
+  footer_column?: {
+    footer_links?: RawFooterLink[];
   };
-  socialLinks?: RawSocialLink[];
+  social_links?: RawSocialLink[];
   [key: string]: unknown;
 }
 
@@ -107,7 +98,7 @@ export function mapNavbarData(rawGlobalLayout?: RawGlobalLayout | null): NavbarP
 }
 
 export function mapFooterData(rawGlobalLayout?: RawGlobalLayout | null): FooterPropsClean {
-  const allFooterLinks = rawGlobalLayout?.footerColumn?.footerLinks;
+  const allFooterLinks = rawGlobalLayout?.footer_column?.footer_links;
 
   let contactLink = DEFAULT_CONTACT_LINK;
   if (Array.isArray(allFooterLinks)) {
@@ -133,22 +124,21 @@ export function mapFooterData(rawGlobalLayout?: RawGlobalLayout | null): FooterP
   }
 
   let socialLinks = DEFAULT_SOCIAL_LINKS;
-  if (Array.isArray(rawGlobalLayout?.socialLinks) && rawGlobalLayout.socialLinks.length > 0) {
-    socialLinks = rawGlobalLayout.socialLinks.map((s) => ({
+  const rawSocial = rawGlobalLayout?.social_links;
+  if (Array.isArray(rawSocial) && rawSocial.length > 0) {
+    socialLinks = rawSocial.map((s) => ({
       id: s.id,
-      platform: s.Platform || s.platform || "Social",
+      platform: s.platform || "Social",
       url: s.url || "#",
-      iconHtml: s.icon || s.Icon,
+      iconHtml: s.icon,
     }));
   }
 
   const currentYear = new Date().getFullYear();
-  const copyright =
-    rawGlobalLayout?.Copyright || rawGlobalLayout?.copyright || `© ${currentYear} Arium Networks`;
+  const copyright = (rawGlobalLayout?.copyright as string) || `© ${currentYear} Arium Networks`;
 
-  const logoDesktop =
-    rawGlobalLayout?.FooterLogoDesktop || rawGlobalLayout?.logoDesktop || undefined;
-  const logoMobile = rawGlobalLayout?.FooterLogoMobile || rawGlobalLayout?.logoMobile || undefined;
+  const logoDesktop = rawGlobalLayout?.logoDesktop || undefined;
+  const logoMobile = rawGlobalLayout?.logoMobile || undefined;
 
   return {
     contactLink,

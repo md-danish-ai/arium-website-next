@@ -1,18 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { FooterLayoutData } from "./footer-data";
 import { FooterDesktopLogoSvg, FooterMobileLogoSvg } from "@ui-svg";
 
 interface FooterBrandProps {
   logoDesktop?: string;
   logoMobile?: string;
-  layoutData?: FooterLayoutData | null;
 }
 
-export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrandProps) {
-  const finalDesktopLogo = logoDesktop || layoutData?.FooterLogoDesktop;
-  const finalMobileLogo = logoMobile || layoutData?.FooterLogoMobile;
-
+export function FooterBrand({ logoDesktop, logoMobile }: FooterBrandProps) {
   return (
     <Link
       href="/"
@@ -20,9 +15,9 @@ export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrand
       className="inline-block no-underline shrink-0 text-center min-[601px]:text-left mx-auto min-[601px]:mx-0"
     >
       <span className="hidden min-[601px]:block">
-        {finalDesktopLogo ? (
+        {logoDesktop ? (
           <span
-            dangerouslySetInnerHTML={{ __html: finalDesktopLogo }}
+            dangerouslySetInnerHTML={{ __html: logoDesktop }}
             className="inline-block [&>svg]:w-[160px] [&>svg]:h-auto [&>svg]:text-white"
           />
         ) : (
@@ -31,9 +26,9 @@ export function FooterBrand({ logoDesktop, logoMobile, layoutData }: FooterBrand
       </span>
 
       <span className="block min-[601px]:hidden">
-        {finalMobileLogo ? (
+        {logoMobile ? (
           <span
-            dangerouslySetInnerHTML={{ __html: finalMobileLogo }}
+            dangerouslySetInnerHTML={{ __html: logoMobile }}
             className="inline-block [&>svg]:w-[189px] [&>svg]:h-auto [&>svg]:text-white"
           />
         ) : (
