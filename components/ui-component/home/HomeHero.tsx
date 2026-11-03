@@ -100,7 +100,7 @@ export default function HomeHero({
       </Container>
 
       <div
-        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
+        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} [body.mobile-menu-open_&]:!hidden absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-opacity duration-300`}
         id="scroll-indicator"
       >
         <Typography

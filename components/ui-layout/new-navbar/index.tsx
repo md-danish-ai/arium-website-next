@@ -38,7 +38,7 @@ export function Navbar({ logoDesktop, logoMobile }: NewNavbarProps) {
   return (
     <header
       className={cn(
-        "w-full inset-x-0 top-0 z-50 text-white transition-all duration-300",
+        "w-full inset-x-0 top-0 z-[100] text-white transition-all duration-300",
         navBarPos,
         navBarBg
       )}

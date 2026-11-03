@@ -34,25 +34,31 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("mobile-menu-open");
+      document.body.dataset.mobileMenuOpen = "true";
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") setOpen(false);
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => {
         document.body.style.overflow = "";
+        document.body.classList.remove("mobile-menu-open");
+        delete document.body.dataset.mobileMenuOpen;
         window.removeEventListener("keydown", handleKeyDown);
       };
     } else {
       document.body.style.overflow = "";
+      document.body.classList.remove("mobile-menu-open");
+      delete document.body.dataset.mobileMenuOpen;
     }
   }, [open]);
 
   return (
     <div className="min-[1080px]:hidden">
-      {/* Animated Colorful Hamburger / Cross Button - always visible at z-[60] */}
+      {/* Animated Colorful Hamburger / Cross Button - always visible at z-[70] */}
       <button
         type="button"
-        className="relative z-[60] inline-flex items-center justify-center size-11 rounded-xl text-teal hover:bg-white/10 transition-colors cursor-pointer bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal -mr-1"
+        className="relative z-[70] inline-flex items-center justify-center size-11 rounded-xl text-teal hover:bg-white/10 transition-colors cursor-pointer bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal -mr-1"
         id="nav-toggle"
         aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={open}
@@ -83,7 +89,7 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
       {/* Smooth Backdrop Overlay */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-black/75 backdrop-blur-[4px] transition-opacity duration-300 ease-out",
+          "fixed inset-0 z-50 bg-black/75 backdrop-blur-[4px] transition-opacity duration-300 ease-out",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         onClick={closeMenu}
@@ -96,7 +102,7 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
         aria-modal="true"
         aria-label="Mobile Navigation Drawer"
         className={cn(
-          "fixed top-0 bottom-0 right-0 h-screen w-[min(88vw,360px)] bg-[#101836]/[0.985] backdrop-blur-[25px] border-l border-white/10 shadow-[-10px_0_30px_rgba(0,0,0,0.5)] z-50 flex flex-col justify-start items-stretch p-0 text-white select-none transition-transform duration-300 ease-out",
+          "fixed top-0 bottom-0 right-0 h-screen w-[min(88vw,360px)] bg-[#101836]/[0.985] backdrop-blur-[25px] border-l border-white/10 shadow-[-10px_0_30px_rgba(0,0,0,0.5)] z-[60] flex flex-col justify-start items-stretch p-0 text-white select-none transition-transform duration-300 ease-out",
           open ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"
         )}
       >
