@@ -83,7 +83,7 @@ export default function HeroBanner({
             variant="h1"
             weight="normal"
             uppercase
-            className="text-white max-w-[1400px] mx-auto m-0 mb-[18px] max-md:mb-[16px] text-[clamp(1.85rem,3.5vw,2.95rem)] max-md:text-[1.5rem] leading-[1.2] max-md:leading-[1.35] tracking-[0.12em] max-md:tracking-[0.05em] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
+            className="text-white max-w-[1400px] mx-auto m-0 mb-[18px] max-md:mb-[16px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
             dangerouslySetInnerHTML={typeof title === "string" ? { __html: title } : undefined}
             style={
               maxWidthTitle
@@ -102,7 +102,7 @@ export default function HeroBanner({
         {description && (
           <Typography
             variant="b1"
-            className="text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] text-[clamp(1.02rem,1.5vw,1.22rem)] max-md:text-[0.9rem] leading-[1.3] max-md:leading-[1.6] max-md:mb-6 [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
+            className="text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] max-md:mb-6 [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
             dangerouslySetInnerHTML={
               typeof description === "string" ? { __html: description } : undefined
             }

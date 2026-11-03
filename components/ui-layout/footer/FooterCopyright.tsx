@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@ui-element";
 
 interface FooterCopyrightProps {
   copyright?: string;
@@ -10,9 +11,9 @@ export function FooterCopyright({ copyright, className = "" }: FooterCopyrightPr
 
   return (
     <div className={`w-full ${className}`}>
-      <p className="text-xs text-white/60 font-body m-0">
+      <Typography variant="b4" as="p" className="text-white/60 m-0">
         {copyright || `© ${currentYear} Arium Networks`}
-      </p>
+      </Typography>
     </div>
   );
 }

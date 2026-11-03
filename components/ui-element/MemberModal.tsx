@@ -143,7 +143,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
                   variant="h3"
                   uppercase
                   weight="normal"
-                  className="text-white m-0 text-xl sm:text-2xl lg:text-3xl tracking-wider lg:tracking-wide uppercase leading-tight"
+                  className="text-white m-0 tracking-wider lg:tracking-wide uppercase"
                 >
                   {member.name}
                 </Typography>
@@ -151,7 +151,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
                   as="p"
                   variant="b3"
                   weight="medium"
-                  className="text-[#00e8d9] m-0 text-xs sm:text-sm lg:text-base mt-1.5 leading-snug"
+                  className="text-[#00e8d9] m-0 mt-1.5 leading-snug"
                 >
                   {member.role}
                 </Typography>
@@ -165,11 +165,11 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
                   dangerouslySetInnerHTML={{ __html: member.description }}
                 />
               ) : (
-                <div className="text-[#374151] text-sm sm:text-[15px] lg:text-base leading-[1.8] space-y-4 sm:space-y-5">
+                <div className="space-y-4 sm:space-y-5">
                   {member.description.split("\n\n").map((paragraph, idx) => (
-                    <p key={idx} className="m-0">
+                    <Typography key={idx} variant="b2" as="p" className="text-[#374151] m-0">
                       {paragraph}
-                    </p>
+                    </Typography>
                   ))}
                 </div>
               )}

@@ -91,7 +91,7 @@ export default function IllustrationSplit({
                 as="h2"
                 uppercase
                 weight="normal"
-                className="section-title text-left text-[#162047] m-0 mb-3 max-w-[300px] sm:max-w-[480px] lg:max-w-none text-[1.2rem] lg:text-[2.4rem] tracking-[0.1em] lg:tracking-[0.06em] leading-[1.4] lg:leading-[1.45]"
+                className="section-title text-left text-[#162047] m-0 mb-3 max-w-[300px] sm:max-w-[480px] lg:max-w-none"
                 style={title_color ? { color: title_color } : undefined}
               >
                 {title}
@@ -117,7 +117,7 @@ export default function IllustrationSplit({
                       key={idx}
                       variant="b1"
                       as="p"
-                      className="text-[#162047]/80 m-0 text-[0.9rem] lg:text-[1.05rem] leading-[1.65] lg:leading-[1.8] mb-4 last:mb-0 max-lg:text-justify lg:text-left"
+                      className="text-[#162047]/80 m-0 mb-4 last:mb-0 max-lg:text-justify lg:text-left"
                     >
                       {p}
                     </Typography>
@@ -136,7 +136,7 @@ export default function IllustrationSplit({
                       <Typography
                         variant="stat"
                         weight="bold"
-                        className="sol-kpi-num text-[#7c5cbf] leading-none tracking-[-0.02em] lg:tracking-tight text-[2.2rem] lg:text-[3.6rem] font-extrabold"
+                        className="sol-kpi-num text-[#7c5cbf]"
                         style={item.stat_color ? { color: item.stat_color } : undefined}
                       >
                         {item.stat}
@@ -144,10 +144,10 @@ export default function IllustrationSplit({
                     )}
                     {item.description && (
                       <Typography
-                        variant="b2"
+                        variant="b3"
                         as="p"
                         weight="normal"
-                        className="sol-kpi-label normal-case tracking-normal text-[#162047] lg:text-[#162047]/80 m-0 mt-0.5 lg:mt-1.5 text-[0.85rem] lg:text-[0.95rem] leading-[1.45] lg:leading-[1.6] whitespace-normal"
+                        className="sol-kpi-label normal-case tracking-normal text-[#162047] lg:text-[#162047]/80 m-0 mt-0.5 lg:mt-1.5 whitespace-normal"
                       >
                         {item.description}
                       </Typography>
