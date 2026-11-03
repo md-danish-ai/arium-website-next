@@ -78,7 +78,7 @@ export default function ImageGradientSplit({
             as="h2"
             variant="h3"
             uppercase
-            className="reveal text-white mb-6 text-left m-0 !leading-[1.45] !tracking-[0.06em] text-[1.2rem] max-[600px]:!tracking-[0.1em] sm:text-[1.7rem] md:text-[2.4rem] font-normal [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
+            className="reveal text-white mb-6 text-left m-0 font-normal [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: title_color || undefined }}
           >
             {title}
@@ -95,7 +95,7 @@ export default function ImageGradientSplit({
               <Typography
                 as="p"
                 variant="b1"
-                className="reveal stagger-1 text-[#ffffffcc] text-left m-0 mb-6 md:mb-8 text-[0.88rem] sm:text-[1.05rem] !leading-[1.7] sm:!leading-[1.8] [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] font-normal"
+                className="reveal stagger-1 text-[#ffffffcc] text-left m-0 mb-6 md:mb-8 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] font-normal"
                 style={{ color: description_color || undefined }}
               >
                 {description}
@@ -115,7 +115,7 @@ export default function ImageGradientSplit({
                       variant="h5"
                       uppercase
                       weight="bold"
-                      className="text-teal mb-1.5 text-left !leading-[1.2] !tracking-[0.06em] text-[1.15rem] m-0"
+                      className="text-teal mb-1.5 text-left m-0"
                       style={{ color: item.title_color || undefined }}
                     >
                       {item.title}
@@ -123,7 +123,7 @@ export default function ImageGradientSplit({
                     <Typography
                       as="p"
                       variant="b2"
-                      className="text-[#ffffffcc] text-left m-0 text-[0.9rem] !leading-[1.65] font-normal"
+                      className="text-[#ffffffcc] text-left m-0 font-normal"
                       style={{
                         color: item.description_color || undefined,
                       }}
@@ -154,7 +154,7 @@ export default function ImageGradientSplit({
                   variant="button"
                   uppercase
                   weight="normal"
-                  className="inline-block tracking-[0.15em] text-white text-[0.75rem] leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap"
+                  className="inline-block tracking-[0.15em] text-white leading-none transition-colors duration-300 group-hover:text-teal whitespace-nowrap"
                 >
                   {CTA_text}
                 </Typography>

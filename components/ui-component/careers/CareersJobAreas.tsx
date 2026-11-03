@@ -70,7 +70,7 @@ export default function CareersJobAreas({
                       as="h3"
                       weight="medium"
                       uppercase
-                      className="inline-flex items-center gap-3 text-[#162047] m-0 text-left tracking-[0.06em] text-[0.95rem] md:text-[1rem]"
+                      className="inline-flex items-center gap-3 text-[#162047] m-0 text-left"
                     >
                       <ChevronsRightSvg className="w-5 h-5 shrink-0 text-[#7C5CBF]" />
                       {area.title}

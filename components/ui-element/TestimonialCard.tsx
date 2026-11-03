@@ -1,4 +1,5 @@
 import React from "react";
+import Typography from "./Typography";
 
 export interface TestimonialCardProps {
   id?: number | string;
@@ -30,19 +31,23 @@ export default function TestimonialCard({
       >
         “
       </span>
-      <p className="tm-panel-text font-body z-[1] grow pt-10 text-[1.05rem] italic font-light leading-[1.8] text-white relative m-0 mb-6">
+      <Typography
+        variant="quote"
+        as="p"
+        className="tm-panel-text z-[1] grow pt-10 text-white relative m-0 mb-6"
+      >
         {person_message}
-      </p>
+      </Typography>
       <div
         className="tm-panel-footer mx-[-36px] sm:mx-[-40px] mb-[-36px] sm:mb-[-40px] px-9 sm:px-10 py-5 border-t border-white/10 shrink-0"
         style={{ backgroundColor: footerBg }}
       >
-        <p className="tm-panel-name font-heading font-bold text-base text-midnight m-0 tracking-[0.02em]">
+        <Typography variant="h5" as="p" className="tm-panel-name text-midnight m-0">
           {person_name}
-        </p>
-        <p className="tm-panel-role text-xs text-midnight/80 mt-1 mb-0 font-normal">
+        </Typography>
+        <Typography variant="b4" as="p" className="tm-panel-role text-midnight/80 mt-1 mb-0">
           {person_designation}
-        </p>
+        </Typography>
       </div>
     </div>
   );

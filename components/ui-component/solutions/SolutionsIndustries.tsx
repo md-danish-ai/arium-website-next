@@ -92,10 +92,14 @@ export default function SolutionsIndustries({
     <section
       id="industries"
       className="relative overflow-hidden py-14 md:py-20 lg:py-24 bg-[#162047] border-none"
-      style={background_color ? { background: background_color } : undefined}
+      style={
+        background_color && !background_color.includes("gradient")
+          ? { background: background_color }
+          : undefined
+      }
       onMouseLeave={handleMouseLeave}
     >
-      <div className="absolute left-0 top-0 w-full h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
+      <div className="absolute left-0 bottom-0 top-auto w-full h-[70%] lg:top-0 lg:bottom-0 lg:w-3/4 lg:h-full z-0 pointer-events-none overflow-hidden">
         {accordian_cards.map((card, index) => {
           const bgSrc =
             card.background_image || INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
@@ -112,7 +116,7 @@ export default function SolutionsIndustries({
             />
           );
         })}
-        <div className="absolute inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_bottom,#162047_0%,#16204799_25%,transparent_55%,#16204766_80%,#162047_100%)] md:bg-[linear-gradient(90deg,#0a0e20c7_0%,#0a0e2080_35%,#0a0e2033_55%,transparent_80%,#162047_96%,#162047_100%)]" />
+        <div className="absolute inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_bottom,#162047_0%,#16204799_25%,transparent_55%,#16204766_80%,#162047_100%)] lg:bg-[linear-gradient(90deg,#0a0e20c7_0%,#0a0e2080_35%,#0a0e2033_55%,transparent_80%,#162047_96%,#162047_100%)]" />
       </div>
 
       <Container className="relative z-[2]">
