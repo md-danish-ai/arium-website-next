@@ -36,7 +36,7 @@ export default function HomeHero({
   return (
     <section
       id="hero"
-      className="relative grid place-items-center h-screen h-[100svh] min-h-[600px] w-full overflow-hidden"
+      className="relative grid place-items-center h-screen h-[100svh] md:min-h-[600px] w-full overflow-hidden"
     >
       <div
         ref={bgRef}
@@ -81,7 +81,7 @@ export default function HomeHero({
         </div>
       </div>
 
-      <Container className="relative z-[5] pt-[150px] pb-[100px] text-center w-full">
+      <Container className="relative z-[5] pt-[88px] pb-[72px] md:pt-[150px] md:pb-[100px] text-center w-full">
         <Typography
           variant="h1"
           uppercase
@@ -93,14 +93,14 @@ export default function HomeHero({
         <Typography
           variant="b1"
           weight="normal"
-          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
+          className="mx-auto mt-4 sm:mt-6 lg:mt-10 max-w-[800px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
           style={{ color: font_color }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
       </Container>
 
       <div
-        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} [body.mobile-menu-open_&]:!hidden absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-opacity duration-300`}
+        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} [body.mobile-menu-open_&]:!hidden absolute bottom-3 sm:bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5 sm:gap-2 transition-opacity duration-300`}
         id="scroll-indicator"
       >
         <Typography
