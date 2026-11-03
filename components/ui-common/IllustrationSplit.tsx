@@ -72,39 +72,26 @@ export default function IllustrationSplit({
     <section
       ref={containerRef}
       id={id}
-      className={`bg-transparent py-[50px] relative overflow-hidden ${className}`}
+      className={`bg-transparent py-[50px] ${!isLeft ? "max-lg:pb-0" : "max-lg:pb-[50px]"} relative overflow-hidden ${className}`}
     >
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center w-full md:max-w-none mx-auto relative">
-          <div className={`order-1 reveal ${isLeft ? "md:order-2" : "md:order-1"}`}>
-            {resolvedImg && (
-              <div className="md:hidden float-right w-[115px] sm:w-[140px] ml-4 mb-2 pointer-events-none">
-                {isSvg ? (
-                  isDas ? (
-                    <DasSvg className="draw-svg w-full h-auto opacity-75 relative z-[1]" />
-                  ) : (
-                    <SmallCellsSvg className="draw-svg w-full h-auto opacity-75 relative z-[1]" />
-                  )
-                ) : (
-                  <Image
-                    src={resolvedImg}
-                    alt=""
-                    aria-hidden="true"
-                    className="w-full h-auto opacity-75 relative z-[1]"
-                    width={140}
-                    height={140}
-                  />
-                )}
-              </div>
-            )}
-
+        <div
+          className={`relative max-lg:block ${
+            !isLeft ? "max-lg:mb-12" : "max-lg:mb-0"
+          } lg:grid lg:grid-cols-2 lg:gap-16 items-center w-full lg:max-w-none mx-auto`}
+        >
+          <div
+            className={`sol-split-text max-lg:relative max-lg:z-[1] max-lg:pt-[75px] max-lg:pr-4 order-1 reveal ${
+              isLeft ? "lg:order-2" : "lg:order-1"
+            }`}
+          >
             {title && (
               <Typography
                 variant="h3"
                 as="h2"
                 uppercase
                 weight="normal"
-                className="section-title text-left text-[#162047] m-0 mb-3"
+                className="section-title text-left text-[#162047] m-0 mb-3 max-w-[300px] sm:max-w-[480px] lg:max-w-none text-[1.2rem] lg:text-[2.4rem] tracking-[0.1em] lg:tracking-[0.06em] leading-[1.4] lg:leading-[1.45]"
                 style={title_color ? { color: title_color } : undefined}
               >
                 {title}
@@ -113,13 +100,13 @@ export default function IllustrationSplit({
 
             {isHtml ? (
               <div
-                className="strapi-richtext-body text-[#162047]/80 leading-[1.8] mb-6 flex flex-col gap-4 [&>p]:m-0"
+                className="strapi-richtext-body text-[#162047]/80 leading-[1.65] lg:leading-[1.8] text-[0.9rem] lg:text-[1.05rem] mb-6 flex flex-col gap-4 [&>p]:m-0 [&>p]:mb-4 last:[&>p]:mb-0 max-lg:text-justify lg:text-left [&>p]:max-lg:text-justify [&>p]:lg:text-left"
                 style={description_color ? { color: description_color } : undefined}
                 dangerouslySetInnerHTML={{ __html: description || "" }}
               />
             ) : description ? (
               <div
-                className="text-[#162047]/80 mb-6 flex flex-col gap-4"
+                className="text-[#162047]/80 mb-6 flex flex-col gap-4 max-lg:text-justify lg:text-left"
                 style={description_color ? { color: description_color } : undefined}
               >
                 {description
@@ -130,7 +117,7 @@ export default function IllustrationSplit({
                       key={idx}
                       variant="b1"
                       as="p"
-                      className="text-[#162047]/80 m-0 leading-[1.8]"
+                      className="text-[#162047]/80 m-0 text-[0.9rem] lg:text-[1.05rem] leading-[1.65] lg:leading-[1.8] mb-4 last:mb-0 max-lg:text-justify lg:text-left"
                     >
                       {p}
                     </Typography>
@@ -139,14 +126,17 @@ export default function IllustrationSplit({
             ) : null}
 
             {statistics && statistics.length > 0 && (
-              <div className="clear-both flex flex-row flex-wrap sm:flex-nowrap gap-6 md:gap-10 items-baseline mt-4 w-full">
+              <div className="sol-kpis-row flex flex-row flex-nowrap gap-4 sm:gap-6 lg:gap-10 items-baseline mt-6 lg:mt-4 w-full">
                 {statistics.map((item, index) => (
-                  <div key={index} className="flex flex-col gap-1 py-1 cursor-default shrink-0">
+                  <div
+                    key={index}
+                    className="sol-kpi-item flex-1 min-w-0 flex flex-col gap-1 py-2 lg:py-1 cursor-default"
+                  >
                     {item.stat && (
                       <Typography
                         variant="stat"
                         weight="bold"
-                        className="text-[#7c5cbf] leading-none tracking-tight"
+                        className="sol-kpi-num text-[#7c5cbf] leading-none tracking-[-0.02em] lg:tracking-tight text-[2.2rem] lg:text-[3.6rem] font-extrabold"
                         style={item.stat_color ? { color: item.stat_color } : undefined}
                       >
                         {item.stat}
@@ -157,7 +147,7 @@ export default function IllustrationSplit({
                         variant="b2"
                         as="p"
                         weight="normal"
-                        className="normal-case tracking-normal text-[#162047]/80 m-0 mt-1.5 whitespace-nowrap"
+                        className="sol-kpi-label normal-case tracking-normal text-[#162047] lg:text-[#162047]/80 m-0 mt-0.5 lg:mt-1.5 text-[0.85rem] lg:text-[0.95rem] leading-[1.45] lg:leading-[1.6] whitespace-normal"
                       >
                         {item.description}
                       </Typography>
@@ -166,29 +156,29 @@ export default function IllustrationSplit({
                 ))}
               </div>
             )}
+
+            <div className="w-full h-px bg-[#162047]/[0.08] mt-3 lg:mt-7" />
           </div>
 
-          {/* Desktop illustration */}
+          {/* Illustration wrapper */}
           {resolvedImg && (
             <div
-              className={`hidden md:flex items-center self-center order-2 w-full reveal-scale ${
-                isLeft
-                  ? "justify-center md:justify-start md:order-1"
-                  : "justify-center md:justify-end md:order-2"
+              className={`sol-illustration-wrapper max-lg:block max-lg:absolute max-lg:-top-[60px] max-lg:-right-[120px] max-lg:w-[180px] max-lg:h-[180px] max-lg:z-0 max-lg:pointer-events-none max-lg:overflow-visible lg:flex items-center self-center order-2 w-full reveal-scale ${
+                isLeft ? "lg:justify-start lg:order-1" : "lg:justify-end lg:order-2"
               }`}
             >
-              <div className="relative w-full max-w-[340px] md:max-w-[440px]">
+              <div className="relative w-full max-w-[340px] lg:max-w-[440px] max-lg:static max-lg:max-w-none">
                 {isSvg ? (
                   isDas ? (
-                    <DasSvg className="draw-svg w-full h-auto opacity-85 relative z-[1]" />
+                    <DasSvg className="draw-svg w-full h-auto opacity-75 lg:opacity-85 max-lg:static relative z-[1]" />
                   ) : (
-                    <SmallCellsSvg className="draw-svg w-full h-auto opacity-85 relative z-[1]" />
+                    <SmallCellsSvg className="draw-svg w-full h-auto opacity-75 lg:opacity-85 max-lg:static relative z-[1]" />
                   )
                 ) : (
                   <Image
                     src={resolvedImg}
                     alt={title || "Illustration"}
-                    className="w-full h-auto opacity-85 relative z-[1]"
+                    className="w-full h-auto opacity-75 lg:opacity-85 max-lg:static relative z-[1]"
                     width={440}
                     height={440}
                   />
