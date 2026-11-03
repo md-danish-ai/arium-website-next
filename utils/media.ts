@@ -1,6 +1,6 @@
 export const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com";
+  "http://arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.co";
 
 // Resolves relative Strapi upload paths or returns absolute/static URLs as-is
 export function GetStrapiMediaUrl(url?: string | null): string {

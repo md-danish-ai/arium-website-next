@@ -1,114 +1,35 @@
-import React from "react";
 import type { StrapiPageData, StrapiSectionItem } from "@types";
 import { resolveStrapiImage } from "@utils";
-import {
-  AssessmentIconSvg,
-  PlanningIconSvg,
-  ConstructionIconSvg,
-  DesignIconSvg,
-  OptimizationIconSvg,
-} from "@ui-svg";
 import type { PillarData, ProcessSectionProps } from "@ui-common/ProcessSection";
 import type {
-  SubpageHeroData,
-  SubpageTestimonialsData,
-  ProcessSectionData,
-  SubpageCtaData,
-  SubpageTestimonialCard,
-} from "@data/where-subpages.data";
+  PrivateVenuesHeroData,
+  PrivateVenuesTestimonialsData,
+  PrivateVenuesProcessData,
+  PrivateVenuesCtaData,
+  PrivateVenuesTestimonialCard,
+} from "@data/private-venues.data";
 import {
-  ROW_HERO_FALLBACK,
-  ROW_PROCESS_FALLBACK,
-  ROW_TESTIMONIALS_FALLBACK,
-  ROW_CTA_FALLBACK,
-} from "@data/where-subpages.data";
+  PV_HERO_FALLBACK,
+  PV_PROCESS_FALLBACK,
+  PV_TESTIMONIALS_FALLBACK,
+  PV_CTA_FALLBACK,
+} from "@data/private-venues.data";
 
 type RawRecord = Record<string, unknown>;
 
-export const DEFAULT_PROCESS_ICONS: Record<string, React.ReactNode> = {
-  assessment: (
-    <AssessmentIconSvg
-      className="w-9 h-9 lg:w-10 lg:h-10"
-      width="36"
-      height="36"
-      strokeWidth="2.2"
-    />
-  ),
-  planning: (
-    <PlanningIconSvg className="w-9 h-9 lg:w-10 lg:h-10" width="36" height="36" strokeWidth="2.2" />
-  ),
-  construction: (
-    <ConstructionIconSvg
-      className="w-9 h-9 lg:w-10 lg:h-10"
-      width="36"
-      height="36"
-      strokeWidth="2.2"
-    />
-  ),
-  design: (
-    <DesignIconSvg className="w-9 h-9 lg:w-10 lg:h-10" width="36" height="36" strokeWidth="2.2" />
-  ),
-  optimization: (
-    <OptimizationIconSvg
-      className="w-9 h-9 lg:w-10 lg:h-10"
-      width="36"
-      height="36"
-      strokeWidth="2.2"
-    />
-  ),
-};
-
-export function resolveProcessIcon(
-  stage: RawRecord,
-  stageId: string,
-  stageTitle: string
-): React.ReactNode {
-  // Inline SVG from stage data
-  const svgContent = stage.stage_icon_svg as string | null | undefined;
-  if (svgContent && typeof svgContent === "string" && svgContent.trim().length > 0) {
-    return (
-      <div
-        className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>img]:w-full [&>img]:h-full"
-        dangerouslySetInnerHTML={{ __html: svgContent }}
-      />
-    );
-  }
-
-  // Predefined icon matched by title or id
-  const searchKey = `${stageId} ${stageTitle}`.toLowerCase();
-  for (const [key, iconNode] of Object.entries(DEFAULT_PROCESS_ICONS)) {
-    if (searchKey.includes(key)) {
-      return iconNode;
-    }
-  }
-
-  // Fallback generic icon
-  return (
-    <AssessmentIconSvg
-      className="w-9 h-9 lg:w-10 lg:h-10"
-      width="36"
-      height="36"
-      strokeWidth="2.2"
-    />
-  );
-}
-
-// Subpage hero banner mapper
-
-export function mapSubpageHero(
+// Private Venues Hero Mapper
+export function mapPrivateVenuesHero(
   raw?: StrapiPageData | RawRecord | null,
-  fallback: SubpageHeroData = ROW_HERO_FALLBACK
-): SubpageHeroData {
+  fallback: PrivateVenuesHeroData = PV_HERO_FALLBACK
+): PrivateVenuesHeroData {
   const title = (raw?.title as string) || fallback.title;
   const description = (raw?.description as string) || fallback.description;
-  const tag = (raw?.tag as string) || fallback.tag;
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
   const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;
   const background_gradient = (raw?.background_gradient as string) || fallback.background_gradient;
   const content_max_width = (raw?.content_max_width as string) || fallback.content_max_width;
 
   return {
-    tag,
     title,
     description,
     CTA_text,
@@ -118,11 +39,10 @@ export function mapSubpageHero(
   };
 }
 
-// Process section mapper
-
-export function mapSubpageProcess(
+// Private Venues Process Mapper
+export function mapPrivateVenuesProcess(
   raw?: StrapiSectionItem | RawRecord | null,
-  fallback: ProcessSectionData = ROW_PROCESS_FALLBACK
+  fallback: PrivateVenuesProcessData = PV_PROCESS_FALLBACK
 ): ProcessSectionProps {
   const title = (raw?.title as string) || fallback.title;
   const description = (raw?.description as string) || fallback.description;
@@ -137,7 +57,7 @@ export function mapSubpageProcess(
 
   if (!Array.isArray(rawStages) || rawStages.length === 0) {
     const defaultPillars: PillarData[] = fallback.pillars.map((p) => {
-      const stageBg = p.background_color || p.themeColor || "#FBCBB5";
+      const stageBg = p.background_color || p.themeColor || "#D2C7FF";
       return {
         id: p.id,
         title: p.title,
@@ -148,14 +68,7 @@ export function mapSubpageProcess(
           ...item,
           backgroundColor: item.backgroundColor || stageBg,
         })),
-        iconSvg: DEFAULT_PROCESS_ICONS[p.id.toLowerCase()] || (
-          <AssessmentIconSvg
-            className="w-9 h-9 lg:w-10 lg:h-10"
-            width="36"
-            height="36"
-            strokeWidth="2.2"
-          />
-        ),
+        icon_svg: p.icon_svg || null,
       };
     });
 
@@ -189,14 +102,13 @@ export function mapSubpageProcess(
       matchedPillar?.themeColor ||
       fallback.pillars[idx]?.background_color ||
       fallback.pillars[idx]?.themeColor ||
-      "#FBCBB5";
+      "#D2C7FF";
 
     const steps = matchedPillar?.steps || [];
     const timelineItems = (matchedPillar?.timelineItems || []).map((item) => ({
       ...item,
       backgroundColor: item.backgroundColor || stageBg,
     }));
-    const iconSvg = resolveProcessIcon(stage, stageId, stageTitle);
 
     return {
       id: stageId,
@@ -205,7 +117,7 @@ export function mapSubpageProcess(
       background_color: stageBg,
       steps,
       timelineItems,
-      iconSvg,
+      icon_svg: (stage.stage_icon_svg as string) || null,
     };
   });
 
@@ -218,12 +130,11 @@ export function mapSubpageProcess(
   };
 }
 
-// Testimonials section mapper
-
-export function mapSubpageTestimonials(
+// Private Venues Testimonials Mapper
+export function mapPrivateVenuesTestimonials(
   raw?: StrapiSectionItem | RawRecord | null,
-  fallback: SubpageTestimonialsData = ROW_TESTIMONIALS_FALLBACK
-): SubpageTestimonialsData {
+  fallback: PrivateVenuesTestimonialsData = PV_TESTIMONIALS_FALLBACK
+): { title: string; cards: PrivateVenuesTestimonialCard[] } {
   const title = (raw?.title as string) || fallback.title;
 
   const rawCards = raw?.cards as RawRecord[] | undefined;
@@ -235,16 +146,27 @@ export function mapSubpageTestimonials(
     };
   }
 
-  const cards: SubpageTestimonialCard[] = rawCards.map((card, idx) => ({
+  const cards: PrivateVenuesTestimonialCard[] = rawCards.map((card, idx) => ({
     id: (card.id as number | string) || idx + 1,
-    person_name: (card.person_name as string) || fallback.cards[idx]?.person_name || "",
-    person_message: (card.person_message as string) || fallback.cards[idx]?.person_message || "",
+    person_name:
+      (card.title as string) ||
+      (card.person_name as string) ||
+      fallback.cards[idx]?.person_name ||
+      "",
+    person_message:
+      (card.description as string) ||
+      (card.person_message as string) ||
+      fallback.cards[idx]?.person_message ||
+      "",
     person_designation:
-      (card.person_designation as string) || fallback.cards[idx]?.person_designation || "",
+      (card.badge as string) ||
+      (card.person_designation as string) ||
+      fallback.cards[idx]?.person_designation ||
+      "",
     card_footer_bg:
       (card.card_footer_bg as string | null | undefined) ||
       fallback.cards[idx]?.card_footer_bg ||
-      (idx % 2 === 0 ? "#bcf6f2" : "#ffdac8"),
+      (idx % 2 === 0 ? "#bcf6f2" : "#d2c7ff"),
   }));
 
   return {
@@ -253,12 +175,11 @@ export function mapSubpageTestimonials(
   };
 }
 
-// CTA section mapper
-
-export function mapSubpageCta(
+// Private Venues CTA Mapper
+export function mapPrivateVenuesCta(
   raw?: StrapiSectionItem | RawRecord | null,
-  fallback: SubpageCtaData = ROW_CTA_FALLBACK
-): SubpageCtaData {
+  fallback: PrivateVenuesCtaData = PV_CTA_FALLBACK
+): PrivateVenuesCtaData {
   const prompt_to_cta = (raw?.prompt_to_cta as string) || fallback.prompt_to_cta;
   const CTA_text = (raw?.CTA_text as string) || fallback.CTA_text;
   const CTA_url = (raw?.CTA_url as string) || fallback.CTA_url;

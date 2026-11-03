@@ -5,18 +5,18 @@ import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import {
-  mapSubpageHero,
-  mapSubpageProcess,
-  mapSubpageTestimonials,
-  mapSubpageCta,
-} from "@services/mappers/subpages.mapper";
+  mapRightOfWaysHero,
+  mapRightOfWaysProcess,
+  mapRightOfWaysTestimonials,
+  mapRightOfWaysCta,
+} from "@services/mappers";
 import {
   ROW_HERO_FALLBACK,
   ROW_PROCESS_FALLBACK,
   ROW_TESTIMONIALS_FALLBACK,
   ROW_CTA_FALLBACK,
   ROW_SEO_FALLBACK,
-} from "@data/where-subpages.data";
+} from "@data/right-of-ways.data";
 
 export const dynamic = "force-dynamic";
 
@@ -40,16 +40,16 @@ export default async function RightOfWayPage() {
       (section) => section.key?.toLowerCase() === key.toLowerCase()
     );
 
-  const heroProps = mapSubpageHero(rightOfWayContent, ROW_HERO_FALLBACK);
+  const heroProps = mapRightOfWaysHero(rightOfWayContent, ROW_HERO_FALLBACK);
 
   const processSection = getSection("Structured process");
-  const processProps = mapSubpageProcess(processSection, ROW_PROCESS_FALLBACK);
+  const processProps = mapRightOfWaysProcess(processSection, ROW_PROCESS_FALLBACK);
 
   const feedbackSection = getSection("Feedback");
-  const testimonialsProps = mapSubpageTestimonials(feedbackSection, ROW_TESTIMONIALS_FALLBACK);
+  const testimonialsProps = mapRightOfWaysTestimonials(feedbackSection, ROW_TESTIMONIALS_FALLBACK);
 
   const contactSection = getSection("Contact Us");
-  const ctaProps = mapSubpageCta(contactSection, ROW_CTA_FALLBACK);
+  const ctaProps = mapRightOfWaysCta(contactSection, ROW_CTA_FALLBACK);
 
   const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 

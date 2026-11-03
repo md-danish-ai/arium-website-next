@@ -2,7 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Typography } from "@ui-element";
+import { Typography, ProcessIcon } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 export interface TimelineItem {
@@ -14,7 +14,7 @@ export interface TimelineItem {
 export interface PillarData {
   id: string;
   title: string;
-  iconSvg: React.ReactNode;
+  icon_svg?: string | null;
   themeColor?: string;
   background_color?: string;
   steps: string[];
@@ -156,7 +156,7 @@ export default function ProcessSection({
                         : "group-hover:bg-[var(--accent-color)] group-hover:shadow-[0_10px_20px_-6px_var(--accent-color)] group-hover:-translate-y-0.5"
                     }`}
                   >
-                    {pillar.iconSvg}
+                    <ProcessIcon id={pillar.id} title={pillar.title} icon_svg={pillar.icon_svg} />
                   </span>
                   <Typography
                     as="span"
@@ -213,7 +213,11 @@ export default function ProcessSection({
                             "#FBCBB5",
                         }}
                       >
-                        {pillar.iconSvg}
+                        <ProcessIcon
+                          id={pillar.id}
+                          title={pillar.title}
+                          icon_svg={pillar.icon_svg}
+                        />
                       </div>
                       {pillar.title}
                     </Typography>

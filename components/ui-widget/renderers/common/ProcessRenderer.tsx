@@ -1,7 +1,8 @@
 import React from "react";
 import { ProcessSection } from "@ui-common";
-import { mapSubpageProcess } from "@services/mappers/subpages.mapper";
-import { ROW_PROCESS_FALLBACK, PV_PROCESS_FALLBACK } from "@data/where-subpages.data";
+import { mapRightOfWaysProcess, mapPrivateVenuesProcess } from "@services/mappers";
+import { ROW_PROCESS_FALLBACK } from "@data/right-of-ways.data";
+import { PV_PROCESS_FALLBACK } from "@data/private-venues.data";
 import type { SectionRendererProps } from "../../helper";
 
 export default function ProcessRenderer({
@@ -20,7 +21,9 @@ export default function ProcessRenderer({
   return (
     <ProcessSection
       key={`process-${index}`}
-      {...mapSubpageProcess(section, isPrivateVenues ? PV_PROCESS_FALLBACK : ROW_PROCESS_FALLBACK)}
+      {...(isPrivateVenues
+        ? mapPrivateVenuesProcess(section, PV_PROCESS_FALLBACK)
+        : mapRightOfWaysProcess(section, ROW_PROCESS_FALLBACK))}
     />
   );
 }

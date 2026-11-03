@@ -5,18 +5,18 @@ import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
 import type { StrapiPageData, StrapiWidget, SectionEntry, StrapiSectionItem } from "@types";
 import {
-  mapSubpageHero,
-  mapSubpageProcess,
-  mapSubpageTestimonials,
-  mapSubpageCta,
-} from "@services/mappers/subpages.mapper";
+  mapPrivateVenuesHero,
+  mapPrivateVenuesProcess,
+  mapPrivateVenuesTestimonials,
+  mapPrivateVenuesCta,
+} from "@services/mappers";
 import {
   PV_HERO_FALLBACK,
   PV_PROCESS_FALLBACK,
   PV_TESTIMONIALS_FALLBACK,
   PV_CTA_FALLBACK,
   PV_SEO_FALLBACK,
-} from "@data/where-subpages.data";
+} from "@data/private-venues.data";
 
 export const dynamic = "force-dynamic";
 
@@ -40,16 +40,19 @@ export default async function PrivateVenuesPage() {
       (section) => section.key?.toLowerCase() === key.toLowerCase()
     );
 
-  const heroProps = mapSubpageHero(privateVenuesContent, PV_HERO_FALLBACK);
+  const heroProps = mapPrivateVenuesHero(privateVenuesContent, PV_HERO_FALLBACK);
 
   const processSection = getSection("Service delivery process");
-  const processProps = mapSubpageProcess(processSection, PV_PROCESS_FALLBACK);
+  const processProps = mapPrivateVenuesProcess(processSection, PV_PROCESS_FALLBACK);
 
   const testimonialsSection = getSection("Venue operators");
-  const testimonialsProps = mapSubpageTestimonials(testimonialsSection, PV_TESTIMONIALS_FALLBACK);
+  const testimonialsProps = mapPrivateVenuesTestimonials(
+    testimonialsSection,
+    PV_TESTIMONIALS_FALLBACK
+  );
 
   const contactSection = getSection("Contact Us");
-  const ctaProps = mapSubpageCta(contactSection, PV_CTA_FALLBACK);
+  const ctaProps = mapPrivateVenuesCta(contactSection, PV_CTA_FALLBACK);
 
   const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 

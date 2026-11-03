@@ -20,7 +20,16 @@ export function hasWidgetComponent(
       let comp = (s.__component?.toLowerCase() || "").replace(/^(shared|widget)\./, "");
       if (comp === "test-banner" || comp === "sub-page-banner") comp = "hero-banner";
       if (comp === "inner-page-hero") comp = "sub-page-hero";
-      return targets.some((target) => comp === target || comp.includes(target));
+      const matches = targets.some((target) => comp === target || comp.includes(target));
+      if (!matches) return false;
+
+      // If it is a testimonial widget, ensure it actually contains non-empty cards
+      if (comp.includes("testimonail") || comp.includes("testimonial")) {
+        const rawCards = (s as Record<string, unknown>).cards;
+        return Array.isArray(rawCards) && rawCards.length > 0;
+      }
+
+      return true;
     })
   );
 }
