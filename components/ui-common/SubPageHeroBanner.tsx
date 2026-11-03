@@ -12,7 +12,9 @@ export interface SubPageHeroBannerProps {
   CTA_text?: string | null;
   CTA_url?: string | null;
   background_gradient?: string | null;
+  background_color?: string | null;
   content_max_width?: string | null;
+  showBreadcrumbs?: boolean;
 }
 
 export default function SubPageHeroBanner({
@@ -23,7 +25,9 @@ export default function SubPageHeroBanner({
   CTA_text,
   CTA_url,
   background_gradient,
+  background_color,
   content_max_width,
+  showBreadcrumbs = true,
 }: SubPageHeroBannerProps) {
   const pathname = usePathname() || "";
 
@@ -75,6 +79,7 @@ export default function SubPageHeroBanner({
       id={id}
       style={{
         background:
+          background_color ||
           background_gradient ||
           (pathname.includes("/leadership") || pathname.includes("/board-of-directors")
             ? "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 50%, #DDD5FF 100%)"
@@ -85,7 +90,7 @@ export default function SubPageHeroBanner({
       <div className="absolute w-[600px] h-[600px] rounded-full [background:radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full [background:radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      {parentLabel && (
+      {showBreadcrumbs && parentLabel && (
         <div className="reveal absolute top-[140px] inset-x-0 z-[2]">
           <Container>
             <Breadcrumbs
