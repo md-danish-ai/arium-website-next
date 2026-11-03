@@ -20,9 +20,9 @@ export default function CareersEEO({
             />
           ) : (
             <Typography
-              variant="b4"
+              variant="b3"
               as="p"
-              className="text-[#162047]/65 text-[0.8rem] md:text-[0.85rem] mx-auto tracking-normal leading-relaxed text-center"
+              className="text-[#162047]/65 mx-auto tracking-normal text-center"
             >
               {text}
             </Typography>

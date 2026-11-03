@@ -1,11 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography, Button } from "@ui-element";
-import { DropdownArrowSvg } from "@ui-svg";
 import { Container } from "@ui-layout/SectionContainer";
 import type { ContactTopicOption } from "@data/contact.data";
 import { CONTACT_TOPIC_OPTIONS } from "@data/contact.data";
+import { contactFormSchema, type ContactFormData } from "./contact.schema";
+import ContactFormField from "./ContactFormField";
+import ContactInterestSelect from "./ContactInterestSelect";
+
+export { contactFormSchema, type ContactFormData } from "./contact.schema";
 
 export interface ContactFormProps {
   topicOptions?: ContactTopicOption[];
@@ -14,21 +20,33 @@ export interface ContactFormProps {
 export default function ContactForm({
   topicOptions = CONTACT_TOPIC_OPTIONS,
 }: ContactFormProps = {}) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [comments, setComments] = useState("");
-  const [interest, setInterest] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    mode: "onBlur",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      company: "",
+      email: "",
+      phone: "",
+      postalCode: "",
+      interest: "",
+      comments: "",
+    },
+  });
+
+  const isBusy = status === "loading" || isSubmitting;
+
+  const onSubmit = async (values: ContactFormData) => {
     setStatus("loading");
     setErrorMessage("");
 
@@ -39,13 +57,13 @@ export default function ContactForm({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phone,
-          company,
-          interest,
-          message: comments,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          phone: values.phone || "",
+          company: values.company,
+          interest: values.interest,
+          message: values.comments,
         }),
       });
 
@@ -53,14 +71,7 @@ export default function ContactForm({
 
       if (response.ok && data.success) {
         setStatus("success");
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPhone("");
-        setCompany("");
-        setPostalCode("");
-        setComments("");
-        setInterest("");
+        reset();
       } else {
         setStatus("error");
         setErrorMessage(data.error || "Something went wrong. Please try again.");
@@ -70,8 +81,6 @@ export default function ContactForm({
       setErrorMessage("Network error. Please check your connection and try again.");
     }
   };
-
-  const interestOptions = topicOptions;
 
   return (
     <div className="relative overflow-hidden bg-[#ededee] -mt-px border-0">
@@ -92,7 +101,7 @@ export default function ContactForm({
                 </Typography>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} id="contact-form">
+              <form onSubmit={handleSubmit(onSubmit)} id="contact-form" noValidate>
                 {status === "error" && (
                   <div className="bg-red-100 border border-red-500 text-red-700 p-3 rounded-lg mb-6 text-[0.95rem]">
                     {errorMessage}
@@ -100,283 +109,83 @@ export default function ContactForm({
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                  <div className="flex flex-col gap-2">
-                    <Typography
-                      variant="b4"
-                      as="label"
-                      uppercase
-                      weight="medium"
-                      htmlFor="first-name"
-                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
-                    >
-                      First Name <span className="text-red-600">*</span>
-                    </Typography>
-                    <input
-                      type="text"
-                      id="first-name"
-                      name="first_name"
-                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
-                      placeholder="First"
-                      required
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      disabled={status === "loading"}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Typography
-                      variant="b4"
-                      as="label"
-                      uppercase
-                      weight="medium"
-                      htmlFor="last-name"
-                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
-                    >
-                      Last Name <span className="text-red-600">*</span>
-                    </Typography>
-                    <input
-                      type="text"
-                      id="last-name"
-                      name="last_name"
-                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
-                      placeholder="Last"
-                      required
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      disabled={status === "loading"}
-                    />
-                  </div>
+                  <ContactFormField
+                    id="first-name"
+                    label="First Name"
+                    placeholder="First"
+                    required
+                    disabled={isBusy}
+                    error={errors.firstName?.message}
+                    registration={register("firstName")}
+                  />
+                  <ContactFormField
+                    id="last-name"
+                    label="Last Name"
+                    placeholder="Last"
+                    required
+                    disabled={isBusy}
+                    error={errors.lastName?.message}
+                    registration={register("lastName")}
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                  <div className="flex flex-col gap-2">
-                    <Typography
-                      variant="b4"
-                      as="label"
-                      uppercase
-                      weight="medium"
-                      htmlFor="company"
-                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
-                    >
-                      Organization <span className="text-red-600">*</span>
-                    </Typography>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
-                      placeholder="Your Organization"
-                      required
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      disabled={status === "loading"}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Typography
-                      variant="b4"
-                      as="label"
-                      uppercase
-                      weight="medium"
-                      htmlFor="email"
-                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
-                    >
-                      Email <span className="text-red-600">*</span>
-                    </Typography>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
-                      placeholder="email@company.com"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      disabled={status === "loading"}
-                    />
-                  </div>
+                  <ContactFormField
+                    id="company"
+                    label="Organization"
+                    placeholder="Your Organization"
+                    required
+                    disabled={isBusy}
+                    error={errors.company?.message}
+                    registration={register("company")}
+                  />
+                  <ContactFormField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    placeholder="email@company.com"
+                    required
+                    disabled={isBusy}
+                    error={errors.email?.message}
+                    registration={register("email")}
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                  <div className="flex flex-col gap-2">
-                    <Typography
-                      variant="b4"
-                      as="label"
-                      uppercase
-                      weight="medium"
-                      htmlFor="phone"
-                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
-                    >
-                      Phone Number
-                    </Typography>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
-                      placeholder="+1 000-000-0000"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      disabled={status === "loading"}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Typography
-                      variant="b4"
-                      as="label"
-                      uppercase
-                      weight="medium"
-                      htmlFor="postal-code"
-                      className="tracking-[0.06em] text-[#162047]/85 leading-relaxed"
-                    >
-                      Postal Code
-                    </Typography>
-                    <input
-                      type="text"
-                      id="postal-code"
-                      name="postal_code"
-                      className="w-full bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
-                      placeholder="99999"
-                      value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value)}
-                      disabled={status === "loading"}
-                    />
-                  </div>
+                  <ContactFormField
+                    id="phone"
+                    label="Phone Number"
+                    type="tel"
+                    placeholder="+1 000-000-0000"
+                    required
+                    disabled={isBusy}
+                    error={errors.phone?.message}
+                    registration={register("phone")}
+                  />
+                  <ContactFormField
+                    id="postal-code"
+                    label="Postal Code"
+                    placeholder="99999"
+                    required
+                    disabled={isBusy}
+                    error={errors.postalCode?.message}
+                    registration={register("postalCode")}
+                  />
                 </div>
 
-                <div className="flex flex-col gap-2 mb-5">
-                  <Typography
-                    variant="b4"
-                    as="label"
-                    uppercase
-                    weight="medium"
-                    id="interest-label"
-                    className="tracking-[0.06em] text-[#162047]/85 leading-relaxed cursor-pointer"
-                    onClick={() => document.getElementById("interest-wrapper")?.focus()}
-                  >
-                    Who are you reaching out to? <span className="text-red-600">*</span>
-                  </Typography>
-                  <div
-                    className="relative w-full"
-                    id="interest-wrapper"
-                    role="combobox"
-                    aria-expanded={dropdownOpen}
-                    aria-haspopup="listbox"
-                    aria-controls="interest-listbox"
-                    aria-labelledby="interest-label"
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                    onBlur={() => {
-                      setDropdownOpen(false);
-                      setFocusedOptionIndex(-1);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        if (!dropdownOpen) {
-                          setDropdownOpen(true);
-                          setFocusedOptionIndex(
-                            interestOptions.findIndex((opt) => opt.value === interest) >= 0
-                              ? interestOptions.findIndex((opt) => opt.value === interest)
-                              : 0
-                          );
-                        } else {
-                          if (
-                            focusedOptionIndex >= 0 &&
-                            focusedOptionIndex < interestOptions.length
-                          ) {
-                            setInterest(interestOptions[focusedOptionIndex].value);
-                          }
-                          setDropdownOpen(false);
-                        }
-                      } else if (e.key === "Escape") {
-                        setDropdownOpen(false);
-                        setFocusedOptionIndex(-1);
-                      } else if (e.key === "ArrowDown") {
-                        e.preventDefault();
-                        if (!dropdownOpen) {
-                          setDropdownOpen(true);
-                          setFocusedOptionIndex(
-                            interestOptions.findIndex((opt) => opt.value === interest) >= 0
-                              ? interestOptions.findIndex((opt) => opt.value === interest)
-                              : 0
-                          );
-                        } else {
-                          setFocusedOptionIndex((prev) =>
-                            prev < interestOptions.length - 1 ? prev + 1 : prev
-                          );
-                        }
-                      } else if (e.key === "ArrowUp") {
-                        e.preventDefault();
-                        if (dropdownOpen) {
-                          setFocusedOptionIndex((prev) => (prev > 0 ? prev - 1 : 0));
-                        }
-                      }
-                    }}
-                    tabIndex={0}
-                  >
-                    <div
-                      className={`w-full bg-transparent border-[1.5px] ${dropdownOpen ? "border-[#00e8d9] ring-2 ring-[#00e8d9]/20" : "border-[#162047]/40 hover:border-[#162047]/35"} rounded-[10px] px-[18px] py-[15px] flex items-center justify-between cursor-pointer transition-all duration-300 ease-out outline-none`}
-                      tabIndex={-1}
-                    >
-                      <span
-                        className={`text-xs ${interest ? "text-[#162047] text-[0.95rem]" : "text-[#162047]/50"}`}
-                      >
-                        {interest
-                          ? interestOptions.find((opt) => opt.value === interest)?.label
-                          : "Please select one of the following options"}
-                      </span>
-                      <DropdownArrowSvg isOpen={dropdownOpen} />
-                    </div>
-                    {dropdownOpen && (
-                      <ul
-                        className="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border-[1.5px] border-[#162047]/15 rounded-[10px] shadow-[0_12px_32px_rgba(22,32,71,0.1)] overflow-hidden z-20 py-1 max-h-[240px] overflow-y-auto"
-                        role="listbox"
-                        id="interest-listbox"
-                      >
-                        {interestOptions.map((option, index) => (
-                          <li
-                            key={option.value}
-                            data-value={option.value}
-                            role="option"
-                            aria-selected={interest === option.value}
-                            className={`px-[18px] py-3 text-[0.95rem] text-[#162047]/80 cursor-pointer transition-colors duration-200 hover:bg-[#00e8d9]/10 hover:text-[#162047] ${
-                              interest === option.value
-                                ? "bg-[#00e8d9]/15 text-[#162047] font-medium"
-                                : ""
-                            } ${focusedOptionIndex === index ? "bg-[#00e8d9]/10 text-[#162047]" : ""}`}
-                            onMouseEnter={() => setFocusedOptionIndex(index)}
-                            onMouseDown={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setInterest(option.value);
-                              setDropdownOpen(false);
-                            }}
-                          >
-                            {option.label}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <select
-                      name="interest"
-                      aria-hidden="true"
-                      tabIndex={-1}
-                      className="sr-only"
-                      value={interest}
-                      onChange={(e) => setInterest(e.target.value)}
-                      required
-                    >
-                      <option value="" disabled>
-                        Please select one of the following options
-                      </option>
-                      {interestOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+                <Controller
+                  name="interest"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <ContactInterestSelect
+                      options={topicOptions}
+                      value={field.value}
+                      onChange={field.onChange}
+                      error={fieldState.error?.message}
+                      disabled={isBusy}
+                    />
+                  )}
+                />
 
                 <div className="flex flex-col gap-2 mb-5">
                   <Typography
@@ -391,14 +200,20 @@ export default function ContactForm({
                   </Typography>
                   <textarea
                     id="comments"
-                    name="comments"
-                    className="w-full min-h-[148px] resize-none bg-transparent border-[1.5px] border-[#162047]/40 rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
                     placeholder="Type your comments here."
-                    required
-                    value={comments}
-                    onChange={(e) => setComments(e.target.value)}
-                    disabled={status === "loading"}
+                    disabled={isBusy}
+                    className={`w-full min-h-[148px] resize-none bg-transparent border-[1.5px] ${
+                      errors.comments
+                        ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
+                        : "border-[#162047]/40 hover:border-[#162047]/35 focus:border-[#00e8d9] focus:ring-2 focus:ring-[#00e8d9]/20"
+                    } rounded-[10px] text-[#162047] px-[18px] py-[15px] font-body text-[0.95rem] transition-all duration-300 ease-out outline-none placeholder:text-[#162047]/50 placeholder:text-xs`}
+                    {...register("comments")}
                   />
+                  {errors.comments && (
+                    <p className="text-red-600 text-xs mt-1 font-body leading-tight">
+                      {errors.comments.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="text-center pt-3 pb-10">
@@ -406,10 +221,10 @@ export default function ContactForm({
                     type="submit"
                     color="secondary"
                     size="lg"
-                    disabled={status === "loading"}
+                    disabled={isBusy}
                     className="min-w-[180px] shadow-sm"
                   >
-                    {status === "loading" ? "Sending..." : "SUBMIT"}
+                    {isBusy ? "Sending..." : "SUBMIT"}
                   </Button>
                 </div>
               </form>

@@ -76,22 +76,14 @@ export default function HeroBanner({
           />
         ) : null}
       </div>
-      <div
-        className="absolute inset-0 z-[2] bg-[linear-gradient(180deg,
-      rgba(13, 18, 36, 0.70) 0%,
-      rgba(13, 18, 36, 0.38) 10%,
-      rgba(13, 18, 36, 0.10) 18%,
-      transparent 26%),radial-gradient(ellipse 120% 38% at 50% 55%,
-      rgba(13, 18, 36, 0.50) 0%,
-      rgba(13, 18, 36, 0.28) 40%,
-      transparent 75%)]"
-      />
-      <Container className="relative z-[3] pt-[130px] md:pt-[150px] pb-[80px] md:pb-[100px] text-center w-full">
+      <div className="absolute inset-0 z-[2] bg-[linear-gradient(#0d1224b3_0%,#0d122461_10%,#0d12241a_18%,transparent_26%),radial-gradient(120%_38%_at_50%_55%,#0d122480_0%,#0d122447_40%,transparent_75%)] [-webkit-mask-image:linear-gradient(#000_0%_10%,transparent_28%),radial-gradient(120%_38%_at_50%_55%,#000_20%,transparent_75%)] [mask-image:linear-gradient(#000_0%_10%,transparent_28%),radial-gradient(120%_38%_at_50%_55%,#000_20%,transparent_75%)] [-webkit-mask-composite:source-over] [mask-composite:add] pointer-events-none" />
+      <Container className="relative z-[3] pt-[100px] md:pt-[150px] pb-[30px] md:pb-[100px] text-center w-full">
         {title && (
           <Typography
             variant="h1"
+            weight="normal"
             uppercase
-            className="text-white max-w-[1400px] mx-auto m-0 mb-[18px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
+            className="text-white max-w-[1400px] mx-auto m-0 mb-[18px] max-md:mb-[16px] [text-shadow:0_2px_8px_rgba(0,0,0,0.8),0_4px_24px_rgba(0,0,0,0.6),0_8px_48px_rgba(0,0,0,0.4)] reveal stagger-1"
             dangerouslySetInnerHTML={typeof title === "string" ? { __html: title } : undefined}
             style={
               maxWidthTitle
@@ -110,7 +102,7 @@ export default function HeroBanner({
         {description && (
           <Typography
             variant="b1"
-            className="text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
+            className="text-white/85 max-w-[920px] mx-auto m-0 [text-wrap:balance] max-md:mb-6 [text-shadow:0_1px_12px_rgba(0,0,0,0.4),0_2px_20px_rgba(0,0,0,0.25)] reveal stagger-2"
             dangerouslySetInnerHTML={
               typeof description === "string" ? { __html: description } : undefined
             }

@@ -15,10 +15,22 @@ export const CONTACT_TOPIC_OPTIONS: ContactTopicOption[] = [
   { value: "other", label: "Other" },
 ];
 
-export const CONTACT_HERO_FALLBACK = {
+export interface ContactHeroData {
+  title: string;
+  description: string;
+  heading?: string;
+  intro?: string;
+  background_gradient?: string;
+}
+
+export const CONTACT_HERO_FALLBACK: ContactHeroData = {
+  title: "Contact us",
+  description:
+    "Looking for more information? Or ready to discuss your connectivity needs? Fill out the form so we can connect you to the right team.",
   heading: "Contact us",
   intro:
     "Looking for more information? Or ready to discuss your connectivity needs? Fill out the form so we can connect you to the right team.",
+  background_gradient: "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)",
 };
 
 export const CONTACT_SEO_FALLBACK = {

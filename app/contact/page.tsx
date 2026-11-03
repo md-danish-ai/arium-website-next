@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import ContactHero from "@ui-component/contact/ContactHero";
+import { SubPageHeroBanner } from "@ui-common";
 import ContactForm from "@ui-component/contact/ContactForm";
 import { fetchAPI, fetchPageWidgets } from "@lib/api";
 import { combinePageSections, hasWidgetComponent, getPageMetadata } from "@utils";
@@ -28,16 +28,23 @@ export default async function ContactPage() {
 
   const hasSubPageHeroWidget = hasWidgetComponent(globalWidgets, "sub-page-hero");
 
+  const heroTitle = contactContent?.heroTitle || CONTACT_HERO_FALLBACK.title;
+  const heroDescription = contactContent?.heroDescription || CONTACT_HERO_FALLBACK.description;
+  const heroBg =
+    (contactContent?.background_gradient as string) || CONTACT_HERO_FALLBACK.background_gradient;
+
   const fallbackSections: SectionEntry[] = [
     {
       pos: 1,
       key: "sub-page-hero",
       skip: hasSubPageHeroWidget,
       el: (
-        <ContactHero
+        <SubPageHeroBanner
           key="sub-page-hero"
-          heading={contactContent?.heroTitle || CONTACT_HERO_FALLBACK.heading}
-          intro={contactContent?.heroDescription || CONTACT_HERO_FALLBACK.intro}
+          id="contact-header"
+          title={heroTitle}
+          description={heroDescription}
+          background_gradient={heroBg}
         />
       ),
     },
