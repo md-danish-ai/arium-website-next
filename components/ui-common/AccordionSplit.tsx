@@ -47,7 +47,7 @@ export interface AccordionSplitProps {
 }
 
 function resolveItemImage(item: AccordionItem, index?: number): string {
-  const directUrl = extractMediaUrl(item.bg_image);
+  const directUrl = extractMediaUrl(item.background_image || item.bg_image);
   if (directUrl) return GetStrapiMediaUrl(directUrl);
   if (typeof index === "number" && index >= 0 && INDUSTRY_BG_IMAGES.length > 0) {
     return INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
@@ -176,7 +176,7 @@ export default function AccordionSplit({
             );
           })}
           <div
-            className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-midnight"
+            className="absolute inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_bottom,#162047_0%,#16204799_25%,transparent_55%,#16204766_80%,#162047_100%)] md:bg-[linear-gradient(90deg,#0a0e20c7_0%,#0a0e2080_35%,#0a0e2033_55%,transparent_80%,#162047_96%,#162047_100%)]"
             aria-hidden="true"
           />
         </div>
@@ -238,9 +238,7 @@ export default function AccordionSplit({
                 const itemBg = item.background_color
                   ? item.background_color
                   : imageMode
-                    ? isActive
-                      ? "rgba(13,18,36,0.85)"
-                      : "rgba(13,18,36,0.65)"
+                    ? "rgba(13,18,36,0.75)"
                     : "#162047";
 
                 const titleColor = isActive

@@ -91,17 +91,18 @@ export default function SolutionsIndustries({
   return (
     <section
       id="industries"
-      className="relative overflow-hidden py-14 md:py-20 lg:py-24 bg-[#101830] border-none"
+      className="relative overflow-hidden py-14 md:py-20 lg:py-24 bg-[#162047] border-none"
       style={background_color ? { background: background_color } : undefined}
       onMouseLeave={handleMouseLeave}
     >
       <div className="absolute left-0 top-0 w-full h-full lg:w-3/4 z-0 pointer-events-none overflow-hidden">
         {accordian_cards.map((card, index) => {
-          const bgSrc = INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
+          const bgSrc =
+            card.background_image || INDUSTRY_BG_IMAGES[index % INDUSTRY_BG_IMAGES.length];
           return (
             <Image
               key={index}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-800 ease-in-out ${
                 index === currentIndex ? "opacity-100 z-0" : "opacity-0"
               }`}
               src={bgSrc}
@@ -111,18 +112,18 @@ export default function SolutionsIndustries({
             />
           );
         })}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#101830]/85 via-[#101830]/70 to-[#101830]/95 lg:bg-gradient-to-r lg:from-[#0a0e20]/80 lg:via-[#0a0e20]/50 lg:to-[#101830]" />
+        <div className="absolute inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_bottom,#162047_0%,#16204799_25%,transparent_55%,#16204766_80%,#162047_100%)] md:bg-[linear-gradient(90deg,#0a0e20c7_0%,#0a0e2080_35%,#0a0e2033_55%,transparent_80%,#162047_96%,#162047_100%)]" />
       </div>
 
       <Container className="relative z-[2]">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.9fr] gap-8 lg:gap-16 items-start">
-          <div className="reveal w-full lg:max-w-[540px] lg:sticky lg:top-36">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.9fr] gap-10 lg:gap-[90px] items-start">
+          <div className="reveal w-full lg:max-w-[600px] min-[1450px]:max-w-[700px] lg:sticky lg:top-28">
             <Typography
               variant="h3"
               as="h2"
               uppercase
               weight="normal"
-              className="section-title text-left text-white m-0 mb-3 md:mb-6 leading-tight tracking-[0.06em]"
+              className="section-title text-left text-white m-0 mb-3 md:mb-6 leading-tight tracking-[0.06em] [text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]"
               style={title_color ? { color: title_color } : undefined}
             >
               {title}
@@ -130,7 +131,7 @@ export default function SolutionsIndustries({
             <Typography
               variant="b1"
               as="p"
-              className="section-description text-white/80 text-left m-0 leading-relaxed"
+              className="section-description text-white/85 text-left m-0 leading-relaxed [text-shadow:0_1px_10px_rgba(0,0,0,0.5),0_2px_20px_rgba(0,0,0,0.25)]"
               style={description_color ? { color: description_color } : undefined}
             >
               {description}
@@ -138,7 +139,7 @@ export default function SolutionsIndustries({
           </div>
 
           <div className="w-full flex flex-col justify-center">
-            <div className="reveal flex flex-col gap-2.5 md:gap-3">
+            <div className="reveal flex flex-col gap-2 md:gap-2">
               {accordian_cards.map((card, index) => {
                 const isActive = index === currentIndex;
                 const iconKey = card.title.toLowerCase().trim();
@@ -148,10 +149,10 @@ export default function SolutionsIndustries({
                 return (
                   <div
                     key={index}
-                    className={`group flex flex-col justify-start py-[14px] px-[12px] rounded-lg border transition-all duration-350 cursor-pointer ${
+                    className={`group flex flex-col justify-start py-3.5 md:py-4 px-3 md:px-[18px] rounded-lg border transition-all duration-350 cursor-pointer bg-[#0d1224]/75 ${
                       isActive
-                        ? "border-[#00e8d9]/40 bg-[#0d1224]/90 shadow-lg"
-                        : "border-white/10 bg-[#0d1224]/75 hover:border-[#00e8d9]/30 hover:bg-[#0d1224]/85"
+                        ? "border-[#00e8d9]/45 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
+                        : "border-white/10 hover:border-[#00e8d9]/45 hover:shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
                     }`}
                     style={
                       card.background_color ? { background: card.background_color } : undefined
