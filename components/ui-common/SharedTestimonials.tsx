@@ -1,13 +1,17 @@
 import React from "react";
 import { Typography, TestimonialCard } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
-import type { SubpageTestimonialCard } from "@data/where-subpages.data";
-
-export type SharedTestimonialCard = SubpageTestimonialCard;
+export interface SharedTestimonialCard {
+  id: number | string;
+  person_name: string;
+  person_message: string;
+  person_designation: string;
+  card_footer_bg?: string | null;
+}
 
 export interface SharedTestimonialsProps {
   title: string;
-  cards: SubpageTestimonialCard[];
+  cards: SharedTestimonialCard[];
 }
 
 export default function SharedTestimonials({ title, cards }: SharedTestimonialsProps) {

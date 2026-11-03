@@ -6,6 +6,7 @@ export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as AboutStatCard } from "./AboutStatCard";
 export { default as MemberModal } from "./MemberModal";
 export { default as TestimonialCard } from "./TestimonialCard";
+export { default as ProcessIcon } from "./ProcessIcon";
 
 export * from "./Typography";
 export * from "./DetailedCard";
@@ -15,3 +16,4 @@ export * from "./Breadcrumbs";
 export * from "./AboutStatCard";
 export * from "./MemberModal";
 export * from "./TestimonialCard";
+export * from "./ProcessIcon";

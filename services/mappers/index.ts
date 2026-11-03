@@ -5,5 +5,6 @@ export * from "./community.mapper";
 export * from "./solutions.mapper";
 export * from "./careers.mapper";
 export * from "./people.mapper";
-export * from "./subpages.mapper";
+export * from "./right-of-ways.mapper";
+export * from "./private-venues.mapper";
 export * from "./layout.mapper";
