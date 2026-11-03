@@ -237,10 +237,21 @@ export function mapSubpageTestimonials(
 
   const cards: SubpageTestimonialCard[] = rawCards.map((card, idx) => ({
     id: (card.id as number | string) || idx + 1,
-    person_name: (card.person_name as string) || fallback.cards[idx]?.person_name || "",
-    person_message: (card.person_message as string) || fallback.cards[idx]?.person_message || "",
+    person_name:
+      (card.title as string) ||
+      (card.person_name as string) ||
+      fallback.cards[idx]?.person_name ||
+      "",
+    person_message:
+      (card.description as string) ||
+      (card.person_message as string) ||
+      fallback.cards[idx]?.person_message ||
+      "",
     person_designation:
-      (card.person_designation as string) || fallback.cards[idx]?.person_designation || "",
+      (card.badge as string) ||
+      (card.person_designation as string) ||
+      fallback.cards[idx]?.person_designation ||
+      "",
     card_footer_bg:
       (card.card_footer_bg as string | null | undefined) ||
       fallback.cards[idx]?.card_footer_bg ||
