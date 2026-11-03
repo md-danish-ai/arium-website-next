@@ -5,6 +5,7 @@ export { default as Button } from "./Button";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as AboutStatCard } from "./AboutStatCard";
 export { default as MemberModal } from "./MemberModal";
+export { default as TestimonialCard } from "./TestimonialCard";
 
 export * from "./Typography";
 export * from "./DetailedCard";
@@ -13,3 +14,4 @@ export * from "./Button";
 export * from "./Breadcrumbs";
 export * from "./AboutStatCard";
 export * from "./MemberModal";
+export * from "./TestimonialCard";
