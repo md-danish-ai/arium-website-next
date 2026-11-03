@@ -6,6 +6,7 @@ export * from "./solutions.data";
 export * from "./careers.data";
 export * from "./leadership.data";
 export * from "./board-of-directors.data";
-export * from "./where-subpages.data";
+export * from "./right-of-ways.data";
+export * from "./private-venues.data";
 export * from "./contact.data";
 export * from "./navigation.data";

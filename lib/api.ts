@@ -55,6 +55,18 @@ const PAGE_WIDGET_POPULATE_MAP: Record<string, string> = {
     "populate[widgets][populate][Sections][on][shared.accordion-split][populate][accordian_cards][populate]=*",
     "populate[widgets][populate][Sections][on][shared.cta-with-graphic][populate]=*",
   ].join("&"),
+  "right-of-ways": [
+    "populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.process][populate][process_stage][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.gloabl-testimonails][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.global-cta][populate]=*",
+  ].join("&"),
+  "private-venues": [
+    "populate[widgets][populate][Sections][on][shared.inner-page-hero][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.process][populate][process_stage][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.gloabl-testimonails][populate]=*",
+    "populate[widgets][populate][Sections][on][shared.global-cta][populate]=*",
+  ].join("&"),
 };
 
 // Fetches dynamic zone widgets for a given page slug

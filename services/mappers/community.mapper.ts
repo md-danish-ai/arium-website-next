@@ -191,9 +191,11 @@ export function mapCommunityTestimonials(
       const fb = fallback.cards[i] || fallback.cards[0];
       return {
         id: (c.id as number | string) ?? i + 1,
-        person_name: (c.person_name as string) || fb.person_name,
-        person_designation: (c.person_designation as string) || fb.person_designation,
-        person_message: (c.person_message as string) || fb.person_message,
+        person_name: (c.title as string) || (c.person_name as string) || fb.person_name,
+        person_designation:
+          (c.badge as string) || (c.person_designation as string) || fb.person_designation,
+        person_message:
+          (c.description as string) || (c.person_message as string) || fb.person_message,
         card_footer_bg: (c.card_footer_bg as string) || fb.card_footer_bg,
       };
     });

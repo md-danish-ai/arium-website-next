@@ -1,14 +1,13 @@
-export interface SubpageHeroData {
+export interface RightOfWaysHeroData {
   title: string;
   description: string;
-  tag?: string | null;
   CTA_text?: string | null;
   CTA_url?: string | null;
   background_gradient?: string | null;
   content_max_width?: string | null;
 }
 
-export interface SubpageTestimonialCard {
+export interface RightOfWaysTestimonialCard {
   id: number | string;
   person_name: string;
   person_message: string;
@@ -16,36 +15,37 @@ export interface SubpageTestimonialCard {
   card_footer_bg?: string | null;
 }
 
-export interface SubpageTestimonialsData {
+export interface RightOfWaysTestimonialsData {
   title: string;
-  cards: SubpageTestimonialCard[];
+  cards: RightOfWaysTestimonialCard[];
 }
 
-export interface ProcessTimelineItem {
+export interface RightOfWaysTimelineItem {
   label: string;
   desc: string;
   backgroundColor?: string;
 }
 
-export interface ProcessPillarItem {
+export interface RightOfWaysProcessPillarItem {
   id: string;
   title: string;
   themeColor: string;
   background_color?: string;
   steps: string[];
-  timelineItems: ProcessTimelineItem[];
+  timelineItems: RightOfWaysTimelineItem[];
   icon?: string;
+  icon_svg?: string | null;
 }
 
-export interface ProcessSectionData {
+export interface RightOfWaysProcessData {
   title: string;
   description: string;
   background_color?: string | null;
-  pillars: ProcessPillarItem[];
+  pillars: RightOfWaysProcessPillarItem[];
   maxWidthTitle?: string;
 }
 
-export interface SubpageCtaData {
+export interface RightOfWaysCtaData {
   prompt_to_cta: string;
   CTA_text: string;
   CTA_url: string;
@@ -53,15 +53,13 @@ export interface SubpageCtaData {
   globe_illustration?: string | null;
 }
 
-export interface SubpageSeoData {
+export interface RightOfWaysSeoData {
   title: string;
   description: string;
 }
 
-// Right of Way defaults
-
-export const ROW_HERO_FALLBACK: SubpageHeroData = {
-  tag: "",
+// Right of Way fallback data
+export const ROW_HERO_FALLBACK: RightOfWaysHeroData = {
   title: "Connectivity that moves communities forward",
   description: "As technology advances, small cells keep your community connected to what matters.",
   CTA_text: "Contact Us",
@@ -71,7 +69,7 @@ export const ROW_HERO_FALLBACK: SubpageHeroData = {
   content_max_width: null,
 };
 
-export const ROW_TESTIMONIALS_FALLBACK: SubpageTestimonialsData = {
+export const ROW_TESTIMONIALS_FALLBACK: RightOfWaysTestimonialsData = {
   title: "What community leaders are saying",
   cards: [
     {
@@ -93,7 +91,7 @@ export const ROW_TESTIMONIALS_FALLBACK: SubpageTestimonialsData = {
   ],
 };
 
-export const ROW_PROCESS_FALLBACK: ProcessSectionData = {
+export const ROW_PROCESS_FALLBACK: RightOfWaysProcessData = {
   title: "Our structured process for building small cells",
   description:
     "Every community is different, but we have a proven process for navigating complexities and designing infrastructure to meet your wireless connectivity needs.",
@@ -181,7 +179,7 @@ export const ROW_PROCESS_FALLBACK: ProcessSectionData = {
   ],
 };
 
-export const ROW_CTA_FALLBACK: SubpageCtaData = {
+export const ROW_CTA_FALLBACK: RightOfWaysCtaData = {
   prompt_to_cta:
     "To see how we can support your infrastructure needs, reach out to our dedicated municipal team.",
   CTA_text: "Contact Us",
@@ -190,130 +188,8 @@ export const ROW_CTA_FALLBACK: SubpageCtaData = {
   globe_illustration: "/images/svg-images/connection-globe.svg",
 };
 
-export const ROW_SEO_FALLBACK: SubpageSeoData = {
+export const ROW_SEO_FALLBACK: RightOfWaysSeoData = {
   title: "Right of Way | Arium Networks",
   description:
     "As technology advances, Arium Networks is building the small cells that keep communities connected to what matters.",
-};
-
-// Private Venues defaults
-
-export const PV_HERO_FALLBACK: SubpageHeroData = {
-  tag: "",
-  title: "Bringing advanced connectivity to your property",
-  description:
-    "Our in-building solutions help private venues keep up with advances and technology, while supporting the connectivity demands of tenants and guests.",
-  CTA_text: "Contact Us",
-  CTA_url: "/contact",
-  background_gradient:
-    "linear-gradient(135deg, rgb(245, 240, 255) 0%, rgb(237, 229, 255) 40%, rgb(221, 211, 255) 100%)",
-  content_max_width: "960px",
-};
-
-export const PV_TESTIMONIALS_FALLBACK: SubpageTestimonialsData = {
-  title: "What venue operators are saying",
-  cards: [
-    {
-      id: 183,
-      person_name: "David L.",
-      person_designation: "Director of Operations, Major Sports Arena",
-      person_message:
-        "Fans today want to share their experiences in real-time. Without reliable in-building connectivity, it doesn't matter how great the event is; they feel disconnected. Adding a dedicated small cell network transformed our venue.",
-      card_footer_bg: "#bcf6f2",
-    },
-    {
-      id: 184,
-      person_name: "Maria C.",
-      person_designation: "Commercial Real Estate Developer",
-      person_message:
-        "Our property is a mixed-use development, and tenants expect seamless cellular coverage from the parking garage to the top floor. Custom wireless solutions proved to be the key differentiator for leasing.",
-      card_footer_bg: "#D2C7FF",
-    },
-  ],
-};
-
-export const PV_PROCESS_FALLBACK: ProcessSectionData = {
-  title: "Our proven service delivery process",
-  description:
-    "Whether you operate a large stadium, commercial building, theme park, campus, or other private venue, we can work with you to design a distributed antenna system (DAS) or small cell network (SCN) that meets your unique connectivity needs.",
-  pillars: [
-    {
-      id: "design",
-      title: "Design",
-      themeColor: "#D2C7FF",
-      background_color: "#D2C7FF",
-      steps: ["Select Partners", "Plan Integration", "Finalize RF Design"],
-      timelineItems: [
-        {
-          label: "Select Partners",
-          desc: "We have local relationships with wireless service providers, vendors, and municipal officials, allowing us to select the architecture, engineering, and construction partners that are best suited to the unique needs of your venue.",
-          backgroundColor: "#D2C7FF",
-        },
-        {
-          label: "Plan Integration",
-          desc: "We coordinate with your design teams to carefully integrate the DAS or SCN into the architecture of your space, following all venue safety, training, and construction requirements.",
-          backgroundColor: "#D2C7FF",
-        },
-        {
-          label: "Finalize RF Design",
-          desc: "Our radio frequency (RF) engineering team develops the network design in partnership with the original equipment manufacturers (OEMs) and wireless service providers.",
-          backgroundColor: "#D2C7FF",
-        },
-      ],
-    },
-    {
-      id: "construction",
-      title: "Construction",
-      themeColor: "#D2C7FF",
-      background_color: "#D2C7FF",
-      steps: ["Work With Contractors", "Manage Project"],
-      timelineItems: [
-        {
-          label: "Work With Contractors",
-          desc: "We select qualified contractors with DAS experience related to your specific type of venue and coordinate closely with your own general contractor and sub-contractors.",
-          backgroundColor: "#D2C7FF",
-        },
-        {
-          label: "Manage Project",
-          desc: "We oversee the construction progress, perform ongoing design reviews, and address challenges to ensure a seamless project experience.",
-          backgroundColor: "#D2C7FF",
-        },
-      ],
-    },
-    {
-      id: "optimization",
-      title: "Optimization",
-      themeColor: "#D2C7FF",
-      background_color: "#D2C7FF",
-      steps: ["Testing", "Fine Tuning"],
-      timelineItems: [
-        {
-          label: "Testing",
-          desc: "We partner with experienced testing firms, with oversight from our RF engineering team, to test the completed DAS or SCN.",
-          backgroundColor: "#D2C7FF",
-        },
-        {
-          label: "Fine Tuning",
-          desc: "We adjust and optimize the network as needed and plan for any future updates.",
-          backgroundColor: "#D2C7FF",
-        },
-      ],
-    },
-  ],
-};
-
-export const PV_CTA_FALLBACK: SubpageCtaData = {
-  prompt_to_cta:
-    "To see how we can support your connectivity needs, reach out to our dedicated venues team.",
-  CTA_text: "Contact Us",
-  CTA_url: "/contact",
-  background_gradient:
-    "linear-gradient(135deg, rgb(255, 255, 202) 0%, rgb(255, 248, 225) 40%, rgb(255, 218, 200) 100%)",
-  globe_illustration: "/images/svg-images/connection-globe.svg",
-};
-
-export const PV_SEO_FALLBACK: SubpageSeoData = {
-  title: "Private Venues | Arium Networks",
-  description:
-    "Our small cell and DAS in-building solutions enable the wireless coverage and capacity private venues need to support the demands of tenants and guests.",
 };
