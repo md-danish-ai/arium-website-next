@@ -31,7 +31,7 @@ export const SOLUTIONS_HERO_FALLBACK = {
   description:
     "As new technologies emerge, we're building and scaling wireless networks that will support evolving demand—today and what comes next.",
   background_image: "/images/heroes/solutions.png",
-  background_image_position: "center top",
+  background_image_position: "center",
   CTA_text: "Contact Us",
   CTA_url: "/contact",
   max_width_title: "1400px",

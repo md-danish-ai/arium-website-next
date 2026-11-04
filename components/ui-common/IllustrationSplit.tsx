@@ -146,7 +146,6 @@ export default function IllustrationSplit({
                     {item.stat && (
                       <Typography
                         variant="stat"
-                        weight="bold"
                         className="sol-kpi-num text-[#7c5cbf]"
                         style={item.stat_color ? { color: item.stat_color } : undefined}
                       >

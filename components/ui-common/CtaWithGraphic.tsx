@@ -78,7 +78,7 @@ export default function CtaWithGraphic({
 
           <Typography
             as="p"
-            variant="b1"
+            variant="b2"
             className="reveal stagger-2 m-0 mb-6 md:mb-8 text-midnight/85 max-w-[620px] leading-[1.6]"
             style={{ color: description_color || undefined }}
           >

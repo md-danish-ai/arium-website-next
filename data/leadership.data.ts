@@ -10,7 +10,8 @@ export interface PeopleMemberItem {
 
 export const LEADERSHIP_HERO_FALLBACK = {
   title: "Our Leadership",
-  description: "Seasoned industry leaders driving strategic growth\nand operational excellence.",
+  description:
+    "Seasoned industry leaders driving strategic growth </br> and operational excellence.",
   tag: null,
   CTA_text: null,
   CTA_url: null,

@@ -68,12 +68,12 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   h4: "font-heading tracking-[0.06em] text-[clamp(1rem,2vw,2.2rem)] leading-[1.2]",
   h5: "font-heading tracking-[0.04em] text-[clamp(1rem,1.4vw,1.15rem)] leading-snug",
   h6: "font-heading tracking-[0.15em] text-[clamp(0.8rem,1vw,0.875rem)] leading-snug",
-  b1: "font-body text-[clamp(0.9rem,1.2vw,1.18rem)] leading-[1.7]",
+  b1: "font-body text-[clamp(0.9rem,1.3vw,1.18rem)] leading-[1.7]",
   b2: "font-body text-[clamp(0.875rem,1.1vw,1rem)] leading-[1.65]",
   b3: "font-body text-[clamp(0.8rem,0.9vw,0.875rem)] leading-[1.6]",
   b4: "font-body tracking-[0.08em] text-[clamp(0.7rem,0.8vw,0.75rem)] leading-none",
-  stat: "font-heading tracking-[-0.03em] text-[clamp(2rem,1.2rem+1.8vw,2.8rem)] leading-none",
-  button: "font-heading tracking-[0.1em] text-[clamp(0.8rem,1vw,0.85rem)] leading-none",
+  stat: "font-heading tracking-[-0.03em] text-[clamp(1rem,-0.2273rem+5.4545vw,4rem)] leading-none",
+  button: "font-heading tracking-[0.1em] text-[clamp(0.6rem,1vw,0.7rem)] leading-none",
   quote: "font-body italic text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.8]",
 };
 
