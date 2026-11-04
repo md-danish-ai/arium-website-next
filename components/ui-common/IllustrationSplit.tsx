@@ -24,7 +24,9 @@ export interface IllustrationSplitProps {
   illustration_image_alignment?: "Right" | "Left" | "Media Right" | "Media Left";
   show_bottom_divider?: boolean;
   statistics?: IllustrationSplitStatItem[];
+  background?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function IllustrationSplit({
@@ -37,7 +39,9 @@ export default function IllustrationSplit({
   illustration_image_alignment = "Right",
   show_bottom_divider = false,
   statistics = [],
+  background,
   className = "",
+  style,
 }: IllustrationSplitProps) {
   const isLeft =
     illustration_image_alignment === "Left" || illustration_image_alignment === "Media Left";
@@ -68,22 +72,27 @@ export default function IllustrationSplit({
       (description.includes("<") && description.includes(">")))
   );
 
+  const defaultBg = "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)";
+  const resolvedBg = background || (className.includes("bg-transparent") ? undefined : defaultBg);
+
   return (
     <section
       ref={containerRef}
       id={id}
-      className={`bg-transparent max-lg:pt-[60px] lg:py-[50px] ${!isLeft ? "max-lg:pb-0" : "max-lg:pb-[50px]"} relative overflow-hidden ${className}`}
+      className={`py-[50px] relative overflow-hidden ${className}`}
+      style={{
+        ...(resolvedBg ? { background: resolvedBg } : {}),
+        ...style,
+      }}
     >
       <Container>
         <div
-          className={`relative max-lg:block ${
-            !isLeft ? "max-lg:mb-12" : "max-lg:mb-0"
-          } lg:grid lg:grid-cols-2 lg:gap-16 items-center w-full lg:max-w-none mx-auto`}
+          className={`relative max-lg:block ${!isLeft ? "max-lg:mb-12" : "max-lg:mb-0"
+            } lg:grid lg:grid-cols-2 lg:gap-16 items-center w-full lg:max-w-none mx-auto`}
         >
           <div
-            className={`sol-split-text max-lg:relative max-lg:z-[1] max-lg:pt-[75px] max-lg:pr-4 order-1 reveal ${
-              isLeft ? "lg:order-2" : "lg:order-1"
-            }`}
+            className={`sol-split-text max-lg:relative max-lg:z-[1] max-lg:pt-[75px] max-lg:pr-4 order-1 reveal ${isLeft ? "lg:order-2" : "lg:order-1"
+              }`}
           >
             {title && (
               <Typography
@@ -163,9 +172,8 @@ export default function IllustrationSplit({
           {/* Illustration wrapper */}
           {resolvedImg && (
             <div
-              className={`sol-illustration-wrapper max-lg:block max-lg:absolute max-lg:-top-[60px] max-lg:-right-[80px] max-lg:w-[180px] max-lg:h-[180px] max-lg:z-0 max-lg:pointer-events-none max-lg:overflow-visible lg:flex items-center self-center order-2 w-full reveal-scale ${
-                isLeft ? "lg:justify-start lg:order-1" : "lg:justify-end lg:order-2"
-              }`}
+              className={`sol-illustration-wrapper max-lg:block max-lg:absolute max-lg:-top-[60px] max-lg:-right-[80px] max-lg:w-[180px] max-lg:h-[180px] max-lg:z-0 max-lg:pointer-events-none max-lg:overflow-visible lg:flex items-center self-center order-2 w-full reveal-scale ${isLeft ? "lg:justify-start lg:order-1" : "lg:justify-end lg:order-2"
+                }`}
             >
               <div className="relative w-full max-w-[340px] lg:max-w-[440px] max-lg:static max-lg:max-w-none">
                 {isSvg ? (
