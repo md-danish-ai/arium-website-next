@@ -66,7 +66,7 @@ export const ROW_HERO_FALLBACK: RightOfWaysHeroData = {
   CTA_url: "/contact",
   background_gradient:
     "linear-gradient(135deg, rgb(255, 245, 238) 0%, rgb(255, 232, 214) 40%, rgb(255, 218, 200) 100%)",
-  content_max_width: null,
+  content_max_width: "1000px",
 };
 
 export const ROW_TESTIMONIALS_FALLBACK: RightOfWaysTestimonialsData = {

@@ -62,7 +62,7 @@ export interface PrivateVenuesSeoData {
 export const PV_HERO_FALLBACK: PrivateVenuesHeroData = {
   title: "Bringing advanced connectivity to your property",
   description:
-    "Our in-building solutions help private venues keep up with advances and technology, while supporting the connectivity demands of tenants and guests.",
+    "Our in-building solutions help private venues keep up with advances and <br/> technology, while supporting the connectivity demands of tenants and guests.",
   CTA_text: "Contact Us",
   CTA_url: "/contact",
   background_gradient:

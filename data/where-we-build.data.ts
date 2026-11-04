@@ -16,9 +16,9 @@ export const WHERE_HERO_FALLBACK = {
     "We build wireless infrastructure in two main places: out in communities and inside buildings and venues. Each environment has unique needs, so we design each network to fit the space and people that use them.",
   background_image: "/images/backgrounds/challenges.png",
   background_image_position: "center top",
-  CTA_text: "Contact Us",
-  CTA_url: "/contact",
-  max_width_title: "1400px",
+  CTA_text: "",
+  CTA_url: "",
+  max_width_title: "800px",
   max_width_description: "920px",
   tag: null,
 };

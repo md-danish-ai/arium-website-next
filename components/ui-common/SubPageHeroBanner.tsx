@@ -141,7 +141,7 @@ export default function SubPageHeroBanner({
             pathname.includes("/board-of-directors")) && (
             <Typography
               variant="b1"
-              className="reveal stagger-3 text-center text-midnight/80 max-w-[800px] mx-auto mt-4"
+              className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
               dangerouslySetInnerHTML={{
                 __html:
                   description ||

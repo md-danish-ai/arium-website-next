@@ -5,7 +5,7 @@ export type { PeopleMemberItem };
 export const BOARD_HERO_FALLBACK = {
   title: "Board of Directors",
   description:
-    "Guiding strategy and governance with decades of industry leadership and investment expertise.",
+    "Guiding strategy and governance with decades of <br/> industry leadership and investment expertise.",
   tag: null,
   CTA_text: null,
   CTA_url: null,
