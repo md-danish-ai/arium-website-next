@@ -44,9 +44,9 @@ export const NETWORK_CHALLENGES_FALLBACK: {
   CTA_url?: string;
   feature_cards: FeatureCardItem[];
 } = {
-  title: "Solve network challenges with a trusted partner",
+  title: "Solving the toughest network challenges",
   description:
-    "Whether you're densifying an existing network, improving coverage in high-traffic areas, or preparing for next-generation connectivity, we deliver custom infrastructure solutions engineered for reliability and scale.",
+    "Deploying a small cell or distributed antenna system (DAS) network involves careful planning, precision engineering, and efficient coordination. Whether in dense neighborhoods, difficult terrain, or high-traffic venues and buildings, our customers rely on our deep expertise and established relationships across the country to help them solve even the most unique coverage and capacity challenges.",
   background_image_desktop: "/images/backgrounds/challenges.png",
   background_image_mobile: "/images/backgrounds/challenges.png",
   title_color: "#ffffff",
@@ -89,9 +89,9 @@ export const INFRASTRUCTURE_FALLBACK: {
   background_color?: string;
   panel_cards: InfrastructureCard[];
 } = {
-  title: "The infrastructure that powers advanced connectivity ",
+  title: "The infrastructure that powers advanced connectivity",
   description:
-    "For over 15 years, we've been building and maintaining the infrastructure the wireless industry relies on. ",
+    "For over 15 years, we've been building and maintaining the infrastructure the wireless industry relies on.",
   background_color: undefined,
   panel_cards: [
     {
@@ -129,7 +129,7 @@ export const STATS_FALLBACK: {
   stat_illustration: string;
   stats_card: StatItem[];
 } = {
-  title: "Scale and experience to match your ambition ",
+  title: "Scale and experience to match your ambition",
   title_color: "#ffffff",
   stat_illustration: "/images/svg-images/us-dot-map-faint.svg",
   stats_card: [
@@ -189,7 +189,7 @@ export const COMMUNITY_IMPACT_FALLBACK: {
   background_image_mobile: string;
   section_pointers: SectionPointerItem[];
 } = {
-  title: "Keeping communities safe and connected ",
+  title: "Keeping communities safe and connected",
   title_color: "#ffffff",
   description:
     "We work closely with communities to balance the need for essential connectivity with the desire for thoughtfully designed infrastructure that integrates seamlessly with the existing streetscapes.",
@@ -229,7 +229,7 @@ export const COMMUNITY_IMPACT_FALLBACK: {
 // Careers CTA fallback
 
 export const CAREERS_FALLBACK = {
-  title: "Help us shape the future of connectivity ",
+  title: "Help us shape the future of connectivity",
   title_color: "#ffffff",
   description:
     "Our infrastructure powers the connected world we all rely on. By joining our team, you'll be at the center of it all, helping us shape the future of connectivity by playing a meaningful role in building the next generation of wireless technology.",

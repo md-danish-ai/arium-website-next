@@ -80,7 +80,7 @@ export function DesktopNavigation() {
               >
                 <ul className="w-full flex flex-col gap-1 m-0 p-0 list-none cursor-default">
                   {item.links.map((link) => {
-                    const Icon = link.icon;
+                    // const Icon = link.icon;
                     const isLinkActive = pathname === link.href;
 
                     return (
