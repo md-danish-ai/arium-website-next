@@ -94,8 +94,8 @@ export default function ImageGradientSplit({
             ) : (
               <Typography
                 as="p"
-                variant="b1"
-                className="reveal stagger-1 text-[#ffffffcc] text-left m-0 mb-6 md:mb-8 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] font-normal"
+                variant="b2"
+                className="reveal stagger-1 text-left m-0 mb-6 md:mb-8 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] font-normal"
                 style={{ color: description_color || undefined }}
               >
                 {description}
@@ -122,7 +122,7 @@ export default function ImageGradientSplit({
                     </Typography>
                     <Typography
                       as="p"
-                      variant="b2"
+                      variant="b3"
                       className="text-[#ffffffcc] text-left m-0 font-normal"
                       style={{
                         color: item.description_color || undefined,

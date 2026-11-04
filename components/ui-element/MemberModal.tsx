@@ -149,7 +149,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
                 </Typography>
                 <Typography
                   as="p"
-                  variant="b3"
+                  variant="b2"
                   weight="medium"
                   className="text-[#00e8d9] m-0 mt-1.5 leading-snug"
                 >
@@ -161,13 +161,13 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
             <div className="bg-white p-6 sm:p-8 lg:p-10 overflow-y-auto flex-1 rounded-b-[24px]">
               {member.description.includes("<") ? (
                 <div
-                  className="text-[#374151] text-sm sm:text-[15px] lg:text-base leading-[1.8] [&>p]:mb-4 sm:[&>p]:mb-5 [&>p:last-child]:mb-0"
+                  className="text-[#374151] text-sm sm:text-[14px] lg:text-[14px] leading-[1.8] [&>p]:mb-4 sm:[&>p]:mb-5 [&>p:last-child]:mb-0"
                   dangerouslySetInnerHTML={{ __html: member.description }}
                 />
               ) : (
                 <div className="space-y-4 sm:space-y-5">
                   {member.description.split("\n\n").map((paragraph, idx) => (
-                    <Typography key={idx} variant="b2" as="p" className="text-[#374151] m-0">
+                    <Typography key={idx} variant="b3" as="p" className="text-[#374151] m-0">
                       {paragraph}
                     </Typography>
                   ))}

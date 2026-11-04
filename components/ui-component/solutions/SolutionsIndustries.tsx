@@ -123,7 +123,7 @@ export default function SolutionsIndustries({
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.9fr] gap-10 lg:gap-[90px] items-start">
           <div className="reveal w-full lg:max-w-[600px] min-[1450px]:max-w-[700px] lg:sticky lg:top-28">
             <Typography
-              variant="h3"
+              variant="h2"
               as="h2"
               uppercase
               weight="normal"

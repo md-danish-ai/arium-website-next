@@ -62,9 +62,10 @@ export default function BenefitsGrid({
       <Container className="relative z-[2]">
         <div className="text-center mb-16">
           <Typography
-            variant={isThreeCols ? "h2" : "h3"}
+            variant="h3"
             as="h2"
             uppercase
+            weight="normal"
             className={`section-title reveal stagger-1 max-w-[880px] mx-auto text-[#162047] ${
               isThreeCols ? "tracking-[0.08em] leading-[1.45]" : "tracking-[0.06em]"
             }`}
@@ -120,7 +121,7 @@ export default function BenefitsGrid({
                   />
                 </div>
                 <Typography
-                  variant={isThreeCols ? "h4" : "h5"}
+                  variant="h4"
                   as="h3"
                   uppercase
                   weight="bold"

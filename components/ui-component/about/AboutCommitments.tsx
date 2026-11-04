@@ -38,13 +38,7 @@ export default function AboutCommitments({
 
           <div className="relative z-[2] w-full flex items-end md:items-center justify-start text-left p-5 xs:p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="max-w-[640px] w-full m-0">
-              <Typography
-                variant="h2"
-                as="h2"
-                uppercase
-                weight="light"
-                className="text-white m-0 tracking-[0.04em] md:tracking-[0.05em] text-[1.15rem] xs:text-[1.25rem] sm:text-[1.35rem] md:text-[clamp(1.6rem,2.8vw,2.4rem)] lg:text-[clamp(1.8rem,3.2vw,2.8rem)] leading-[1.3] md:leading-[1.25]"
-              >
+              <Typography variant="h3" as="h3" uppercase weight="light">
                 {title}
               </Typography>
 

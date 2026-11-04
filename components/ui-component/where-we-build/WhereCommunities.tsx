@@ -32,7 +32,7 @@ export default function WhereCommunities({
       <Container className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1] items-start">
         <div className="reveal flex flex-col gap-5">
           <Typography
-            variant="h2"
+            variant="h3"
             as="h2"
             uppercase
             weight="light"
@@ -54,7 +54,7 @@ export default function WhereCommunities({
             />
           ) : (
             <Typography
-              variant="b1"
+              variant="b2"
               as="p"
               className="m-0 leading-relaxed"
               style={

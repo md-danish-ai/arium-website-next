@@ -88,10 +88,10 @@ export default function HeroBanner({
             style={
               maxWidthTitle
                 ? {
-                  maxWidth: formatMaxWidth(maxWidthTitle),
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }
+                    maxWidth: formatMaxWidth(maxWidthTitle),
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }
                 : undefined
             }
           >
@@ -109,10 +109,10 @@ export default function HeroBanner({
             style={
               maxWidthDescription
                 ? {
-                  maxWidth: formatMaxWidth(maxWidthDescription),
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }
+                    maxWidth: formatMaxWidth(maxWidthDescription),
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }
                 : undefined
             }
           >
