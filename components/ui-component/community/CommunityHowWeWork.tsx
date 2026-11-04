@@ -40,7 +40,7 @@ export default function CommunityHowWeWork({
         <div className="max-w-[560px]">
           <Typography
             as="h2"
-            variant="h2"
+            variant="h3"
             uppercase
             className="reveal text-white leading-tight mb-6"
             style={title_color ? { color: title_color } : undefined}

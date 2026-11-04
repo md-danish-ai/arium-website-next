@@ -23,7 +23,7 @@ export default function CommunityFAQ({ title, title_color, faq_data = [] }: Comm
           <div className="text-center mb-16">
             <Typography
               as="h2"
-              variant="h2"
+              variant="h3"
               uppercase
               className="section-title reveal stagger-1 tracking-wide text-[#162047] leading-snug"
               style={title_color ? { color: title_color } : undefined}

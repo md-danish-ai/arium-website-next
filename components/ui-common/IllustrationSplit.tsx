@@ -24,7 +24,9 @@ export interface IllustrationSplitProps {
   illustration_image_alignment?: "Right" | "Left" | "Media Right" | "Media Left";
   show_bottom_divider?: boolean;
   statistics?: IllustrationSplitStatItem[];
+  background?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function IllustrationSplit({
@@ -37,7 +39,9 @@ export default function IllustrationSplit({
   illustration_image_alignment = "Right",
   show_bottom_divider = false,
   statistics = [],
+  background,
   className = "",
+  style,
 }: IllustrationSplitProps) {
   const isLeft =
     illustration_image_alignment === "Left" || illustration_image_alignment === "Media Left";
@@ -68,11 +72,18 @@ export default function IllustrationSplit({
       (description.includes("<") && description.includes(">")))
   );
 
+  const defaultBg = "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)";
+  const resolvedBg = background || (className.includes("bg-transparent") ? undefined : defaultBg);
+
   return (
     <section
       ref={containerRef}
       id={id}
-      className={`bg-transparent max-lg:pt-[60px] lg:py-[50px] ${!isLeft ? "max-lg:pb-0" : "max-lg:pb-[50px]"} relative overflow-hidden ${className}`}
+      className={`py-[50px] relative overflow-hidden ${className}`}
+      style={{
+        ...(resolvedBg ? { background: resolvedBg } : {}),
+        ...style,
+      }}
     >
       <Container>
         <div
@@ -135,7 +146,6 @@ export default function IllustrationSplit({
                     {item.stat && (
                       <Typography
                         variant="stat"
-                        weight="bold"
                         className="sol-kpi-num text-[#7c5cbf]"
                         style={item.stat_color ? { color: item.stat_color } : undefined}
                       >
