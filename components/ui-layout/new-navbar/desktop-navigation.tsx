@@ -69,7 +69,7 @@ export function DesktopNavigation() {
                 role="menu"
                 aria-label={`${item.label} submenu`}
                 className={cn(
-                  "absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[360px] cursor-default select-none",
+                  "absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[220px] cursor-default select-none",
                   "bg-[#162047]/98 backdrop-blur-[16px] border border-teal/20 rounded-[16px]",
                   "shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(0,232,217,0.1)] p-2.5 flex flex-col gap-1 z-50",
                   "transition-all duration-250 ease-out origin-top",
@@ -97,7 +97,7 @@ export function DesktopNavigation() {
                               : "text-white hover:text-teal hover:bg-teal/10"
                           )}
                         >
-                          <Icon
+                          {/* <Icon
                             size={18}
                             strokeWidth={1.75}
                             aria-hidden="true"
@@ -105,7 +105,7 @@ export function DesktopNavigation() {
                               "mt-0.5 shrink-0 transition-colors pointer-events-none",
                               isLinkActive ? "text-teal" : "text-white/60 group-hover:text-teal"
                             )}
-                          />
+                          /> */}
                           <div className="flex flex-col items-start gap-0.5 pointer-events-none">
                             <span
                               className={cn(
@@ -117,9 +117,9 @@ export function DesktopNavigation() {
                             >
                               {link.title}
                             </span>
-                            <span className="line-clamp-2 text-xs text-white/70 transition-colors group-hover:text-teal/80">
+                            {/* <span className="line-clamp-2 text-xs text-white/70 transition-colors group-hover:text-teal/80">
                               {link.description}
-                            </span>
+                            </span> */}
                           </div>
                         </Link>
                       </li>
