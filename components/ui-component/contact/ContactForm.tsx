@@ -93,7 +93,7 @@ export default function ContactForm({
           <div className="max-w-[680px] mx-auto relative reveal stagger-1">
             {status === "success" ? (
               <div className="text-center py-[60px] px-5">
-                <Typography variant="h3" as="h3" className="text-[#162047] mb-4">
+                <Typography variant="h2" as="h2" className="text-[#162047] mb-4">
                   Thank You!
                 </Typography>
                 <Typography variant="b1" as="p" className="text-[#162047]/70">

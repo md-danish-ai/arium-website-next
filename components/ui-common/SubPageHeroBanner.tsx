@@ -3,6 +3,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { Typography, Button, Breadcrumbs } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
+import { cn } from "@lib/utils";
 
 export interface SubPageHeroBannerProps {
   id?: string;
@@ -21,7 +22,6 @@ export default function SubPageHeroBanner({
   id = "sub-page-hero",
   title,
   description,
-  tag,
   CTA_text,
   CTA_url,
   background_gradient,
@@ -72,57 +72,56 @@ export default function SubPageHeroBanner({
   };
 
   const cleanTitle = formatPageName(pathname);
+  const isPeoplePage = pathname.includes("/leadership") || pathname.includes("/board-of-directors");
 
   return (
     <section
-      className="relative overflow-hidden"
+      className={cn(
+        "relative overflow-hidden pt-24 sm:pt-28 md:pt-32",
+        isPeoplePage ? "pb-[135px] sm:pb-[145px] md:pb-[150px]" : "pb-16 sm:pb-20"
+      )}
       id={id}
       style={{
         background:
           background_color ||
           background_gradient ||
-          (pathname.includes("/leadership") || pathname.includes("/board-of-directors")
-            ? "linear-gradient(135deg, #B8A9F0 0%, #D2C7FF 50%, #DDD5FF 100%)"
+          (pathname.includes("/leadership")
+            ? "linear-gradient(135deg, rgb(184, 169, 240) 0%, rgb(210, 199, 255) 40%, rgb(196, 181, 247) 70%, rgb(221, 213, 255) 100%)"
             : "linear-gradient(135deg, #FFF5EE 0%, #FFE8D6 40%, #FFDAC8 100%)"),
-        padding: `${pathname.includes("/leadership") || pathname.includes("/board-of-directors") ? "200px 0 180px" : "200px 0 80px"}`,
       }}
     >
       <div className="absolute w-[600px] h-[600px] rounded-full [background:radial-gradient(circle,rgba(0,232,217,0.08)_0%,transparent_70%)] -top-[200px] -right-[100px] pointer-events-none" />
       <div className="absolute w-[400px] h-[400px] rounded-full [background:radial-gradient(circle,rgba(255,200,170,0.15)_0%,transparent_70%)] -bottom-[100px] -left-[50px] pointer-events-none" />
 
-      {showBreadcrumbs && parentLabel && (
-        <div className="reveal absolute top-[140px] inset-x-0 z-[2]">
-          <Container>
-            <Breadcrumbs
-              items={[{ label: parentLabel, href: parentUrl }, { label: cleanTitle }]}
-              uppercase
-            />
-          </Container>
-        </div>
-      )}
-
       <Container className="relative z-[1] flex flex-col items-center text-center">
+        {showBreadcrumbs && parentLabel && (
+          <div className="reveal w-full text-left mb-6 sm:mb-8 md:mb-9">
+            <Breadcrumbs items={[{ label: parentLabel, href: parentUrl }, { label: cleanTitle }]} />
+          </div>
+        )}
+
         <div
           className="flex flex-col items-center text-center w-full mx-auto"
           style={{ maxWidth: content_max_width || "960px" }}
         >
-          {tag && (
+          {/* {tag && (
             <>
               <Typography
-                variant="b4"
+                variant="eyebrow"
                 uppercase
-                className="reveal stagger-1 text-midnight/70 mb-4 tracking-[0.12em]"
+                className="reveal stagger-1 text-midnight/70 mb-4 tracking-[0.18em]"
               >
                 {tag}
               </Typography>
               <div className="reveal stagger-1 w-12 h-0.5 bg-midnight mx-auto mb-5" />
             </>
-          )}
+          )} */}
 
           <Typography
-            variant="h2"
+            variant="subpage-title"
             uppercase
             className="reveal stagger-2 text-center text-midnight"
+            weight="light"
             dangerouslySetInnerHTML={{
               __html:
                 title ||
@@ -138,8 +137,8 @@ export default function SubPageHeroBanner({
             pathname.includes("/leadership") ||
             pathname.includes("/board-of-directors")) && (
             <Typography
-              variant="b1"
-              className="reveal stagger-3 text-center text-midnight/80 max-w-[800px] mx-auto mt-4"
+              variant="subpage-intro"
+              className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
               dangerouslySetInnerHTML={{
                 __html:
                   description ||

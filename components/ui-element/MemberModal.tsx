@@ -98,7 +98,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
       />
 
       <div
-        className={`relative z-[1] w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[840px] max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
+        className={`relative z-[1] w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[1080px] max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
           isOpen && member
             ? "scale-100 translate-y-0 opacity-100"
             : "scale-95 translate-y-4 opacity-0"
@@ -139,19 +139,17 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
 
               <div className="flex-1 min-w-0 w-full lg:w-auto pr-0 lg:pr-10">
                 <Typography
-                  as="h2"
-                  variant="h3"
-                  uppercase
-                  weight="normal"
-                  className="text-white m-0 tracking-wider lg:tracking-wide uppercase"
+                  variant="team-modal-name"
+                  className="text-white m-0 uppercase"
+                  weight="light"
                 >
                   {member.name}
                 </Typography>
                 <Typography
                   as="p"
-                  variant="b2"
+                  variant="b3"
                   weight="medium"
-                  className="text-[#00e8d9] m-0 mt-1.5 leading-snug"
+                  className="text-[#00e8d9] m-0 mt-1.5 leading-snug tracking-[0.05em]"
                 >
                   {member.role}
                 </Typography>
@@ -167,7 +165,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
               ) : (
                 <div className="space-y-4 sm:space-y-5">
                   {member.description.split("\n\n").map((paragraph, idx) => (
-                    <Typography key={idx} variant="b3" as="p" className="text-[#374151] m-0">
+                    <Typography key={idx} variant="b2" as="p" className="text-[#374151] m-0">
                       {paragraph}
                     </Typography>
                   ))}

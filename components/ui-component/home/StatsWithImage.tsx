@@ -25,7 +25,7 @@ export default function StatsWithImage({
       <Container className="relative z-[1]">
         <div className="mb-8 md:mb-12 lg:mb-16 text-center reveal">
           <Typography
-            variant="h3"
+            variant="h2"
             uppercase
             className="text-center text-white max-w-full m-0"
             style={{ color: title_color || undefined }}

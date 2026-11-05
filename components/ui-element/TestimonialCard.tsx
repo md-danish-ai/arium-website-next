@@ -31,24 +31,24 @@ export default function TestimonialCard({
       >
         “
       </span>
-      <p className="tm-panel-text font-body not-italic font-normal z-[1] grow pt-10 md:pt-[26px] xl:pt-10 text-white relative m-0 mb-4 md:mb-[18px] xl:mb-6 text-[0.82rem] md:text-[0.86rem] xl:text-[1.05rem] leading-[1.65] xl:leading-[1.8]">
+      <Typography
+        variant="quote"
+        as="blockquote"
+        className="tm-panel-text not-italic z-[1] grow pt-10 md:pt-[26px] xl:pt-10 text-white relative m-0 mb-4 md:mb-[18px] xl:mb-6"
+      >
         {person_message}
-      </p>
+      </Typography>
       <div
         className="tm-panel-footer mx-[-20px] sm:mx-[-24px] md:mx-[-18px] xl:mx-[-30px] mb-[-20px] sm:mb-[-24px] md:mb-[-28px] xl:mb-[-36px] px-5 py-3 sm:px-6 md:px-[18px] md:py-3.5 xl:px-[30px] xl:py-5 border-0 md:border-t md:border-white/10 shrink-0 mt-auto"
         style={{ backgroundColor: footerBg }}
       >
-        <Typography
-          variant="h5"
-          as="p"
-          className="tm-panel-name text-midnight m-0 text-[0.82rem] md:text-[0.95rem] xl:text-base font-bold"
-        >
+        <Typography variant="h5" className="tm-panel-name text-midnight m-0 font-bold">
           {person_name}
         </Typography>
         <Typography
           variant="b4"
           as="p"
-          className="tm-panel-role text-midnight/80 mt-1 mb-0 text-[0.7rem] md:text-[0.8rem] xl:text-sm font-normal"
+          className="tm-panel-role text-midnight/80 mt-1 mb-0 font-normal"
         >
           {person_designation}
         </Typography>

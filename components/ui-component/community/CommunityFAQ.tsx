@@ -22,10 +22,9 @@ export default function CommunityFAQ({ title, title_color, faq_data = [] }: Comm
         <Container className="relative z-[1]">
           <div className="text-center mb-16">
             <Typography
-              as="h2"
-              variant="h3"
+              variant="h2"
               uppercase
-              className="section-title reveal stagger-1 tracking-wide text-[#162047] leading-snug"
+              className="section-title reveal stagger-1 text-[#162047]"
               style={title_color ? { color: title_color } : undefined}
             >
               {title}
@@ -49,10 +48,9 @@ export default function CommunityFAQ({ title, title_color, faq_data = [] }: Comm
                       aria-controls={`faq-answer-${index}`}
                     >
                       <Typography
-                        as="span"
-                        variant="h5"
-                        weight="medium"
-                        className="text-[#162047]"
+                        as="h3"
+                        variant="h4"
+                        className="text-[#162047] m-0"
                         style={faq.question_color ? { color: faq.question_color } : undefined}
                       >
                         {faq.question}

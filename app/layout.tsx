@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@ui-layout/navbar";
+import Navbar from "@ui-layout/new-navbar";
 import Footer from "@ui-layout/footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { fetchAPI } from "@lib/api";

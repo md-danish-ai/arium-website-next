@@ -209,7 +209,8 @@ export default function AccordionSplit({
           >
             {title && (
               <Typography
-                variant="h3"
+                variant={isCareers ? "story-title" : "h2"}
+                as="h2"
                 uppercase
                 className={`section-title mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
@@ -273,10 +274,11 @@ export default function AccordionSplit({
                         />
                       )}
                       <Typography
-                        variant="h6"
-                        as="h3"
+                        variant="b2"
+                        as="span"
                         uppercase
-                        className={`tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 ${
+                        weight="semibold"
+                        className={`tracking-[0.15em] m-0 transition-colors duration-300 ${
                           isActive ? "text-teal" : "text-white group-hover:text-teal"
                         }`}
                         style={{

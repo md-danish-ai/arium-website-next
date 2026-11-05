@@ -39,6 +39,7 @@ export const COMMUNITY_SMALL_CELLS_FALLBACK = {
   illustration_image_alignment: "Right" as const,
   show_bottom_divider: false,
   statistics: [],
+  background: "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)",
 };
 
 export const COMMUNITY_WHY_MATTER_FALLBACK: {

@@ -29,7 +29,7 @@ export default function DetailedCardGrid({
       <Container className="relative z-[2]">
         <div className="text-center mb-8 md:mb-12 lg:mb-16">
           <Typography
-            variant="h3"
+            variant="h2"
             uppercase
             weight="normal"
             className="section-title reveal stagger-1 m-0 text-white"

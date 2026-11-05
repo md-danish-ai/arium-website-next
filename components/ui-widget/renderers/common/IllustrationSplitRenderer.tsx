@@ -44,6 +44,7 @@ export default function IllustrationSplitRenderer({ section, index }: SectionRen
       }
       show_bottom_divider={resolvedBottomDivider}
       statistics={statistics as IllustrationSplitStatItem[] | undefined}
+      background={section?.background as string | undefined}
     />
   );
 }

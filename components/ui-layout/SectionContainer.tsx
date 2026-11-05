@@ -1,8 +1,7 @@
 import React, { ElementType, HTMLAttributes, ReactNode } from "react";
+import { CONTAINER_CLASSES, CONTAINER_FLUID_PADDING } from "@ui-layout/container.constants";
 
-// Responsive container padding classes up to 1920px max-width
-export const CONTAINER_CLASSES =
-  "w-full mx-auto max-w-[1920px] box-border px-5 sm:px-6 md:px-8 lg:px-12 xl:px-[138px]";
+export * from "@ui-layout/container.constants";
 
 export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   as?: ElementType;
@@ -22,7 +21,7 @@ export function Container({
   return (
     <Component
       className={`
-        ${fluid ? "w-full px-5 sm:px-6 md:px-8" : CONTAINER_CLASSES}
+        ${fluid ? `w-full box-border ${CONTAINER_FLUID_PADDING}` : CONTAINER_CLASSES}
         ${className}
       `
         .trim()
@@ -42,6 +41,7 @@ export interface SectionContainerProps extends HTMLAttributes<HTMLElement> {
   className?: string;
   containerClassName?: string;
   backgroundSlot?: ReactNode;
+  fluid?: boolean;
   children: ReactNode;
 }
 
@@ -54,6 +54,7 @@ export default function SectionContainer({
   className = "",
   containerClassName = "",
   backgroundSlot,
+  fluid = false,
   children,
   ...props
 }: SectionContainerProps) {
@@ -64,7 +65,9 @@ export default function SectionContainer({
       {...props}
     >
       {backgroundSlot}
-      <Container className={containerClassName}>{children}</Container>
+      <Container fluid={fluid} className={containerClassName}>
+        {children}
+      </Container>
     </Component>
   );
 }

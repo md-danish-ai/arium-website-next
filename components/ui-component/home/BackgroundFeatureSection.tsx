@@ -59,7 +59,7 @@ export default function BackgroundFeatureSection({
       >
         <div style={{ maxWidth: textMaxWidth }}>
           <Typography
-            variant="h3"
+            variant="h2"
             uppercase
             weight="normal"
             className="reveal m-0 mb-3 md:mb-6 [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
@@ -95,10 +95,10 @@ export default function BackgroundFeatureSection({
               {feature_cards.map((card, index) => (
                 <div className="flex flex-col items-center text-center p-0" key={card.id ?? index}>
                   <Typography
-                    variant="h4"
+                    variant="pillar-title"
                     uppercase
-                    weight="bold"
                     className="m-0 mb-1.5 md:mb-2 lg:mb-3 text-teal [text-shadow:0_2px_16px_rgba(0,0,0,0.5)] max-[600px]:[text-shadow:none] whitespace-nowrap"
+                    weight="bold"
                     style={{ color: card.title_color || undefined }}
                   >
                     {card.title}

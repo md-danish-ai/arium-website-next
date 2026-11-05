@@ -188,10 +188,10 @@ export default function SolutionsIndustries({
 
                       <Typography
                         variant="h6"
-                        as="h3"
+                        as="h5"
                         uppercase
-                        weight="normal"
-                        className={`m-0 transition-colors duration-350 tracking-[0.12em] md:tracking-[0.15em] ${
+                        weight="bold"
+                        className={`m-0 transition-colors duration-350 tracking-[0.1em] ${
                           isActive ? "text-[#00e8d9]" : "text-white group-hover:text-[#00e8d9]"
                         }`}
                         style={

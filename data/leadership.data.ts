@@ -33,27 +33,35 @@ export const LEADERSHIP_MEMBERS_FALLBACK: PeopleMemberItem[] = [
     modal_upper_section_background: "#162047",
   },
   {
-    name: "Jerry Karnick",
-    role: "Chief Operating Officer",
+    name: "Ed Alfonso",
+    role: "Chief Commercial Officer",
     image: "/images/team/placeholder-male.png",
     description:
-      "<p>Jerry Karnick oversees network deployment, engineering, and field operations across all Arium markets nationwide. With decades of operational telecom experience, Jerry directs the delivery of small cells and distributed antenna systems.</p><p>His leadership ensures projects are deployed safely, on schedule, and to the highest standards of reliability.</p>",
+      "<p>Ed Alfonso brings more than two decades of experience in the telecommunications industry, with experience leading teams in both sales and operations. Before joining Arium Networks, he most recently served as the Market Head of Mobile Networks for Nokia Americas where he held, among other roles, overall financial and operational responsibility for Nokia’s Mobile Networks business across the Americas.</p><p>Prior to his time at Nokia, Ed spent the earlier part of his career at Ericsson, where he held various leadership and management positions spanning 13 years. He also spent several years with defense contractor, Lockheed Martin, in a multitude of roles, including research and development, systems engineering, and systems test. He earned his Bachelor of Science in Electrical Engineering and Master of Science in Engineering Management from the University of Central Florida.</p>",
+    modal_upper_section_background: "#162047",
+  },
+  {
+    name: "Jerry Karnick",
+    role: "Chief Legal Officer",
+    image: "/images/team/placeholder-male.png",
+    description:
+      "<p>Jerry Karnick has nearly three decades in the telecom industry. Before joining Arium Networks, Jerry spent more than 26 years at Verizon where he held multiple senior legal and business positions, including General Counsel of Verizon Wireless and Senior Vice President for Sourcing and Corporate Assets. Most recently, Jerry served as Executive Vice President and Chief Legal Officer for Victra, Verizon's largest authorized retailer. Prior to joining Verizon, Jerry was a commercial litigator at Kirkland & Ellis.</p><p>Jerry is also a lecturer in law at the University of Pennsylvania Carey School of Law. He holds a BBA in accounting from the University of Miami, a JD from Harvard Law School, and an MBA from the University of Chicago Booth School of Business.</p>",
     modal_upper_section_background: "#162047",
   },
   {
     name: "Karen Rohrkemper",
-    role: "Chief Legal Officer",
+    role: "Chief Operating Officer",
     image: "/images/team/placeholder-female.png",
     description:
-      "<p>Karen Rohrkemper leads legal, regulatory compliance, municipal relations, and corporate governance for Arium Networks. She brings deep expertise in telecommunications right-of-way law and federal communications regulation.</p><p>Karen works closely with state and municipal leaders to facilitate lawful, collaborative infrastructure deployment.</p>",
+      "<p>Karen Rohrkemper is a telecommunications executive with more than 25 years of experience leading wireless, fiber, broadband, and infrastructure businesses. As Chief Operating Officer of Arium Networks, she oversees operations, delivery, and execution across the nation's largest small cell deployment portfolios. Prior to Arium Networks, Karen served as Senior Vice President of Implementation and Operations at Crown Castle, where she led the delivery of small cell and fiber solutions for wireless carriers and enterprise customers nationwide.</p><p>Earlier in her career at Cincinnati Bell, she held leadership roles spanning wireless operations, product management, network deployment, and broadband services, including responsibility for the company's fiber-to-the- home expansion and strategic growth initiatives. Karen serves on the board of Warriors4Wireless and holds a Bachelor of Arts degree from Northern Kentucky University.</p>",
     modal_upper_section_background: "#162047",
   },
   {
     name: "Jeffery Schott",
-    role: "Chief People Officer",
+    role: "Chief Human Resources Officer",
     image: "/images/team/placeholder-female.png",
     description:
-      "<p>Jeffery Schott has spent more than 20 years leading talent and human resources across global organizations. He leads the people strategy and execution for numerous enterprise-wide transformation initiatives.</p><p>Jeffery holds a bachelor's degree in computer science with a focus on human-computer interaction from DePaul University and a master's degree in Human Resources from Cornell University.</p>",
+      "<p>Jeffery Schott has more than 25 years of experience in both Human Resources and Operations roles. With his passion for people-focused work, he’s led teams across Corporate Communications, HR Business Partners, Employee Relations, HR Shared Services, and Inclusion Strategies.</p><p>Before joining Arium Networks, Jeffery held a distinguished career at UScellular, where he most recently served as Senior Director of Human Resources. In this role, he led the people strategy and execution for numerous enterprise-wide transformation initiatives. Jeffery holds a bachelor’s degree in computer science with a focus on human-computer interaction from DePaul University and a master's degree in Human Resources from Cornell University.</p>",
     modal_upper_section_background: "#162047",
   },
   {
@@ -61,7 +69,7 @@ export const LEADERSHIP_MEMBERS_FALLBACK: PeopleMemberItem[] = [
     role: "Chief Information Officer",
     image: "/images/team/placeholder-female.png",
     description:
-      "<p>Manjula Sriram has over 20 years of experience spanning supply chain, telecommunications and financial services. Throughout her career, she's led various technology organizations through mergers and acquisitions, integrations, and large-scale modernization initiatives.</p><p>She previously served as Chief Information Officer at Iridium Communications where she was responsible for global enterprise technology, cybersecurity, and data strategy.</p>",
+      "<p>Manjula Sriram has over 20 years of experience that spanning supply chain, telecommunications and financial services. Throughout her career, she's led various technology organizations through mergers and acquisitions, integrations, and large-scale modernization initiatives</p><p>She previously served as Chief Information Officer at Iridium Communications where she was responsible for global enterprise technology, cybersecurity, and data strategy. With experience leading multi-year transformations across B/OSS platforms, cloud and data architecture, and AI-enabled capabilities, her focus is on delivering measurable improvements in cost structure, scalability, and customer experience.</p><p>Manjula holds a Bachelor's degree in Computer Science from UW-Milwaukee, an MBA from Keller graduate school of Management, and is currently pursuing a Masters in AI from Arizona State University.</p>",
     modal_upper_section_background: "#162047",
   },
   {
@@ -69,19 +77,19 @@ export const LEADERSHIP_MEMBERS_FALLBACK: PeopleMemberItem[] = [
     role: "Chief Financial Officer",
     image: "/images/team/placeholder-male.png",
     description:
-      "<p>John Townsend has years of financial experience in the telecommunications industry. Before joining Arium Networks, he was the CFO of Ribbon Communications, Group CFO of Digicel Group, and held multiple CFO positions with Verizon, including Verizon Wireline, Verizon Wireless, Verizon Consumer, and Verizon Business.</p><p>Early in his career, John spent almost 20 years with the Vodafone Group where his roles included CFO for its Swedish, Australian and Pacific, and UK operations.</p>",
+      "<p>John Townsend has years of financial experience in the telecommunications industry. Before joining Arium Networks, he was the CFO of Ribbon Communications, Group CFO of Digicel Group, and held multiple CFO positions with Verizon, including Verizon Wireline, Verizon Wireless, Verizon Consumer, and Verizon Business. While at Verizon, John also held roles responsible for Business Transformation and Carrier Relations.</p><p>Early in his career, John spent almost 20 years with the Vodafone Group where his roles included CFO for its Swedish, Australian and Pacific, and UK operations. He spent six years as CFO for Verizon Wireless—at the time, a partnership between Vodafone and Verizon—and was also Regional CFO for Vodafone’s 14 European businesses. Before joining Vodafone, John spent a number of years with KPMG in the UK and Hong Kong. John holds a bachelor’s degree in Economics and Business Finance from Manchester University in the UK and is a Chartered Accountant.</p>",
     modal_upper_section_background: "#162047",
   },
 ];
 
 export const LEADERSHIP_CTA_FALLBACK = {
   prompt_to_cta:
-    "Interested in joining a team of industry leaders building the future of connectivity? ",
+    "Interested in joining a team of industry leaders building the future of connectivity?",
   CTA_text: "Explore Careers",
   CTA_url: "/careers",
   background_gradient:
     "linear-gradient(135deg, rgb(255, 255, 202) 0%, rgb(255, 248, 225) 40%, rgb(255, 218, 200) 100%)",
-  globe_illustration: "https://d2919ce8l80osk.cloudfront.net/connection_globe_blue_b0853202f4.svg",
+  globe_illustration: "/images/svg-images/connection-globe.svg",
 };
 
 export const LEADERSHIP_SEO_FALLBACK = {

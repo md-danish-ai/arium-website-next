@@ -9,10 +9,9 @@ export default function AboutStatsCards({ title, description, cards = [] }: Abou
       <Container className="relative z-[2]">
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <Typography
-            variant="h3"
-            as="h2"
+            variant="h2"
             uppercase
-            weight="light"
+            weight="normal"
             className="section-title reveal text-midnight m-0 mb-0"
           >
             {title}

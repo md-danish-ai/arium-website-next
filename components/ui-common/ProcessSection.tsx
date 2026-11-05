@@ -2,7 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Typography, ProcessIcon } from "@ui-element";
+import { Typography, ProcessIcon, ProcessCard } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 export interface TimelineItem {
@@ -72,11 +72,11 @@ export default function ProcessSection({
         <Container className="relative z-[2]">
           <div className="text-center mb-14">
             <Typography
-              variant="h3"
+              variant="h2"
               as="h2"
               uppercase
-              weight="normal"
-              className="section-title reveal stagger-1 tracking-[0.06em] leading-[1.45] text-midnight mx-auto"
+              weight="light"
+              className="section-title reveal stagger-1 leading-[1.2] text-midnight mx-auto"
               style={
                 maxWidthTitle || isRightOfWays
                   ? { maxWidth: isRightOfWays ? maxWidthTitle || "880px" : maxWidthTitle }
@@ -87,7 +87,7 @@ export default function ProcessSection({
             </Typography>
             <Typography
               as="p"
-              variant="b2"
+              variant="b1"
               className="section-description reveal stagger-2 max-w-[780px] mx-auto mt-4 text-midnight leading-relaxed"
             >
               {description}
@@ -160,8 +160,8 @@ export default function ProcessSection({
                     <ProcessIcon id={pillar.id} title={pillar.title} icon_svg={pillar.icon_svg} />
                   </span>
                   <Typography
-                    as="span"
-                    variant="h5"
+                    as="h4"
+                    variant="h4"
                     uppercase
                     weight="bold"
                     className="tracking-[0.08em] text-[#162047] pb-1.5 inline-block relative"
@@ -223,12 +223,12 @@ export default function ProcessSection({
                       {pillar.title}
                     </Typography>
 
-                    {/* Step Cards (Mobile/Tablet swipe track, Desktop grid >= 1024px) */}
+                    {/* Step Cards (Mobile/Tablet/1024px swipe track, Desktop grid >= 1280px) */}
                     <div
                       className={`flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-5 px-4 justify-start items-stretch scrollbar-none [webkit-overflow-scrolling:touch] max-w-full ${
                         isFourCols
-                          ? "lg:grid lg:grid-cols-4 lg:gap-5 lg:max-w-[1320px] lg:mx-auto lg:p-0 lg:overflow-visible"
-                          : "lg:flex lg:justify-center lg:gap-6 lg:max-w-[1188px] lg:mx-auto lg:p-0 lg:overflow-visible"
+                          ? "xl:grid xl:grid-cols-4 xl:gap-5 xl:max-w-[1320px] xl:mx-auto xl:p-0 xl:overflow-visible"
+                          : "xl:flex xl:justify-center xl:gap-6 xl:max-w-[1188px] xl:mx-auto xl:p-0 xl:overflow-visible"
                       }`}
                     >
                       {pillar.timelineItems.map((item, idx) => {
@@ -238,41 +238,14 @@ export default function ProcessSection({
                           pillar.themeColor ||
                           "#FBCBB5";
                         return (
-                          <div
+                          <ProcessCard
                             key={idx}
-                            className={`shrink-0 snap-start w-[280px] sm:w-[320px] min-w-[270px] max-w-[340px] min-h-[260px] p-6 sm:p-7 rounded-[20px] shadow-[0_4px_16px_rgba(22,32,71,0.04)] hover:shadow-[0_16px_36px_rgba(22,32,71,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-start justify-start text-left lg:w-full lg:min-w-0 lg:shrink lg:p-8 lg:min-h-[310px] ${
-                              isFourCols ? "lg:max-w-[303px]" : "lg:max-w-[380px]"
-                            }`}
-                            style={{
-                              backgroundColor: cardBg,
-                            }}
-                          >
-                            <Typography
-                              as="span"
-                              variant="b4"
-                              uppercase
-                              weight="bold"
-                              className="self-start inline-flex items-center justify-center py-1.5 px-3.5 rounded-full bg-[#162047] text-white tracking-[0.06em] mb-4 leading-none select-none w-fit"
-                            >
-                              Step {idx + 1}
-                            </Typography>
-                            <Typography
-                              as="h4"
-                              variant="h5"
-                              weight="bold"
-                              className="text-[#162047] m-0 mb-2.5 leading-[1.3] normal-case"
-                            >
-                              {item.label}
-                            </Typography>
-                            <Typography
-                              as="p"
-                              variant="b2"
-                              weight="normal"
-                              className="leading-[1.58] text-[#162047]/90 m-0"
-                            >
-                              {item.desc}
-                            </Typography>
-                          </div>
+                            step={idx + 1}
+                            title={item.label}
+                            description={item.desc}
+                            backgroundColor={cardBg}
+                            isFourCols={isFourCols}
+                          />
                         );
                       })}
                     </div>

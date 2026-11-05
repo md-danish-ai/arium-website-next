@@ -62,13 +62,10 @@ export default function BenefitsGrid({
       <Container className="relative z-[2]">
         <div className="text-center mb-16">
           <Typography
-            variant="h3"
-            as="h2"
+            variant="h2"
             uppercase
             weight="normal"
-            className={`section-title reveal stagger-1 max-w-[880px] mx-auto text-[#162047] ${
-              isThreeCols ? "tracking-[0.08em] leading-[1.45]" : "tracking-[0.06em]"
-            }`}
+            className="section-title reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
             style={title_color ? { color: title_color } : undefined}
           >
             {title}
@@ -121,9 +118,7 @@ export default function BenefitsGrid({
                   />
                 </div>
                 <Typography
-                  variant="h4"
-                  as="h3"
-                  uppercase
+                  variant="pillar-title"
                   weight="bold"
                   className={`mb-3 ${isThreeCols ? "leading-none tracking-[0.08em]" : "tracking-wider"}`}
                   style={{ color: cardTitleColor }}

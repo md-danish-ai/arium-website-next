@@ -19,6 +19,8 @@
       }
     ],
     "paths": {
+      "@components": ["./components"],
+      "@components/*": ["./components/*"],
       "@ui-common": ["./components/ui-common"],
       "@ui-common/*": ["./components/ui-common/*"],
       "@ui-component": ["./components/ui-component"],

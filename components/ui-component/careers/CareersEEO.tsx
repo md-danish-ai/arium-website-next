@@ -15,14 +15,14 @@ export default function CareersEEO({
         <div className="reveal max-w-4xl mx-auto text-center">
           {contentHtml ? (
             <div
-              className="leading-relaxed text-[#162047]/65 text-[0.8rem] md:text-[0.85rem] mx-auto tracking-normal text-center"
+              className="leading-[1.75] text-[#162047]/65 text-[clamp(0.74rem,0.9vw,0.82rem)] mx-auto tracking-[0.02em] text-center"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           ) : (
             <Typography
-              variant="b3"
+              variant="disclaimer"
               as="p"
-              className="text-[#162047]/65 mx-auto tracking-normal text-center"
+              className="text-[#162047]/65 mx-auto text-center"
             >
               {text}
             </Typography>

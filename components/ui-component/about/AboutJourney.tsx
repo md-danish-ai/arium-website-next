@@ -17,10 +17,9 @@ export default function AboutJourney({
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <Typography
-            variant="h3"
-            as="h2"
+            variant="h2"
             uppercase
-            weight="light"
+            weight="normal"
             className="section-title reveal stagger-1 text-midnight m-0 mb-0"
           >
             {title}
@@ -72,7 +71,7 @@ export default function AboutJourney({
                 {/* Year & Badge Header */}
                 <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1">
                   <Typography
-                    variant="h5"
+                    variant="h3"
                     as="span"
                     uppercase
                     weight="extrabold"

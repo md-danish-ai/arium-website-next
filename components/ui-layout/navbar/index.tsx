@@ -7,7 +7,7 @@ import { getNormalizedNavRoutes, RawNavigationItem } from "../nav-routes";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { DesktopLogoSvg, MobileLogoSvg } from "@ui-svg";
-import { Container } from "../SectionContainer";
+import { Container } from "@ui-layout/SectionContainer";
 
 import { NavRoute } from "../nav-routes";
 

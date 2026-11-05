@@ -91,16 +91,16 @@ export default function HomeHero({
           dangerouslySetInnerHTML={{ __html: title || "" }}
         />
         <Typography
-          variant="b1"
+          variant="lead"
           weight="normal"
-          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[800px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
+          className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[780px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
           style={{ color: font_color }}
           dangerouslySetInnerHTML={{ __html: description || "" }}
         />
       </Container>
 
       <div
-        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
+        className={`scroll-indicator ${isScrolled ? "pointer-events-none opacity-0" : "opacity-70 hover:opacity-100"} absolute bottom-[32px] left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 transition-opacity duration-300`}
         id="scroll-indicator"
       >
         <Typography

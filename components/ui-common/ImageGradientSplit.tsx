@@ -75,8 +75,7 @@ export default function ImageGradientSplit({
       <Container className="relative z-[2] py-[60px] min-[1025px]:pt-[50px] min-[1025px]:pb-[54px]">
         <div className="max-w-[600px] min-[1030px]:max-w-[475px] xl:max-w-[min(620px,48vw)] min-[1350px]:max-w-[min(590px,48vw)] 2xl:max-w-[600px]">
           <Typography
-            as="h2"
-            variant="h3"
+            variant="h2"
             uppercase
             className="reveal text-white mb-6 text-left m-0 font-normal [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]"
             style={{ color: title_color || undefined }}
@@ -94,7 +93,7 @@ export default function ImageGradientSplit({
             ) : (
               <Typography
                 as="p"
-                variant="b2"
+                variant="b1"
                 className="reveal stagger-1 text-left m-0 mb-6 md:mb-8 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] font-normal"
                 style={{ color: description_color || undefined }}
               >
@@ -111,8 +110,8 @@ export default function ImageGradientSplit({
                     className={index === 0 ? "pb-6" : index === array.length - 1 ? "pt-6" : "py-6"}
                   >
                     <Typography
-                      as="div"
-                      variant="h5"
+                      as="h4"
+                      variant="h4"
                       uppercase
                       weight="bold"
                       className="text-teal mb-1.5 text-left m-0"
@@ -122,7 +121,7 @@ export default function ImageGradientSplit({
                     </Typography>
                     <Typography
                       as="p"
-                      variant="b3"
+                      variant="b2"
                       className="text-[#ffffffcc] text-left m-0 font-normal"
                       style={{
                         color: item.description_color || undefined,

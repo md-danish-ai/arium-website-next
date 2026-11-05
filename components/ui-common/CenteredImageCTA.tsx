@@ -66,7 +66,7 @@ export default function CenteredImageCTA({
         <Container className="text-center">
           <div className="relative max-w-[860px] mx-auto before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[200%] before:h-[250%] before:bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.85)_0%,rgba(10,22,40,0.65)_30%,rgba(10,22,40,0.35)_55%,transparent_80%)] before:-z-[1] before:pointer-events-none">
             <Typography
-              variant="h3"
+              variant="h2"
               uppercase
               className="section-title reveal stagger-1 text-white text-center"
               style={{

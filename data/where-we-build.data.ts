@@ -11,14 +11,14 @@ export interface WhereImageSplitData {
 }
 
 export const WHERE_HERO_FALLBACK = {
-  title: "Connected communities, connected lives",
+  title: "Building the wireless networks we rely on",
   description:
-    "We build wireless networks in the public right of way and inside private venues, helping keep communities connected, safe, and ready for what's next.",
+    "We build wireless infrastructure in two main places: out in communities and inside buildings and venues. Each environment has unique needs, so we design each network to fit the space and people that use them.",
   background_image: "/images/backgrounds/challenges.png",
   background_image_position: "center top",
-  CTA_text: "Contact Us",
-  CTA_url: "/contact",
-  max_width_title: "1400px",
+  CTA_text: "",
+  CTA_url: "",
+  max_width_title: "800px",
   max_width_description: "920px",
   tag: null,
 };

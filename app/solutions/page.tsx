@@ -74,11 +74,18 @@ export default async function SolutionsPage() {
       el: (
         <div
           key="illustration-split"
-          className="bg-[radial-gradient(circle_at_50%_50%,#ffffff_0%,#f5f0ff_40%,#ebe2ff_75%,#dfd4ff_100%)] relative overflow-hidden -mt-px border-none"
+          style={{
+            background: "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)",
+          }}
+          className="!bg-[radial-gradient(circle,_#fff_0%,_#f5f0ff_40%,_#ebe2ff_75%,_#dfd4ff_100%)] relative overflow-hidden -mt-px border-none"
         >
           <FlowBackground />
-          <IllustrationSplit {...smallCellsProps} />
-          <IllustrationSplit {...dasProps} />
+          <IllustrationSplit
+            {...smallCellsProps}
+            background="transparent"
+            className="!bg-transparent"
+          />
+          <IllustrationSplit {...dasProps} background="transparent" className="!bg-transparent" />
         </div>
       ),
     },

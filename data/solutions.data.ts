@@ -53,6 +53,7 @@ export const SOLUTIONS_SMALL_CELLS_FALLBACK = {
     { stat: "100K+", description: "small cells on air or under contract", stat_color: "#7c5cbf" },
     { stat: "700+", description: "municipalities served", stat_color: "#7c5cbf" },
   ],
+  background: "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)",
 };
 
 // DAS fallback
@@ -68,6 +69,7 @@ export const SOLUTIONS_DAS_FALLBACK = {
   statistics: [
     { stat: "300+", description: "premier venues across the country", stat_color: "#7c5cbf" },
   ],
+  background: "radial-gradient(circle, #fff 0%, #f5f0ff 40%, #ebe2ff 75%, #dfd4ff 100%)",
 };
 
 // Industries accordion fallback

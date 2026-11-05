@@ -39,8 +39,7 @@ export default function CommunityHowWeWork({
       <Container className="relative z-[2] py-20 md:py-32 lg:py-40">
         <div className="max-w-[560px]">
           <Typography
-            as="h2"
-            variant="h3"
+            variant="h2"
             uppercase
             className="reveal text-white leading-tight mb-6"
             style={title_color ? { color: title_color } : undefined}
