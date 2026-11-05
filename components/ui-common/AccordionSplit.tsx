@@ -211,7 +211,7 @@ export default function AccordionSplit({
               <Typography
                 variant={isCareers ? "story-title" : "h2"}
                 as="h2"
-                uppercase={!isCareers}
+                uppercase
                 className={`section-title mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
