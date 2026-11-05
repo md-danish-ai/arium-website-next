@@ -71,7 +71,7 @@ export default function AboutJourney({
                 {/* Year & Badge Header */}
                 <div className="pb-1.5 md:pb-3 lg:pb-5 w-full flex items-center justify-start gap-2 transition-all duration-300 origin-left lg:group-hover:scale-105 lg:group-hover:translate-y-1">
                   <Typography
-                    variant="h5"
+                    variant="h3"
                     as="span"
                     uppercase
                     weight="extrabold"

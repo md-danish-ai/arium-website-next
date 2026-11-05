@@ -35,7 +35,7 @@ export default function AboutStatCard({
         <Typography
           variant="stat"
           as="span"
-          weight="bold"
+          weight="extrabold"
           className="counter text-midnight tracking-tight m-0 mb-0 leading-none whitespace-nowrap"
           data-target={num}
           data-suffix={suf}

@@ -32,11 +32,11 @@ export default function SubPageCTA({
   return (
     <section className="relative overflow-hidden z-[1]" style={{ background: displayBg }}>
       <Container className="relative z-[2]">
-        <div className="w-full max-w-full md:max-w-[580px] lg:max-w-[650px] py-14 sm:py-16 md:py-20 text-left">
+        <div className="w-full max-w-full md:max-w-[580px] lg:max-w-[580px] py-14 sm:py-16 md:py-20 text-left">
           {prompt_to_cta ? (
             <Typography
-              as="p"
-              variant="lead"
+              as="h2"
+              variant="h3"
               weight="light"
               className="reveal stagger-1 !tracking-normal leading-[1.5] text-midnight mb-6 md:mb-8 [text-wrap:balance]"
             >

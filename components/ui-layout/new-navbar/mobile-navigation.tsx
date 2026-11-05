@@ -203,7 +203,7 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
                                           : "text-white/85 hover:text-teal hover:bg-[#1c3657]"
                                       )}
                                     >
-                                      <Icon
+                                      {/* <Icon
                                         size={16}
                                         className={cn(
                                           "mt-0.5 shrink-0 transition-colors pointer-events-none",
@@ -211,7 +211,7 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
                                             ? "text-teal"
                                             : "text-white/60 group-hover:text-teal"
                                         )}
-                                      />
+                                      /> */}
                                       <div className="flex flex-col items-start gap-0.5 pointer-events-none">
                                         <span
                                           className={cn(
@@ -223,9 +223,9 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
                                         >
                                           {link.title}
                                         </span>
-                                        <span className="block text-xs text-white/65 line-clamp-1 transition-colors group-hover:text-teal/80">
+                                        {/* <span className="block text-xs text-white/65 line-clamp-1 transition-colors group-hover:text-teal/80">
                                           {link.description}
-                                        </span>
+                                        </span> */}
                                       </div>
                                     </Link>
                                   </li>

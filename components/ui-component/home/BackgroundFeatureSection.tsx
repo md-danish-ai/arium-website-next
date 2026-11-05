@@ -69,7 +69,7 @@ export default function BackgroundFeatureSection({
           </Typography>
 
           <Typography
-            variant="b2"
+            variant="b1"
             weight="normal"
             className="reveal stagger-1 m-0 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)] text-white/80"
             style={{ color: description_color || undefined }}
@@ -98,6 +98,7 @@ export default function BackgroundFeatureSection({
                     variant="pillar-title"
                     uppercase
                     className="m-0 mb-1.5 md:mb-2 lg:mb-3 text-teal [text-shadow:0_2px_16px_rgba(0,0,0,0.5)] max-[600px]:[text-shadow:none] whitespace-nowrap"
+                    weight="bold"
                     style={{ color: card.title_color || undefined }}
                   >
                     {card.title}

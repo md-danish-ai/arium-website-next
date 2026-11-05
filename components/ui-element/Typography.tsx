@@ -128,11 +128,11 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   "story-title": "font-heading tracking-normal text-[clamp(1.2rem,2.2vw,2.2rem)] leading-[1.35]",
   "cta-title":
     "font-heading tracking-[0.05em] text-[clamp(1.5rem,2.5vw,2.5rem)] leading-[1.2] uppercase",
-  h3: "font-heading tracking-[0.06em] text-[clamp(1.2rem,1.5vw,1.5rem)] leading-[1.35] uppercase",
+  h3: "font-heading tracking-[0.06em] text-[clamp(1.4rem,1.8vw,2rem)] leading-[1.2]",
   "pillar-title":
     "font-heading tracking-[0.06em] text-[clamp(1rem,0.6rem+1.2vw,2rem)] leading-[1.35] uppercase",
   "infra-title":
-    "font-heading tracking-[0.2em] md:tracking-[0.25em] text-[clamp(1rem,1.2vw,1.35rem)] leading-[1.3] uppercase",
+    "font-heading tracking-[0.2em] md:tracking-[0.05em] text-[clamp(1rem,1.2vw,1.35rem)] leading-[1.3] uppercase",
   h4: "font-heading tracking-normal text-[clamp(1rem,1.15vw,1.15rem)] leading-[1.35]",
   h5: "font-heading tracking-[0.04em] text-[clamp(0.95rem,1.1vw,1.15rem)] leading-snug",
   h6: "font-heading tracking-[0.12em] text-[clamp(0.8rem,1vw,0.875rem)] leading-snug uppercase",
@@ -153,7 +153,7 @@ const variantStyleMap: Record<TypographyVariant, string> = {
   "team-overlay-role":
     "font-body tracking-[0.08em] text-[clamp(0.65rem,0.75vw,0.78rem)] leading-tight",
   "team-modal-name":
-    "font-heading tracking-[0.05em] text-[clamp(1.3rem,1.5vw,1.8rem)] leading-tight uppercase",
+    "font-heading tracking-[0.05em] text-[clamp(1.9rem,1.5vw,1.8rem)] leading-tight uppercase",
   "faq-massive":
     "font-heading tracking-[0.05em] text-[clamp(1.5rem,5vw,4.5rem)] leading-[1.1] uppercase",
   "faq-question": "font-heading tracking-[0.05em] text-[clamp(1.1rem,1.8vw,1.6rem)] leading-[1.35]",

@@ -22,7 +22,6 @@ export default function SubPageHeroBanner({
   id = "sub-page-hero",
   title,
   description,
-  tag,
   CTA_text,
   CTA_url,
   background_gradient,
@@ -99,7 +98,6 @@ export default function SubPageHeroBanner({
           <div className="reveal w-full text-left mb-6 sm:mb-8 md:mb-9">
             <Breadcrumbs
               items={[{ label: parentLabel, href: parentUrl }, { label: cleanTitle }]}
-              uppercase
             />
           </div>
         )}
@@ -108,7 +106,7 @@ export default function SubPageHeroBanner({
           className="flex flex-col items-center text-center w-full mx-auto"
           style={{ maxWidth: content_max_width || "960px" }}
         >
-          {tag && (
+          {/* {tag && (
             <>
               <Typography
                 variant="eyebrow"
@@ -119,12 +117,13 @@ export default function SubPageHeroBanner({
               </Typography>
               <div className="reveal stagger-1 w-12 h-0.5 bg-midnight mx-auto mb-5" />
             </>
-          )}
+          )} */}
 
           <Typography
             variant="subpage-title"
             uppercase
             className="reveal stagger-2 text-center text-midnight"
+            weight="light"
             dangerouslySetInnerHTML={{
               __html:
                 title ||
@@ -139,18 +138,18 @@ export default function SubPageHeroBanner({
           {(description ||
             pathname.includes("/leadership") ||
             pathname.includes("/board-of-directors")) && (
-            <Typography
-              variant="subpage-intro"
-              className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
-              dangerouslySetInnerHTML={{
-                __html:
-                  description ||
-                  (pathname.includes("/leadership")
-                    ? "Seasoned industry leaders driving strategic growth and operational excellence."
-                    : "Guiding our vision with extensive governance and telecommunications expertise."),
-              }}
-            />
-          )}
+              <Typography
+                variant="subpage-intro"
+                className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    description ||
+                    (pathname.includes("/leadership")
+                      ? "Seasoned industry leaders driving strategic growth and operational excellence."
+                      : "Guiding our vision with extensive governance and telecommunications expertise."),
+                }}
+              />
+            )}
 
           {CTA_text && CTA_url && (
             <div className="reveal stagger-4 mt-7">

@@ -105,7 +105,7 @@ export default function AboutCommitments({
               return (
                 <div
                   key={pillar.id ?? index}
-                  className="flex flex-col items-start text-left md:items-center md:text-center p-0 md:p-3 lg:p-4 rounded-2xl bg-transparent transition-all duration-300 md:hover:-translate-y-1 cursor-default group"
+                  className="flex flex-col items-start text-left md:items-center md:text-center p-0 rounded-2xl bg-transparent transition-all duration-300 md:hover:-translate-y-1 cursor-default group"
                 >
                   {/* Top accent bar: Left-aligned on mobile, Centered on desktop */}
                   <div
@@ -115,7 +115,7 @@ export default function AboutCommitments({
 
                   {/* Heading: Title case on mobile, Uppercase on desktop */}
                   <Typography
-                    variant="pillar-title"
+                    variant="b2"
                     weight="bold"
                     className="text-midnight m-0 mb-1 md:mb-3.5 text-left md:text-center w-full normal-case md:uppercase"
                   >

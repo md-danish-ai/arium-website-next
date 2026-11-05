@@ -33,7 +33,7 @@ export const ABOUT_HERO_FALLBACK = {
   background_image_position: "center top",
   CTA_text: null,
   CTA_url: null,
-  max_width_title: "960px",
+  max_width_title: "860px",
   max_width_description: null,
   tag: null,
 };

@@ -106,9 +106,8 @@ export default function SolutionsIndustries({
           return (
             <Image
               key={index}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-800 ease-in-out ${
-                index === currentIndex ? "opacity-100 z-0" : "opacity-0"
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-800 ease-in-out ${index === currentIndex ? "opacity-100 z-0" : "opacity-0"
+                }`}
               src={bgSrc}
               alt={card.title}
               fill
@@ -153,11 +152,10 @@ export default function SolutionsIndustries({
                 return (
                   <div
                     key={index}
-                    className={`group flex flex-col justify-start py-3.5 md:py-4 px-3 md:px-[18px] rounded-lg border transition-all duration-350 cursor-pointer bg-[#0d1224]/75 ${
-                      isActive
-                        ? "border-[#00e8d9]/45 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
-                        : "border-white/10 hover:border-[#00e8d9]/45 hover:shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
-                    }`}
+                    className={`group flex flex-col justify-start py-3.5 md:py-4 px-3 md:px-[18px] rounded-lg border transition-all duration-350 cursor-pointer bg-[#0d1224]/75 ${isActive
+                      ? "border-[#00e8d9]/45 shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
+                      : "border-white/10 hover:border-[#00e8d9]/45 hover:shadow-[0_8px_24px_rgba(22,32,71,0.18),0_0_16px_rgba(0,232,217,0.1)]"
+                      }`}
                     style={
                       card.background_color ? { background: card.background_color } : undefined
                     }
@@ -167,33 +165,30 @@ export default function SolutionsIndustries({
                     <div className="flex items-center gap-3 min-h-[32px]">
                       {hasSvgCode ? (
                         <span
-                          className={`w-6 h-6 md:w-7 md:h-7 flex items-center justify-center flex-shrink-0 transition-colors duration-350 [&>svg]:w-full [&>svg]:h-full ${
-                            isActive
-                              ? "[&>svg]:fill-[#00e8d9] [&>svg]:stroke-[#00e8d9]"
-                              : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
-                          }`}
+                          className={`w-6 h-6 md:w-7 md:h-7 flex items-center justify-center flex-shrink-0 transition-colors duration-350 [&>svg]:w-full [&>svg]:h-full ${isActive
+                            ? "[&>svg]:fill-[#00e8d9] [&>svg]:stroke-[#00e8d9]"
+                            : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
+                            }`}
                           dangerouslySetInnerHTML={{ __html: card.svg_code! }}
                         />
                       ) : iconNode ? (
                         <span
-                          className={`w-6 h-6 md:w-7 md:h-7 flex items-center justify-center flex-shrink-0 transition-colors duration-350 [&>svg]:w-full [&>svg]:h-full ${
-                            isActive
-                              ? "[&>svg]:fill-[#00e8d9] [&>svg]:stroke-[#00e8d9]"
-                              : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
-                          }`}
+                          className={`w-6 h-6 md:w-7 md:h-7 flex items-center justify-center flex-shrink-0 transition-colors duration-350 [&>svg]:w-full [&>svg]:h-full ${isActive
+                            ? "[&>svg]:fill-[#00e8d9] [&>svg]:stroke-[#00e8d9]"
+                            : "[&>svg]:fill-white/65 [&>svg]:stroke-white/65 group-hover:[&>svg]:fill-[#00e8d9] group-hover:[&>svg]:stroke-[#00e8d9]"
+                            }`}
                         >
                           {iconNode}
                         </span>
                       ) : null}
 
                       <Typography
-                        variant="h5"
-                        as="h3"
+                        variant="h6"
+                        as="h5"
                         uppercase
                         weight="bold"
-                        className={`m-0 transition-colors duration-350 tracking-[0.1em] ${
-                          isActive ? "text-[#00e8d9]" : "text-white group-hover:text-[#00e8d9]"
-                        }`}
+                        className={`m-0 transition-colors duration-350 tracking-[0.1em] ${isActive ? "text-[#00e8d9]" : "text-white group-hover:text-[#00e8d9]"
+                          }`}
                         style={
                           isActive && card.title_color_hover
                             ? { color: card.title_color_hover }
@@ -206,9 +201,8 @@ export default function SolutionsIndustries({
                       </Typography>
                     </div>
                     <div
-                      className={`overflow-hidden transition-all duration-500 ${
-                        hasSvgCode || iconNode ? "pl-9 md:pl-10" : "pl-0"
-                      } ${isActive ? "max-h-48 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0"}`}
+                      className={`overflow-hidden transition-all duration-500 ${hasSvgCode || iconNode ? "pl-9 md:pl-10" : "pl-0"
+                        } ${isActive ? "max-h-48 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0"}`}
                     >
                       <Typography
                         variant="b3"
