@@ -8,6 +8,7 @@ import { mapNavbarData, mapFooterData } from "@services/mappers";
 import { getPageMetadata } from "@utils";
 import { HOME_SEO_FALLBACK } from "@data";
 import PageAnimations from "@ui-animations/PageAnimations";
+import Script from "next/script";
 
 import "@public/css/globals.css";
 
@@ -46,6 +47,35 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <Script
+          id="cookieyes"
+          src="https://cdn-cookieyes.com/client_data/17abb4679415a6315b7ec2c98ee6ac70/script.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || "G-F7QCQ7L1M3"}`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || "G-F7QCQ7L1M3"}');
+            `,
+          }}
+        />
+        {layout?.organization_schema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(layout.organization_schema) }}
+          />
+        )}
+      </head>
       <body suppressHydrationWarning>
         <a
           href="#main-content"
