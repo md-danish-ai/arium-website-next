@@ -274,11 +274,11 @@ export default function AccordionSplit({
                         />
                       )}
                       <Typography
-                        variant="h5"
-                        as="h3"
+                        variant="b2"
+                        as="span"
                         uppercase
-                        weight="bold"
-                        className={`tracking-[0.1em] m-0 transition-colors duration-300 ${
+                        weight="semibold"
+                        className={`tracking-[0.15em] m-0 transition-colors duration-300 ${
                           isActive ? "text-teal" : "text-white group-hover:text-teal"
                         }`}
                         style={{
