@@ -36,11 +36,11 @@ export default function PeopleGlobalSection({
       <section className="relative pt-[60px] pb-24" style={{ background: background_gradient }}>
         <Container>
           <div className="max-w-[1200px] mx-auto -mt-32 sm:-mt-36 md:-mt-44 lg:-mt-44 relative z-[2]">
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {members.map((leader, index) => (
                 <div
                   key={index}
-                  className={`reveal stagger-${(index % 4) + 1} relative rounded-xl overflow-hidden cursor-pointer aspect-[4/4.6] shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl group w-full max-w-[400px] sm:max-w-none sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]`}
+                  className={`reveal stagger-${(index % 4) + 1} relative rounded-xl overflow-hidden cursor-pointer aspect-[4/4.6] shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl group w-[calc(50%-8px)] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]`}
                   onClick={(e) => openModal(leader, e.currentTarget)}
                   role="button"
                   tabIndex={0}
@@ -56,11 +56,11 @@ export default function PeopleGlobalSection({
                       src={leader.image}
                       alt={leader.name}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 1024px) 50vw, 33vw"
                       className="object-cover object-[center_15%] block transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0a0e20]/85 via-[#0a0e20]/40 to-transparent z-[2]">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 pt-8 sm:pt-12 bg-gradient-to-t from-[#0a0e20]/85 via-[#0a0e20]/40 to-transparent z-[2]">
                     <Typography
                       variant="team-overlay-name"
                       className="text-white m-0 mb-0.5 whitespace-nowrap overflow-hidden text-ellipsis"
