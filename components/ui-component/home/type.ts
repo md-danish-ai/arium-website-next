@@ -11,7 +11,7 @@ export type {
 };
 
 /**
- * 1. Home Hero Props (Widget 1 - shared.main-hero)
+ * 1. Home Hero Props (shared.main-hero)
  */
 export interface HomeHeroProps {
   title?: string;
@@ -22,7 +22,7 @@ export interface HomeHeroProps {
 }
 
 /**
- * 2. Background Feature Props (Widget 2 - shared.background-feature-section)
+ * 2. Background Feature Props (shared.background-feature-section)
  */
 export interface BackgroundFeatureSectionProps {
   title?: string;
@@ -38,7 +38,7 @@ export interface BackgroundFeatureSectionProps {
 }
 
 /**
- * 3. Detailed Card Grid Props (Widget 3 - shared.detailed-card-grid)
+ * 3. Detailed Card Grid Props (shared.detailed-card-grid)
  */
 export interface DetailedCardGridProps {
   title?: string;
@@ -48,7 +48,7 @@ export interface DetailedCardGridProps {
 }
 
 /**
- * 4. Stats With Image Props (Widget 4 - shared.stats-with-image)
+ * 4. Stats With Image Props (shared.stats-with-image)
  */
 export interface StatsWithImageProps {
   title?: string;
@@ -60,7 +60,7 @@ export interface StatsWithImageProps {
 export type { ImageGradientSplitProps } from "@ui-common";
 
 /**
- * 6. Careers CTA Props (Widget 6 - shared.centered-image-cta)
+ * 6. Careers CTA Props (shared.centered-image-cta)
  */
 export interface CareersCtaProps {
   title?: string;
@@ -73,7 +73,7 @@ export interface CareersCtaProps {
 }
 
 /**
- * 7. Final Contact CTA Props (Widget 7 - shared.cta-with-graphic)
+ * 7. Final Contact CTA Props (shared.cta-with-graphic)
  */
 export interface ContactCtaProps {
   title?: string;

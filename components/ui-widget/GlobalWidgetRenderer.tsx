@@ -50,10 +50,10 @@ export default function GlobalWidgetRenderer({ widget }: GlobalWidgetProps) {
 
   const renderNode = (section: GlobalWidgetSection, index: number) => {
     const raw = section?.__component || "";
-    const widgetKey = raw.startsWith("widget.") ? raw : `widget.${raw.replace(/^shared\./, "")}`;
-    const Component = WIDGET_REGISTRY[widgetKey] || WIDGET_REGISTRY[raw] || null;
+    const componentKey = raw.startsWith("shared.") ? raw : `shared.${raw.replace(/^widget\./, "")}`;
+    const Component = WIDGET_REGISTRY[componentKey] || WIDGET_REGISTRY[raw] || null;
     if (!Component) return null;
-    return <Component key={`widget-section-${index}`} section={section} index={index} />;
+    return <Component key={`shared-section-${index}`} section={section} index={index} />;
   };
 
   // Group contiguous storyteller components and contiguous people cards

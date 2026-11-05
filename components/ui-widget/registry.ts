@@ -48,49 +48,51 @@ import {
 
 export const WIDGET_REGISTRY: Record<string, React.ComponentType<SectionRendererProps>> = {
   // Home
-  "widget.main-hero": HomeHeroRenderer,
-  "widget.background-feature-section": BackgroundFeatureRenderer,
-  "widget.detailed-card-grid": DetailedCardGridRenderer,
-  "widget.stats-with-image": StatsWithImageRenderer,
-  "widget.image-gradient-split": CommunityImpactRenderer,
-  "widget.centered-image-cta": CenteredImageCTARenderer,
-  "widget.cta-with-graphic": CtaWithGraphicRenderer,
+  "shared.main-hero": HomeHeroRenderer,
+  "shared.background-feature-section": BackgroundFeatureRenderer,
+  "shared.detailed-card-grid": DetailedCardGridRenderer,
+  "shared.stats-with-image": StatsWithImageRenderer,
+  "shared.image-gradient-split": CommunityImpactRenderer,
+  "shared.centered-image-cta": CenteredImageCTARenderer,
+  "shared.cta-with-graphic": CtaWithGraphicRenderer,
 
   // About
-  "widget.content-with-side-graphic": AboutStoryRenderer,
-  "widget.timeline": AboutJourneyRenderer,
-  "widget.stats-cards": AboutStatsCardsRenderer,
-  "widget.commitments": AboutCommitmentsRenderer,
+  "shared.content-with-side-graphic": AboutStoryRenderer,
+  "shared.timeline": AboutJourneyRenderer,
+  "shared.stats-cards": AboutStatsCardsRenderer,
+  "shared.commitments": AboutCommitmentsRenderer,
 
   // Careers
-  "widget.benefits": BenefitsGridRenderer,
-  "widget.highlight-list": CareersJobAreasRenderer,
-  "widget.gloabl-testimonails": GlobalTestimonialsRenderer,
+  "shared.benefits": BenefitsGridRenderer,
+  "shared.highlight-list": CareersJobAreasRenderer,
+  "shared.gloabl-testimonails": GlobalTestimonialsRenderer,
+  "shared.global-testimonials": GlobalTestimonialsRenderer,
 
   // Community
-  "widget.image-card-grid": BenefitsGridRenderer,
-  "widget.how-we-work": CommunityHowWeWorkRenderer,
-  "widget.community-testimonials": GlobalTestimonialsRenderer,
-  "widget.faq": CommunityFAQRenderer,
+  "shared.image-card-grid": BenefitsGridRenderer,
+  "shared.how-we-work": CommunityHowWeWorkRenderer,
+  "shared.community-testimonials": GlobalTestimonialsRenderer,
+  "shared.faq": CommunityFAQRenderer,
 
   // Solutions
-  "widget.small-cells": SolutionsSmallCellsRenderer,
-  "widget.das": SolutionsDasRenderer,
-  "widget.industry": SolutionsIndustriesRenderer,
+  "shared.small-cells": SolutionsSmallCellsRenderer,
+  "shared.das": SolutionsDasRenderer,
+  "shared.industry": SolutionsIndustriesRenderer,
 
   // Where We Build
-  "widget.image-split": ImageSplitRenderer,
-  "widget.communities": WhereCommunitiesRenderer,
-  "widget.venues": WhereVenuesRenderer,
+  "shared.image-split": ImageSplitRenderer,
+  "shared.communities": WhereCommunitiesRenderer,
+  "shared.venues": WhereVenuesRenderer,
 
   // Shared
-  "widget.hero": HeroBannerRenderer,
-  "widget.sub-page-hero": SubPageHeroRenderer,
-  "widget.inner-page-hero": SubPageHeroRenderer,
-  "widget.global-cta": SubPageCTARenderer,
-  "widget.sub-page-cta": SubPageCTARenderer,
-  "widget.process": ProcessRenderer,
-  "widget.people-global-section": PeopleGlobalRenderer,
-  "widget.illustration-split": IllustrationSplitRenderer,
-  "widget.accordion-split": AccordionSplitRenderer,
+  "shared.hero": HeroBannerRenderer,
+  "shared.hero-banner": HeroBannerRenderer,
+  "shared.sub-page-hero": SubPageHeroRenderer,
+  "shared.inner-page-hero": SubPageHeroRenderer,
+  "shared.global-cta": SubPageCTARenderer,
+  "shared.sub-page-cta": SubPageCTARenderer,
+  "shared.process": ProcessRenderer,
+  "shared.people-global-section": PeopleGlobalRenderer,
+  "shared.illustration-split": IllustrationSplitRenderer,
+  "shared.accordion-split": AccordionSplitRenderer,
 };

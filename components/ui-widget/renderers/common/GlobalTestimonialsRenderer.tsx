@@ -22,7 +22,7 @@ export default function GlobalTestimonialsRenderer({
 
   const isRow = title.includes("community leaders") || title.includes("across the country");
   const isCommunity =
-    comp === "widget.community-testimonials" || (title.includes("community") && !isRow);
+    comp.includes("community-testimonials") || (title.includes("community") && !isRow);
 
   const props = isCommunity
     ? mapCommunityTestimonials(section)

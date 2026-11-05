@@ -26,7 +26,7 @@ export default function HeroBannerRenderer({ section, index }: SectionRendererPr
   return (
     <HeroBanner
       key={`hero-${index}`}
-      id={`widget-hero-${index}`}
+      id={`shared-hero-${index}`}
       title={title}
       description={description}
       imageSrc={!isVideo ? mediaUrl : undefined}

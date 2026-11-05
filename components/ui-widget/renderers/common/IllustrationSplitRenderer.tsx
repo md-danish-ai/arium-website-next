@@ -33,7 +33,7 @@ export default function IllustrationSplitRenderer({ section, index }: SectionRen
   return (
     <IllustrationSplit
       key={`illustration-split-${index}`}
-      id={`widget-illustration-split-${index}`}
+      id={`shared-illustration-split-${index}`}
       title={title as string | undefined}
       title_color={title_color as string | undefined}
       description={description as string | undefined}

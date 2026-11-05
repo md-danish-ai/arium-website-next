@@ -9,7 +9,7 @@ export default function SubPageHeroRenderer({
   return (
     <SubPageHeroBanner
       key={`sub-hero-${index}`}
-      id={`widget-sub-hero-${index}`}
+      id={`shared-sub-hero-${index}`}
       tag={tag}
       title={title}
       description={description}
