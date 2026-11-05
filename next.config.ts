@@ -1,34 +1,33 @@
 import type { NextConfig } from "next";
 
-const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
-let strapiPattern: { protocol?: "http" | "https"; hostname: string; port?: string } | null = null;
+const remotePatterns: NonNullable<NonNullable<NextConfig["images"]>["remotePatterns"]> = [];
 
+const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 if (strapiUrl) {
   try {
     const parsed = new URL(strapiUrl);
-    strapiPattern = {
+    remotePatterns.push({
       protocol: parsed.protocol.replace(":", "") as "http" | "https",
       hostname: parsed.hostname,
       port: parsed.port || undefined,
-    };
+    });
   } catch {
     // Malformed URL in environment
   }
 }
 
+const cdnDomain = process.env.NEXT_PUBLIC_CDN_DOMAIN;
+if (cdnDomain) {
+  const cleanDomain = cdnDomain.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  remotePatterns.push({
+    protocol: "https",
+    hostname: cleanDomain,
+  });
+}
+
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "d2919ce8l80osk.cloudfront.net",
-      },
-      ...(strapiPattern ? [strapiPattern] : []),
-      {
-        protocol: "http",
-        hostname: "arium-strapi-alb-dev-1719989505.ap-south-1.elb.amazonaws.com",
-      },
-    ],
+    remotePatterns,
   },
   experimental: {
     agentFeedback: true,

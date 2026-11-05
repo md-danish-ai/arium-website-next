@@ -101,15 +101,16 @@ cp .env.example .env
 
 Configure the following variables in `.env` (refer to `.env.example` for variable names):
 
-| Variable                   | Description                             |
-| :------------------------- | :-------------------------------------- |
-| `NEXT_PUBLIC_STRAPI_URL`   | Base URL of the Strapi CMS backend      |
-| `RESEND_API_KEY`           | API secret key for Resend email service |
-| `RESEND_API_URL`           | Resend API endpoint                     |
-| `CONTACT_EMAIL_FROM`       | Verified sender email address           |
-| `CONTACT_EMAIL_TO`         | Target recipient email address(es)      |
-| `NEXT_PUBLIC_GA_ID`        | Google Analytics 4 Measurement ID       |
-| `NEXT_PUBLIC_COOKIEYES_ID` | CookieYes script client ID              |
+| Variable                   | Description                                    |
+| :------------------------- | :--------------------------------------------- |
+| `NEXT_PUBLIC_STRAPI_URL`   | Base URL of the Strapi CMS backend             |
+| `NEXT_PUBLIC_CDN_DOMAIN`   | CDN domain for static assets and remote images |
+| `RESEND_API_KEY`           | API secret key for Resend email service        |
+| `RESEND_API_URL`           | Resend API endpoint                            |
+| `CONTACT_EMAIL_FROM`       | Verified sender email address                  |
+| `CONTACT_EMAIL_TO`         | Target recipient email address(es)             |
+| `NEXT_PUBLIC_GA_ID`        | Google Analytics 4 Measurement ID              |
+| `NEXT_PUBLIC_COOKIEYES_ID` | CookieYes script client ID                     |
 
 > **Note:** Never commit actual environment secret values to version control. Keep `.env` gitignored.
 
