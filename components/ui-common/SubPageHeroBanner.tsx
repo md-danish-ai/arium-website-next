@@ -96,9 +96,7 @@ export default function SubPageHeroBanner({
       <Container className="relative z-[1] flex flex-col items-center text-center">
         {showBreadcrumbs && parentLabel && (
           <div className="reveal w-full text-left mb-6 sm:mb-8 md:mb-9">
-            <Breadcrumbs
-              items={[{ label: parentLabel, href: parentUrl }, { label: cleanTitle }]}
-            />
+            <Breadcrumbs items={[{ label: parentLabel, href: parentUrl }, { label: cleanTitle }]} />
           </div>
         )}
 
@@ -138,18 +136,18 @@ export default function SubPageHeroBanner({
           {(description ||
             pathname.includes("/leadership") ||
             pathname.includes("/board-of-directors")) && (
-              <Typography
-                variant="subpage-intro"
-                className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    description ||
-                    (pathname.includes("/leadership")
-                      ? "Seasoned industry leaders driving strategic growth and operational excellence."
-                      : "Guiding our vision with extensive governance and telecommunications expertise."),
-                }}
-              />
-            )}
+            <Typography
+              variant="subpage-intro"
+              className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
+              dangerouslySetInnerHTML={{
+                __html:
+                  description ||
+                  (pathname.includes("/leadership")
+                    ? "Seasoned industry leaders driving strategic growth and operational excellence."
+                    : "Guiding our vision with extensive governance and telecommunications expertise."),
+              }}
+            />
+          )}
 
           {CTA_text && CTA_url && (
             <div className="reveal stagger-4 mt-7">

@@ -82,8 +82,9 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
 
   return (
     <div
-      className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${isOpen && member ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-        }`}
+      className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${
+        isOpen && member ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+      }`}
       id="member-modal"
       aria-hidden={!isOpen}
       role="dialog"
@@ -97,10 +98,11 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
       />
 
       <div
-        className={`relative z-[1] w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[1080px] max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${isOpen && member
-          ? "scale-100 translate-y-0 opacity-100"
-          : "scale-95 translate-y-4 opacity-0"
-          }`}
+        className={`relative z-[1] w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[1080px] max-h-[88vh] bg-[#101830] rounded-[24px] border border-white/10 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
+          isOpen && member
+            ? "scale-100 translate-y-0 opacity-100"
+            : "scale-95 translate-y-4 opacity-0"
+        }`}
       >
         <button
           className="absolute top-4 right-4 sm:top-5 sm:right-5 z-[5] bg-transparent border-none p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full cursor-pointer transition-colors"
@@ -136,7 +138,11 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
               </div>
 
               <div className="flex-1 min-w-0 w-full lg:w-auto pr-0 lg:pr-10">
-                <Typography variant="team-modal-name" className="text-white m-0 uppercase" weight="light">
+                <Typography
+                  variant="team-modal-name"
+                  className="text-white m-0 uppercase"
+                  weight="light"
+                >
                   {member.name}
                 </Typography>
                 <Typography

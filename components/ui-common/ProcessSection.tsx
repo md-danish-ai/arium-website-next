@@ -2,7 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Typography, ProcessIcon } from "@ui-element";
+import { Typography, ProcessIcon, ProcessCard } from "@ui-element";
 import { Container } from "@ui-layout/SectionContainer";
 
 export interface TimelineItem {
@@ -102,15 +102,15 @@ export default function ProcessSection({
             style={
               isRightOfWays
                 ? {
-                  gridTemplateColumns: `repeat(${Math.max(pillars.length, 1)}, 1fr)`,
-                  maxWidth: "1320px",
-                  gap: "24px",
-                }
+                    gridTemplateColumns: `repeat(${Math.max(pillars.length, 1)}, 1fr)`,
+                    maxWidth: "1320px",
+                    gap: "24px",
+                  }
                 : {
-                  gridTemplateColumns: `repeat(${Math.max(pillars.length, 1)}, 1fr)`,
-                  maxWidth: "1188px",
-                  gap: "24px",
-                }
+                    gridTemplateColumns: `repeat(${Math.max(pillars.length, 1)}, 1fr)`,
+                    maxWidth: "1188px",
+                    gap: "24px",
+                  }
             }
           >
             {pillars.map((pillar, index) => {
@@ -151,10 +151,11 @@ export default function ProcessSection({
                   }
                 >
                   <span
-                    className={`w-16 h-16 rounded-[16px] flex items-center justify-center text-[#162047] mb-2 transition-all duration-200 border border-transparent [&_svg]:w-10 [&_svg]:h-10 lg:[&_svg]:w-11 lg:[&_svg]:h-11 [&_img]:w-12 [&_img]:h-12 lg:[&_img]:w-14 lg:[&_img]:h-14 [&_img]:object-contain ${isActive
-                      ? "bg-[var(--accent-color)] shadow-[0_10px_20px_-6px_var(--accent-color)] -translate-y-0.5"
-                      : "group-hover:bg-[var(--accent-color)] group-hover:shadow-[0_10px_20px_-6px_var(--accent-color)] group-hover:-translate-y-0.5"
-                      }`}
+                    className={`w-16 h-16 rounded-[16px] flex items-center justify-center text-[#162047] mb-2 transition-all duration-200 border border-transparent [&_svg]:w-10 [&_svg]:h-10 lg:[&_svg]:w-11 lg:[&_svg]:h-11 [&_img]:w-12 [&_img]:h-12 lg:[&_img]:w-14 lg:[&_img]:h-14 [&_img]:object-contain ${
+                      isActive
+                        ? "bg-[var(--accent-color)] shadow-[0_10px_20px_-6px_var(--accent-color)] -translate-y-0.5"
+                        : "group-hover:bg-[var(--accent-color)] group-hover:shadow-[0_10px_20px_-6px_var(--accent-color)] group-hover:-translate-y-0.5"
+                    }`}
                   >
                     <ProcessIcon id={pillar.id} title={pillar.title} icon_svg={pillar.icon_svg} />
                   </span>
@@ -167,8 +168,9 @@ export default function ProcessSection({
                   >
                     {pillar.title}
                     <span
-                      className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--accent-color)] transition-transform duration-200 origin-center ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                        }`}
+                      className={`absolute bottom-0 left-0 right-0 h-[3px] bg-[var(--accent-color)] transition-transform duration-200 origin-center ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
                     />
                   </Typography>
                 </button>
@@ -191,8 +193,9 @@ export default function ProcessSection({
                     aria-labelledby={`tab-${pillar.id}`}
                     aria-hidden={!isActive}
                     tabIndex={isActive ? 0 : -1}
-                    className={`w-full transition-opacity duration-300 ${isActive ? "block" : "block lg:hidden"
-                      }`}
+                    className={`w-full transition-opacity duration-300 ${
+                      isActive ? "block" : "block lg:hidden"
+                    }`}
                   >
                     {/* Mobile/Tablet Phase Header (shown only on < 1024px) */}
                     <Typography
@@ -222,10 +225,11 @@ export default function ProcessSection({
 
                     {/* Step Cards (Mobile/Tablet swipe track, Desktop grid >= 1024px) */}
                     <div
-                      className={`flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-5 px-4 justify-start items-stretch scrollbar-none [webkit-overflow-scrolling:touch] max-w-full ${isFourCols
-                        ? "lg:grid lg:grid-cols-4 lg:gap-5 lg:max-w-[1320px] lg:mx-auto lg:p-0 lg:overflow-visible"
-                        : "lg:flex lg:justify-center lg:gap-6 lg:max-w-[1188px] lg:mx-auto lg:p-0 lg:overflow-visible"
-                        }`}
+                      className={`flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-5 px-4 justify-start items-stretch scrollbar-none [webkit-overflow-scrolling:touch] max-w-full ${
+                        isFourCols
+                          ? "lg:grid lg:grid-cols-4 lg:gap-5 lg:max-w-[1320px] lg:mx-auto lg:p-0 lg:overflow-visible"
+                          : "lg:flex lg:justify-center lg:gap-6 lg:max-w-[1188px] lg:mx-auto lg:p-0 lg:overflow-visible"
+                      }`}
                     >
                       {pillar.timelineItems.map((item, idx) => {
                         const cardBg =
@@ -234,40 +238,14 @@ export default function ProcessSection({
                           pillar.themeColor ||
                           "#FBCBB5";
                         return (
-                          <div
+                          <ProcessCard
                             key={idx}
-                            className={`shrink-0 snap-start w-[280px] sm:w-[320px] min-w-[270px] max-w-[340px] min-h-[260px] p-6 sm:p-7 rounded-[20px] shadow-[0_4px_16px_rgba(22,32,71,0.04)] hover:shadow-[0_16px_36px_rgba(22,32,71,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-start justify-start text-left lg:w-full lg:min-w-0 lg:shrink lg:p-8 lg:min-h-[310px] ${isFourCols ? "lg:max-w-[303px]" : "lg:max-w-[380px]"
-                              }`}
-                            style={{
-                              backgroundColor: cardBg,
-                            }}
-                          >
-                            <Typography
-                              as="span"
-                              variant="b4"
-                              uppercase
-                              weight="bold"
-                              className="self-start inline-flex items-center justify-center py-1.5 px-3.5 rounded-full bg-[#162047] text-white tracking-[0.06em] mb-4 leading-none select-none w-fit"
-                            >
-                              Step {idx + 1}
-                            </Typography>
-                            <Typography
-                              as="h4"
-                              variant="h4"
-                              weight="bold"
-                              className="text-[#162047] m-0 mb-2.5 leading-[1.3] normal-case"
-                            >
-                              {item.label}
-                            </Typography>
-                            <Typography
-                              as="p"
-                              variant="b1"
-                              weight="normal"
-                              className="leading-[1.58] text-[#162047]/90 m-0"
-                            >
-                              {item.desc}
-                            </Typography>
-                          </div>
+                            step={idx + 1}
+                            title={item.label}
+                            description={item.desc}
+                            backgroundColor={cardBg}
+                            isFourCols={isFourCols}
+                          />
                         );
                       })}
                     </div>
