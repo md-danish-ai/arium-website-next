@@ -166,7 +166,9 @@ export default function IllustrationSplit({
               </div>
             )}
 
-            <div className="w-full h-px bg-[#162047]/[0.08] mt-3 lg:mt-7" />
+            {show_bottom_divider && (
+              <div className="w-full h-px bg-[#162047]/[0.08] mt-3 lg:mt-7" />
+            )}
           </div>
 
           {/* Illustration wrapper */}
@@ -197,9 +199,6 @@ export default function IllustrationSplit({
           )}
         </div>
       </Container>
-      {show_bottom_divider && (
-        <div className="max-w-[1200px] mx-auto mt-12 border-b border-[#162047]/10" />
-      )}
     </section>
   );
 }
