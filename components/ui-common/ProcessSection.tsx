@@ -72,11 +72,11 @@ export default function ProcessSection({
         <Container className="relative z-[2]">
           <div className="text-center mb-14">
             <Typography
-              variant="h3"
+              variant="infra-title"
               as="h2"
               uppercase
-              weight="normal"
-              className="section-title reveal stagger-1 tracking-[0.06em] leading-[1.45] text-midnight mx-auto"
+              weight="semibold"
+              className="section-title reveal stagger-1 leading-[1.2] text-midnight mx-auto"
               style={
                 maxWidthTitle || isRightOfWays
                   ? { maxWidth: isRightOfWays ? maxWidthTitle || "880px" : maxWidthTitle }
@@ -258,7 +258,7 @@ export default function ProcessSection({
                             </Typography>
                             <Typography
                               as="h4"
-                              variant="h5"
+                              variant="h4"
                               weight="bold"
                               className="text-[#162047] m-0 mb-2.5 leading-[1.3] normal-case"
                             >

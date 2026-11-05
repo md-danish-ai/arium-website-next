@@ -78,7 +78,7 @@ export default function SubPageHeroBanner({
   return (
     <section
       className={cn(
-        "relative overflow-hidden pt-7 sm:pt-8 md:pt-9",
+        "relative overflow-hidden pt-24 sm:pt-28 md:pt-32",
         isPeoplePage ? "pb-[135px] sm:pb-[145px] md:pb-[150px]" : "pb-16 sm:pb-20"
       )}
       id={id}
@@ -111,9 +111,9 @@ export default function SubPageHeroBanner({
           {tag && (
             <>
               <Typography
-                variant="b4"
+                variant="eyebrow"
                 uppercase
-                className="reveal stagger-1 text-midnight/70 mb-4 tracking-[0.12em]"
+                className="reveal stagger-1 text-midnight/70 mb-4 tracking-[0.18em]"
               >
                 {tag}
               </Typography>
@@ -122,7 +122,7 @@ export default function SubPageHeroBanner({
           )}
 
           <Typography
-            variant="h2"
+            variant="subpage-title"
             uppercase
             className="reveal stagger-2 text-center text-midnight"
             dangerouslySetInnerHTML={{
@@ -140,7 +140,7 @@ export default function SubPageHeroBanner({
             pathname.includes("/leadership") ||
             pathname.includes("/board-of-directors")) && (
             <Typography
-              variant="b1"
+              variant="subpage-intro"
               className="reveal stagger-3 text-center text-midnight/80 mx-auto mt-4"
               dangerouslySetInnerHTML={{
                 __html:

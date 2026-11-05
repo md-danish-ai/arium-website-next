@@ -33,10 +33,10 @@ export default function CareersJobAreas({
       <Container className="relative z-[2]">
         <div className="text-center mb-14">
           <Typography
-            variant="h3"
-            as="h2"
+            variant="h2"
             uppercase
-            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047] tracking-[0.06em]"
+            weight="normal"
+            className="reveal stagger-1 max-w-[880px] mx-auto text-[#162047]"
           >
             {title}
           </Typography>
@@ -68,7 +68,7 @@ export default function CareersJobAreas({
                     <Typography
                       variant="h5"
                       as="h3"
-                      weight="medium"
+                      weight="bold"
                       uppercase
                       className="inline-flex items-center gap-3 text-[#162047] m-0 text-left"
                     >

@@ -91,7 +91,7 @@ export default function HomeHero({
           dangerouslySetInnerHTML={{ __html: title || "" }}
         />
         <Typography
-          variant="b1"
+          variant="lead"
           weight="normal"
           className="mx-auto mt-6 lg:mt-10 max-[480px]:mt-5 max-w-[780px] leading-[1.6] max-[768px]:tracking-[0.02em] text-center relative z-[1]"
           style={{ color: font_color }}

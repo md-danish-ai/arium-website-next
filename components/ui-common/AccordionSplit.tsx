@@ -209,8 +209,9 @@ export default function AccordionSplit({
           >
             {title && (
               <Typography
-                variant="h3"
-                uppercase
+                variant={isCareers ? "story-title" : "h2"}
+                as="h2"
+                uppercase={!isCareers}
                 className={`section-title mb-3 md:mb-6 ${imageMode ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.6),0_4px_32px_rgba(0,0,0,0.3)]" : ""}`}
                 style={{
                   color: leftTextColor,
@@ -273,10 +274,11 @@ export default function AccordionSplit({
                         />
                       )}
                       <Typography
-                        variant="h6"
+                        variant="h5"
                         as="h3"
                         uppercase
-                        className={`tracking-[0.12em] md:tracking-[0.15em] m-0 transition-colors duration-300 ${
+                        weight="bold"
+                        className={`tracking-[0.1em] m-0 transition-colors duration-300 ${
                           isActive ? "text-teal" : "text-white group-hover:text-teal"
                         }`}
                         style={{

@@ -62,18 +62,14 @@ export default function PeopleGlobalSection({
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0a0e20]/85 via-[#0a0e20]/40 to-transparent z-[2]">
                     <Typography
-                      as="h3"
-                      variant="b2"
-                      uppercase
-                      weight="bold"
+                      variant="team-overlay-name"
                       className="text-white m-0 mb-0.5 whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       {leader.name}
                     </Typography>
                     <Typography
-                      as="p"
-                      variant="b4"
-                      className="text-white/80 m-0 leading-tight whitespace-nowrap overflow-hidden text-ellipsis"
+                      variant="team-overlay-role"
+                      className="text-white/80 m-0 whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       {leader.role}
                     </Typography>

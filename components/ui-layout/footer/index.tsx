@@ -6,7 +6,7 @@ import { FooterBrand } from "./FooterBrand";
 import { FooterSocialRow } from "./FooterSocialRow";
 import { FooterLegalRow } from "./FooterLegalRow";
 import { FooterCopyright } from "./FooterCopyright";
-import { Container } from "../SectionContainer";
+import { Container } from "@ui-layout/SectionContainer";
 
 export default function Footer({
   contactLink,

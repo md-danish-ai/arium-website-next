@@ -17,10 +17,9 @@ export default function AboutJourney({
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <Typography
-            variant="h3"
-            as="h2"
+            variant="h2"
             uppercase
-            weight="light"
+            weight="normal"
             className="section-title reveal stagger-1 text-midnight m-0 mb-0"
           >
             {title}

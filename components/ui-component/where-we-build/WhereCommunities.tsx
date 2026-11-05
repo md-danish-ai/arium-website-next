@@ -32,10 +32,9 @@ export default function WhereCommunities({
       <Container className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-[1] items-start">
         <div className="reveal flex flex-col gap-5">
           <Typography
-            variant="h3"
-            as="h2"
+            variant="h2"
             uppercase
-            weight="light"
+            weight="normal"
             className="leading-tight m-0"
             style={title_color ? { color: title_color } : { color: "#162047" }}
           >
@@ -54,7 +53,7 @@ export default function WhereCommunities({
             />
           ) : (
             <Typography
-              variant="b2"
+              variant="b1"
               as="p"
               className="m-0 leading-relaxed"
               style={

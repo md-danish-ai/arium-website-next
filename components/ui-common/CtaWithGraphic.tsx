@@ -67,19 +67,17 @@ export default function CtaWithGraphic({
       <Container className="relative z-[2]">
         <div className="w-full max-w-full md:max-w-[550px] lg:max-w-[650px] py-12 sm:py-16 md:py-20 lg:py-24 text-left">
           <Typography
-            as="h2"
-            variant="h3"
+            variant="cta-title"
             uppercase
-            className="reveal stagger-1 m-0 mb-4 md:mb-6 text-midnight leading-[1.15] tracking-tight"
+            className="reveal stagger-1 m-0 mb-4 md:mb-6 text-midnight"
             style={{ color: title_color || undefined }}
           >
             {title}
           </Typography>
 
           <Typography
-            as="p"
-            variant="b2"
-            className="reveal stagger-2 m-0 mb-6 md:mb-8 text-midnight/85 max-w-[620px] leading-[1.6]"
+            variant="b1"
+            className="reveal stagger-2 m-0 mb-6 md:mb-8 text-midnight/85 max-w-[620px]"
             style={{ color: description_color || undefined }}
           >
             {description}

@@ -98,8 +98,7 @@ export default function IllustrationSplit({
           >
             {title && (
               <Typography
-                variant="h3"
-                as="h2"
+                variant="h2"
                 uppercase
                 weight="normal"
                 className="section-title text-left text-[#162047] m-0 mb-3 max-w-[300px] sm:max-w-[480px] lg:max-w-none"

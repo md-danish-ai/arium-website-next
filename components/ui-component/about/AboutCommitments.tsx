@@ -38,7 +38,7 @@ export default function AboutCommitments({
 
           <div className="relative z-[2] w-full flex items-end md:items-center justify-start text-left p-5 xs:p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="max-w-[640px] w-full m-0">
-              <Typography variant="h3" as="h3" uppercase weight="light">
+              <Typography variant="h2" uppercase weight="normal">
                 {title}
               </Typography>
 
@@ -115,19 +115,18 @@ export default function AboutCommitments({
 
                   {/* Heading: Title case on mobile, Uppercase on desktop */}
                   <Typography
-                    variant="h5"
-                    as="h3"
+                    variant="pillar-title"
                     weight="bold"
-                    className="text-midnight m-0 mb-1 md:mb-3.5 text-left md:text-center w-full normal-case md:uppercase text-[0.95rem] md:text-[0.95rem] lg:text-[1.05rem] md:tracking-[0.06em]"
+                    className="text-midnight m-0 mb-1 md:mb-3.5 text-left md:text-center w-full normal-case md:uppercase"
                   >
                     {pillar.title}
                   </Typography>
 
                   {/* Body description */}
                   <Typography
-                    variant="b3"
+                    variant="b2"
                     as="p"
-                    className="text-midnight/65 md:text-midnight/70 m-0 text-left md:text-center w-full text-[0.85rem] sm:text-[0.88rem] leading-[1.6] md:leading-[1.75]"
+                    className="text-midnight/65 md:text-midnight/70 m-0 text-left md:text-center w-full leading-[1.6] md:leading-[1.75]"
                   >
                     {pillar.description}
                   </Typography>

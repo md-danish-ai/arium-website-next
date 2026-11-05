@@ -31,11 +31,10 @@ export default function AboutContentWithSideGraphic({
       <Container className="relative z-[1]">
         <div className="lg:max-w-[760px] text-left">
           <Typography
-            variant="h3"
-            as="h3"
-            uppercase
-            className="reveal text-midnight text-left mb-6 leading-[1.35] whitespace-normal lg:whitespace-nowrap"
+            variant="story-title"
+            className="reveal text-midnight text-left mb-6 whitespace-normal lg:whitespace-nowrap"
             style={title_color ? { color: title_color } : undefined}
+            uppercase
           >
             {title}
           </Typography>

@@ -30,10 +30,10 @@ export default function SharedTestimonials({ title, cards }: SharedTestimonialsP
         {title && (
           <div className="section-header text-center mb-10 md:mb-16">
             <Typography
-              variant="h3"
-              as="h2"
+              variant="h2"
               uppercase
-              className="section-title reveal stagger-1 tracking-[0.06em] mx-auto text-midnight [text-wrap:balance] max-w-[880px]"
+              weight="normal"
+              className="section-title reveal stagger-1 mx-auto text-midnight [text-wrap:balance]"
             >
               {title}
             </Typography>
@@ -58,9 +58,7 @@ export default function SharedTestimonials({ title, cards }: SharedTestimonialsP
         ) : (
           <div
             className={`tm-row flex flex-row flex-nowrap overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] [scroll-snap-type:x_mandatory] gap-3.5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden items-stretch mx-auto lg:grid lg:overflow-visible lg:pb-0 ${
-              cols === 3
-                ? "max-w-[1200px] lg:grid-cols-3 lg:gap-6"
-                : "max-w-[1400px] lg:grid-cols-4 lg:gap-6"
+              cols === 3 ? "lg:grid-cols-3 lg:gap-6" : "lg:grid-cols-4 lg:gap-6"
             }`}
           >
             {cards.map((card, idx) => (

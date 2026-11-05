@@ -59,13 +59,7 @@ export default function DetailedCard({
       ) : null}
 
       <div className="px-6 md:px-8 pt-4 md:pt-6 text-center w-full flex-1 flex flex-col items-center">
-        <Typography
-          variant="h5"
-          as="h4"
-          uppercase
-          weight="normal"
-          className="!leading-[1.35] tracking-[0.06em] m-0 mb-3 md:mb-3.5 text-white"
-        >
+        <Typography variant="infra-title" className="m-0 mb-3 md:mb-3.5 text-white">
           {title}
         </Typography>
 

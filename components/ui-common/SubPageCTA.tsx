@@ -36,7 +36,7 @@ export default function SubPageCTA({
           {prompt_to_cta ? (
             <Typography
               as="p"
-              variant="h4"
+              variant="lead"
               weight="light"
               className="reveal stagger-1 !tracking-normal leading-[1.5] text-midnight mb-6 md:mb-8 [text-wrap:balance]"
             >

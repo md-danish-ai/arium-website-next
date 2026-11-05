@@ -138,20 +138,14 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
               </div>
 
               <div className="flex-1 min-w-0 w-full lg:w-auto pr-0 lg:pr-10">
-                <Typography
-                  as="h2"
-                  variant="h3"
-                  uppercase
-                  weight="normal"
-                  className="text-white m-0 tracking-wider lg:tracking-wide uppercase"
-                >
+                <Typography variant="team-modal-name" className="text-white m-0 uppercase">
                   {member.name}
                 </Typography>
                 <Typography
                   as="p"
-                  variant="b2"
+                  variant="b3"
                   weight="medium"
-                  className="text-[#00e8d9] m-0 mt-1.5 leading-snug"
+                  className="text-[#00e8d9] m-0 mt-1.5 leading-snug tracking-[0.05em]"
                 >
                   {member.role}
                 </Typography>
@@ -167,7 +161,7 @@ export default function MemberModal({ isOpen, onClose, member, triggerRef }: Mem
               ) : (
                 <div className="space-y-4 sm:space-y-5">
                   {member.description.split("\n\n").map((paragraph, idx) => (
-                    <Typography key={idx} variant="b3" as="p" className="text-[#374151] m-0">
+                    <Typography key={idx} variant="b2" as="p" className="text-[#374151] m-0">
                       {paragraph}
                     </Typography>
                   ))}
