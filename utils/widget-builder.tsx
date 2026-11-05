@@ -3,7 +3,7 @@ import type { StrapiWidget } from "../types/strapi.types";
 import type { SectionEntry } from "../types/content.types";
 import GlobalWidgetRenderer from "@ui-widget/GlobalWidgetRenderer";
 
-// Checks if any global widget matches the given component name
+// Check if widget matches target component
 export function hasWidgetComponent(
   widgets: StrapiWidget[] = [],
   componentName: string | string[]
@@ -23,7 +23,7 @@ export function hasWidgetComponent(
       const matches = targets.some((target) => comp === target || comp.includes(target));
       if (!matches) return false;
 
-      // If it is a testimonial widget, ensure it actually contains non-empty cards
+      // Testimonials must have non-empty cards
       if (comp.includes("testimonail") || comp.includes("testimonial")) {
         const rawCards = (s as Record<string, unknown>).cards;
         return Array.isArray(rawCards) && rawCards.length > 0;
@@ -34,7 +34,7 @@ export function hasWidgetComponent(
   );
 }
 
-// Combines static fallback sections and CMS widgets sorted by position
+// Combine static sections and CMS widgets by position
 export function combinePageSections(
   fallbackSections: SectionEntry[],
   globalWidgets: StrapiWidget[] = []

@@ -10,9 +10,7 @@ export type {
   StrapiMediaItem,
 };
 
-/**
- * 1. Home Hero Props (shared.main-hero)
- */
+// Home hero props
 export interface HomeHeroProps {
   title?: string;
   description?: string;
@@ -21,9 +19,7 @@ export interface HomeHeroProps {
   scroll_text?: string;
 }
 
-/**
- * 2. Background Feature Props (shared.background-feature-section)
- */
+// Background feature props
 export interface BackgroundFeatureSectionProps {
   title?: string;
   title_color?: string;
@@ -37,9 +33,7 @@ export interface BackgroundFeatureSectionProps {
   maxWidthText?: string;
 }
 
-/**
- * 3. Detailed Card Grid Props (shared.detailed-card-grid)
- */
+// Detailed card grid props
 export interface DetailedCardGridProps {
   title?: string;
   description?: string;
@@ -47,9 +41,7 @@ export interface DetailedCardGridProps {
   panel_cards?: InfrastructureCard[];
 }
 
-/**
- * 4. Stats With Image Props (shared.stats-with-image)
- */
+// Stats with image props
 export interface StatsWithImageProps {
   title?: string;
   title_color?: string;
@@ -59,9 +51,7 @@ export interface StatsWithImageProps {
 
 export type { ImageGradientSplitProps } from "@ui-common";
 
-/**
- * 6. Careers CTA Props (shared.centered-image-cta)
- */
+// Careers CTA props
 export interface CareersCtaProps {
   title?: string;
   title_color?: string;
@@ -72,9 +62,7 @@ export interface CareersCtaProps {
   CTA_url?: string;
 }
 
-/**
- * 7. Final Contact CTA Props (shared.cta-with-graphic)
- */
+// Contact CTA props
 export interface ContactCtaProps {
   title?: string;
   title_color?: string;

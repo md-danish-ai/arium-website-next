@@ -24,31 +24,18 @@
  * ---------------------------------------------------------------------------------------------
  */
 
-/**
- * Fluid horizontal gutter padding matching the styles.css CSS formula.
- * Applies max(24px, 5.29vw) for viewports < 1440px, and jumps to 7.2vw for >= 1440px.
- */
+// Fluid horizontal gutter padding
 export const CONTAINER_FLUID_PADDING = "px-[max(24px,5.29vw)] min-[1440px]:px-[7.2vw]";
 
-/**
- * Max-width container bound ensuring content conforms to the 2200px frame cap plus gutters.
- */
+// Max-width container bound (2200px cap plus gutters)
 export const CONTAINER_FRAME_MAX_WIDTH = "max-w-[var(--frame-box,calc(2200px+2*7.2vw))]";
 
-/**
- * Option 1 (Recommended): 100% Exact Parity with styles.css fluid formula.
- * Full width, centered, max-width capped at frame-box, and responsive fluid gutters.
- */
+// Fluid container classes matching CSS formula
 export const CONTAINER_CLASSES_FLUID = `w-full mx-auto ${CONTAINER_FRAME_MAX_WIDTH} box-border ${CONTAINER_FLUID_PADDING}`;
 
-/**
- * Option 2: Discrete Tailwind Breakpoint steps (if arbitrary CSS values are not desired).
- * Provides static step-based approximations for each standard Tailwind breakpoint tier.
- */
+// Stepped container classes for discrete breakpoints
 export const CONTAINER_CLASSES_STEPPED =
   "w-full mx-auto max-w-[2516px] box-border px-6 sm:px-[34px] md:px-10 lg:px-[57px] xl:px-[68px] 2xl:px-[104px] min-[1920px]:px-[138px]";
 
-/**
- * Default master container class set to Fluid for absolute pixel perfection across all devices.
- */
+// Default master container class
 export const CONTAINER_CLASSES = CONTAINER_CLASSES_FLUID;

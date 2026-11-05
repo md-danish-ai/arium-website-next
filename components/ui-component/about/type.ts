@@ -3,9 +3,7 @@ import type { ImageGradientSplitProps } from "@ui-common";
 
 export type { TimelineCardItem, StatCardItem, CommitmentCardItem };
 
-/**
- * 1. Hero Banner Props (shared.hero-banner - Position 0)
- */
+// Hero banner props
 export interface AboutHeroProps {
   title?: string;
   description?: string;
@@ -18,9 +16,7 @@ export interface AboutHeroProps {
   tag?: string | null;
 }
 
-/**
- * 2. AboutContentWithSideGraphic Props (shared.content-with-side-graphic - Position 1)
- */
+// Content with side graphic props
 export interface AboutContentWithSideGraphicProps {
   title: string;
   title_color?: string;
@@ -30,27 +26,21 @@ export interface AboutContentWithSideGraphicProps {
   image?: string;
 }
 
-/**
- * 3. AboutJourney Props (shared.timeline - Position 2, SubSection 0)
- */
+// Journey timeline props
 export interface AboutJourneyProps {
   title: string;
   description?: string;
   timeline_cards: TimelineCardItem[];
 }
 
-/**
- * 4. AboutStatsCards Props (shared.stats-cards - Position 2, SubSection 1)
- */
+// Stats cards props
 export interface AboutStatsCardsProps {
   title: string;
   description?: string;
   cards: StatCardItem[];
 }
 
-/**
- * 5. AboutCommitments Props (shared.commitments - Position 2, SubSection 2)
- */
+// Commitments props
 export interface AboutCommitmentsProps {
   title: string;
   description?: string;
@@ -60,7 +50,5 @@ export interface AboutCommitmentsProps {
   commitment_cards: CommitmentCardItem[];
 }
 
-/**
- * 6. AboutCulture Props (shared.image-gradient-split - Position 3)
- */
+// Culture split props
 export type AboutCultureProps = ImageGradientSplitProps;

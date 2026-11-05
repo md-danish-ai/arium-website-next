@@ -35,7 +35,7 @@ export async function fetchAPI(path: string, options: RequestInit = {}) {
   }
 }
 
-// Strapi v5 dynamic zone populate query for page widgets
+// Dynamic zone populate query
 export const WIDGETS_POPULATE_QUERY = "populate[widgets][populate][Sections][populate]=*";
 
 const PAGE_WIDGET_POPULATE_MAP: Record<string, string> = {
@@ -74,7 +74,6 @@ const PAGE_WIDGET_POPULATE_MAP: Record<string, string> = {
   ].join("&"),
 };
 
-// Fetches dynamic zone widgets for a given page slug
 export async function fetchPageWidgets(slug: string) {
   const query = PAGE_WIDGET_POPULATE_MAP[slug] || WIDGETS_POPULATE_QUERY;
   return fetchAPI(`/api/pages?filters[slug][$eq]=${slug}&${query}`);

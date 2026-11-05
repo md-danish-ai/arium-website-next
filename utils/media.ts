@@ -1,10 +1,9 @@
 export const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || "").replace(/\/$/, "");
 
-// Resolves relative Strapi upload paths or returns absolute/static URLs as-is
+// Resolve Strapi upload paths or static assets
 export function GetStrapiMediaUrl(url?: string | null): string {
   if (!url) return "";
 
-  // Return already resolved URLs
   if (
     url.startsWith("http://") ||
     url.startsWith("https://") ||
@@ -14,7 +13,6 @@ export function GetStrapiMediaUrl(url?: string | null): string {
     return url;
   }
 
-  // Return local public assets as-is
   if (
     url.startsWith("/images/") ||
     url.startsWith("/assets/") ||
@@ -28,12 +26,11 @@ export function GetStrapiMediaUrl(url?: string | null): string {
     return url;
   }
 
-  // Strapi media upload
   if (!STRAPI_URL) return url;
   return `${STRAPI_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
-// Extracts media URL from Strapi v4/v5 payload formats
+// Extract media URL from Strapi payload
 export function extractMediaUrl(media: unknown): string | undefined {
   if (!media) return undefined;
   if (typeof media === "string") return media.trim() || undefined;
@@ -61,7 +58,7 @@ export function extractMediaUrl(media: unknown): string | undefined {
       }
     }
 
-    // Check responsive formats (large, medium, small, thumbnail)
+    // Responsive image formats
     if (record.formats && typeof record.formats === "object") {
       const formats = record.formats as Record<string, Record<string, unknown>>;
       const formatOrder = ["large", "medium", "small", "thumbnail"];
@@ -76,9 +73,7 @@ export function extractMediaUrl(media: unknown): string | undefined {
   return undefined;
 }
 
-/**
- * Resolves a media field into a full URL, or returns the provided fallback.
- */
+// Resolve Strapi media with fallback
 export function resolveStrapiImage(media: unknown, fallback = ""): string {
   const extracted = extractMediaUrl(media);
   if (!extracted) return fallback;

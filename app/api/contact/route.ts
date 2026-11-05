@@ -25,7 +25,6 @@ export async function POST(request: Request) {
     const body = (await request.json()) as ContactRequestBody;
     const { firstName, lastName, email, phone, company, interest, message } = body;
 
-    // Validate required fields
     if (!firstName || !lastName || !email || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
