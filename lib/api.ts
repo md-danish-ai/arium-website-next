@@ -3,11 +3,16 @@ import { STRAPI_URL, GetStrapiMediaUrl } from "./strapi";
 export { STRAPI_URL, GetStrapiMediaUrl };
 
 export function getStrapiURL(path = "") {
-  return `${STRAPI_URL}${path}`;
+  if (!STRAPI_URL) return "";
+  return `${STRAPI_URL}${path.startsWith("/") ? "" : "/"}${path}`;
 }
 
 export async function fetchAPI(path: string, options: RequestInit = {}) {
   try {
+    if (!STRAPI_URL) {
+      console.warn("NEXT_PUBLIC_STRAPI_URL is not configured.");
+      return null;
+    }
     const requestUrl = getStrapiURL(path);
     const mergedOptions: RequestInit = {
       cache: "no-store",

@@ -41,6 +41,9 @@ export default async function RootLayout({
   const navbarProps = mapNavbarData(layout);
   const footerProps = mapFooterData(layout);
 
+  const cookieYesId = process.env.NEXT_PUBLIC_COOKIEYES_ID;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html
       lang="en"
@@ -48,27 +51,33 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <Script
-          id="cookieyes"
-          src="https://cdn-cookieyes.com/client_data/17abb4679415a6315b7ec2c98ee6ac70/script.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || "G-F7QCQ7L1M3"}`}
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || "G-F7QCQ7L1M3"}');
-            `,
-          }}
-        />
+        {cookieYesId && (
+          <Script
+            id="cookieyes"
+            src={`https://cdn-cookieyes.com/client_data/${cookieYesId}/script.js`}
+            strategy="beforeInteractive"
+          />
+        )}
+        {gaId && (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaId}');
+                `,
+              }}
+            />
+          </>
+        )}
         {layout?.organization_schema && (
           <script
             type="application/ld+json"

@@ -1,4 +1,4 @@
-export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+export const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || "").replace(/\/$/, "");
 
 // Resolves relative Strapi upload paths or returns absolute/static URLs as-is
 export function GetStrapiMediaUrl(url?: string | null): string {
@@ -29,6 +29,7 @@ export function GetStrapiMediaUrl(url?: string | null): string {
   }
 
   // Strapi media upload
+  if (!STRAPI_URL) return url;
   return `${STRAPI_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 

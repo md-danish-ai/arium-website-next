@@ -12,9 +12,12 @@ interface ContactRequestBody {
 
 export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
+  const apiUrl = process.env.RESEND_API_URL;
+  const fromEmail = process.env.CONTACT_EMAIL_FROM;
+  const toEmails = process.env.CONTACT_EMAIL_TO;
 
-  if (!apiKey) {
-    console.error("RESEND_API_KEY is not defined in environment variables");
+  if (!apiKey || !apiUrl || !fromEmail || !toEmails) {
+    console.error("Missing email configuration in environment variables");
     return NextResponse.json({ error: "Server email service is not configured." }, { status: 500 });
   }
 
@@ -38,15 +41,20 @@ export async function POST(request: Request) {
       <p>${message}</p>
     `;
 
-    const resendResponse = await fetch("https://api.resend.com/emails", {
+    const recipients = toEmails
+      .split(",")
+      .map((e) => e.trim())
+      .filter(Boolean);
+
+    const resendResponse = await fetch(apiUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "onboarding@resend.dev",
-        to: ["charu.gupta@3qilabs.com"],
+        from: fromEmail,
+        to: recipients,
         reply_to: email,
         subject: "Arium website — Quick Contact Form Submission",
         html: htmlContent,
