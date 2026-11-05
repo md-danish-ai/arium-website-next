@@ -47,14 +47,14 @@ export function DesktopNavigation() {
               onMouseEnter={() => handleMouseEnter(item.label)}
               onMouseLeave={handleMouseLeave}
             >
-              {/* Trigger: Normal cursor-default, text hover only (no pill background) */}
+              {/* Trigger: text hover only (no pill background) */}
               <button
                 type="button"
                 aria-expanded={isOpen}
                 aria-haspopup="menu"
                 onClick={() => handleToggle(item.label)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 px-4 py-2 min-[1280px]:py-2.5 xl:px-5 text-[0.85rem] xl:text-sm font-heading rounded-full border border-transparent transition-all duration-200 cursor-default bg-transparent select-none",
+                  "inline-flex items-center gap-1.5 px-4 py-2 min-[1280px]:py-2.5 xl:px-5 text-[0.85rem] xl:text-sm font-heading rounded-full border border-transparent transition-all duration-200 cursor-pointer bg-transparent select-none",
                   isGroupActive || isOpen
                     ? "text-teal font-semibold"
                     : "text-white font-normal hover:text-teal"
@@ -131,8 +131,7 @@ export function DesktopNavigation() {
           );
         }
 
-        // Direct Nav Buttons: "Our Solutions", "Your Community", "Careers"
-        // These 3 buttons have cursor-pointer and teal pill hover/active state
+        // Direct Nav Links: "Our Solutions", "Your Community", "Careers"
         const isLinkActive = pathname === item.href || pathname.startsWith(item.href + "/");
 
         return (
@@ -140,10 +139,8 @@ export function DesktopNavigation() {
             key={item.href}
             href={item.href}
             className={cn(
-              "inline-flex items-center px-4 py-2 min-[1280px]:py-2.5 xl:px-5 text-[0.85rem] xl:text-sm font-heading rounded-full border border-transparent transition-all duration-200 cursor-pointer whitespace-nowrap",
-              isLinkActive
-                ? "bg-teal text-[#162047] font-semibold shadow-[0_1px_4px_rgba(0,0,0,0.15)]"
-                : "text-white font-normal hover:bg-teal hover:text-[#162047] hover:font-semibold"
+              "inline-flex items-center px-4 py-2 min-[1280px]:py-2.5 xl:px-5 text-[0.85rem] xl:text-sm font-heading rounded-full border border-transparent transition-all duration-200 cursor-pointer whitespace-nowrap bg-transparent select-none",
+              isLinkActive ? "text-teal font-semibold" : "text-white font-normal hover:text-teal"
             )}
           >
             {item.label}

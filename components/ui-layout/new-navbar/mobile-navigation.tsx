@@ -249,8 +249,8 @@ export function MobileNavigation({ logoDesktop, logoMobile }: MobileNavigationPr
                           className={cn(
                             "flex w-full items-center justify-between px-4 py-3 text-left font-heading text-[1.05rem] rounded-xl transition-all duration-200 cursor-pointer",
                             isLinkActive
-                              ? "bg-teal text-[#162047] font-semibold shadow-[0_1px_4px_rgba(0,0,0,0.15)]"
-                              : "text-white/90 font-normal hover:bg-teal hover:text-[#162047] hover:font-semibold"
+                              ? "text-teal font-semibold bg-teal/5"
+                              : "text-white/90 font-normal hover:text-teal hover:bg-teal/8"
                           )}
                         >
                           <span>{item.label}</span>
