@@ -35,8 +35,8 @@ export default function ProcessCard({
 
   return (
     <div
-      className={`shrink-0 snap-start w-[280px] sm:w-[320px] min-w-[270px] max-w-[340px] min-h-[260px] p-6 sm:p-7 rounded-[20px] shadow-[0_4px_16px_rgba(22,32,71,0.04)] hover:shadow-[0_16px_36px_rgba(22,32,71,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-start justify-start text-left lg:w-full lg:min-w-0 lg:shrink lg:p-8 lg:min-h-[310px] ${
-        isFourCols ? "lg:max-w-[303px]" : "lg:max-w-[380px]"
+      className={`shrink-0 snap-start w-[280px] sm:w-[320px] min-w-[270px] max-w-[340px] min-h-[260px] p-6 sm:p-7 rounded-[20px] shadow-[0_4px_16px_rgba(22,32,71,0.04)] hover:shadow-[0_16px_36px_rgba(22,32,71,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-start justify-start text-left xl:w-full xl:min-w-0 xl:shrink xl:p-8 xl:min-h-[310px] ${
+        isFourCols ? "xl:max-w-[303px]" : "xl:max-w-[380px]"
       } ${className}`}
       style={{
         backgroundColor,

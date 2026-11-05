@@ -223,12 +223,12 @@ export default function ProcessSection({
                       {pillar.title}
                     </Typography>
 
-                    {/* Step Cards (Mobile/Tablet swipe track, Desktop grid >= 1024px) */}
+                    {/* Step Cards (Mobile/Tablet/1024px swipe track, Desktop grid >= 1280px) */}
                     <div
                       className={`flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-5 px-4 justify-start items-stretch scrollbar-none [webkit-overflow-scrolling:touch] max-w-full ${
                         isFourCols
-                          ? "lg:grid lg:grid-cols-4 lg:gap-5 lg:max-w-[1320px] lg:mx-auto lg:p-0 lg:overflow-visible"
-                          : "lg:flex lg:justify-center lg:gap-6 lg:max-w-[1188px] lg:mx-auto lg:p-0 lg:overflow-visible"
+                          ? "xl:grid xl:grid-cols-4 xl:gap-5 xl:max-w-[1320px] xl:mx-auto xl:p-0 xl:overflow-visible"
+                          : "xl:flex xl:justify-center xl:gap-6 xl:max-w-[1188px] xl:mx-auto xl:p-0 xl:overflow-visible"
                       }`}
                     >
                       {pillar.timelineItems.map((item, idx) => {
